@@ -1,6 +1,6 @@
 const HardlyWeb3 = require('./hardlyWeb3.js')
-const BigNumber = require('bignumber.js');
-const fs = require('fs');
+const BigNumber = require('bignumber.js')
+const fs = require('fs')
 
 class ethgc 
 {
@@ -20,14 +20,14 @@ class ethgc
       {
         if(err)
         {
-          throw new Error(err);
+          throw new Error(err)
         }
-        file = JSON.parse(file);
+        file = JSON.parse(file)
         this.contract = new this.hardlyWeb3.web3.eth.Contract(
           file.abi, file.address
         )
       }
-    );
+    )
   }
 
   async createCard(token, value, redeemCodeHashHashHash)
@@ -50,7 +50,7 @@ class ethgc
       {
         from: this.hardlyWeb3.web3.defaultAccount
       }
-    );
+    )
   }
 
   async redeemGift(redeemCodeHash)
@@ -59,7 +59,7 @@ class ethgc
       {
         from: this.hardlyWeb3.web3.defaultAccount
       }
-    );
+    )
   }
 
   async ownerChangeFee(costToCreateCard)
@@ -86,7 +86,7 @@ class ethgc
       {
         from: this.hardlyWeb3.web3.defaultAccount
       }
-    ));
+    ))
   }
 
   async getCardByHashHashHash(redeemCodeHashHashHash)
@@ -110,4 +110,4 @@ class ethgc
   }
 }
 
-module.exports = ethgc;
+module.exports = ethgc

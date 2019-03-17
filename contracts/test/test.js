@@ -1,17 +1,17 @@
 const shouldFail = require('./helpers/shouldFail')
-const BigNumber = require('bignumber.js');
-const ethgcJs = require('../../library/ethgc.js');
+const BigNumber = require('bignumber.js')
+const ethgcJs = require('../../library/ethgc.js')
 
 contract('test', (accounts) => {
   let ethgc
 
   before(async () => {
-    ethgc = new ethgcJs(web3.currentProvider, accounts[1]);
-    await ethgc.init();
+    ethgc = new ethgcJs(web3.currentProvider, accounts[1])
+    await ethgc.init()
   })
 
   it('Can check the cost to create a card', async () => {
-    const cost = await ethgc.getCostToCreateCard();
+    const cost = await ethgc.getCostToCreateCard()
     assert.equal(
       cost.toFixed(), 
       new BigNumber(web3.utils.toWei('0.00005', 'ether')).toFixed()
@@ -21,9 +21,9 @@ contract('test', (accounts) => {
   describe('ETH card', () => {
     const redeemCode = 'abc123'
     const value = 42
-    const redeemCodeHash = web3.utils.keccak256(redeemCode);
-    const redeemCodeHashHash = web3.utils.keccak256(redeemCodeHash);
-    const redeemCodeHashHashHash = web3.utils.keccak256(redeemCodeHashHash);
+    const redeemCodeHash = web3.utils.keccak256(redeemCode)
+    const redeemCodeHashHash = web3.utils.keccak256(redeemCodeHash)
+    const redeemCodeHashHashHash = web3.utils.keccak256(redeemCodeHashHash)
 
     before(async () => {
       await ethgc.createCard(
@@ -46,7 +46,7 @@ contract('test', (accounts) => {
     })
 
     it('shouldFail to claim a claimed code', async () => {
-      await shouldFail(ethgc.claimCard(redeemCodeHashHash), "ALREADY_CLAIMED");
+      await shouldFail(ethgc.claimCard(redeemCodeHashHash), "ALREADY_CLAIMED")
     })
 
     it('Can redeem', async () => {
@@ -74,7 +74,7 @@ contract('test', (accounts) => {
       let originalFee
 
       before(async () => {
-        originalFee = await ethgc.getCostToCreateCard();
+        originalFee = await ethgc.getCostToCreateCard()
       })
 
       after(async () => {
