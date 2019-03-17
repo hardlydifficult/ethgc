@@ -1,6 +1,6 @@
 <template>
-  <div class="hello">
-    <h1>yo yo</h1>
+  <div>
+    <img src="../assets/logoPinkTie.png" width="10%" />
   </div>
 </template>
 

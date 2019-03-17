@@ -26,11 +26,12 @@ contract('test', (accounts) => {
     const redeemCodeHashHashHash = web3.utils.keccak256(redeemCodeHashHash)
 
     before(async () => {
-      await ethgc.createCard(
+      const tx = await ethgc.createCard(
         web3.utils.padLeft(0, 40),
         value,
         redeemCodeHashHashHash
       )
+      console.log(`Create cost ${tx.gasUsed}`)
     })
 
     it('Can read an available card', async () => {
@@ -42,7 +43,8 @@ contract('test', (accounts) => {
     })
 
     it('Can claim', async () => {
-      await ethgc.claimCard(redeemCodeHashHash)
+      const tx = await ethgc.claimCard(redeemCodeHashHash)
+      console.log(`Claim cost ${tx.gasUsed}`)
     })
 
     it('shouldFail to claim a claimed code', async () => {
@@ -52,6 +54,7 @@ contract('test', (accounts) => {
     it('Can redeem', async () => {
       const balance = await ethgc.hardlyWeb3.getEthBalance()
       const tx = await ethgc.redeemGift(redeemCodeHash)
+      console.log(`Redeem cost ${tx.gasUsed}`)
       const gasCost = await ethgc.hardlyWeb3.getGasCost(tx)
       assert.equal(
         (await ethgc.hardlyWeb3.getEthBalance()).toFixed(), 

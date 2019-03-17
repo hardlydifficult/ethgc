@@ -1,7 +1,7 @@
 # ethgc
 ethgc: Ethereum Gift Cards - giveaway ETH, tokens (ERC-20), or NFTs (ERC-721) with a redeem code
 
-![logo](logoPinkTie.png)
+![logo](./website/src/assets/logoPinkTie.png)
 
 ## Process
 
