@@ -1,4 +1,12 @@
-const characterSet = 'bcdefghjkmnpqrtwxyz2356789'
+/**
+ * Removing:
+0/o
+1/i/l
+4/a
+5/s
+u/v
+  */
+const characterSet = 'bcdefghjkmnpqrtwxyz236789'
 
 export default class Random {
   getRandomCode (length, addHypens) {
@@ -6,7 +14,7 @@ export default class Random {
     window.crypto.getRandomValues(randomData)
     let result = ''
     for (let i = 0; i < length; i++) {
-      result += characterSet[randomData[i] % 26]
+      result += characterSet[randomData[i] % characterSet.length]
     }
 
     if (addHypens) {
