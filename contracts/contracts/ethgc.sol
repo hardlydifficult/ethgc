@@ -126,7 +126,7 @@ contract ethgc is
     bytes32 hashHashHash = keccak256(abi.encodePacked(keccak256(
       abi.encodePacked(_redeemCodeHash)
     )));
-    Card storage card = redeemCodeHashHashHashToCard[hashHashHash];
+    Card memory card = redeemCodeHashHashHashToCard[hashHashHash];
     require(card.claimedBy == msg.sender, "MUST_CLAIM_FIRST");
 
     delete redeemCodeHashHashHashToCard[hashHashHash];
@@ -143,7 +143,7 @@ contract ethgc is
     else
     {
       _transferToken(card.token, card.valueOrTokenId, address(this), msg.sender);
-    }
+    }    
   }
 
   /**

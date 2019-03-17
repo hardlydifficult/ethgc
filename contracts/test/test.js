@@ -1,3 +1,4 @@
+const shouldFail = require('./helpers/shouldFail')
 const BigNumber = require('bignumber.js');
 const ethgcJs = require('../../library/ethgc.js');
 
@@ -5,11 +6,11 @@ contract('test', (accounts) => {
   let ethgc
 
   before(async () => {
-    ethgc = new ethgcJs(web3.currentProvider, accounts[0]);
+    ethgc = new ethgcJs(web3.currentProvider, accounts[1]);
     await ethgc.init();
   })
 
-  it('can check the cost to create a card', async () => {
+  it('Can check the cost to create a card', async () => {
     const cost = await ethgc.getCostToCreateCard();
     assert.equal(
       cost.toFixed(), 
@@ -32,7 +33,7 @@ contract('test', (accounts) => {
       )
     })
 
-    it('Can read card', async () => {
+    it('Can read an available card', async () => {
       const card = await ethgc.getCardByHashHashHash(redeemCodeHashHashHash)
       assert.equal(card.token, web3.utils.padLeft(0, 40))
       assert.equal(card.valueOrTokenId, value)
@@ -40,10 +41,79 @@ contract('test', (accounts) => {
       assert.equal(card.claimedAtTime, 0)
     })
 
-    it('Can read fees collected', async () => {
-      const fees = await ethgc.getFeesCollected()
-      assert(fees.gt(0))
-      assert.equal(fees.toFixed(), (await ethgc.getCostToCreateCard()).toFixed())
+    it('Can claim', async () => {
+      await ethgc.claimCard(redeemCodeHashHash)
+    })
+
+    it('shouldFail to claim a claimed code', async () => {
+      await shouldFail(ethgc.claimCard(redeemCodeHashHash), "ALREADY_CLAIMED");
+    })
+
+    it('Can redeem', async () => {
+      const balance = await ethgc.hardlyWeb3.getEthBalance()
+      const tx = await ethgc.redeemGift(redeemCodeHash)
+      const gasCost = await ethgc.hardlyWeb3.getGasCost(tx)
+      assert.equal(
+        (await ethgc.hardlyWeb3.getEthBalance()).toFixed(), 
+        balance.plus(value).minus(gasCost).toFixed()
+      )
+    })
+  })
+
+  describe('Owner functions', () => {
+    before(async () => {
+      ethgc.hardlyWeb3.switchAccount(accounts[0])
+    })
+
+    after(async () => {
+      ethgc.hardlyWeb3.switchAccount(accounts[1])
+    })
+
+
+    describe('ownerChangeFee', () => {
+      let originalFee
+
+      before(async () => {
+        originalFee = await ethgc.getCostToCreateCard();
+      })
+
+      after(async () => {
+        await ethgc.ownerChangeFee(originalFee.toFixed())
+      })
+
+      it('Can change fee', async () => {
+        await ethgc.ownerChangeFee(1)
+      })
+
+      it('Can read the new fee', async () => {
+        assert.equal(
+          (await ethgc.getCostToCreateCard()).toFixed(), 
+          1
+        )
+      })
+    })
+
+    describe('withdraw', () => {
+      let fees
+
+      it('Can read fees collected', async () => {
+        fees = await ethgc.getFeesCollected()
+        assert(fees.gt(0))
+        assert.equal(
+          fees.toFixed(),
+          (await ethgc.getCostToCreateCard()).toFixed()
+        )
+      })
+
+      it('Can withdraw', async () => {
+        const balance = await ethgc.hardlyWeb3.getEthBalance()
+        let tx = await ethgc.ownerWithdrawFees()
+        const gasCost = await ethgc.hardlyWeb3.getGasCost(tx)
+        assert.equal(
+          (await ethgc.hardlyWeb3.getEthBalance()).toFixed(), 
+          balance.plus(fees).minus(gasCost).toFixed()
+        )
+      })
     })
   })
 })
