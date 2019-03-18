@@ -14,9 +14,47 @@ contract ethgc is
   Ownable
 {
   /**
+   * This allows us to list outstanding cards for the creator.
+   *
+   * It also stores optional messages to display to the claimer.
+   */
+  event CreateCard(
+    address indexed creator,
+    bytes32 indexed redeemCodeHashHashHash
+  );
+
+  /**
+   * For the creator, this with above reports which cards are claimed.
+   *
+   * For the claimer, this allows us to list all outstanding redeems.
+   */
+  event ClaimCard(
+    address indexed claimer,
+    bytes32 indexed redeemCodeHashHashHash    
+  );
+
+  /**
+   * For the creator, this with above reports which cards are claimed.
+   *
+   * For the claimer, this allows us to list recent redeems.
+   */
+  event RedeemGift(
+    address indexed redeemer,
+    bytes32 indexed redeemCodeHashHashHash    
+  );
+
+  event SetFee(
+    uint costToCreateCard
+  );
+
+  event OwnerWithdraw(
+    uint amount
+  );
+
+  /**
    * A small fee for the developer, charged in ETH when a card is created.
    */
-  uint public costToCreateCard = 0.00005 ether;
+  uint public costToCreateCard;
 
   struct Card
   {
@@ -29,6 +67,11 @@ contract ethgc is
   mapping(bytes32 => Card) public redeemCodeHashHashHashToCard;
   uint public feesCollected;
 
+  constructor()
+  {
+    ownerChangeFee(0.00005 ether);
+  }
+
   /**
    * Create a new gift card.
    *
@@ -36,6 +79,10 @@ contract ethgc is
    * @param _valueOrTokenId The amount of ETH or tokens to give away, 
    * or if giving away an NFT this represents the tokenId
    * @param _redeemCodeHashHashHash keccak256(keccak256(keccak256('redeemCodeString')))
+   * @param _description An optional description to display on the card.
+   * This is can only be read from the original tx params.
+   * @param _redemptionMessage An optional message to display after redemption
+   * This is can only be read from the original tx params.
    *
    * When creating an ETH card:
    *   - Must include enough ETH to cover the gift value + costToCreateCard fee
@@ -53,7 +100,9 @@ contract ethgc is
   function createCard(
     address _token,
     uint _valueOrTokenId,
-    bytes32 _redeemCodeHashHashHash
+    bytes32 _redeemCodeHashHashHash,
+    string calldata _description,
+    string calldata redemptionMessage
   ) external payable
   {
     require(_valueOrTokenId != 0, "INVALID_CARD_VALUE");
@@ -83,6 +132,7 @@ contract ethgc is
       claimedBy: address(0),
       claimedAtTime: 0
     });
+    emit CreateCard(msg.sender, _redeemCodeHashHashHash);
   }
 
   /**
@@ -109,6 +159,7 @@ contract ethgc is
     require(card.claimedBy != msg.sender, "NO_RENEWING_CLAIMS");
     card.claimedBy = msg.sender;
     card.claimedAtTime = now;
+    emit ClaimCard(msg.sender, hashHashHash);
   }
 
   /**
@@ -143,7 +194,8 @@ contract ethgc is
     else
     {
       _transferToken(card.token, card.valueOrTokenId, address(this), msg.sender);
-    }    
+    }
+    emit RedeemGift(msg.sender, hashHashHash);
   }
 
   /**
@@ -155,6 +207,7 @@ contract ethgc is
     onlyOwner
   {
     costToCreateCard = _costToCreateCard;
+    emit SetFee(costToCreateCard);
   }
 
   /**
@@ -167,6 +220,7 @@ contract ethgc is
     uint amount = feesCollected;
     feesCollected = 0;
     msg.sender.transfer(amount);
+    emit OwnerWithdraw(amount);
   }
 
   function _transferNft(
