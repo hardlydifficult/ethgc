@@ -79,9 +79,7 @@ contract ethgc is
    * @param _valueOrTokenId The amount of ETH or tokens to give away, 
    * or if giving away an NFT this represents the tokenId
    * @param _redeemCodeHashHashHash keccak256(keccak256(keccak256('redeemCodeString')))
-   * @param _description An optional description to display on the card.
-   * This is can only be read from the original tx params.
-   * @param _redemptionMessage An optional message to display after redemption
+   * @param message An optional message to display to the redeemer
    * This is can only be read from the original tx params.
    *
    * When creating an ETH card:
@@ -101,8 +99,7 @@ contract ethgc is
     address _token,
     uint _valueOrTokenId,
     bytes32 _redeemCodeHashHashHash,
-    string calldata _description,
-    string calldata redemptionMessage
+    string calldata _message
   ) external payable
   {
     require(_valueOrTokenId != 0, "INVALID_CARD_VALUE");
