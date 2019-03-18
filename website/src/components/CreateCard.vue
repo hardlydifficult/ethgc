@@ -28,7 +28,7 @@
       <button v-on:click="randomizeCode()">New</button>
       <div class="small" v-if="customCode">
         ! Warning ! Be careful when choosing your own code. It must not be something
-        someone could brute force guess easily.
+        someone could guess easily.
       </div>
     </div>
     <button>Create Card</button>
