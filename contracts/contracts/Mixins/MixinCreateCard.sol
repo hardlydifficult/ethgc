@@ -27,7 +27,7 @@ contract MixinCreateCard is
    * @param token The address of the token or NFT to give away, or address(0) for ETH.
    * @param valueOrTokenId The amount of ETH or tokens to give away, 
    * or if giving away an NFT this represents the tokenId
-   * @param redeemCode 
+   * @param redeemCode TODO describe variable
    * @param message An optional message to display to the redeemer
    * This is can only be read from the original tx params.
    *
