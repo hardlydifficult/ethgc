@@ -9,19 +9,11 @@ ethgc: Ethereum Gift Cards - giveaway ETH, tokens (ERC-20), or NFTs (ERC-721) wi
 
     Generate a random redeem code and create the card by sending ETH or tokens.
 
-2) Claim card
-
-    Submit a hash of the redeem code, proving that you know it.
-
-3) Redeem gift
+2) Redeem gift
 
     Submit the redeem code and get the ETH or tokens inside.
 
 ## FAQ
-
-Why is there a claim step instead of just redeeming directly?
-
-    This is a security precaution.  If you were to submit the redeem code without first claiming the card, an observer could front-run your transaction by copying the code and submitting a transaction with more gas.
 
 How much does it cost?
 
