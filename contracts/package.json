@@ -4,6 +4,7 @@
   "description": "giveaway ETH or tokens with a redeem code",
   "main": "index.js",
   "scripts": {
+    "compile": "truffle compile --all",
     "test": "truffle test"
   },
   "repository": {

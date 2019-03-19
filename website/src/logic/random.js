@@ -5,8 +5,9 @@
 4/a
 5/s
 u/v
+2/z
   */
-const characterSet = 'bcdefghjkmnpqrtwxyz236789'
+const characterSet = 'bcdefghjkmnpqrtwxy36789'
 
 export default class Random {
   getRandomCode (length, addHypens) {

@@ -2,6 +2,48 @@
   "abi": [
     {
       "constant": false,
+      "inputs": [
+        {
+          "name": "redeemCode",
+          "type": "address"
+        },
+        {
+          "name": "v",
+          "type": "uint8"
+        },
+        {
+          "name": "r",
+          "type": "bytes32"
+        },
+        {
+          "name": "s",
+          "type": "bytes32"
+        }
+      ],
+      "name": "redeem",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0x3daa361a"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "newCostToCreateCard",
+          "type": "uint256"
+        }
+      ],
+      "name": "developerSetCostToCreateCard",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0x683fa5e2"
+    },
+    {
+      "constant": false,
       "inputs": [],
       "name": "renounceOwnership",
       "outputs": [],
@@ -9,6 +51,34 @@
       "stateMutability": "nonpayable",
       "type": "function",
       "signature": "0x715018a6"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "redeemCodeToCard",
+      "outputs": [
+        {
+          "name": "createdBy",
+          "type": "address"
+        },
+        {
+          "name": "token",
+          "type": "address"
+        },
+        {
+          "name": "valueOrTokenId",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x87a73bfd"
     },
     {
       "constant": true,
@@ -41,6 +111,48 @@
       "signature": "0x8f32d59b"
     },
     {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "token",
+          "type": "address"
+        },
+        {
+          "name": "valueOrTokenId",
+          "type": "uint256"
+        },
+        {
+          "name": "redeemCode",
+          "type": "address"
+        },
+        {
+          "name": "message",
+          "type": "string"
+        }
+      ],
+      "name": "createCard",
+      "outputs": [],
+      "payable": true,
+      "stateMutability": "payable",
+      "type": "function",
+      "signature": "0xa12541d5"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "redeemCode",
+          "type": "address"
+        }
+      ],
+      "name": "cancelCard",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0xc0a86361"
+    },
+    {
       "constant": true,
       "inputs": [],
       "name": "costToCreateCard",
@@ -56,36 +168,14 @@
       "signature": "0xc5d95447"
     },
     {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "",
-          "type": "bytes32"
-        }
-      ],
-      "name": "redeemCodeHashHashHashToCard",
-      "outputs": [
-        {
-          "name": "token",
-          "type": "address"
-        },
-        {
-          "name": "valueOrTokenId",
-          "type": "uint256"
-        },
-        {
-          "name": "claimedBy",
-          "type": "address"
-        },
-        {
-          "name": "claimedAtTime",
-          "type": "uint256"
-        }
-      ],
+      "constant": false,
+      "inputs": [],
+      "name": "developerWithdrawFees",
+      "outputs": [],
       "payable": false,
-      "stateMutability": "view",
+      "stateMutability": "nonpayable",
       "type": "function",
-      "signature": "0xd9867f30"
+      "signature": "0xc7e27a47"
     },
     {
       "constant": true,
@@ -122,6 +212,68 @@
       "inputs": [
         {
           "indexed": true,
+          "name": "redeemer",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "redeemCode",
+          "type": "address"
+        }
+      ],
+      "name": "Redeem",
+      "type": "event",
+      "signature": "0x2f39d8fc9160ae00ea6a02229ae376184d7ad48d669c511863fedeb3f6f27edf"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "creator",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "redeemCode",
+          "type": "address"
+        }
+      ],
+      "name": "CreateCard",
+      "type": "event",
+      "signature": "0x2bd856e1274d44f99d67919435f0a2aa7cece7b9ce2d37200b14a4ea9c31fecc"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "costToCreateCard",
+          "type": "uint256"
+        }
+      ],
+      "name": "SetCostToCreateCard",
+      "type": "event",
+      "signature": "0x82ad8044ae431e5d9d41ca42629cce9ec6472cf55f22122558eb635d48098708"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "DeveloperWithdraw",
+      "type": "event",
+      "signature": "0x7717e5bd2e90412f6194ccdf5172e836bb09fa0ee7d3087167b421222ecc0171"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
           "name": "previousOwner",
           "type": "address"
         },
@@ -134,84 +286,6 @@
       "name": "OwnershipTransferred",
       "type": "event",
       "signature": "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_token",
-          "type": "address"
-        },
-        {
-          "name": "_valueOrTokenId",
-          "type": "uint256"
-        },
-        {
-          "name": "_redeemCodeHashHashHash",
-          "type": "bytes32"
-        }
-      ],
-      "name": "createCard",
-      "outputs": [],
-      "payable": true,
-      "stateMutability": "payable",
-      "type": "function",
-      "signature": "0xbab219b5"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_redeemCodeHashHash",
-          "type": "bytes32"
-        }
-      ],
-      "name": "claimCard",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xcac61c12"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_redeemCodeHash",
-          "type": "bytes32"
-        }
-      ],
-      "name": "redeemGift",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x5c2050c6"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_costToCreateCard",
-          "type": "uint256"
-        }
-      ],
-      "name": "ownerChangeFee",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x67c47d26"
-    },
-    {
-      "constant": false,
-      "inputs": [],
-      "name": "ownerWithdrawFees",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xd185c583"
     }
   ],
   "address": "0x345cA3e014Aaf5dcA488057592ee47305D9B3e10"
