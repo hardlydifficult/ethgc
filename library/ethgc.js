@@ -75,6 +75,15 @@ class ethgc
     )
   }
 
+  async cancelCard(redeemCodeAddress)
+  {
+    return await this.contract.methods.cancelCard(redeemCodeAddress).send(
+      {
+        from: this.hardlyWeb3.web3.defaultAccount
+      }
+    )
+  }
+
   async developerSetCostToCreateCard(costToCreateCard)
   {
     return await this.contract.methods.developerSetCostToCreateCard(costToCreateCard).send(
