@@ -13,32 +13,30 @@ contract('RedeemCard', (accounts) => {
   describe('ETH card', () => {
     const redeemCode = 'abc123'
     const value = 42
-    const redeemCodeHash = web3.utils.keccak256(redeemCode)
-    const redeemCodeHashHash = web3.utils.keccak256(redeemCodeHash)
-    const redeemCodeHashHashHash = web3.utils.keccak256(redeemCodeHashHash)
+    let redeemCodePrivateKey, redeemCodeAddress
+    let v, r, s
 
     before(async () => {
-      const tx = await ethgc.createCard(
+      redeemCodePrivateKey = ethgc.getPrivateKey(redeemCode)
+      redeemCodeAddress = ethgc.getAddress(redeemCodePrivateKey)
+      await ethgc.createCard(
         web3.utils.padLeft(0, 40),
         value,
-        redeemCodeHashHashHash
+        redeemCodeAddress
+      );
+      [v, r, s] = await ethgc.sign(accounts[0], redeemCodePrivateKey)
+    })
+
+    it('should fail if the signature is not valid', async () => {
+      await shouldFail(
+        ethgc.redeem(redeemCodeAddress, v, r, '0x27'),
+        'INVALID_REDEEM_CODE'
       )
-      console.log(`Create cost ${tx.gasUsed}`)
-    })
-
-   
-    it('Can claim', async () => {
-      const tx = await ethgc.claimCard(redeemCodeHashHash)
-      console.log(`Claim cost ${tx.gasUsed}`)
-    })
-
-    it('shouldFail to claim a claimed code', async () => {
-      await shouldFail(ethgc.claimCard(redeemCodeHashHash), "ALREADY_CLAIMED")
     })
 
     it('Can redeem', async () => {
       const balance = await ethgc.hardlyWeb3.getEthBalance()
-      const tx = await ethgc.redeemGift(redeemCodeHash)
+      const tx = await ethgc.redeem(redeemCodeAddress, v, r, s)
       console.log(`Redeem cost ${tx.gasUsed}`)
       const gasCost = await ethgc.hardlyWeb3.getGasCost(tx)
       assert.equal(
@@ -46,6 +44,12 @@ contract('RedeemCard', (accounts) => {
         balance.plus(value).minus(gasCost).toFixed()
       )
     })
-  })
 
+    it('shouldFail to claim a claimed code', async () => {
+      await shouldFail(
+        ethgc.redeem(redeemCodeAddress, v, r, s),
+        "ALREADY_CLAIMED"
+      )
+    })
+  })
 })

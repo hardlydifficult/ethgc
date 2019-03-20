@@ -10,6 +10,14 @@ contract('Fees', (accounts) => {
     await ethgc.init()
   })
   
+  it('Can check the cost to create a card', async () => {
+    const cost = await ethgc.getCostToCreateCard()
+    assert.equal(
+      cost.toFixed(), 
+      new BigNumber(web3.utils.toWei('0.00005', 'ether')).toFixed()
+    )
+  })
+
   describe('Owner functions', () => {
     before(async () => {
       ethgc.hardlyWeb3.switchAccount(accounts[0])

@@ -67,6 +67,7 @@ contract MixinRedeemCard is
   {
     // Using memory instead of storage so we can delete right away and avoid re-entrancy
     Card memory card = redeemCodeAddressToCard[redeemCode];
+    require(card.valueOrTokenId != 0, 'ALREADY_CLAIMED');
     delete redeemCodeAddressToCard[redeemCode];
 
     if(card.token == address(0))

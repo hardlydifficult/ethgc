@@ -57,9 +57,18 @@ class ethgc
     )
   }
 
-  async redeem(redeemCodeAddress)
+  async sign(account, redeemCodePrivateKey)
   {
-    return await this.contract.methods.redeem(redeemCodeAddress).send(
+    const sig = this.hardlyWeb3.web3.eth.accounts.privateKeyToAccount(redeemCodePrivateKey)
+      .sign(this.hardlyWeb3.web3.utils.keccak256(
+        this.contract.options.address + account.substring(2)
+      ))
+    return [sig.v, sig.r, sig.s]
+  }
+
+  async redeem(redeemCodeAddress, v, r, s)
+  {
+    return await this.contract.methods.redeem(redeemCodeAddress, v, r, s).send(
       {
         from: this.hardlyWeb3.web3.defaultAccount
       }
