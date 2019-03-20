@@ -1,11 +1,17 @@
 /**
  * Removing:
-0/o
-1/i/l
-4/a
-5/s
-u/v
-2/z
+0/o/O
+1/i/l/L
+5/s/S
+u/v/U/V
+2/z/Z
+
+TODO change
+4/A
+
+TODO add
+b/G/6
+g/q/9
   */
 const characterSet = 'bcdefghjkmnpqrtwxy36789'
 

@@ -34,7 +34,7 @@ export default {
       // TODO
       return {
         token: 0x0,
-        valueOrTokenId: 198291,
+        valueOrId: 198291,
         claimedBy: 0x0,
         claimedAtTime: 0,
         temp: this.redeemCode // todo remove

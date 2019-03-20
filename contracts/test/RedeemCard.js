@@ -13,30 +13,30 @@ contract('RedeemCard', (accounts) => {
   describe('ETH card', () => {
     const redeemCode = 'abc123'
     const value = 42
-    let redeemCodePrivateKey, redeemCodeAddress
+    let redeemCodePrivateKey, cardAddress
     let v, r, s
 
     before(async () => {
       redeemCodePrivateKey = ethgc.getPrivateKey(redeemCode)
-      redeemCodeAddress = ethgc.getAddress(redeemCodePrivateKey)
+      cardAddress = ethgc.getAddress(redeemCodePrivateKey)
       await ethgc.createCard(
         web3.utils.padLeft(0, 40),
         value,
-        redeemCodeAddress
+        cardAddress
       );
       [v, r, s] = await ethgc.sign(accounts[0], redeemCodePrivateKey)
     })
 
     it('should fail if the signature is not valid', async () => {
       await shouldFail(
-        ethgc.redeem(redeemCodeAddress, v, r, '0x27'),
+        ethgc.redeem(cardAddress, v, r, '0x27'),
         'INVALID_REDEEM_CODE'
       )
     })
 
     it('Can redeem', async () => {
       const balance = await ethgc.hardlyWeb3.getEthBalance()
-      const tx = await ethgc.redeem(redeemCodeAddress, v, r, s)
+      const tx = await ethgc.redeem(cardAddress, v, r, s)
       console.log(`Redeem cost ${tx.gasUsed}`)
       const gasCost = await ethgc.hardlyWeb3.getGasCost(tx)
       assert.equal(
@@ -47,7 +47,7 @@ contract('RedeemCard', (accounts) => {
 
     it('shouldFail to claim a claimed code', async () => {
       await shouldFail(
-        ethgc.redeem(redeemCodeAddress, v, r, s),
+        ethgc.redeem(cardAddress, v, r, s),
         "ALREADY_CLAIMED"
       )
     })

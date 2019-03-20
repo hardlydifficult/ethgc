@@ -4,22 +4,7 @@
       "constant": false,
       "inputs": [
         {
-          "name": "redeemCodes",
-          "type": "address[]"
-        }
-      ],
-      "name": "cancelCards",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x2cc5ff46"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "redeemCode",
+          "name": "cardAddress",
           "type": "address"
         },
         {
@@ -33,14 +18,23 @@
         {
           "name": "s",
           "type": "bytes32"
+        },
+        {
+          "name": "tokenAddress",
+          "type": "address"
         }
       ],
-      "name": "redeem",
-      "outputs": [],
+      "name": "redeemCard",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function",
-      "signature": "0x3daa361a"
+      "signature": "0x561ddc42"
     },
     {
       "constant": false,
@@ -98,59 +92,77 @@
       "signature": "0x8f32d59b"
     },
     {
-      "constant": true,
+      "constant": false,
       "inputs": [
         {
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "name": "redeemCodeAddressToCard",
-      "outputs": [
-        {
-          "name": "createdBy",
-          "type": "address"
+          "name": "cardAddresses",
+          "type": "address[]"
         },
         {
-          "name": "token",
-          "type": "address"
+          "name": "tokenAddresses",
+          "type": "address[]"
         },
         {
-          "name": "valueOrTokenId",
-          "type": "uint256"
+          "name": "valueOrIds",
+          "type": "uint256[]"
         }
       ],
-      "payable": false,
-      "stateMutability": "view",
+      "name": "contributeToCard",
+      "outputs": [],
+      "payable": true,
+      "stateMutability": "payable",
       "type": "function",
-      "signature": "0x9e8445fe"
+      "signature": "0x9e110cc8"
     },
     {
       "constant": false,
       "inputs": [
         {
-          "name": "token",
-          "type": "address"
+          "name": "cardAddresses",
+          "type": "address[]"
         },
         {
-          "name": "valueOrTokenId",
-          "type": "uint256"
+          "name": "tokenAddresses",
+          "type": "address[]"
         },
         {
-          "name": "redeemCode",
-          "type": "address"
+          "name": "valueOrIds",
+          "type": "uint256[]"
         },
         {
-          "name": "message",
+          "name": "description",
+          "type": "string"
+        },
+        {
+          "name": "redeemedMessage",
           "type": "string"
         }
       ],
-      "name": "createCard",
+      "name": "createCards",
       "outputs": [],
       "payable": true,
       "stateMutability": "payable",
       "type": "function",
-      "signature": "0xa12541d5"
+      "signature": "0xa509d92f"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "redeemCodes",
+          "type": "address[]"
+        },
+        {
+          "name": "tokenAddress",
+          "type": "address"
+        }
+      ],
+      "name": "cancelCards",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0xbe2ff941"
     },
     {
       "constant": true,
@@ -176,6 +188,30 @@
       "stateMutability": "nonpayable",
       "type": "function",
       "signature": "0xc7e27a47"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "addressToCard",
+      "outputs": [
+        {
+          "name": "createdBy",
+          "type": "address"
+        },
+        {
+          "name": "tokenCount",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0xebcf2961"
     },
     {
       "constant": true,
@@ -242,6 +278,24 @@
       "name": "CreateCard",
       "type": "event",
       "signature": "0x2bd856e1274d44f99d67919435f0a2aa7cece7b9ce2d37200b14a4ea9c31fecc"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "supporter",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "redeemCode",
+          "type": "address"
+        }
+      ],
+      "name": "ContributeToCard",
+      "type": "event",
+      "signature": "0x67895d7fb7ff9ddba0f60fd80705b93a29ab2319a7e26a859e90009496ccbe2d"
     },
     {
       "anonymous": false,

@@ -14,13 +14,14 @@ contract MixinNftProxy
     address from,
     address to
   ) internal
+    returns (bool)
   {
     IERC721 nft = IERC721(token);
     require(nft.ownerOf(tokenId) == from, "NOT_YOUR_NFT");
     nft.transferFrom(from, to, tokenId);
     // Security: we require the owner changed instead of relying on the nft 
     // contract to revert on fail
-    require(nft.ownerOf(tokenId) == to, "TRANSFER_FAILED");
+    return nft.ownerOf(tokenId) == to;
   }
 
   function _isNft(

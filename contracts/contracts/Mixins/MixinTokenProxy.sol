@@ -14,12 +14,13 @@ contract MixinTokenProxy
     address from,
     address to
   ) internal
+    returns (bool)
   {
     IERC20 token = IERC20(tokenAddress);
     uint balance = token.balanceOf(to);
     token.transferFrom(from, to, value);
     // Security: we require the balance instead of relying on the correct
     // return value from the token contract
-    require(token.balanceOf(to) > balance, "TRANSFER_FAILED");
+    return token.balanceOf(to) > balance;
   }
 }

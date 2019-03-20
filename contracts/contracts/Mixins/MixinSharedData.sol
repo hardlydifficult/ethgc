@@ -3,14 +3,20 @@ pragma solidity ^0.5.6;
 
 contract MixinSharedData
 {
+  struct Token
+  {
+    address tokenAddress;
+    uint valueOrId;
+  }
+
   struct Card
   {
     address createdBy;
-    address token;
-    uint valueOrTokenId;
+    uint tokenCount;
+    mapping(uint => Token) indexToToken;
   }
 
-  mapping(address => Card) public redeemCodeAddressToCard;
+  mapping(address => Card) public addressToCard;
 
   /**
    * A small fee for the developer, charged in ETH when a card is created.

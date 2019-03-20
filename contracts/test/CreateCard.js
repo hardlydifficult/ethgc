@@ -13,24 +13,24 @@ contract('CreateCard', (accounts) => {
   describe('ETH card', () => {
     const redeemCode = 'abc123'
     const value = 42
-    let redeemCodePrivateKey, redeemCodeAddress
+    let redeemCodePrivateKey, cardAddress
 
     before(async () => {
       redeemCodePrivateKey = ethgc.getPrivateKey(redeemCode)
-      redeemCodeAddress = ethgc.getAddress(redeemCodePrivateKey)
+      cardAddress = ethgc.getAddress(redeemCodePrivateKey)
       const tx = await ethgc.createCard(
         web3.utils.padLeft(0, 40),
         value,
-        redeemCodeAddress
+        cardAddress
       )
       console.log(`Create cost ${tx.gasUsed}`)
     })
 
     it('Can read an available card', async () => {
-      const card = await ethgc.getCardByAddress(redeemCodeAddress)
+      const card = await ethgc.getCardByAddress(cardAddress)
       assert.equal(card.createdBy, accounts[0])
       assert.equal(card.token, web3.utils.padLeft(0, 40))
-      assert.equal(card.valueOrTokenId, value)
+      assert.equal(card.valueOrId, value)
     })
   })
 })
