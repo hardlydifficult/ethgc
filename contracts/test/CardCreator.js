@@ -27,7 +27,7 @@ contract('CardCreator', (accounts) => {
 
     it('can cancel the card and get the ETH back', async () => {
       const balanceBefore = await ethgc.hardlyWeb3.getEthBalance()
-      let tx = await ethgc.cancelCard(redeemCodeAddress)
+      let tx = await ethgc.cancelCards([redeemCodeAddress])
       const gasCost = await ethgc.hardlyWeb3.getGasCost(tx)
       assert.equal(
         (await ethgc.hardlyWeb3.getEthBalance()).toFixed(),
@@ -52,10 +52,13 @@ contract('CardCreator', (accounts) => {
       ethgc.hardlyWeb3.switchAccount(accounts[0])
     })
 
-    it('should fail to cancel card', async () => {
-      await shouldFail(
-        ethgc.cancelCard(redeemCodeAddress),
-        'NOT_YOUR_CARD'
+    it('cancel card should be a noop', async () => {
+      const balanceBefore = await ethgc.hardlyWeb3.getEthBalance()
+      let tx = await ethgc.cancelCards([redeemCodeAddress])
+      const gasCost = await ethgc.hardlyWeb3.getGasCost(tx)
+      assert.equal(
+        (await ethgc.hardlyWeb3.getEthBalance()).toFixed(),
+        balanceBefore.minus(gasCost).toFixed()
       )
     })
   })

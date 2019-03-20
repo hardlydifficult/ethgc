@@ -4,6 +4,21 @@
       "constant": false,
       "inputs": [
         {
+          "name": "redeemCodes",
+          "type": "address[]"
+        }
+      ],
+      "name": "cancelCards",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0x2cc5ff46"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
           "name": "redeemCode",
           "type": "address"
         },
@@ -136,21 +151,6 @@
       "stateMutability": "payable",
       "type": "function",
       "signature": "0xa12541d5"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "redeemCode",
-          "type": "address"
-        }
-      ],
-      "name": "cancelCard",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xc0a86361"
     },
     {
       "constant": true,
