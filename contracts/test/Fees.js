@@ -20,7 +20,7 @@ contract('Fees', (accounts) => {
     })
 
 
-    describe('ownerChangeFee', () => {
+    describe('developerSetCostToCreateCard', () => {
       let originalFee
 
       before(async () => {
@@ -28,11 +28,11 @@ contract('Fees', (accounts) => {
       })
 
       after(async () => {
-        await ethgc.ownerChangeFee(originalFee.toFixed())
+        await ethgc.developerSetCostToCreateCard(originalFee.toFixed())
       })
 
       it('Can change fee', async () => {
-        await ethgc.ownerChangeFee(1)
+        await ethgc.developerSetCostToCreateCard(1)
       })
 
       it('Can read the new fee', async () => {
@@ -46,6 +46,11 @@ contract('Fees', (accounts) => {
     describe('withdraw', () => {
       let fees
 
+      before(async () => {
+        // Creating a card so that there is some fees to collect
+        await ethgc.createCard(null, 1, accounts[1])
+      })
+
       it('Can read fees collected', async () => {
         fees = await ethgc.getFeesCollected()
         assert(fees.gt(0))
@@ -57,7 +62,7 @@ contract('Fees', (accounts) => {
 
       it('Can withdraw', async () => {
         const balance = await ethgc.hardlyWeb3.getEthBalance()
-        let tx = await ethgc.ownerWithdrawFees()
+        let tx = await ethgc.developerWithdrawFees()
         const gasCost = await ethgc.hardlyWeb3.getGasCost(tx)
         assert.equal(
           (await ethgc.hardlyWeb3.getEthBalance()).toFixed(), 

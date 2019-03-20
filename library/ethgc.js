@@ -13,33 +13,35 @@ class ethgc
   async init()
   {
     const id = await this.hardlyWeb3.web3.eth.net.getId()
-    fs.readFile(
+    const file = JSON.parse(fs.readFileSync(
       `../library/abi/${id}.json`,
-      'utf8',
-      (err, file) => 
-      {
-        if(err)
-        {
-          throw new Error(err)
-        }
-        file = JSON.parse(file)
-        this.contract = new this.hardlyWeb3.web3.eth.Contract(
-          file.abi, file.address
-        )
-      }
+      'utf8'))
+    this.contract = new this.hardlyWeb3.web3.eth.Contract(
+      file.abi, file.address
     )
   }
 
-  async createCard(token, value, redeemCodeHashHashHash)
+  async createCard(token, value, redeemCodeAddress, message = '')
   {
+    if(!token)
+    {
+      token = this.hardlyWeb3.web3.utils.padLeft(0, 40);
+    }
+    let ethValue = await this.getCostToCreateCard()
+    if(token == this.hardlyWeb3.web3.utils.padLeft(0, 40))
+    {
+      ethValue = ethValue.plus(value)
+    }
     return await this.contract.methods.createCard(
       token,
       value,
-      redeemCodeHashHashHash
+      redeemCodeAddress,
+      message
     ).send(
       {
         from: this.hardlyWeb3.web3.defaultAccount,
-        value: (await this.getCostToCreateCard()).plus(value).toFixed()
+        value: ethValue.toFixed(),
+        gas: 5000000
       }
     )
   }
@@ -62,18 +64,18 @@ class ethgc
     )
   }
 
-  async ownerChangeFee(costToCreateCard)
+  async developerSetCostToCreateCard(costToCreateCard)
   {
-    return await this.contract.methods.ownerChangeFee(costToCreateCard).send(
+    return await this.contract.methods.developerSetCostToCreateCard(costToCreateCard).send(
       {
         from: this.hardlyWeb3.web3.defaultAccount
       }
     )
   }
 
-  async ownerWithdrawFees()
+  async developerWithdrawFees()
   {
-    return await this.contract.methods.ownerWithdrawFees().send(
+    return await this.contract.methods.developerWithdrawFees().send(
       {
         from: this.hardlyWeb3.web3.defaultAccount
       }
