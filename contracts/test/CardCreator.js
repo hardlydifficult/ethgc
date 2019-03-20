@@ -6,7 +6,7 @@ contract('CardCreator', (accounts) => {
   let ethgc
 
   before(async () => {
-    ethgc = new ethgcJs(web3.currentProvider, accounts[9])
+    ethgc = new ethgcJs(web3.currentProvider, accounts[0])
     await ethgc.init()
   })
   

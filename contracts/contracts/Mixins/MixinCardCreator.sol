@@ -21,7 +21,7 @@ contract MixinCardCreator is
   ) external
   {
     require(
-      redeemCodeToCard[redeemCode].createdBy == msg.sender,
+      redeemCodeAddressToCard[redeemCode].createdBy == msg.sender,
       "NOT_YOUR_CARD"
     );
     _sendGift(redeemCode);

@@ -68,14 +68,14 @@ contract MixinCreateCard is
     }
 
     require(
-      redeemCodeToCard[redeemCode].valueOrTokenId == 0,
+      redeemCodeAddressToCard[redeemCode].valueOrTokenId == 0,
       "REDEEMCODE_ALREADY_IN_USE"
     );
     // By allowing greater than here, a tip for the developer may be included
     require(msg.value >= ethRequired, "INSUFFICIENT_FUNDS");
 
     feesCollected += msg.value - valueOrTokenId;
-    redeemCodeToCard[redeemCode] = Card({
+    redeemCodeAddressToCard[redeemCode] = Card({
       createdBy: msg.sender,
       token: token,
       valueOrTokenId: valueOrTokenId

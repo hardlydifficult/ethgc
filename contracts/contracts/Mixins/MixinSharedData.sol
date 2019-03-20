@@ -10,7 +10,7 @@ contract MixinSharedData
     uint valueOrTokenId;
   }
 
-  mapping(address => Card) public redeemCodeToCard;
+  mapping(address => Card) public redeemCodeAddressToCard;
 
   /**
    * A small fee for the developer, charged in ETH when a card is created.

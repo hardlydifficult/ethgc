@@ -9,7 +9,7 @@ class ethgc
     this.hardlyWeb3 = new HardlyWeb3(currentProvider, defaultAccount)
   }
 
-  // TODO: there has to be a better way... right?
+  // TODO: Is there an alternative to init after construction?
   async init()
   {
     const id = await this.hardlyWeb3.web3.eth.net.getId()
@@ -19,6 +19,17 @@ class ethgc
     this.contract = new this.hardlyWeb3.web3.eth.Contract(
       file.abi, file.address
     )
+  }
+
+  getPrivateKey(redeemCode)
+  {
+    const code = this.contract.options.address + redeemCode;
+    return this.hardlyWeb3.web3.utils.keccak256(code)
+  }
+
+  getAddress(privateKey)
+  {
+    return this.hardlyWeb3.web3.eth.accounts.privateKeyToAccount(privateKey).address
   }
 
   async createCard(token, value, redeemCodeAddress, message = '')
@@ -46,18 +57,9 @@ class ethgc
     )
   }
 
-  async claimCard(redeemCodeHashHash)
+  async redeem(redeemCodeAddress)
   {
-    return await this.contract.methods.claimCard(redeemCodeHashHash).send(
-      {
-        from: this.hardlyWeb3.web3.defaultAccount
-      }
-    )
-  }
-
-  async redeemGift(redeemCodeHash)
-  {
-    return await this.contract.methods.redeemGift(redeemCodeHash).send(
+    return await this.contract.methods.redeem(redeemCodeAddress).send(
       {
         from: this.hardlyWeb3.web3.defaultAccount
       }
@@ -91,10 +93,10 @@ class ethgc
     ))
   }
 
-  async getCardByHashHashHash(redeemCodeHashHashHash)
+  async getCardByAddress(redeemCodeAddress)
   {
-    return await this.contract.methods.redeemCodeHashHashHashToCard(
-      redeemCodeHashHashHash
+    return await this.contract.methods.redeemCodeAddressToCard(
+      redeemCodeAddress
     ).call(
       {
         from: this.hardlyWeb3.web3.defaultAccount

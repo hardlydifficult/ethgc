@@ -54,34 +54,6 @@
     },
     {
       "constant": true,
-      "inputs": [
-        {
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "name": "redeemCodeToCard",
-      "outputs": [
-        {
-          "name": "createdBy",
-          "type": "address"
-        },
-        {
-          "name": "token",
-          "type": "address"
-        },
-        {
-          "name": "valueOrTokenId",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function",
-      "signature": "0x87a73bfd"
-    },
-    {
-      "constant": true,
       "inputs": [],
       "name": "owner",
       "outputs": [
@@ -109,6 +81,34 @@
       "stateMutability": "view",
       "type": "function",
       "signature": "0x8f32d59b"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "redeemCodeAddressToCard",
+      "outputs": [
+        {
+          "name": "createdBy",
+          "type": "address"
+        },
+        {
+          "name": "token",
+          "type": "address"
+        },
+        {
+          "name": "valueOrTokenId",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x9e8445fe"
     },
     {
       "constant": false,

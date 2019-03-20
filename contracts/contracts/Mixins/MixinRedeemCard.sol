@@ -66,8 +66,8 @@ contract MixinRedeemCard is
   ) internal
   {
     // Using memory instead of storage so we can delete right away and avoid re-entrancy
-    Card memory card = redeemCodeToCard[redeemCode];
-    delete redeemCodeToCard[redeemCode];
+    Card memory card = redeemCodeAddressToCard[redeemCode];
+    delete redeemCodeAddressToCard[redeemCode];
 
     if(card.token == address(0))
     {
