@@ -86,7 +86,7 @@ contract('NftProxy', (accounts) => {
     })
     
     it('Can transfer Erc721', async () => {
-      await shouldFail(mockNftProxy.transferNft(
+      await mockNftProxy.transferNft(
         testErc721.address,
         accountApprovedHolder,
         accountApprovedHolder,
@@ -94,8 +94,7 @@ contract('NftProxy', (accounts) => {
         {
           from: accountApprovedHolder
         }
-      ), 'TRANSFER_FAILED')
-
+      )
     })
     
     it('Can transfer Erc721Pausable', async () => {
@@ -173,14 +172,13 @@ contract('NftProxy', (accounts) => {
       ), 'NOT_YOUR_NFT')
     })
 
-    it('returns false if the transfer fails', async () => {
-      const result = await mockNftProxy.transferNft(
+    it('should fail if transfer fails', async () => {
+      await shouldFail(mockNftProxy.transferNft(
         testErc721Noop.address,
         accounts[7],
         accounts[7],
         accountReceipient
-      )
-      assert.equal(result, false)
+      ), 'TRANSFER_FAILED')
     })
 
     it('not approved', async () => {
