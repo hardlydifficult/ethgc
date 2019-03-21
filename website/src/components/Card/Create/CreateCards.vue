@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>Create a new Gift Card</h3>
+    <h2>Create a new Gift Card</h2>
 
     <RedeemCodes />
     <Tokens />
