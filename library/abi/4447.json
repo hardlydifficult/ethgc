@@ -193,25 +193,29 @@
       "constant": true,
       "inputs": [
         {
-          "name": "",
+          "name": "cardAddress",
           "type": "address"
         }
       ],
-      "name": "addressToCard",
+      "name": "getCard",
       "outputs": [
         {
           "name": "createdBy",
           "type": "address"
         },
         {
-          "name": "tokenCount",
-          "type": "uint256"
+          "name": "tokenAddresses",
+          "type": "address[]"
+        },
+        {
+          "name": "valueOrIds",
+          "type": "uint256[]"
         }
       ],
       "payable": false,
       "stateMutability": "view",
       "type": "function",
-      "signature": "0xebcf2961"
+      "signature": "0xceafb18d"
     },
     {
       "constant": true,

@@ -32,22 +32,32 @@ class ethgc
     return this.hardlyWeb3.web3.eth.accounts.privateKeyToAccount(privateKey).address
   }
 
-  async createCard(token, value, cardAddress, message = '')
+  async createCards(
+    cardAddresses,
+    tokenAddresses,
+    valueOrIds,
+    description = '',
+    redeemedMessage = ''
+  )
   {
-    if(!token)
+    let ethValue = (await this.getCostToCreateCard()).times(cardAddresses.length)
+    for(let i = 0; i < tokenAddresses.length; i++)
     {
-      token = this.hardlyWeb3.web3.utils.padLeft(0, 40);
+      if(!tokenAddresses[i])
+      {
+        tokenAddresses[i] = this.hardlyWeb3.web3.utils.padLeft(0, 40);
+      }
+      if(tokenAddresses[i] === this.hardlyWeb3.web3.utils.padLeft(0, 40))
+      {
+        ethValue = ethValue.plus(valueOrIds[i]).times(cardAddresses.length)
+      }
     }
-    let ethValue = await this.getCostToCreateCard()
-    if(token == this.hardlyWeb3.web3.utils.padLeft(0, 40))
-    {
-      ethValue = ethValue.plus(value)
-    }
-    return await this.contract.methods.createCard(
-      token,
-      value,
-      cardAddress,
-      message
+    return await this.contract.methods.createCards(
+      cardAddresses,
+      tokenAddresses,
+      valueOrIds,
+      description,
+      redeemedMessage
     ).send(
       {
         from: this.hardlyWeb3.web3.defaultAccount,
@@ -111,9 +121,9 @@ class ethgc
     ))
   }
 
-  async getCardByAddress(cardAddress)
+  async getCard(cardAddress)
   {
-    return await this.contract.methods.addressToCard(
+    return await this.contract.methods.getCard(
       cardAddress
     ).call(
       {
