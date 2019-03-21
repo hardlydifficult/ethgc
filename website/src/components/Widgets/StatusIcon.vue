@@ -18,7 +18,7 @@ export default {
   },
   computed: {
     upperStatus () {
-      if (!this.status) return undefined
+      if (!this.status) return
       return this.status.toUpperCase()
     }
   }

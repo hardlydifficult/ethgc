@@ -76,7 +76,7 @@ export default {
       return 0.0005 // TODO add library
     },
     async estimatedTotalCost () {
-      if (this.newCardFee === null) return undefined
+      if (this.newCardFee === null) return
 
       return new BigNumber(this.tokenType === 'eth' ? this.cardValue : 0)
         .plus(this.newCardFee)

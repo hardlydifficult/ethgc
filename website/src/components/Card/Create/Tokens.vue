@@ -3,36 +3,7 @@
     <h3>Tokens:</h3>
     <div class="tab">
       <div v-for="(token, index) in tokens" :key="index" class="token">
-        <input type="radio" v-model="tokenType" value="eth">ETH
-        <input type="radio" v-model="tokenType" value="erc20">Tokens (ERC-20)
-        <input type="radio" v-model="tokenType" value="erc721">NFT (ERC-721)
-        <div v-if="tokenType == 'erc20' || tokenType == 'erc721'">
-          Token address: <input />
-          <!-- TODO display loading, contract not found, or contract confirmed -->
-          <!-- TODO display name if available -->
-        </div>
-        <div v-if="tokenType == 'eth' || tokenType == 'erc20'">
-          Gift Amount: <input type="number" step="0.0001" v-model="cardValue" v-on:input="validateCardValue()" class="tokenValue" />
-          <span v-if="tokenType == 'eth'">
-            ETH
-          </span>
-          <span v-else>
-            <!-- TODO get symbol if we can -->
-            tokens
-          </span>
-          <!-- TODO display number of decimals if available -->
-        </div>
-        <div v-else>
-          TokenId: <input type="text" v-model="cardValue" />
-        </div>
-
-        <div>
-          <button>Unlock</button>
-        </div>
-        <div>
-          ✔
-          <!-- TODO: confirm allowance and balance is available -->
-        </div>
+        <Token :tokens="tokens" :index="index" />
 
         <div v-if="tokens.length > 1">
           <button v-on:click="removeToken(index)">Remove Token</button>
@@ -45,31 +16,23 @@
 </template>
 
 <script>
-const BigNumber = require('bignumber.js')
+import Token from './Token'
 
 export default {
+  components: {
+    Token
+  },
   data: function () {
     return {
-      tokens: [{address: 0, value: 1}]
+      tokens: [{type: 'ETH', address: 0, value: 1}]
     }
   },
   methods: {
     addToken () {
-      this.tokens.push({address: 0, value: 1})
+      this.tokens.push({type: 'ERC20', address: 0, value: 1})
     },
     removeToken (index) {
       this.tokens.splice(index, 1)
-    },
-    validateCardValue () {
-      if (!this.cardValue) return
-      switch (this.tokenType) {
-        case 'eth':
-          const number = new BigNumber(this.cardValue)
-          if (number.isPositive()) {
-            this.cardValue = new BigNumber(number.toFixed(18, BigNumber.ROUND_FLOOR)).toFixed()
-          }
-          break
-      }
     }
   }
 }

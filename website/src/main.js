@@ -14,7 +14,12 @@ window._ = require('lodash')
 
 Vue.config.productionTip = false
 
-Vue.prototype.ethjs = new Ethjs(window.web3.currentProvider, window.web3.defaultAccount)
+Vue.prototype.ethjs = new Ethjs(window.web3.currentProvider, window.web3.eth.defaultAccount)
+if (window.ethereum) {
+  window.ethereum.enable().then(function () {
+    Vue.prototype.ethjs.hardlyWeb3.switchAccount(window.web3.eth.defaultAccount)
+  })
+} // TODO maybe else means go get metamask
 
 /* eslint-disable no-new */
 new Vue({

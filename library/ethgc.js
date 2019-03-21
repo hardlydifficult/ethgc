@@ -114,7 +114,7 @@ class ethgc
 
   async getPrivateKey(redeemCode)
   {
-    if(!redeemCode) return undefined
+    if(!redeemCode) return
     await this._init()
     const code = this.contract.options.address + redeemCode;
     return this.hardlyWeb3.web3.utils.keccak256(code)
@@ -122,24 +122,25 @@ class ethgc
 
   async getAddressByPrivateKey(privateKey)
   {
-    if(!privateKey) return undefined
+    if(!privateKey) return
     await this._init()
     return (await this.hardlyWeb3.web3.eth.accounts.privateKeyToAccount(privateKey)).address
   }
 
   async getAddressByCode(redeemCode)
   {
-    if(!redeemCode) return undefined
+    if(!redeemCode) return
     await this._init()
-    return this.getAddressByPrivateKey(await this.getPrivateKey(redeemCode))
+    return await this.getAddressByPrivateKey(await this.getPrivateKey(redeemCode))
   }
 
   async getAddressIsAvailableByCode(redeemCode)
   {
-    if(!redeemCode) return undefined
+    
+    if(!redeemCode) return
     await this._init()
     const address = await this.getAddressByCode(redeemCode)
-    return (await this.getCard(address)).createdBy === this.hardlyWeb3.web3.utils.padLeft(0, 40)
+    return !(await this.getCard(address))
   }
 
   async getCostToCreateCard()
@@ -154,7 +155,7 @@ class ethgc
 
   async getCard(cardAddress)
   {
-    if(!cardAddress) return undefined
+    if(!cardAddress) return
     await this._init()
     return await this.contract.methods.getCard(
       cardAddress

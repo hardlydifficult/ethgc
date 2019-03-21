@@ -4,8 +4,13 @@
     <h1>
       Website is WIP - please come back later!
     </h1>
-    <RedeemCards />
-    <CreateCards />
+    <div v-if="ethjs">
+      <RedeemCards />
+      <CreateCards />
+    </div>
+    <div v-else>
+      LOGIN TO METAMASK!
+    </div>
     <Footer />
   </div>
 </template>

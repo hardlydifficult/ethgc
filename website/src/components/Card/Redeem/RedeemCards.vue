@@ -26,7 +26,7 @@ export default {
   },
   asyncComputed: {
     async card () {
-      if (!this.redeemCode) return undefined
+      if (!this.redeemCode) return
       await sleep(1000)
       // TODO
       return {
