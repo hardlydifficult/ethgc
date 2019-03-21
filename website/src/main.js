@@ -3,7 +3,11 @@
 import Vue from 'vue'
 import App from './App'
 import AsyncComputed from 'vue-async-computed'
+import VTooltip from 'v-tooltip'
+import Clipboard from 'v-clipboard'
 Vue.use(AsyncComputed)
+Vue.use(VTooltip)
+Vue.use(Clipboard)
 
 Vue.config.productionTip = false
 
