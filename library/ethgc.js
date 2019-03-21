@@ -76,13 +76,13 @@ class ethgc
     return [sig.v, sig.r, sig.s]
   }
 
-  async redeemCard(cardAddress, v, r, s, tokenAddress = "0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF")
+  async redeemCards(cardAddresses, v, r, s, tokenAddress = "0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF")
   {
     if(tokenAddress == -1)
     {
       tokenAddress = "0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"
     }
-    return await this.contract.methods.redeemCard(cardAddress, v, r, s, tokenAddress).send(
+    return await this.contract.methods.redeemCards(cardAddresses, v, r, s, tokenAddress).send(
       {
         from: this.hardlyWeb3.web3.defaultAccount
       }

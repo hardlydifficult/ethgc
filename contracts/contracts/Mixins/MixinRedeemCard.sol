@@ -36,11 +36,11 @@ contract MixinRedeemCard is
   /**
    * @param tokenAddress 0 == eth, value == ERC20/ERC721, max == send all
    */
-  function redeemCard(
-    address cardAddress,
-    uint8 v,
-    bytes32 r,
-    bytes32 s,
+  function redeemCards(
+    address[] calldata cardAddresses,
+    uint8[] calldata v,
+    bytes32[] calldata r,
+    bytes32[] calldata s,
     address tokenAddress
   ) external
     returns (bool)
@@ -57,12 +57,16 @@ contract MixinRedeemCard is
       )
     );
 
-    require(
-      ecrecover(message, v, r, s) == cardAddress,
-      "INVALID_REDEEM_CODE"
-    );
-  
-    _sendGift(cardAddress, tokenAddress);
+    uint length = cardAddresses.length;
+    for(uint i = 0; i < length; i++)
+    {
+      require(
+        ecrecover(message, v[i], r[i], s[i]) == cardAddresses[i],
+        "INVALID_REDEEM_CODE"
+      );
+    
+      _sendGift(cardAddresses[i], tokenAddress);
+    }
   }
 
   /**

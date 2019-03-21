@@ -4,42 +4,6 @@
       "constant": false,
       "inputs": [
         {
-          "name": "cardAddress",
-          "type": "address"
-        },
-        {
-          "name": "v",
-          "type": "uint8"
-        },
-        {
-          "name": "r",
-          "type": "bytes32"
-        },
-        {
-          "name": "s",
-          "type": "bytes32"
-        },
-        {
-          "name": "tokenAddress",
-          "type": "address"
-        }
-      ],
-      "name": "redeemCard",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x561ddc42"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
           "name": "newCostToCreateCard",
           "type": "uint256"
         }
@@ -188,6 +152,42 @@
       "stateMutability": "nonpayable",
       "type": "function",
       "signature": "0xc7e27a47"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "cardAddresses",
+          "type": "address[]"
+        },
+        {
+          "name": "v",
+          "type": "uint8[]"
+        },
+        {
+          "name": "r",
+          "type": "bytes32[]"
+        },
+        {
+          "name": "s",
+          "type": "bytes32[]"
+        },
+        {
+          "name": "tokenAddress",
+          "type": "address"
+        }
+      ],
+      "name": "redeemCards",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0xcd2c3b12"
     },
     {
       "constant": true,
