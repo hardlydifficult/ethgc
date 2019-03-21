@@ -4,7 +4,7 @@
     <h1>
       Website is WIP - please come back later!
     </h1>
-    <ClaimCard />
+    <RedeemCard />
     <CreateCard :ethjs="ethjs" />
   </div>
 </template>
@@ -12,14 +12,14 @@
 <script>
 import Ethjs from '../../library/ethgc.js'
 import Header from './components/Header'
-import ClaimCard from './components/ClaimCard'
+import RedeemCard from './components/RedeemCard'
 import CreateCard from './components/CreateCard'
 
 export default {
   name: 'App',
   components: {
     Header,
-    ClaimCard,
+    RedeemCard,
     CreateCard
   },
   computed: {
