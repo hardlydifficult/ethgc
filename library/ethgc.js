@@ -85,9 +85,13 @@ class ethgc
     )
   }
 
-  async cancelCards(cardAddresses)
+  async cancelCards(cardAddresses, tokenAddress = "0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF")
   {
-    return await this.contract.methods.cancelCards(cardAddresses).send(
+    if(tokenAddress == -1)
+    {
+      tokenAddress = "0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"
+    }
+    return await this.contract.methods.cancelCards(cardAddresses, tokenAddress).send(
       {
         from: this.hardlyWeb3.web3.defaultAccount
       }

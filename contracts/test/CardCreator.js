@@ -44,10 +44,10 @@ contract('CardCreator', (accounts) => {
       const redeemCodePrivateKey = ethgc.getPrivateKey(redeemCode)
       cardAddress = ethgc.getAddress(redeemCodePrivateKey)
       ethgc.hardlyWeb3.switchAccount(accounts[2])
-      await ethgc.createCard(
-        web3.utils.padLeft(0, 40),
-        value,
-        cardAddress
+      await ethgc.createCards(
+        [cardAddress],
+        [null],
+        [value],
       )
       ethgc.hardlyWeb3.switchAccount(accounts[0])
     })
