@@ -4,40 +4,30 @@
     <h1>
       Website is WIP - please come back later!
     </h1>
-    <RedeemCard />
-    <CreateCard :ethjs="ethjs" />
+    <RedeemCards />
+    <CreateCards />
     <Footer />
   </div>
 </template>
 
 <script>
-import Ethjs from '../../library/ethgc.js'
-import Header from './components/Header'
-import RedeemCard from './components/RedeemCard'
-import CreateCard from './components/CreateCard'
-import Footer from './components/Footer'
+import Header from './components/Template/Header'
+import Footer from './components/Template/Footer'
+import RedeemCards from './components/Card/Redeem/RedeemCards'
+import CreateCards from './components/Card/Create/CreateCards'
 
 export default {
   name: 'App',
   components: {
     Header,
-    RedeemCard,
-    CreateCard,
-    Footer,
-  },
-  computed: {
-    ethjs () {
-      return new Ethjs(window.web3.currentProvider, window.web3.defaultAccount)
-    }
+    RedeemCards,
+    CreateCards,
+    Footer
   }
 }
 </script>
 
-<style lang="scss">
-@import url('https://fonts.googleapis.com/css?family=Roboto+Mono|Open+Sans');
-body {
-  font-family: 'Open Sans', sans-serif;
-}
+<style>
 .hidden {
   display: none;
 }
@@ -49,100 +39,5 @@ body {
 }
 .tab {
   margin-left: 1em;
-}
-
-
-.tooltip {
-  display: block !important;
-  z-index: 10000;
-
-  .tooltip-inner {
-    background: black;
-    color: white;
-    border-radius: 16px;
-    padding: 5px 10px 4px;
-    font-size: .5em;
-  }
-
-  .tooltip-arrow {
-    width: 0;
-    height: 0;
-    border-style: solid;
-    position: absolute;
-    margin: 5px;
-    border-color: black;
-  }
-
-  &[x-placement^="top"] {
-    margin-bottom: 5px;
-
-    .tooltip-arrow {
-      border-width: 5px 5px 0 5px;
-      border-left-color: transparent !important;
-      border-right-color: transparent !important;
-      border-bottom-color: transparent !important;
-      bottom: -5px;
-      left: calc(50% - 5px);
-      margin-top: 0;
-      margin-bottom: 0;
-    }
-  }
-
-  &[x-placement^="bottom"] {
-    margin-top: 5px;
-
-    .tooltip-arrow {
-      border-width: 0 5px 5px 5px;
-      border-left-color: transparent !important;
-      border-right-color: transparent !important;
-      border-top-color: transparent !important;
-      top: -5px;
-      left: calc(50% - 5px);
-      margin-top: 0;
-      margin-bottom: 0;
-    }
-  }
-
-  &[x-placement^="right"] {
-    margin-left: 5px;
-
-    .tooltip-arrow {
-      border-width: 5px 5px 5px 0;
-      border-left-color: transparent !important;
-      border-top-color: transparent !important;
-      border-bottom-color: transparent !important;
-      left: -5px;
-      top: calc(50% - 5px);
-      margin-left: 0;
-      margin-right: 0;
-    }
-  }
-
-  &[x-placement^="left"] {
-    margin-right: 5px;
-
-    .tooltip-arrow {
-      border-width: 5px 0 5px 5px;
-      border-top-color: transparent !important;
-      border-right-color: transparent !important;
-      border-bottom-color: transparent !important;
-      right: -5px;
-      top: calc(50% - 5px);
-      margin-left: 0;
-      margin-right: 0;
-    }
-  }
-
-  &[aria-hidden='true'] {
-    visibility: hidden;
-    opacity: 0;
-    transition: opacity .15s, visibility .15s;
-  }
-
-  &[aria-hidden='false'] {
-    visibility: visible;
-    opacity: 1;
-    transition: opacity .15s;
-  }
 }
 </style>

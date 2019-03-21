@@ -5,11 +5,14 @@ import App from './App'
 import AsyncComputed from 'vue-async-computed'
 import VTooltip from 'v-tooltip'
 import Clipboard from 'v-clipboard'
+import Ethjs from '../../library/ethgc.js'
 Vue.use(AsyncComputed)
 Vue.use(VTooltip)
 Vue.use(Clipboard)
 
 Vue.config.productionTip = false
+
+Vue.prototype.$appName = new Ethjs(window.web3.currentProvider, window.web3.defaultAccount)
 
 /* eslint-disable no-new */
 new Vue({

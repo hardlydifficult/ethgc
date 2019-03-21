@@ -5,7 +5,7 @@
       Redeem Code: <input v-model="redeemCode" />
     </div>
     <div v-if="card">
-      <img src="../assets/sampleCard.png" width="25%" />
+      <img src="../../../assets/sampleCard.png" width="25%" />
       <div>
         <button>Redeem</button>
       </div>

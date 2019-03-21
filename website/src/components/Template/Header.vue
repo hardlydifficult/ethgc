@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img src="../assets/logoPinkTie.png" width="10%" />
+    <img src="../../assets/logoPinkTie.png" width="10%" />
   </div>
 </template>
 
