@@ -16,7 +16,7 @@ contract MockNftProxy is
     address to
   ) external
   {
-    _transferNft(tokenAddress, tokenId, from, to);
+    require(_transferNft(tokenAddress, tokenId, from, to), 'TRANSFER_FAILED');
   }
 
   function isNft(

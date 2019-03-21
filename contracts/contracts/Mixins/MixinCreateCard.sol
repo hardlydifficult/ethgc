@@ -139,6 +139,7 @@ contract MixinCreateCard is
   {
     uint tokenCount = tokenAddresses.length;
     uint ethRequired = fee;
+    feesCollected += ethRequired;
 
     for(uint tokenId = 0; tokenId < tokenCount; tokenId++)
     {

@@ -16,6 +16,6 @@ contract MockTokenProxy is
     address to
   ) external
   {
-    _transferToken(tokenAddress, value, from, to);
+    require(_transferToken(tokenAddress, value, from, to), 'TRANSFER_FAILED');
   }
 }

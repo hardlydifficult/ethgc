@@ -56,7 +56,7 @@ contract('Fees', (accounts) => {
 
       before(async () => {
         // Creating a card so that there is some fees to collect
-        await ethgc.createCard(null, 1, accounts[1])
+        await ethgc.createCards([accounts[1]], [null], [1])
       })
 
       it('Can read fees collected', async () => {
