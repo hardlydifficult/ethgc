@@ -7,7 +7,6 @@ contract('CreateCard', (accounts) => {
 
   before(async () => {
     ethgc = new ethgcJs(web3.currentProvider, accounts[0])
-    await ethgc.init()
   })
   
   describe('ETH card', () => {
@@ -16,8 +15,8 @@ contract('CreateCard', (accounts) => {
     let redeemCodePrivateKey, cardAddress
 
     before(async () => {
-      redeemCodePrivateKey = ethgc.getPrivateKey(redeemCode)
-      cardAddress = ethgc.getAddress(redeemCodePrivateKey)
+      redeemCodePrivateKey = await ethgc.getPrivateKey(redeemCode)
+      cardAddress = await ethgc.getAddressByPrivateKey(redeemCodePrivateKey)
 
       const tx = await ethgc.createCards(
         [cardAddress],

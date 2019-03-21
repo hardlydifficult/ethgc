@@ -1,6 +1,5 @@
 const HardlyWeb3 = require('./hardlyWeb3.js')
 const BigNumber = require('bignumber.js')
-const fs = require('fs')
 
 class ethgc 
 {
@@ -9,27 +8,14 @@ class ethgc
     this.hardlyWeb3 = new HardlyWeb3(currentProvider, defaultAccount)
   }
 
-  // TODO: Is there an alternative to init after construction?
-  async init()
+  async _init()
   {
+    if(this.contract) return
     const id = await this.hardlyWeb3.web3.eth.net.getId()
-    const file = JSON.parse(fs.readFileSync(
-      `../library/abi/${id}.json`,
-      'utf8'))
+    const file = require(`./abi/${id}.json`)
     this.contract = new this.hardlyWeb3.web3.eth.Contract(
       file.abi, file.address
     )
-  }
-
-  getPrivateKey(redeemCode)
-  {
-    const code = this.contract.options.address + redeemCode;
-    return this.hardlyWeb3.web3.utils.keccak256(code)
-  }
-
-  getAddress(privateKey)
-  {
-    return this.hardlyWeb3.web3.eth.accounts.privateKeyToAccount(privateKey).address
   }
 
   async createCards(
@@ -40,6 +26,7 @@ class ethgc
     redeemedMessage = ''
   )
   {
+    await this._init()
     let ethValue = (await this.getCostToCreateCard()).times(cardAddresses.length)
     for(let i = 0; i < tokenAddresses.length; i++)
     {
@@ -69,6 +56,7 @@ class ethgc
 
   async sign(account, redeemCodePrivateKey)
   {
+    await this._init()
     const sig = this.hardlyWeb3.web3.eth.accounts.privateKeyToAccount(redeemCodePrivateKey)
       .sign(this.hardlyWeb3.web3.utils.keccak256(
         this.contract.options.address + account.substring(2)
@@ -78,6 +66,7 @@ class ethgc
 
   async redeemCards(cardAddresses, v, r, s, tokenAddress = "0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF")
   {
+    await this._init()
     if(tokenAddress == -1)
     {
       tokenAddress = "0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"
@@ -91,6 +80,7 @@ class ethgc
 
   async cancelCards(cardAddresses, tokenAddress = "0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF")
   {
+    await this._init()
     if(tokenAddress == -1)
     {
       tokenAddress = "0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"
@@ -104,6 +94,7 @@ class ethgc
 
   async developerSetCostToCreateCard(costToCreateCard)
   {
+    await this._init()
     return await this.contract.methods.developerSetCostToCreateCard(costToCreateCard).send(
       {
         from: this.hardlyWeb3.web3.defaultAccount
@@ -113,6 +104,7 @@ class ethgc
 
   async developerWithdrawFees()
   {
+    await this._init()
     return await this.contract.methods.developerWithdrawFees().send(
       {
         from: this.hardlyWeb3.web3.defaultAccount
@@ -120,8 +112,39 @@ class ethgc
     )
   }
 
+  async getPrivateKey(redeemCode)
+  {
+    if(!redeemCode) return undefined
+    await this._init()
+    const code = this.contract.options.address + redeemCode;
+    return this.hardlyWeb3.web3.utils.keccak256(code)
+  }
+
+  async getAddressByPrivateKey(privateKey)
+  {
+    if(!privateKey) return undefined
+    await this._init()
+    return (await this.hardlyWeb3.web3.eth.accounts.privateKeyToAccount(privateKey)).address
+  }
+
+  async getAddressByCode(redeemCode)
+  {
+    if(!redeemCode) return undefined
+    await this._init()
+    return this.getAddressByPrivateKey(await this.getPrivateKey(redeemCode))
+  }
+
+  async getAddressIsAvailableByCode(redeemCode)
+  {
+    if(!redeemCode) return undefined
+    await this._init()
+    const address = await this.getAddressByCode(redeemCode)
+    return (await this.getCard(address)).createdBy === this.hardlyWeb3.web3.utils.padLeft(0, 40)
+  }
+
   async getCostToCreateCard()
   {
+    await this._init()
     return new BigNumber(await this.contract.methods.costToCreateCard().call(
       {
         from: this.hardlyWeb3.web3.defaultAccount
@@ -131,6 +154,8 @@ class ethgc
 
   async getCard(cardAddress)
   {
+    if(!cardAddress) return undefined
+    await this._init()
     return await this.contract.methods.getCard(
       cardAddress
     ).call(
@@ -142,6 +167,7 @@ class ethgc
 
   async getFeesCollected()
   {
+    await this._init()
     return new BigNumber(await this.contract.methods.feesCollected().call(
       {
         from: this.hardlyWeb3.web3.defaultAccount

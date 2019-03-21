@@ -2,15 +2,9 @@
   <div>
     <h3>Cards:</h3>
     <div class="tab">
-      <div v-for="(card, index) in cards" :key="'redeem'+index" class="card">
-        <div>
-          Redeem Code <input type="text" v-model="cardRedeemCode" v-on:input="customCode = true" />
-          <button v-on:click="randomizeCode()">New</button>
-          <div class="small" v-if="customCode">
-            ! Warning ! Be careful when choosing your own code. It must not be something
-            someone could guess easily.
-          </div>
-        </div>
+      <div v-for="(card, index) in cards" :key="index" class="card">
+        <RedeemCode :cards="cards" :index="index" />
+
         <div v-if="cards.length > 1">
           <button v-on:click="removeCard(index)">Remove Card</button>
         </div>
@@ -22,29 +16,23 @@
 </template>
 
 <script>
-import Random from '../../../logic/random.js'
-const random = new Random()
+import RedeemCode from './RedeemCode'
 
 export default {
+  components: {
+    RedeemCode
+  },
   data: function () {
     return {
-      cards: [undefined]
+      cards: [{redeemCode: undefined, customCode: false}]
     }
-  },
-  mounted: function () {
-    if (this.cardRedeemCode) return
-    this.randomizeCode()
   },
   methods: {
     addCard () {
-      this.cards.push(undefined)
+      this.cards.push({redeemCode: undefined, customCode: false})
     },
     removeCard (index) {
       this.cards.splice(index, 1)
-    },
-    randomizeCode () {
-      this.cardRedeemCode = random.getRandomCode(16, true)
-      this.customCode = false
     }
   }
 }

@@ -9,15 +9,14 @@ contract('CardCreator', (accounts) => {
 
   before(async () => {
     ethgc = new ethgcJs(web3.currentProvider, accounts[0])
-    await ethgc.init()
   })
   
   describe('For cards I created', () => {
     let cardAddress
 
     before(async () => {
-      const redeemCodePrivateKey = ethgc.getPrivateKey(redeemCode)
-      cardAddress = ethgc.getAddress(redeemCodePrivateKey)
+      const redeemCodePrivateKey = await ethgc.getPrivateKey(redeemCode)
+      cardAddress = await ethgc.getAddressByPrivateKey(redeemCodePrivateKey)
       await ethgc.createCards(
         [cardAddress],
         [null],
@@ -41,8 +40,8 @@ contract('CardCreator', (accounts) => {
     let cardAddress
 
     before(async () => {
-      const redeemCodePrivateKey = ethgc.getPrivateKey(redeemCode)
-      cardAddress = ethgc.getAddress(redeemCodePrivateKey)
+      const redeemCodePrivateKey = await ethgc.getPrivateKey(redeemCode)
+      cardAddress = await ethgc.getAddressByPrivateKey(redeemCodePrivateKey)
       ethgc.hardlyWeb3.switchAccount(accounts[2])
       await ethgc.createCards(
         [cardAddress],

@@ -9,10 +9,12 @@ import Ethjs from '../../library/ethgc.js'
 Vue.use(AsyncComputed)
 Vue.use(VTooltip)
 Vue.use(Clipboard)
+// to assist with any data manipulation [global usage]
+window._ = require('lodash')
 
 Vue.config.productionTip = false
 
-Vue.prototype.$appName = new Ethjs(window.web3.currentProvider, window.web3.defaultAccount)
+Vue.prototype.ethjs = new Ethjs(window.web3.currentProvider, window.web3.defaultAccount)
 
 /* eslint-disable no-new */
 new Vue({
