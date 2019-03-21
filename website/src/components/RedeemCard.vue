@@ -1,16 +1,13 @@
 <template>
   <div>
-    <h3>Claim &amp; Redeem a Gift Card</h3>
+    <h3>Redeem a Gift Card</h3>
     <div>
       Redeem Code: <input v-model="redeemCode" />
     </div>
     <div v-if="card">
       <img src="../assets/sampleCard.png" width="25%" />
       <div>
-        <button>Claim</button>
-      </div>
-      <div class="small">
-        (step 1 of 2)
+        <button>Redeem</button>
       </div>
     </div>
   </div>

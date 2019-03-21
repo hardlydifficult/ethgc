@@ -12,6 +12,10 @@
   },
   "dependencies": {
     "bignumber.js": "^8.1.1",
+    "node-sass": "^4.11.0",
+    "sass-loader": "^7.1.0",
+    "v-clipboard": "^2.2.1",
+    "v-tooltip": "^2.0.0-rc.33",
     "vue": "^2.5.2",
     "vue-async-computed": "^3.6.1"
   },
