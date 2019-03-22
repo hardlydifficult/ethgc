@@ -17,8 +17,8 @@
 <script>
 import Header from './components/Template/Header'
 import Footer from './components/Template/Footer'
-import RedeemCards from './components/Card/Redeem/RedeemCards'
-import CreateCards from './components/Card/Create/CreateCards'
+import RedeemCards from './components/Card/Redeem/index'
+import CreateCards from './components/Card/Create/index'
 
 export default {
   name: 'App',
@@ -32,6 +32,17 @@ export default {
 </script>
 
 <style lang="scss">
+a {
+  text-decoration: none;
+  color: black;
+}
+a:hover {
+  color: blue;
+  border-bottom: 1px solid blue;
+}
+a:active {
+  color: red;
+}
 .hidden {
   display: none;
 }

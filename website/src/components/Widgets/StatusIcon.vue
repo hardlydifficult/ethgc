@@ -2,7 +2,7 @@
   <span>
     <span v-tooltip="message">
       <i v-if="upperStatus==='SUCCESS'" class="far fa-thumbs-up" />
-      <i v-else-if="upperStatus==='WARNING'" class="fas fa-exclamation-circle orange" />
+      <i v-else-if="upperStatus==='WARNING'" class="fas fa-exclamation orange" />
       <i v-else-if="upperStatus==='ERROR'" class="fas fa-times red" />
       <i v-else-if="upperStatus==='LOADING'" class="fas fa-spinner fa-spin"></i>
       <span v-else>{{ upperStatus }}</span>
@@ -26,7 +26,7 @@ export default {
 </script>
 <style>
 .orange {
-  color: coral
+  color: #f79862
 }
 .red {
   color: red

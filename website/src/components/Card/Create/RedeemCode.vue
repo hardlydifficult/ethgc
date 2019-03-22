@@ -2,9 +2,9 @@
   <div>
     Redeem Code
     <input type="text" v-model="card.redeemCode" v-on:input="card.customCode = true" />
-    <i class="far fa-copy" v-on:click="$clipboard(card.redeemCode)"></i>
+    <i class="far fa-copy" v-on:click="$clipboard(card.redeemCode)" v-tooltip="'Copy'"></i>
     <button v-on:click="randomizeCode()"><i class="fas fa-redo"></i></button>
-    <StatusIcon v-if="card.customCode && status.status !== 'ERROR'" status="WARNING" message="! Warning ! Be careful when choosing your own code. It must not be something someone could guess easily." />
+    <StatusIcon v-if="card.customCode && status.status !== 'ERROR'" status="WARNING" message="! Warning ! Be careful when choosing your own code. It must not be something someone could guess." />
     <StatusIcon v-if="status" :status="status.status" :message="status.message" />
   </div>
 </template>
@@ -27,8 +27,8 @@ export default {
       status: undefined,
       // eslint-disable-next-line no-undef
       bouncer: _.debounce(async () => {
-        console.log(await this.ethjs.getAddressByCode(this.card.redeemCode))
         let available = await this.ethjs.getAddressIsAvailableByCode(this.card.redeemCode)
+        if (!this.card) return
         if (available) {
           if (this.card.redeemCode.length < 15) {
             this.status = {
@@ -61,6 +61,9 @@ export default {
       this.randomizeCode()
     }
   },
+  beforeDestroy: function () {
+    this.bouncer.cancel()
+  },
   methods: {
     randomizeCode () {
       this.card.redeemCode = random.getRandomCode(16, true)
@@ -69,26 +72,29 @@ export default {
     debouncedGetStatus () {
       this.bouncer.cancel()
 
-      let found = false
+      if (!this.card.redeemCode) {
+        this.status = {
+          status: 'ERROR',
+          message: 'Enter a redeem code.'
+        }
+        return
+      }
+
       for (let i = 0; i < this.index; i++) {
         if (this.cards[i].redeemCode === this.card.redeemCode) {
-          found = true
-          break
+          this.status = {
+            status: 'ERROR',
+            message: 'Each card must have a unique redeem code.'
+          }
+          return
         }
       }
 
-      if (found) {
-        this.status = {
-          status: 'ERROR',
-          message: 'Each card must have a unique redeem code.'
-        }
-      } else {
-        this.status = {
-          status: 'LOADING',
-          message: 'Checking if this code is already in use...'
-        }
-        this.bouncer()
+      this.status = {
+        status: 'LOADING',
+        message: 'Checking if this code is already in use...'
       }
+      this.bouncer()
     }
   },
   watch: {

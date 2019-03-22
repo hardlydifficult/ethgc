@@ -27,12 +27,12 @@ contract('CreateCard', (accounts) => {
     })
 
     it('Can read the card creator', async () => {
-      const card = await ethgc.getCard(cardAddress)
+      const card = await ethgc.getCardByAddress(cardAddress)
       assert.equal(card.createdBy, accounts[0])
     })
     
     it('Can read token balances', async () => {
-      const card = await ethgc.getCard(cardAddress) 
+      const card = await ethgc.getCardByAddress(cardAddress) 
       assert.equal(card.tokenAddresses.length, 1);
       assert.equal(card.valueOrIds.length, 1)
       assert.equal(card.tokenAddresses[0], web3.utils.padLeft(0, 40))
