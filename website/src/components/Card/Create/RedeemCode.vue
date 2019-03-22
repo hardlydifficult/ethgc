@@ -2,7 +2,8 @@
   <div>
     Redeem Code
     <input type="text" v-model="card.redeemCode" v-on:input="card.customCode = true" />
-    <button v-on:click="randomizeCode()">New</button>
+    <i class="far fa-copy" v-on:click="$clipboard(card.redeemCode)"></i>
+    <button v-on:click="randomizeCode()"><i class="fas fa-redo"></i></button>
     <StatusIcon v-if="card.customCode && status.status !== 'ERROR'" status="WARNING" message="! Warning ! Be careful when choosing your own code. It must not be something someone could guess easily." />
     <StatusIcon v-if="status" :status="status.status" :message="status.message" />
   </div>

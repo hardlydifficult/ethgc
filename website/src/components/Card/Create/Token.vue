@@ -1,14 +1,16 @@
 <template>
   <div>
-    <input type="radio" v-model="token.type" value="ETH">ETH
-    <input type="radio" v-model="token.type" value="ERC20">Tokens (ERC-20)
-    <input type="radio" v-model="token.type" value="ERC721">NFT (ERC-721)
+    <div>
+      <input type="radio" v-model="token.type" value="ETH">ETH
+      <input type="radio" v-model="token.type" value="ERC20">Tokens (ERC-20)
+      <input type="radio" v-model="token.type" value="ERC721">NFT (ERC-721)
+    </div>
     <div v-if="token.type === 'ERC20' || token.type === 'ERC721'">
       Token address: <input />
       <!-- TODO display loading, contract not found, or contract confirmed -->
       <!-- TODO display name if available -->
     </div>
-    <div v-if="token.type === 'ETH' || token.type === 'ERC20'">
+    <span v-if="token.type === 'ETH' || token.type === 'ERC20'">
       Gift Amount: <input type="number" step="0.0001" v-model="token.value" v-on:input="validateCardValue()" class="tokenValue" />
       <span v-if="token.type === 'ETH'">
         ETH
@@ -18,14 +20,14 @@
         tokens
       </span>
       <!-- TODO display number of decimals if available -->
-    </div>
-    <div v-else>
+    </span>
+    <span v-else>
       TokenId: <input type="text" v-model="token.value" class="tokenValue" />
-    </div>
+    </span>
 
-    <div v-if="token.type !== 'ETH'">
+    <span v-if="token.type !== 'ETH'">
       <button>Unlock</button>
-    </div>
+    </span>
     <StatusIcon v-if="status" :status="status.status" :message="status.message" />
   </div>
 </template>

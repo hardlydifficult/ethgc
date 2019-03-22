@@ -116,8 +116,7 @@ class ethgc
   {
     if(!redeemCode) return
     await this._init()
-    const code = this.contract.options.address.substr(2) + redeemCode;
-    console.log(code)
+    const code = this.contract.options.address + redeemCode;
     return this.hardlyWeb3.web3.utils.keccak256(code)
   }
 

@@ -1,11 +1,11 @@
 <template v-if="upperStatus">
   <span>
     <span v-tooltip="message">
-      <img v-if="upperStatus==='SUCCESS'" src="../../assets/succ.png" class="icon" />
-      <img v-else-if="upperStatus==='WARNING'" src="../../assets/warn.png" class="icon" />
-      <img v-else-if="upperStatus==='ERROR'" src="../../assets/erro.png" class="icon" />
+      <i v-if="upperStatus==='SUCCESS'" class="far fa-thumbs-up" />
+      <i v-else-if="upperStatus==='WARNING'" class="fas fa-exclamation-circle orange" />
+      <i v-else-if="upperStatus==='ERROR'" class="fas fa-times red" />
       <i v-else-if="upperStatus==='LOADING'" class="fas fa-spinner fa-spin"></i>
-      <span v-else>{{ upperStatus }}aoeu{{upperStatus.toString()=='WARNING'}}</span>
+      <span v-else>{{ upperStatus }}</span>
     </span>
   </span>
 </template>
@@ -25,7 +25,10 @@ export default {
 }
 </script>
 <style>
-.icon {
-  width: 1.5em;
+.orange {
+  color: coral
+}
+.red {
+  color: red
 }
 </style>
