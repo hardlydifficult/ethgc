@@ -22,10 +22,8 @@ export default {
   components: {
     RedeemCode
   },
-  data: function () {
-    return {
-      cards: [{redeemCode: undefined, customCode: false}]
-    }
+  props: {
+    cards: Array
   },
   methods: {
     addCard () {

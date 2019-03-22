@@ -5,13 +5,13 @@
       <div>
         Description:
         <div class="tab">
-          <textarea />
+          <textarea v-model="messages.description" />
         </div>
       </div>
       <div>
         Redeemed Message:
         <div class="tab">
-          <textarea />
+          <textarea v-model="messages.redeemedMessage" />
         </div>
       </div>
     </div>
@@ -20,6 +20,8 @@
 
 <script>
 export default {
-
+  props: {
+    messages: Object
+  }
 }
 </script>

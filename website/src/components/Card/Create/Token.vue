@@ -91,13 +91,32 @@ export default {
           status: 'ERROR',
           message: 'Please enter a value'
         }
-      } else {
-        this.status = {
-          status: 'LOADING',
-          message: 'Confirming you have the balance available in your wallet'
-        }
-        this.bouncer()
+        return
       }
+      if (this.token.type === 'ETH') {
+        this.token.baseValue = this.ethjs.hardlyWeb3.toWei(this.token.value)
+        for (let i = 0; i < this.index; i++) {
+          if (
+            this.tokens[i].type === this.token.type &&
+            (
+              this.tokens[i].type === 'ETH' ||
+              this.tokens[i].address === this.token.address
+            )
+          ) {
+            this.status = {
+              status: 'ERROR',
+              message: 'You already have this token selected above.'
+            }
+            return
+          }
+        }
+      }
+
+      this.status = {
+        status: 'LOADING',
+        message: 'Confirming you have the balance available in your wallet'
+      }
+      this.bouncer()
     }
   },
   watch: {

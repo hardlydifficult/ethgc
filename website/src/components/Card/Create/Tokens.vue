@@ -22,10 +22,8 @@ export default {
   components: {
     Token
   },
-  data: function () {
-    return {
-      tokens: [{type: 'ETH', address: 0, value: 1}]
-    }
+  props: {
+    tokens: Array
   },
   methods: {
     addToken () {

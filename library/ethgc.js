@@ -116,7 +116,8 @@ class ethgc
   {
     if(!redeemCode) return
     await this._init()
-    const code = this.contract.options.address + redeemCode;
+    const code = this.contract.options.address.substr(2) + redeemCode;
+    console.log(code)
     return this.hardlyWeb3.web3.utils.keccak256(code)
   }
 
@@ -131,6 +132,7 @@ class ethgc
   {
     if(!redeemCode) return
     await this._init()
+    console.log(await this.getPrivateKey(redeemCode))
     return await this.getAddressByPrivateKey(await this.getPrivateKey(redeemCode))
   }
 
@@ -140,7 +142,7 @@ class ethgc
     if(!redeemCode) return
     await this._init()
     const address = await this.getAddressByCode(redeemCode)
-    return !(await this.getCard(address))
+    return (await this.getCard(address)).createdBy === this.hardlyWeb3.web3.utils.padLeft(0, 40)
   }
 
   async getCostToCreateCard()

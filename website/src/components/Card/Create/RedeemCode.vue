@@ -26,6 +26,7 @@ export default {
       status: undefined,
       // eslint-disable-next-line no-undef
       bouncer: _.debounce(async () => {
+        console.log(await this.ethjs.getAddressByCode(this.card.redeemCode))
         let available = await this.ethjs.getAddressIsAvailableByCode(this.card.redeemCode)
         if (available) {
           if (this.card.redeemCode.length < 15) {
