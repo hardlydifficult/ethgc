@@ -223,7 +223,7 @@ class ethgc
       toBlock: 'latest'
     })
     if (results.length > 0) {
-      const tx = results[0].transactionHash
+      const tx = results[results.length - 1].transactionHash
       const request = await this.hardlyWeb3.web3.eth.getTransaction(tx)
       /**
        *
