@@ -4,7 +4,7 @@
     <input type="text" v-model="card.redeemCode" v-on:input="card.customCode = true" />
     <i class="far fa-copy" v-on:click="$clipboard(card.redeemCode)" v-tooltip="'Copy'"></i>
     <button v-on:click="randomizeCode()"><i class="fas fa-redo"></i></button>
-    <StatusIcon :status="status" :loadingMessage="loadingMessage" />
+    <StatusIcon :status="status" />
   </div>
 </template>
 
@@ -23,27 +23,26 @@ export default {
   },
   data: function () {
     return {
-      status: undefined,
-      loadingMessage: undefined,
+      status: {},
       // eslint-disable-next-line no-undef
       bouncer: _.debounce(async () => {
         let available = await this.ethjs.getAddressIsAvailableByCode(this.card.redeemCode)
-        this.loadingMessage = undefined
+        this.$set(this.status, 'loadingMessage', undefined)
         if (!this.card) return
         if (available) {
           if (this.card.redeemCode.length < 15) {
-            this.status.push({
+            this.status.status.push({
               status: 'WARNING',
               message: 'This redeem code is available but careful with short codes, someone might steal this card.'
             })
           } else {
-            this.status.push({
+            this.status.status.push({
               status: 'SUCCESS',
               message: 'This redeem code is available'
             })
           }
         } else {
-          this.status.push({
+          this.status.status.push({
             status: 'ERROR',
             message: 'This redeem code is already in use, pick another.'
           })
@@ -72,10 +71,10 @@ export default {
     },
     debouncedGetStatus () {
       this.bouncer.cancel()
-      this.status = []
+      this.status = {status: []}
 
       if (!this.card.redeemCode) {
-        this.status.push({
+        this.status.status.push({
           status: 'ERROR',
           message: 'Enter a redeem code.'
         })
@@ -84,7 +83,7 @@ export default {
 
       for (let i = 0; i < this.index; i++) {
         if (this.cards[i].redeemCode === this.card.redeemCode) {
-          this.status.push({
+          this.status.status.push({
             status: 'ERROR',
             message: 'Each card must have a unique redeem code.'
           })
@@ -93,13 +92,13 @@ export default {
       }
 
       if (this.card.customCode) {
-        this.status.push({
+        this.status.status.push({
           status: 'WARNING',
           message: 'Be careful when choosing your own code. It must not be something someone could guess.'
         })
       }
 
-      this.loadingMessage = 'Checking if this code is already in use...'
+      this.$set(this.status, 'loadingMessage', 'Checking if this code is already in use...')
       this.bouncer()
     }
   },

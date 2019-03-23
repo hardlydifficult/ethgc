@@ -28,7 +28,7 @@
     <span v-if="token.type !== 'ETH'">
       <button>Unlock</button>
     </span>
-    <StatusIcon :status="status" :loadingMessage="loadingMessage" />
+    <StatusIcon :status="status" />
   </div>
 </template>
 
@@ -43,18 +43,17 @@ export default {
   data: function () {
     return {
       status: undefined,
-      loadingMessage: undefined,
       // eslint-disable-next-line no-undef
       bouncer: _.debounce(async () => {
         const balance = await this.ethjs.hardlyWeb3.getEthBalance()
-        this.loadingMessage = undefined
+        this.$set(this.status, 'loadingMessage', undefined)
         if (balance.gte(this.ethjs.hardlyWeb3.toWei(this.token.value, 'ether'))) {
-          this.status.push({
+          this.status.status.push({
             status: 'SUCCESS',
             message: 'You have enough tokens in your wallet for this gift'
           })
         } else {
-          this.status.push({
+          this.status.status.push({
             status: 'ERROR',
             message: 'You do not have enough tokens in your wallet for this gift'
           })
@@ -89,10 +88,10 @@ export default {
     },
     debouncedGetStatus () {
       this.bouncer.cancel()
-      this.status = []
+      this.status = {status: []}
 
       if (!this.token.value) {
-        this.status.push({
+        this.status.status.push({
           status: 'ERROR',
           message: 'Please enter a value'
         })
@@ -108,7 +107,7 @@ export default {
               this.tokens[i].address === this.token.address
             )
           ) {
-            this.status.push({
+            this.status.status.push({
               status: 'ERROR',
               message: 'You already have this token selected above.'
             })
@@ -117,7 +116,7 @@ export default {
         }
       }
 
-      this.loadingMessage = 'Confirming you have the balance available in your wallet'
+      this.$set(this.status, 'loadingMessage', 'Confirming you have the balance available in your wallet')
       this.bouncer()
     }
   },

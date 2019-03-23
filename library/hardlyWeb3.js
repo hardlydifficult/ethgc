@@ -8,10 +8,10 @@ class HardlyWeb3
     this.web3 = new Web3(currentProvider)
     this.switchAccount(defaultAccount)
   }
-  
+
   switchAccount(account)
   {
-    this.web3.defaultAccount = account
+    this.web3.defaultAccount = this.web3.utils.toChecksumAddress(account)
   }
 
   async getEthBalance(account = this.web3.defaultAccount)

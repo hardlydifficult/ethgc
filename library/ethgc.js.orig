@@ -217,15 +217,14 @@ class ethgc
     if(!redeemCode) return
     await this._init()
     const address = await this.getAddressByCode(redeemCode)
-    const results = await this.contract.getPastEvents('Redeem', {
+    const results = await this.contract.getPastEvents('RedeemCard', {
       filter: {redeemCode: address}, // Using an array means OR: e.g. 20 or 23
       fromBlock: 0,
       toBlock: 'latest'
     })
     if (results.length > 0)
     {
-      const tx = results[results.length - 1]
-      return tx
+      aoeu
     }
   }
 
@@ -239,9 +238,14 @@ class ethgc
       fromBlock: 0,
       toBlock: 'latest'
     })
+<<<<<<< Updated upstream
+    if (results.length > 0) {
+      const tx = results[results.length - 1].transactionHash
+=======
     if (results.length > 0)
     {
-      const tx = results[results.length - 1].transactionHash
+      const tx = results[0].transactionHash
+>>>>>>> Stashed changes
       const request = await this.hardlyWeb3.web3.eth.getTransaction(tx)
       /**
        *
