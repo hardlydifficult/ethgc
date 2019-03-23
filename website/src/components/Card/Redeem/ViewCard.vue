@@ -17,7 +17,7 @@
       {{ messages.redeemedMessage }} -->
     </div>
     <div v-else>
-      <StatusIcon status="LOADING" message="Loading the card's message" />
+      <StatusIcon loadingMessage="Loading the card's message" />
     </div>
   </div>
 </template>
