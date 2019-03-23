@@ -62,3 +62,5 @@ typings/
 
 /contracts/build/
 *package-lock.json
+
+/docs/
