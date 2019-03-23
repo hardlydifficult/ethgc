@@ -229,6 +229,25 @@ class ethgc
     }
   }
 
+  async getCardsICreated()
+  {
+    await this._init()
+    const results = await this.contract.getPastEvents('CreateCard', {
+      filter: {creator: this.hardlyWeb3.web3.defaultAccount}, // Using an array means OR: e.g. 20 or 23
+      fromBlock: 0,
+      toBlock: 'latest'
+    })
+    let cards = []
+    for(let i = 0; i < results.length; i++)
+    {
+      cards.push({
+        tx: results[i].transactionHash,
+        redeemCodeAddress: results[i].returnValues.redeemCode
+      })
+    }
+    return cards
+  }
+
   async getCardMessages(redeemCode)
   {
     if(!redeemCode) return

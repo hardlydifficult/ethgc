@@ -7,6 +7,7 @@
     <div v-if="ethjs">
       <RedeemCards />
       <CreateCards />
+      <ManageCards />
     </div>
     <div v-else>
       LOGIN TO METAMASK!
@@ -19,6 +20,7 @@ import Header from './components/Template/Header'
 import Footer from './components/Template/Footer'
 import RedeemCards from './components/Card/Redeem/index'
 import CreateCards from './components/Card/Create/index'
+import ManageCards from './components/Card/Manage/index'
 
 export default {
   name: 'App',
@@ -26,6 +28,7 @@ export default {
     Header,
     RedeemCards,
     CreateCards,
+    ManageCards,
     Footer
   }
 }

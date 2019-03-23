@@ -3,7 +3,7 @@
     Redeem Code
     <input type="text" v-model="card.redeemCode" v-on:input="card.customCode = true" />
     <i class="far fa-copy" v-on:click="$clipboard(card.redeemCode)" v-tooltip="'Copy'"></i>
-    <button v-on:click="randomizeCode()"><i class="fas fa-redo"></i></button>
+    <button v-on:click="randomizeCode()" v-tooltip="'Generate a new random code'"><i class="fas fa-redo"></i></button>
     <StatusIcon :status="status" />
   </div>
 </template>

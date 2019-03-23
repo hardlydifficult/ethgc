@@ -4,7 +4,7 @@
       <div>
         Gift Card Value: {{ cardValue }}
         <span v-if="tokenType == 'eth'">
-          ETH
+          ether
         </span>
         <span v-else>
           <!-- TODO get symbol if we can -->
@@ -15,7 +15,7 @@
       <div>
         Fee to Create a Card:
           <span v-if="newCardFee">
-            {{ newCardFee }} ETH
+            {{ newCardFee }} ether
           </span>
           <span v-else>
             ...
@@ -23,7 +23,7 @@
       </div>
       <div>
         <div>
-          Estimated gas fee: {{ estimatedTotalGasCost }}* ETH
+          Estimated gas fee: {{ estimatedTotalGasCost }}* ether
           <!-- TODO how consistent is gas fee, can we remove estimated? -->
         </div>
         <div class="small">
@@ -33,7 +33,7 @@
       <div>
         Estimated total:
         <span v-if="estimatedTotalCost">
-          {{ estimatedTotalCost }} ETH
+          {{ estimatedTotalCost }} ether
           <span v-if="tokenType == 'erc20'">
             +
             {{ cardValue }}

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>Redeem a Gift Card</h3>
+    <h2>Redeem a Gift Card</h2>
 
     <RedeemCodes :cards="cards" v-on:cardIsValid="cardIsValid()"/>
 
