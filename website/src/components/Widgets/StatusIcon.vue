@@ -1,7 +1,7 @@
 <template>
   <span v-if="status">
     <span v-if="overallStatus" v-tooltip="messages">
-      <i v-if="overallStatus==='SUCCESS'" class="far fa-thumbs-up" />
+      <i v-if="overallStatus==='SUCCESS'" class="far fa-thumbs-up green" />
       <i v-else-if="overallStatus==='WARNING'" class="fas fa-exclamation orange" />
       <i v-else-if="overallStatus==='ERROR'" class="fas fa-times red" />
     </span>
@@ -55,5 +55,8 @@ export default {
 }
 .red {
   color: red
+}
+.green {
+  color: green
 }
 </style>
