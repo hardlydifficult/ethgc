@@ -45,6 +45,7 @@ contract MixinBank
   }
 
   /**
+  TODO comment update
     Takes tokens from the msg.sender and stores them in the contract.
 
     tokenAddresses.length == values.length: take value * cardCount
@@ -53,60 +54,10 @@ contract MixinBank
 
     @dev Be wary of re-entrancy when calling this method.
    */
-  function _takeTokens(
-    address[] memory tokenAddresses,
-    uint[] memory valueOrIds,
-    uint cardCount,
-    uint totalFees
-  ) internal
-  {
-    uint tokenCount = tokenAddresses.length;
-    uint ethRequired = totalFees;
-    bool isEntryPerCard = valueOrIds.length > tokenCount;
-
-    for(uint tokenId = 0; tokenId < tokenCount; tokenId++)
-    {
-      address tokenAddress = tokenAddresses[tokenId];
-
-      if(isEntryPerCard)
-      {
-        for(uint cardId = 0; cardId < cardCount; cardId++)
-        {
-          ethRequired += _takeToken(
-            tokenAddress,
-            valueOrIds[tokenId * cardCount + cardId]
-          );
-        }
-      }
-      else
-      {
-        ethRequired += _takeToken(
-          tokenAddress,
-          valueOrIds[tokenId].mul(cardCount)
-        );
-      }
-    }
-
-    require(msg.value == ethRequired, "INSUFFICIENT_FUNDS");
-  }
-
-  function _isNft(
-    address token
-  ) internal view
-    returns (bool)
-  {
-    // 0x80ac58cd is from eip-721
-    return IERC165(token).supportsInterface(0x80ac58cd);
-  }
-
-  /*********************************************************************************
-    Private
-   ********************************************************************************/
-
   function _takeToken(
     address tokenAddress,
     uint valueOrId
-  ) private
+  ) internal
     returns (uint ethRequired)
   {
     require(valueOrId != 0, "INVALID_CARD_VALUE");
@@ -133,6 +84,19 @@ contract MixinBank
 
     return 0;
   }
+
+  function _isNft(
+    address token
+  ) internal view
+    returns (bool)
+  {
+    // 0x80ac58cd is from eip-721
+    return IERC165(token).supportsInterface(0x80ac58cd);
+  }
+
+  /*********************************************************************************
+    Private
+   ********************************************************************************/
 
   function _transferToken(
     address tokenAddress,

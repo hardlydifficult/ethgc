@@ -3,7 +3,6 @@ pragma solidity ^0.5.6;
 import "./Mixins/ReentrancyGuard.sol";
 import "./Mixins/MixinBank.sol";
 import "./Mixins/MixinCards.sol";
-import "./Mixins/MixinContribute.sol";
 import "./Mixins/MixinCreate.sol";
 import "./Mixins/MixinDev.sol";
 import "./Mixins/MixinFees.sol";
@@ -24,6 +23,5 @@ contract ethgc is
   MixinBank,
   MixinCards,
   MixinCreate,
-  MixinContribute,
   MixinRedeem
 {}
