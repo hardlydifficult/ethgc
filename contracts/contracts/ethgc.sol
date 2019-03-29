@@ -1,27 +1,29 @@
 pragma solidity ^0.5.6;
 
-import "./Mixins/MixinCreateCard.sol";
-import "./Mixins/MixinCardCreator.sol";
+import "./Mixins/ReentrancyGuard.sol";
+import "./Mixins/MixinBank.sol";
+import "./Mixins/MixinCards.sol";
+import "./Mixins/MixinContribute.sol";
+import "./Mixins/MixinCreate.sol";
+import "./Mixins/MixinDev.sol";
 import "./Mixins/MixinFees.sol";
-import "./Mixins/MixinNftProxy.sol";
-import "./Mixins/MixinRedeemCard.sol";
-import "./Mixins/MixinSharedData.sol";
-import "./Mixins/MixinTokenProxy.sol";
+import "./Mixins/MixinRedeem.sol";
 
 
 /**
- * Ethereum Gift Cards
- * ethgc.com
- * 
- * Give away ETH, tokens, or NFTs using a redeem code.
- * https://github.com/hardlydifficult/ethgc
+  @title Ethereum Gift Cards (ethgc.com)
+  @author HardlyDifficult
+
+  @notice Give away ETH, tokens, or NFTs with a simple redeem code.
+  @dev https://github.com/hardlydifficult/ethgc
  */
 contract ethgc is
-  MixinTokenProxy,
-  MixinNftProxy,
-  MixinSharedData,
+  ReentrancyGuard,
+  MixinDev,
   MixinFees,
-  MixinCreateCard,
-  MixinRedeemCard,
-  MixinCardCreator
+  MixinBank,
+  MixinCards,
+  MixinCreate,
+  MixinContribute,
+  MixinRedeem
 {}
