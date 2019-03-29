@@ -17,12 +17,12 @@ contract MixinDev
     Allows the dev to switch to a new account.
    */
   function devTransferAccount(
-    address _dev
+    address newDevAccount
   ) public
     onlyDev
   {
-    require(_dev != address(0));
-    dev = _dev;
+    require(newDevAccount != address(0));
+    dev = newDevAccount;
   }
 
   /*********************************************************************************

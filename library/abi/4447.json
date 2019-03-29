@@ -40,6 +40,42 @@
     },
     {
       "constant": true,
+      "inputs": [
+        {
+          "name": "cardAddresses",
+          "type": "address[]"
+        },
+        {
+          "name": "tokenAddresses",
+          "type": "address[]"
+        },
+        {
+          "name": "valueOrIds",
+          "type": "uint256[]"
+        },
+        {
+          "name": "isNewCard",
+          "type": "bool"
+        }
+      ],
+      "name": "getFees",
+      "outputs": [
+        {
+          "name": "createFee",
+          "type": "uint256"
+        },
+        {
+          "name": "redemptionGas",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x3014d7b4"
+    },
+    {
+      "constant": true,
       "inputs": [],
       "name": "gasForErc20",
       "outputs": [
@@ -321,13 +357,13 @@
         },
         {
           "indexed": true,
-          "name": "cardAddress",
+          "name": "card",
           "type": "address"
         }
       ],
-      "name": "Contribute",
+      "name": "Create",
       "type": "event",
-      "signature": "0xb3bba8a8a2edde94117fce5fc218ff2904ac712cc19e933ea5a877de708f0f1f"
+      "signature": "0x96b5b9b8a7193304150caccf9b80d150675fa3d6af57761d8d8ef1d6f9a1a909"
     },
     {
       "anonymous": false,
@@ -339,13 +375,13 @@
         },
         {
           "indexed": true,
-          "name": "card",
+          "name": "cardAddress",
           "type": "address"
         }
       ],
-      "name": "Create",
+      "name": "Contribute",
       "type": "event",
-      "signature": "0x96b5b9b8a7193304150caccf9b80d150675fa3d6af57761d8d8ef1d6f9a1a909"
+      "signature": "0xb3bba8a8a2edde94117fce5fc218ff2904ac712cc19e933ea5a877de708f0f1f"
     },
     {
       "anonymous": false,

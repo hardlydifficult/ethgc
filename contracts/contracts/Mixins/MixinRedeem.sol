@@ -68,7 +68,7 @@ contract MixinRedeem is
     @param s an array of the s component for signatures from each card.
     @param tokenType 0: send all, value: send only a ERC20 or ERC721, max: send ETH.
    */
-  function redeemCards(
+  function redeemWithSignature(
     address[] calldata cardAddresses,
     uint8[] calldata v,
     bytes32[] calldata r,

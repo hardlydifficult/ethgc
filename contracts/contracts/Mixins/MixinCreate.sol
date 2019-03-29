@@ -70,7 +70,7 @@ contract MixinCreate is
     @param redeemedMessage a string to be displayed to the redeemer after a card has
     been redeemed.
    */
-  function createCards(
+  function create(
     address payable[] calldata cardAddresses,
     address[] calldata tokenAddresses,
     uint[] calldata valueOrIds,
