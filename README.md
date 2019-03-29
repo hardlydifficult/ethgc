@@ -1,4 +1,7 @@
 # ethgc
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/hardlydifficult/ethgc.svg)](https://greenkeeper.io/)
+
 ethgc: Ethereum Gift Cards - giveaway ETH, tokens (ERC-20), or NFTs (ERC-721) with a redeem code
 
 ![logo](./website/src/assets/logoPinkTie.png)
