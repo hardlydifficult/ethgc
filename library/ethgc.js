@@ -150,23 +150,27 @@ class ethgc {
   //#endregion
 
   //#region Redeem cards
-  async redeem(redeemCode, sendTo) {
-    if (tokenAddress == -1) {
-      tokenAddress = "0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF";
+  async redeem(
+    redeemCode,
+    sendTo,
+    tokenType = "0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"
+  ) {
+    if (tokenType == -1) {
+      tokenType = "0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF";
     }
     await this._init();
     const privateKey = await this._getPrivateKey(redeemCode);
-    return await this.contract.methods.redeem(sendTo, tokenAddress).send({
+    return await this.contract.methods.redeem(sendTo, tokenType).send({
       from: privateKey
     });
   }
 
   async redeemWithSignature(
     redeemCodes,
-    tokenAddress = "0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"
+    tokenType = "0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"
   ) {
-    if (tokenAddress == -1) {
-      tokenAddress = "0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF";
+    if (tokenType == -1) {
+      tokenType = "0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF";
     }
     await this._init();
     const cardAddresses = [];
@@ -192,20 +196,20 @@ class ethgc {
         v,
         r,
         s,
-        tokenAddress
+        tokenType
       )
     );
   }
 
   async cancel(
     cardAddresses,
-    tokenAddress = "0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"
+    tokenType = "0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"
   ) {
     await this._init();
-    if (tokenAddress == -1) {
-      tokenAddress = "0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF";
+    if (tokenType == -1) {
+      tokenType = "0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF";
     }
-    return send(this.contract.methods.cancel(cardAddresses, tokenAddress));
+    return send(this.contract.methods.cancel(cardAddresses, tokenType));
   }
   //#endregion
 

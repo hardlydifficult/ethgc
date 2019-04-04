@@ -23,7 +23,8 @@ contract ReentrancyGuard
    */
   modifier nonReentrant() {
     _guardCounter += 1;
+    uint256 localCounter = _guardCounter;
     _;
-    require(_guardCounter == 2);
+    require(localCounter == _guardCounter, "Reentrancy attempted");
   }
 }

@@ -23,7 +23,8 @@ contract MixinRedeem is
    */
   event Redeem(
     address indexed account,
-    address indexed cardAddress
+    address indexed cardAddress,
+    bool allSuccessful
   );
 
   /**
@@ -157,7 +158,7 @@ contract MixinRedeem is
       if(token.valueOrId > 0)
       {
         if(
-          (tokenType == address(0) || tokenType == token.tokenAddress)
+          (tokenType == address(-1) || tokenType == token.tokenAddress)
           && _trySendToken(sendTo, token.tokenAddress, token.valueOrId)
         )
         {
@@ -170,7 +171,7 @@ contract MixinRedeem is
       }
     }
 
-    emit Redeem(sendTo, cardAddress);
+    emit Redeem(sendTo, cardAddress, allSuccessful);
 
     if(allSuccessful)
     {

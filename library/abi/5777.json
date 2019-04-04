@@ -341,11 +341,16 @@
           "indexed": true,
           "name": "cardAddress",
           "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "allSuccessful",
+          "type": "bool"
         }
       ],
       "name": "Redeem",
       "type": "event",
-      "signature": "0x2f39d8fc9160ae00ea6a02229ae376184d7ad48d669c511863fedeb3f6f27edf"
+      "signature": "0x799edc2df71dc60ec03c29efe8bd1e439d89569bd38cf2ee46fb8e621d1f2d69"
     },
     {
       "anonymous": false,
@@ -425,5 +430,5 @@
       "signature": "0x7717e5bd2e90412f6194ccdf5172e836bb09fa0ee7d3087167b421222ecc0171"
     }
   ],
-  "address": "0x516959401268c080C72bc8Fe38Da9Ee1f7C09647"
+  "address": "0xB1109225Dd9d98177D3cC9d83f401F0001DfD1a1"
 }
