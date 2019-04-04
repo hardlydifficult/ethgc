@@ -10,9 +10,9 @@ contract("Fees", accounts => {
   });
 
   it("Can check the cost to create a card", async () => {
-    const cost = await ethgc.getCostToCreateCard();
+    const fees = await ethgc.getFeeRates();
     assert.equal(
-      cost.toFixed(),
+      fees.createFee.toFixed(),
       new BigNumber(web3.utils.toWei("0.00005", "ether")).toFixed()
     );
   });
@@ -26,23 +26,33 @@ contract("Fees", accounts => {
       ethgc.hardlyWeb3.switchAccount(accounts[1]);
     });
 
-    describe("developerSetCostToCreateCard", () => {
-      let originalFee;
+    describe("devSetFees", () => {
+      let originalFees;
 
       before(async () => {
-        originalFee = await ethgc.getCostToCreateCard();
+        originalFees = await ethgc.getFeeRates();
       });
 
       after(async () => {
-        await ethgc.developerSetCostToCreateCard(originalFee.toFixed());
+        await ethgc.devSetFees(
+          originalFees.createFee.toFixed(),
+          originalFees.gasForEth.toFixed(),
+          originalFees.gasForErc20.toFixed(),
+          originalFees.gasForErc721.toFixed()
+        );
       });
 
       it("Can change fee", async () => {
-        await ethgc.developerSetCostToCreateCard(1);
+        await ethgc.devSetFees(
+          1,
+          originalFees.gasForEth.toFixed(),
+          originalFees.gasForErc20.toFixed(),
+          originalFees.gasForErc721.toFixed()
+        );
       });
 
       it("Can read the new fee", async () => {
-        assert.equal((await ethgc.getCostToCreateCard()).toFixed(), 1);
+        assert.equal((await ethgc.getFeeRates()).createFee.toFixed(), 1);
       });
     });
 
@@ -51,7 +61,11 @@ contract("Fees", accounts => {
 
       before(async () => {
         // Creating a card so that there is some fees to collect
-        await ethgc.createCards([accounts[1]], [null], [1]);
+        await ethgc.create(
+          [accounts[1]],
+          [ethgc.hardlyWeb3.web3.utils.padLeft(0, 40)],
+          [1]
+        );
       });
 
       it("Can read fees collected", async () => {
@@ -59,7 +73,7 @@ contract("Fees", accounts => {
         assert(fees.gt(0));
         assert.equal(
           fees.toFixed(),
-          (await ethgc.getCostToCreateCard()).toFixed()
+          (await ethgc.getFeeRates()).createFee.toFixed()
         );
       });
 

@@ -18,17 +18,17 @@ contract("CreateCard", accounts => {
       value = ethgc.hardlyWeb3.toWei("0.1", "ether");
       cardAddress = await ethgc.getCardAddress(redeemCode);
 
-      const tx = {
-        hash: await ethgc.create(
-          [cardAddress],
-          [web3.utils.padLeft(0, 40)],
-          [value]
-        )
-      };
+      const tx = await ethgc.create(
+        [cardAddress],
+        [web3.utils.padLeft(0, 40)],
+        [value]
+      );
       const gasUsed = await ethgc.hardlyWeb3.getGasCost(tx);
       const createFee = new BigNumber(tx.request.value).minus(value);
       console.log(
-        `Create cost ${ethgc.hardlyWeb3.fromWei(createFee.toFixed())} ETH + ${ethgc.hardlyWeb3.fromWei(gasUsed.toFixed())} ETH gas`
+        `Create cost ${ethgc.hardlyWeb3.fromWei(
+          createFee.toFixed()
+        )} ETH + ${ethgc.hardlyWeb3.fromWei(gasUsed.toFixed())} ETH gas`
       );
     });
 

@@ -1,10 +1,13 @@
 const HardlyWeb3 = require("./hardlyWeb3.js");
 const BigNumber = require("bignumber.js");
 
+let _this;
+
 class ethgc {
   //#region Init
   constructor(currentProvider, defaultAccount) {
     this.hardlyWeb3 = new HardlyWeb3(currentProvider, defaultAccount);
+    _this = this;
   }
 
   async _init() {
@@ -18,7 +21,7 @@ class ethgc {
   }
   //#endregion
 
-  //#region Create / Contribute x
+  //#region Create / Contribute
   async create(
     cardAddresses,
     tokenAddresses,
@@ -34,27 +37,16 @@ class ethgc {
       true
     );
 
-    return new Promise((resolve, reject) => {
-      this.contract.methods
-        .create(
-          cardAddresses,
-          tokenAddresses,
-          valueOrIds,
-          description,
-          redeemedMessage
-        )
-        .send({
-          from: this.hardlyWeb3.web3.defaultAccount,
-          value: ethValue.toFixed(),
-          gas: 5000000
-        })
-        .on("transactionHash", tx => {
-          resolve(tx);
-        })
-        .on("error", error => {
-          reject(error);
-        });
-    });
+    return send(
+      this.contract.methods.create(
+        cardAddresses,
+        tokenAddresses,
+        valueOrIds,
+        description,
+        redeemedMessage
+      ),
+      ethValue
+    );
   }
 
   async calcEthRequired(cardAddresses, tokenAddresses, valueOrIds, isNewCard) {
@@ -84,13 +76,14 @@ class ethgc {
       valueOrIds,
       false
     );
-    return await this.contract.methods
-      .contribute(cardAddresses, tokenAddresses, valueOrIds)
-      .send({
-        from: this.hardlyWeb3.web3.defaultAccount,
-        value: ethValue.toFixed(),
-        gas: 5000000
-      });
+    return send(
+      this.contract.methods.contribute(
+        cardAddresses,
+        tokenAddresses,
+        valueOrIds
+      ),
+      ethValue
+    );
   }
 
   async getFeeRates() {
@@ -193,11 +186,15 @@ class ethgc {
       s.push(sig.s);
     }
 
-    return await this.contract.methods
-      .redeemWithSignature(cardAddresses, v, r, s, tokenAddress)
-      .send({
-        from: this.hardlyWeb3.web3.defaultAccount
-      });
+    return send(
+      this.contract.methods.redeemWithSignature(
+        cardAddresses,
+        v,
+        r,
+        s,
+        tokenAddress
+      )
+    );
   }
 
   async cancel(
@@ -208,11 +205,7 @@ class ethgc {
     if (tokenAddress == -1) {
       tokenAddress = "0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF";
     }
-    return await this.contract.methods
-      .cancel(cardAddresses, tokenAddress)
-      .send({
-        from: this.hardlyWeb3.web3.defaultAccount
-      });
+    return send(this.contract.methods.cancel(cardAddresses, tokenAddress));
   }
   //#endregion
 
@@ -223,27 +216,26 @@ class ethgc {
       .call({ from: this.hardlyWeb3.web3.defaultAccount });
   }
 
-  async developerSetFees(createFee, gasForEth, gasForErc20, gasForErc721) {
+  async devSetFees(createFee, gasForEth, gasForErc20, gasForErc721) {
     await this._init();
-    return await this.contract.methods
-      .developerSetFees(createFee, gasForEth, gasForErc20, gasForErc721)
-      .send({
-        from: this.hardlyWeb3.web3.defaultAccount
-      });
+    return send(
+      this.contract.methods.devSetFees(
+        createFee,
+        gasForEth,
+        gasForErc20,
+        gasForErc721
+      )
+    );
   }
 
   async devTransferAccount(newDevAccount) {
     await this._init();
-    return await this.contract.methods
-      .devTransferAccount(newDevAccount)
-      .send({ from: this.hardlyWeb3.web3.defaultAccount });
+    return send(this.contract.methods.devTransferAccount(newDevAccount));
   }
 
   async developerWithdrawFees() {
     await this._init();
-    return await this.contract.methods.developerWithdrawFees().send({
-      from: this.hardlyWeb3.web3.defaultAccount
-    });
+    return send(this.contract.methods.developerWithdrawFees());
   }
 
   async getFeesCollected() {
@@ -425,6 +417,23 @@ function hex_to_ascii(str1) {
     str += String.fromCharCode(parseInt(hex.substr(n, 2), 16));
   }
   return str;
+}
+
+function send(functionCall, ethValue = undefined) {
+  return new Promise((resolve, reject) => {
+    functionCall
+      .send({
+        from: _this.hardlyWeb3.web3.defaultAccount,
+        value: ethValue ? ethValue.toFixed() : undefined,
+        gas: 5000000 // TODO
+      })
+      .on("transactionHash", tx => {
+        resolve({ hash: tx });
+      })
+      .on("error", error => {
+        reject(error);
+      });
+  });
 }
 
 module.exports = ethgc;
