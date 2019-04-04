@@ -33,29 +33,38 @@ class ethgc {
       valueOrIds,
       true
     );
-    return await this.contract.methods
-      .create(
-        cardAddresses,
-        tokenAddresses,
-        valueOrIds,
-        description,
-        redeemedMessage
-      )
-      .send({
-        from: this.hardlyWeb3.web3.defaultAccount,
-        value: ethValue.toFixed(),
-        gas: 5000000
-      });
+
+    return new Promise((resolve, reject) => {
+      this.contract.methods
+        .create(
+          cardAddresses,
+          tokenAddresses,
+          valueOrIds,
+          description,
+          redeemedMessage
+        )
+        .send({
+          from: this.hardlyWeb3.web3.defaultAccount,
+          value: ethValue.toFixed(),
+          gas: 5000000
+        })
+        .on("transactionHash", tx => {
+          resolve(tx);
+        })
+        .on("error", error => {
+          reject(error);
+        });
+    });
   }
 
   async calcEthRequired(cardAddresses, tokenAddresses, valueOrIds, isNewCard) {
-    const [createFee, redemptionGas] = await this.getFees(
+    const { totalCreateFee, redemptionGas } = await this.getFees(
       cardAddresses,
       tokenAddresses,
       valueOrIds,
       isNewCard
     );
-    let ethValue = createFee.plus(redemptionGas);
+    let ethValue = totalCreateFee.plus(redemptionGas);
     for (let i = 0; i < tokenAddresses.length; i++) {
       if (!tokenAddresses[i]) {
         tokenAddresses[i] = this.hardlyWeb3.web3.utils.padLeft(0, 40);
@@ -112,11 +121,14 @@ class ethgc {
 
   async getFees(cardAddresses, tokenAddresses, valueOrIds, isNewCard) {
     await this._init();
-    const [createFee, redemptionGas] = await this.contract.methods
+    const {
+      totalCreateFee,
+      redemptionGas
+    } = await this.contract.methods
       .getFees(cardAddresses, tokenAddresses, valueOrIds, isNewCard)
       .call({ from: this.hardlyWeb3.web3.defaultAccount });
     return {
-      createFee: new BigNumber(createFee),
+      totalCreateFee: new BigNumber(totalCreateFee),
       redemptionGas: new BigNumber(redemptionGas)
     };
   }

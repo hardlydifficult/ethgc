@@ -121,11 +121,11 @@ contract MixinCreate is
     uint[] calldata valueOrIds,
     bool isNewCard
   ) external view
-    returns (uint createFee, uint redemptionGas)
+    returns (uint totalCreateFee, uint redemptionGas)
   {
     if(isNewCard)
     {
-      createFee = createFee * cardAddresses.length;
+      totalCreateFee = createFee * cardAddresses.length;
     }
 
     bool isEntryPerCard = valueOrIds.length > tokenAddresses.length;
@@ -145,7 +145,7 @@ contract MixinCreate is
         // contribute: Discover existing token if applicable
         uint tokenIndex = uint(-1);
         if(isNewCard && (
-            tokenAddresses[tokenId] != address(0)
+            tokenAddresses[tokenId] == address(0)
             || !_isNft(tokenAddresses[tokenId])
             ))
         {
@@ -239,7 +239,7 @@ contract MixinCreate is
         // contribute: Discover existing token if applicable
         uint tokenIndex = uint(-1);
         if(isNewCard && (
-            tokenAddresses[tokenId] != address(0)
+            tokenAddresses[tokenId] == address(0)
             || !_isNft(tokenAddresses[tokenId])
             ))
         {

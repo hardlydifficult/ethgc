@@ -4,7 +4,7 @@
       "constant": false,
       "inputs": [
         {
-          "name": "_dev",
+          "name": "newDevAccount",
           "type": "address"
         }
       ],
@@ -61,7 +61,7 @@
       "name": "getFees",
       "outputs": [
         {
-          "name": "createFee",
+          "name": "totalCreateFee",
           "type": "uint256"
         },
         {
@@ -107,6 +107,37 @@
       "stateMutability": "nonpayable",
       "type": "function",
       "signature": "0x4d9b996b"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "cardAddresses",
+          "type": "address[]"
+        },
+        {
+          "name": "v",
+          "type": "uint8[]"
+        },
+        {
+          "name": "r",
+          "type": "bytes32[]"
+        },
+        {
+          "name": "s",
+          "type": "bytes32[]"
+        },
+        {
+          "name": "tokenType",
+          "type": "address"
+        }
+      ],
+      "name": "redeemWithSignature",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0x6b89f4bf"
     },
     {
       "constant": true,
@@ -181,37 +212,6 @@
       "signature": "0x91cca3db"
     },
     {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "cardAddresses",
-          "type": "address[]"
-        },
-        {
-          "name": "tokenAddresses",
-          "type": "address[]"
-        },
-        {
-          "name": "valueOrIds",
-          "type": "uint256[]"
-        },
-        {
-          "name": "description",
-          "type": "string"
-        },
-        {
-          "name": "redeemedMessage",
-          "type": "string"
-        }
-      ],
-      "name": "createCards",
-      "outputs": [],
-      "payable": true,
-      "stateMutability": "payable",
-      "type": "function",
-      "signature": "0xa509d92f"
-    },
-    {
       "constant": true,
       "inputs": [],
       "name": "createFee",
@@ -256,37 +256,6 @@
       "signature": "0xc7e27a47"
     },
     {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "cardAddresses",
-          "type": "address[]"
-        },
-        {
-          "name": "v",
-          "type": "uint8[]"
-        },
-        {
-          "name": "r",
-          "type": "bytes32[]"
-        },
-        {
-          "name": "s",
-          "type": "bytes32[]"
-        },
-        {
-          "name": "tokenType",
-          "type": "address"
-        }
-      ],
-      "name": "redeemCards",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xcd2c3b12"
-    },
-    {
       "constant": true,
       "inputs": [
         {
@@ -313,6 +282,37 @@
       "stateMutability": "view",
       "type": "function",
       "signature": "0xceafb18d"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "cardAddresses",
+          "type": "address[]"
+        },
+        {
+          "name": "tokenAddresses",
+          "type": "address[]"
+        },
+        {
+          "name": "valueOrIds",
+          "type": "uint256[]"
+        },
+        {
+          "name": "description",
+          "type": "string"
+        },
+        {
+          "name": "redeemedMessage",
+          "type": "string"
+        }
+      ],
+      "name": "create",
+      "outputs": [],
+      "payable": true,
+      "stateMutability": "payable",
+      "type": "function",
+      "signature": "0xcec339bc"
     },
     {
       "constant": true,
