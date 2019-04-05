@@ -18,15 +18,15 @@ export default {
     ViewCard
   },
   props: {
-    cards: Array,
-    index: Number
+    card: Object
   },
   data: function () {
     return {
       status: undefined,
       // eslint-disable-next-line no-undef
       bouncer: _.debounce(async () => {
-        const card = await this.ethjs.getCardByCode(this.card.redeemCode)
+        const cardAddress = this.ethjs.getCardAddress(this.card.redeemCode);
+        const card = await this.ethjs.getCard(cardAddress)
         this.$set(this.status, 'loadingMessage', undefined)
         if (!this.card) return
 
@@ -36,10 +36,10 @@ export default {
             message: 'Card not found, check the redeem code.'
           })
           this.$set(this.status, 'loadingMessage', 'Checking if the code was previously redeemed (vs it was never a valid code)')
-          const tx = await this.ethjs.getRedeemTxByCode(this.card.redeemCode)
+          const tx = await this.ethjs.getRedeemTx(cardAddress)
           this.$set(this.status, 'loadingMessage', undefined)
           if (tx) {
-            if (tx.returnValues.redeemer === this.ethjs.hardlyWeb3.web3.defaultAccount) {
+            if (tx.returnValues.redeemer === this.ethjs.hardlyWeb3.defaultAccount()) {
               this.status.url = `https://etherscan.io/tx/${tx.transactionHash}`
               this.status.urlMessage = 'You redeemed this card earlier. Click to view on EtherScan.'
             } else {
@@ -57,17 +57,6 @@ export default {
           message: 'This redeem code is available'
         })
       }, 2000)
-    }
-  },
-  computed: {
-    card: {
-      get: function () {
-        if (!this.cards) return
-        return this.cards[this.index]
-      },
-      set: function (newCard) {
-        this.cards[this.index] = newCard
-      }
     }
   },
   beforeDestroy: function () {

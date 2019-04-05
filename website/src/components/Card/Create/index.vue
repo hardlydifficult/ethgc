@@ -34,7 +34,7 @@ export default {
     createCard: async function () {
       const cardAddresses = []
       for (let i = 0; i < this.cards.length; i++) {
-        cardAddresses.push(await this.ethjs.getAddressByCode(this.cards[i].redeemCode))
+        cardAddresses.push(await this.ethjs.getCardAddress(this.cards[i].redeemCode))
       }
       const tokenAddresses = []
       const tokenValues = []
@@ -46,7 +46,7 @@ export default {
         }
         tokenValues.push(this.tokens[i].baseValue)
       }
-      await this.ethjs.createCards(
+      await this.ethjs.create(
         cardAddresses,
         tokenAddresses,
         tokenValues,

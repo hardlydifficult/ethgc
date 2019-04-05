@@ -2,7 +2,7 @@
   <div>
     <h2>Redeem a Gift Card</h2>
 
-    <RedeemCodes :cards="cards" v-on:cardIsValid="cardIsValid()"/>
+    <RedeemCode :card="card" v-on:cardIsValid="cardIsValid()"/>
 
     <div v-if="canRedeem">
       <div>
@@ -13,37 +13,29 @@
 </template>
 
 <script>
-import RedeemCodes from './RedeemCodes'
+import RedeemCode from './RedeemCode'
 
 export default {
   components: {
-    RedeemCodes
+    RedeemCode
   },
   data: function () {
     return {
-      cards: [{redeemCode: undefined, customCode: false}],
+      card: {redeemCode: undefined, customCode: false},
       canRedeem: false
     }
   },
   methods: {
     cardIsValid: function (newValue) {
-      for (let i = 0; i < this.cards.length; i++) {
-        if (this.cards[i].isValid) {
-          this.canRedeem = true
-          return
-        }
+      if (this.card.isValid) {
+        this.canRedeem = true
+        return
       }
       this.canRedeem = false
     },
     redeem: async function () {
       if (!this.canRedeem) return
-      const redeemableCards = []
-      for (let i = 0; i < this.cards.length; i++) {
-        if (this.cards[i].isValid) {
-          redeemableCards.push(this.cards[i])
-        }
-      }
-      await this.ethjs.redeemCardsByCodes(redeemableCards)
+      await this.ethjs.redeem(this.card.redeemCode)
     }
   }
 }

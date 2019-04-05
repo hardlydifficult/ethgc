@@ -28,9 +28,7 @@ contract("RedeemCard", accounts => {
       console.log(`Redeem cost ${tx.gasUsed}`);
       assert.equal(
         (await ethgc.hardlyWeb3.getEthBalance()).toFixed(),
-        balance
-          .plus(value)
-          .toFixed()
+        balance.plus(value).toFixed()
       );
     });
 
