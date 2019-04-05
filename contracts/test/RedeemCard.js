@@ -6,7 +6,7 @@ contract("RedeemCard", accounts => {
 
   before(async () => {
     ethgc = new EthgcJs(web3.currentProvider, accounts[0]);
-    ethgc.hardlyWeb3.switchAccount(accounts[0])
+    ethgc.hardlyWeb3.switchAccount(accounts[0]);
   });
 
   describe("ETH card", () => {

@@ -6,6 +6,7 @@ import AsyncComputed from 'vue-async-computed'
 import VTooltip from 'v-tooltip'
 import Clipboard from 'v-clipboard'
 import Ethjs from '../../library/ethgc.js'
+import '@/assets/css/tailwind.css'
 Vue.use(AsyncComputed)
 Vue.use(VTooltip)
 Vue.use(Clipboard)
@@ -14,11 +15,9 @@ window._ = require('lodash')
 
 Vue.config.productionTip = false
 
-Vue.prototype.ethjs = new Ethjs(window.web3.currentProvider, window.web3.eth.defaultAccount)
+Vue.prototype.ethjs = new Ethjs(window.web3 ? window.web3.currentProvider : undefined)
 if (window.ethereum) {
-  window.ethereum.enable().then(function () {
-    Vue.prototype.ethjs.hardlyWeb3.switchAccount(window.web3.eth.defaultAccount)
-  })
+  window.ethereum.enable()
 } // TODO maybe else means go get metamask
 
 /* eslint-disable no-new */

@@ -26,7 +26,7 @@ export default {
       status: {},
       // eslint-disable-next-line no-undef
       bouncer: _.debounce(async () => {
-        const cardAddress = await this.ethjs.getCardAddress(this.card.redeemCode);
+        const cardAddress = await this.ethjs.getCardAddress(this.card.redeemCode)
         let available = (await this.ethjs.getCard(cardAddress)) === undefined
         this.$set(this.status, 'loadingMessage', undefined)
         if (!this.card) return

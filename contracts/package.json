@@ -8,7 +8,7 @@
     "compile": "truffle compile --all",
     "test": "truffle test",
     "verify": "truffle run verify",
-    "lint": "eslint . --fix && cd ../library/ && eslint . --fix && cd ../contracts"
+    "lint": "eslint . --fix && cd ../library/ && eslint . --fix && cd ../website/ && eslint . --fix && cd ../contracts"
   },
   "repository": {
     "type": "git",

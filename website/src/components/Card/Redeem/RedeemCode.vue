@@ -1,9 +1,14 @@
 <template>
-  <div>
-    Redeem Code
-    <input type="text" v-model="card.redeemCode" />
-    <i class="far fa-clipboard" v-on:click="paste()" v-tooltip="'Paste'"></i>
-    <StatusIcon :status="status" />
+  <div class="whitespace-no-wrap">
+    <div class="w-12 inline-block text-left">
+    </div>
+    <input type="text"
+      class="w-64 shadow appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
+      v-model="card.redeemCode" placeholder="Redeem Code" />
+    <div class="w-12 inline-block text-left">
+      <i class="far fa-clipboard" v-on:click="paste()" v-tooltip="'Paste'"></i>
+      <StatusIcon :status="status" />
+    </div>
     <ViewCard :card="card" v-if="card.isValid" />
   </div>
 </template>
@@ -25,7 +30,7 @@ export default {
       status: undefined,
       // eslint-disable-next-line no-undef
       bouncer: _.debounce(async () => {
-        const cardAddress = await this.ethjs.getCardAddress(this.card.redeemCode);
+        const cardAddress = await this.ethjs.getCardAddress(this.card.redeemCode)
         const card = await this.ethjs.getCard(cardAddress)
         this.$set(this.status, 'loadingMessage', undefined)
         if (!this.card) return
@@ -75,12 +80,6 @@ export default {
       this.$emit('cardIsValid')
 
       if (!this.card.redeemCode) {
-        if (this.cards.length > 1) {
-          this.status.status.push({
-            status: 'ERROR',
-            message: 'Enter a redeem code.'
-          })
-        }
         return
       }
 

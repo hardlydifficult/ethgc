@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h2>Create a new Gift Card</h2>
+    <div class="text-3xl text-center">
+      Create a new Gift Card
+    </div>
 
     <RedeemCodes :cards="cards" />
     <Tokens :tokens="tokens" />
