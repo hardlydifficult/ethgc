@@ -2,7 +2,7 @@
   <div id="app">
     <Header />
     <h1>
-      Website is WIP - please come back later!
+      Website is WIP - please come back later!!!
     </h1>
     <div v-if="ethjs">
       <RedeemCards />
