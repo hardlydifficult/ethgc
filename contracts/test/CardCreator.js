@@ -8,7 +8,8 @@ contract("CardCreator", accounts => {
   let ethgc;
 
   before(async () => {
-    ethgc = new ethgcJs(web3.currentProvider, accounts[0]);
+    ethgc = new ethgcJs(web3.currentProvider);
+    ethgc.hardlyWeb3.switchAccount(accounts[0])
   });
 
   describe("For cards I created", () => {

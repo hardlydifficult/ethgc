@@ -133,8 +133,9 @@ class ethgc {
   //#endregion
 
   //#region Viewing cards
-  getCardAddress(redeemCode) {
+  async getCardAddress(redeemCode) {
     if (!redeemCode) return;
+    await this._init();
     return getAddressByPrivateKey(getPrivateKey(redeemCode));
   }
 

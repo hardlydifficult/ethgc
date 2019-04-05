@@ -48,7 +48,8 @@ class HardlyWeb3 {
   }
 
   defaultAccount() {
-    return this.web3.currentProvider.selectedAddress;
+    const account = this.web3.currentProvider.selectedAddress || this.web3.defaultAccount;
+    return account;
   }
 }
 

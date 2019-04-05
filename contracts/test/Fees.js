@@ -7,6 +7,7 @@ contract("Fees", accounts => {
 
   before(async () => {
     ethgc = new ethgcJs(web3.currentProvider, accounts[0]);
+    ethgc.hardlyWeb3.switchAccount(accounts[0])
   });
 
   it("Can check the cost to create a card", async () => {
