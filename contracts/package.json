@@ -4,9 +4,11 @@
   "description": "giveaway ETH or tokens with a redeem code",
   "main": "index.js",
   "scripts": {
+    "build": "npm run compile",
     "compile": "truffle compile --all",
     "test": "truffle test",
-    "verify": "truffle run verify"
+    "verify": "truffle run verify",
+    "lint": "eslint . --fix && cd ../library/ && eslint . --fix && cd ../contracts"
   },
   "repository": {
     "type": "git",
@@ -20,8 +22,17 @@
   "homepage": "https://github.com/hardlydifficult/ethgc#readme",
   "dependencies": {
     "bignumber.js": "^8.1.1",
+    "ganache-cli": "^6.4.1",
     "openzeppelin-solidity": "^2.2.0",
+    "prettier": "^1.16.4",
     "truffle": "^5.0.7",
     "truffle-security": "^1.3.1"
+  },
+  "devDependencies": {
+    "eslint": "^5.15.3",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-config-prettier": "^4.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-prettier": "^3.0.1"
   }
 }

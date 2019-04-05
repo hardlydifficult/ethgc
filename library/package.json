@@ -16,6 +16,13 @@
   "homepage": "https://github.com/hardlydifficult/ethgc#readme",
   "dependencies": {
     "bignumber.js": "^8.1.1",
-    "web3": "1.0.0-beta.51"
+    "web3": "1.0.0-beta.37"
+  },
+  "devDependencies": {
+    "eslint": "^5.15.3",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-config-prettier": "^4.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-prettier": "^3.0.1"
   }
 }
