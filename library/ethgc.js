@@ -131,8 +131,8 @@ class ethgc {
   async getCardAddress(redeemCode) {
     if (!redeemCode) return;
     await this._init();
-    return await this._getAddressByPrivateKey(
-      await this._getPrivateKey(redeemCode)
+    return await getAddressByPrivateKey(
+      await getPrivateKey(redeemCode)
     );
   }
 
@@ -152,17 +152,15 @@ class ethgc {
   //#region Redeem cards
   async redeem(
     redeemCode,
-    sendTo,
+    sendTo = this.hardlyWeb3.web3.defaultAccount,
     tokenType = "0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"
   ) {
     if (tokenType == -1) {
       tokenType = "0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF";
     }
     await this._init();
-    const privateKey = await this._getPrivateKey(redeemCode);
-    return await this.contract.methods.redeem(sendTo, tokenType).send({
-      from: privateKey
-    });
+    const privateKey = await getPrivateKey(redeemCode);
+    return send(this.contract.methods.redeem(sendTo, tokenType), 0, privateKey);
   }
 
   async redeemWithSignature(
@@ -179,9 +177,9 @@ class ethgc {
     const s = [];
 
     for (let i = 0; i < redeemCodes.length; i++) {
-      const privateKey = await this._getPrivateKey(redeemCodes[i].redeemCode);
-      cardAddresses.push(await this.getAddressByPrivateKey(privateKey));
-      const sig = await this._sign(
+      const privateKey = await getPrivateKey(redeemCodes[i].redeemCode);
+      cardAddresses.push(await getAddressByPrivateKey(privateKey));
+      const sig = await sign(
         this.hardlyWeb3.web3.defaultAccount,
         privateKey
       );
@@ -384,34 +382,30 @@ Skip
     }
   }
   //#endregion
+}
 
-  //#region Private helpers
-  async _sign(account, redeemCodePrivateKey) {
-    const sig = this.hardlyWeb3.web3.eth.accounts
-      .privateKeyToAccount(redeemCodePrivateKey)
-      .sign(
-        this.hardlyWeb3.web3.utils.keccak256(
-          this.contract.options.address + account.substring(2)
-        )
-      );
-    return { v: sig.v, r: sig.r, s: sig.s };
-  }
+async function sign(account, redeemCodePrivateKey) {
+  const sig = _this.hardlyWeb3.web3.eth.accounts
+    .privateKeyToAccount(redeemCodePrivateKey)
+    .sign(
+      _this.hardlyWeb3.web3.utils.keccak256(
+        _this.contract.options.address + account.substring(2)
+      )
+    );
+  return { v: sig.v, r: sig.r, s: sig.s };
+}
 
-  async _getPrivateKey(redeemCode) {
-    if (!redeemCode) return;
-    await this._init();
-    const code = this.contract.options.address + redeemCode;
-    return this.hardlyWeb3.web3.utils.keccak256(code);
-  }
+async function getPrivateKey(redeemCode) {
+  if (!redeemCode) return;
+  const code = _this.contract.options.address + redeemCode;
+  return _this.hardlyWeb3.web3.utils.keccak256(code);
+}
 
-  async _getAddressByPrivateKey(privateKey) {
-    if (!privateKey) return;
-    await this._init();
-    return (await this.hardlyWeb3.web3.eth.accounts.privateKeyToAccount(
-      privateKey
-    )).address;
-  }
-  //#endregion
+async function getAddressByPrivateKey(privateKey) {
+  if (!privateKey) return;
+  return (await _this.hardlyWeb3.web3.eth.accounts.privateKeyToAccount(
+    privateKey
+  )).address;
 }
 
 function hex_to_ascii(str1) {
@@ -423,20 +417,51 @@ function hex_to_ascii(str1) {
   return str;
 }
 
-function send(functionCall, ethValue = undefined) {
-  return new Promise((resolve, reject) => {
-    functionCall
-      .send({
-        from: _this.hardlyWeb3.web3.defaultAccount,
-        value: ethValue ? ethValue.toFixed() : undefined,
-        gas: 5000000 // TODO
-      })
-      .on("transactionHash", tx => {
-        resolve({ hash: tx });
-      })
-      .on("error", error => {
-        reject(error);
-      });
+async function setMaxGasPrice(sendOptions)
+{
+  let balance = await _this.hardlyWeb3.getEthBalance(sendOptions.from)
+  balance = balance.minus(sendOptions.value ? sendOptions.value : 0);
+
+  sendOptions.gasPrice = new BigNumber(Math.min(
+    parseInt(_this.hardlyWeb3.toWei('4', 'gwei')),
+    balance.div(sendOptions.gas).toNumber()
+  )).integerValue(BigNumber.ROUND_DOWN);
+  if(sendOptions.gasPrice.lt(_this.hardlyWeb3.toWei('0.5', 'gwei'))) {
+    throw new Error(`The account does not have enough balance: gasPrice~ ${sendOptions.gasPrice}`)
+  }
+
+  // TODO change the gas and value if min kicks in.
+   /// ... than add the remainder to the value... which is 0 for this use case.
+}
+
+function send(functionCall, ethValue = undefined, privateKey) {
+  const sendOptions = {
+    value: ethValue ? ethValue.toFixed() : undefined,
+  }
+
+  return new Promise(async function (resolve, reject) {
+    if (privateKey)
+    {
+      const account = _this.hardlyWeb3.web3.eth.accounts.privateKeyToAccount(privateKey);
+      _this.hardlyWeb3.web3.eth.accounts.wallet.add(account);
+      sendOptions.from = account.address;
+    }
+    else
+    {
+      sendOptions.from = _this.hardlyWeb3.web3.defaultAccount;
+    }
+
+    sendOptions.gas = new BigNumber(await functionCall.estimateGas(sendOptions))
+      .plus(3000) // I'm not sure why this helps, but createCard consistently fails without it
+    await setMaxGasPrice(sendOptions)
+
+    functionCall.send(sendOptions)
+    .on("transactionHash", tx => {
+      resolve({ hash: tx });
+    })
+    .on("error", error => {
+      reject(error);
+    });
   });
 }
 

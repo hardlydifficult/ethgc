@@ -55,7 +55,7 @@ contract MixinFees is
   {
     devSetFees({
       newCreateFee:    0.00005 ether,
-      newGasForEth:    8000 * 1e9,
+      newGasForEth:    78500 * 1e9, // all inclusive
       newGasForErc20:  52000 * 1e9,
       newGasForErc721: 140000 * 1e9
     });
