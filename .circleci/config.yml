@@ -43,7 +43,6 @@ jobs:
       - run: cd library && npm i && cd ..
       - run: cd contracts && npm i && npm run test && cd ..
       - run: cd website && npm i && npm run build && cd ..
-      - run: cd website && npm i && npm run build && cd ..
 
       # deploy
       - deploy:
