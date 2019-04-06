@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="body">
-      <Header />
+      <PageHeader />
       <div class="flex justify-center text-center">
         <div class="pr-1 pl-1 pt-3 justify-center veryRounded" style="background-color: #AAC1B5">
           <RedeemCard />
@@ -41,12 +41,12 @@
         </div>
       </div>
     </div>
-    <Footer />
+    <PageFooter />
   </div>
 </template>
 <script>
-import Header from './components/Template/Header'
-import Footer from './components/Template/Footer'
+import PageHeader from './components/Template/PageHeader'
+import PageFooter from './components/Template/PageFooter'
 import RedeemCard from './components/Card/Redeem/index'
 import CreateCards from './components/Card/Create/index'
 import ManageCards from './components/Card/Manage/index'
@@ -55,11 +55,11 @@ import LearnMore from './components/About/index'
 export default {
   name: 'App',
   components: {
-    Header,
+    PageHeader,
     RedeemCard,
     CreateCards,
     ManageCards,
-    Footer,
+    PageFooter,
     LearnMore
   },
   data: () => {

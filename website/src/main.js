@@ -6,6 +6,10 @@ import AsyncComputed from 'vue-async-computed'
 import VTooltip from 'v-tooltip'
 import Clipboard from 'v-clipboard'
 import Ethjs from '../../library/ethgc.js'
+import BootstrapVue from 'bootstrap-vue'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+Vue.use(BootstrapVue)
 Vue.use(AsyncComputed)
 Vue.use(VTooltip)
 Vue.use(Clipboard)
