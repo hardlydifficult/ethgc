@@ -31,6 +31,9 @@
             <div v-if="option==='create'">
               <CreateCards />
             </div>
+            <div v-else-if="option==='manage'">
+              <ManageCards />
+            </div>
             <div v-else-if="option==='learn'">
               <LearnMore />
             </div>
