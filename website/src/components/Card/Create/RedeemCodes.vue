@@ -1,8 +1,7 @@
 <template>
   <div>
-    <h3>Cards:</h3>
     <div class="tab">
-      <div v-for="(card, index) in cards" :key="index" class="card">
+      <div v-for="(card, index) in cards" :key="index">
         <RedeemCode :cards="cards" :index="index" />
 
         <div v-if="cards.length > 1">
@@ -36,12 +35,3 @@ export default {
 }
 </script>
 
-<style>
-.card
-{
-  border:2px solid blue;
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
-  padding: 0.5em;
-}
-</style>

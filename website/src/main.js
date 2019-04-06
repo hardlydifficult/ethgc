@@ -6,12 +6,9 @@ import AsyncComputed from 'vue-async-computed'
 import VTooltip from 'v-tooltip'
 import Clipboard from 'v-clipboard'
 import Ethjs from '../../library/ethgc.js'
-import '@/assets/css/tailwind.css'
 Vue.use(AsyncComputed)
 Vue.use(VTooltip)
 Vue.use(Clipboard)
-// to assist with any data manipulation [global usage]
-window._ = require('lodash')
 
 Vue.config.productionTip = false
 
