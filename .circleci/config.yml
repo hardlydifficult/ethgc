@@ -47,8 +47,8 @@ jobs:
       - run: cd contracts && npm i && npm run test && cd ..
       - run: cd website && npm i && npm run build && cd ..
 
-  # deploy
-  deploy:
-    branch: master
-    steps:
-      - ./deploy-ghpages.sh build
+      # deploy
+      - run: |
+            if [ $CIRCLE_BRANCH == 'master' ]; then
+              bash .circleci/deploy-ghpages.sh
+            fi
