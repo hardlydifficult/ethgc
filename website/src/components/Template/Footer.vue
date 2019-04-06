@@ -5,7 +5,7 @@
         Giveaway ETH or tokens with a redeem code.
       </div>
       <div class="pt-2">
-        Find an <a href="https://github.com/hardlydifficult/ethgc/issues/new">issue, have a suggestion: let me know</a>!
+        <a href="https://github.com/hardlydifficult/ethgc/issues/new">Find an issue, have a suggestion: let me know</a>!
       </div>
       <div class="pt-2">
         Support development of this tool: tip with
