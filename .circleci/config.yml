@@ -49,7 +49,7 @@ jobs:
 
       # deploy
       deployment:
-  production:
-    branch: master
-    commands:
-    - ./deploy-ghpages.sh build
+        production:
+          branch: master
+          commands:
+            - ./deploy-ghpages.sh build
