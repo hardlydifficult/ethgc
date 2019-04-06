@@ -6,6 +6,7 @@ pull_request_rules:
     actions:
       merge:
         method: squash
+        strict: smart
       delete_head_branch: {}
   - name: automatic merge on CI success if approved
     conditions:
@@ -15,6 +16,7 @@ pull_request_rules:
     actions:
       merge:
         method: squash
+        strict: smart
       delete_head_branch: {}
   - name: remove outdated reviews
     conditions:
