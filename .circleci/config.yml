@@ -47,9 +47,9 @@ jobs:
       - run: cd contracts && npm i && npm run test && cd ..
       - run: cd website && npm i && npm run build && cd ..
 
-      # deploy
-      - deployment:
-          production:
-            branch: master
-            commands:
-              - ./deploy-ghpages.sh build
+# deploy
+deployment:
+  production:
+    branch: master
+    commands:
+      - ./deploy-ghpages.sh build
