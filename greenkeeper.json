@@ -1,9 +1,17 @@
 {
   "groups": {
-    "default": {
+    "library": {
       "packages": [
-        "contracts/package.json",
-        "library/package.json",
+        "library/package.json"
+      ]
+    },
+    "contract": {
+      "packages": [
+        "contracts/package.json"
+      ]
+    },
+    "website": {
+      "packages": [
         "website/package.json"
       ]
     }
