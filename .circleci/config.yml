@@ -44,8 +44,8 @@ jobs:
           key: v1-dependencies--{{ checksum "library/package.json" }}-{{ checksum "contracts/package.json" }}-{{ checksum "website/package.json" }}
 
       # run tests!
-      - run: cd contracts && npm i && npm run test && cd ..
-      - run: cd website && npm i && npm run build && cd ..
+      - run: cd contracts && npm run test && cd ..
+      - run: cd website && npm run build && cd ..
 
       # deploy
       - deploy:
