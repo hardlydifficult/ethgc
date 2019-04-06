@@ -69,7 +69,7 @@
     "webpack-merge": "4.1.0",
     "vue-cli": "2.9.6",
     "webpack-dev-server": "2.9.1",
-    "webpack-merge": "4.1.0",
+    "webpack-merge": "4.2.1",
     "vue-cli": "2.9.6"
   },
   "engines": {
