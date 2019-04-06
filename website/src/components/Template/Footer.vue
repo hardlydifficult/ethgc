@@ -1,11 +1,11 @@
 <template>
   <div class="footer flex bg-grey-light">
-    <div class="flex-1 pr-5">
+    <div class="flex-1 pr-5 pb-5">
       <div>
         Giveaway ETH or tokens with a redeem code.
-
-        This is still very much WIP...
-        <a href="https://github.com/hardlydifficult/ethgc/issues/new">Issues, suggestions: let me know</a>!
+      </div>
+      <div class="pt-2">
+        Find an <a href="https://github.com/hardlydifficult/ethgc/issues/new">issue, have a suggestion: let me know</a>!
       </div>
       <div class="pt-2">
         Support development of this tool: tip with
@@ -51,6 +51,6 @@ export default {
   font-size: .6em;
   margin-top: 1em;
   padding: 0.5em;
-  height: 6em;
+  min-height: 6em;
 }
 </style>
