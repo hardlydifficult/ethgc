@@ -18,7 +18,7 @@
     "sass-loader": "7.1.0",
     "v-clipboard": "2.2.2",
     "v-tooltip": "2.0.0-rc.33",
-    "vue": "2.5.2",
+    "vue": "2.6.10",
     "vue-async-computed": "3.6.1"
   },
   "devDependencies": {
