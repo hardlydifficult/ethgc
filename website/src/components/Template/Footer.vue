@@ -2,7 +2,7 @@
   <div class="footer flex bg-grey-light">
     <div class="flex-1 pr-5 pb-5">
       <div>
-        Giveaway ETH or tokens with a redeem code.
+        Giveaway ETH, tokens or NFTs with a redeem code.
       </div>
       <div class="pt-2">
         <a href="https://github.com/hardlydifficult/ethgc/issues/new">Find an issue, have a suggestion: let me know</a>!
