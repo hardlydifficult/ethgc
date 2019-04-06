@@ -48,8 +48,7 @@ jobs:
       - run: cd website && npm i && npm run build && cd ..
 
   # deploy
-  deployment:
-    production:
-      branch: master
-      commands:
-        - ./deploy-ghpages.sh build
+  deploy:
+    branch: master
+    steps:
+      - ./deploy-ghpages.sh build
