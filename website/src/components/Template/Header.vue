@@ -3,13 +3,13 @@
     <div class="flex-none w-32">
       <img src="../../assets/logo.png" />
     </div>
-    <div class="flex-2">
-      <div class="text-5xl">
-        ethGC
+    <div class="flex-2 title">
+      <div>
+        <span class="big">eth<span class="huge">gc</span></span>
       </div>
-      <span class="italic text-sm">
-        Ethereum Gift Cards
-      </span>
+      <div class="light">
+        ethereum gift card
+      </div>
     </div>
   </div>
 </template>
@@ -18,3 +18,22 @@
 export default {
 }
 </script>
+<style>
+.title {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  position:relative;
+  top:-1em;
+}
+.big {
+  font-size: 2.5em;
+}
+.huge {
+  font-size: 1.75em;
+}
+.light {
+  font-weight: 100;
+  padding-top: 0.25em;
+  padding-left:2em;
+}
+</style>

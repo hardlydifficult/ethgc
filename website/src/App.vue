@@ -3,35 +3,37 @@
     <div class="body">
       <Header />
       <div class="flex justify-center text-center">
-        <div class="bg-green-light p-5 pb-10 justify-center rounded">
+        <div class="pr-1 pl-1 pt-3 justify-center rounded" style="background-color: #AAC1B5">
           <RedeemCard />
         </div>
       </div>
-      <div class="flex justify-center mt-10">
-        <button
-          class="text-grey-darkest font-bold py-2 px-4 rounded-l"
-          v-bind:class="option==='create' ? 'bg-grey-dark' : 'bg-grey-light hover:bg-grey'"
-          v-on:click="option === 'create' ? option=undefined : option='create'">
-          Create Card
-        </button>
-        <button
-          class="text-grey-darkest font-bold py-2 px-4"
-          v-bind:class="option==='manage' ? 'bg-grey-dark' : 'bg-grey-light hover:bg-grey'"
-         v-on:click="option === 'manage' ? option=undefined : option='manage'">Manage Cards</button>
-        <button
-          class="text-grey-darkest font-bold py-2 px-4 rounded-r"
-          v-bind:class="option==='learn' ? 'bg-grey-dark' : 'bg-grey-light hover:bg-grey'"
-          v-on:click="option === 'learn' ? option=undefined : option='learn'">
-          Learn More
-        </button>
-      </div>
-      <div v-if="option" class="flex justify-center pt-5">
-        <div class="bg-grey-dark p-5 pb-10 rounded">
-          <div v-if="option==='create'">
-            <CreateCards />
-          </div>
-          <div v-else-if="option==='learn'">
-            <LearnMore />
+      <div style="min-height: 5em">
+        <div class="flex justify-center mt-10">
+          <button
+            class="text-grey-darkest font-bold py-2 px-4 rounded-l"
+            v-bind:class="option==='create' ? 'bg-grey-darker text-orange' : 'bg-grey-light hover:bg-grey'"
+            v-on:click="option === 'create' ? option=undefined : option='create'">
+            Create Card
+          </button>
+          <button
+            class="text-grey-darkest font-bold py-2 px-4"
+            v-bind:class="option==='manage' ? 'bg-grey-darker text-orange' : 'bg-grey-light hover:bg-grey'"
+          v-on:click="option === 'manage' ? option=undefined : option='manage'">Manage Cards</button>
+          <button
+            class="text-grey-darkest font-bold py-2 px-4 rounded-r"
+            v-bind:class="option==='learn' ? 'bg-grey-darker text-orange ' : 'bg-grey-light hover:bg-grey'"
+            v-on:click="option === 'learn' ? option=undefined : option='learn'">
+            Learn More
+          </button>
+        </div>
+        <div v-if="option" class="flex justify-center pt-5">
+          <div class="p-5 pb-10 rounded" style="background-color: #AAC1B5">
+            <div v-if="option==='create'">
+              <CreateCards />
+            </div>
+            <div v-else-if="option==='learn'">
+              <LearnMore />
+            </div>
           </div>
         </div>
       </div>
@@ -66,11 +68,15 @@ export default {
 </script>
 
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,400,Open-Sans');
+
 body {
-  font-family: 'Open Sans', sans-serif;
-  background-color:lightslategrey;
+  font-family: 'Open-Sans', sans-serif;
+  font-weight: 400;
   width: 100%;
+  background-color: #ECF0F1;
+  margin: 0;
+  color: #3C3C3D; // darkest ethereum color
 }
 html {
   font-size: 24px;
@@ -80,12 +86,11 @@ html {
   border-radius: 2em;
 }
 .body {
-  background-color: whitesmoke;
   padding-bottom: 3em;
 }
 .link {
   text-decoration: none;
-  color: black;
+  color:  #3C3C3D;
 }
 .link:hover {
   color: blue;
@@ -96,7 +101,7 @@ html {
 }
 a {
   text-decoration: none;
-  color: black;
+  color:  #3C3C3D;
 }
 a:hover {
   color: blue;
@@ -123,7 +128,7 @@ a:active {
   z-index: 10000;
 
   .tooltip-inner {
-    background: black;
+    background:  #3C3C3D;
     color: white;
     border-radius: 16px;
     padding: 5px 10px 4px;
@@ -135,7 +140,7 @@ a:active {
     border-style: solid;
     position: absolute;
     margin: 5px;
-    border-color: black;
+    border-color:  #3C3C3D;
   }
 
   &[x-placement^="top"] {

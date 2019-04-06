@@ -47,14 +47,14 @@ let colors = {
   'transparent': 'transparent',
 
   'black': '#22292f',
-  'grey-darkest': '#3d4852',
-  'grey-darker': '#606f7b',
-  'grey-dark': '#8795a1',
-  'grey': '#b8c2cc',
-  'grey-light': '#dae1e7',
+  'grey-darkest': '#3C3C3D', // eth font
+  'grey-darker': '#3D3E3F', // eth logo
+  'grey-dark': '#6b6b6a', // eth logo
+  'grey': '#828585', // eth logo
+  'grey-light': '#a0a3a3',
   'grey-lighter': '#f1f5f8',
   'grey-lightest': '#f8fafc',
-  'white': '#ffffff',
+  'white': '#ECF0F1', // ish
 
   'red-darkest': '#3b0d0c',
   'red-darker': '#621b18',
@@ -67,7 +67,7 @@ let colors = {
   'orange-darkest': '#462a16',
   'orange-darker': '#613b1f',
   'orange-dark': '#de751f',
-  'orange': '#f6993f',
+  'orange': '#C99D66', // eth powered
   'orange-light': '#faad63',
   'orange-lighter': '#fcd9b6',
   'orange-lightest': '#fff5eb',

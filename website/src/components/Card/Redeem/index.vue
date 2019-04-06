@@ -4,9 +4,13 @@
 
     <RedeemCode :card="card" v-on:cardIsValid="cardIsValid()"/>
 
-    <div v-if="canRedeem">
-      <div>
-        <button v-on:click="redeem()">Redeem</button>
+    <div style="min-height: 3em">
+      <div v-if="canRedeem" class="pt-5 pb-5">
+
+
+        <button v-on:click="redeem()"
+          class="pt-5 bg-blue hover:bg-blue-light text-white font-bold py-2 px-4 border-b-4 border-blue-dark hover:border-blue rounded"
+        >Redeem</button>
       </div>
     </div>
   </div>
