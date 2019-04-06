@@ -8,7 +8,7 @@
     <Tokens :tokens="tokens" />
     <Messages :messages="messages" />
 
-    <button v-on:click="createCard()">Create Card</button>
+    <div v-on:click="createCard()" class="btn btn-primary">Create Card</div>
 
     <!-- TODO add costs -->
   </div>

@@ -1,21 +1,22 @@
 {
   "name": "ethgc",
   "version": "1.0.0",
-  "description": "Ethereum Gift Cards",
+  "description": "ethereum gift card",
   "author": "HardlyDifficult",
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
-    "lint": "eslint --ext .js,.vue src",
     "build": "node build/build.js"
   },
   "dependencies": {
     "bignumber.js": "8.1.1",
+    "bootstrap": "4.3.1",
+    "bootstrap-vue": "2.0.0-rc.16",
+    "jquery": "3.3.1",
     "node-sass": "4.11.0",
     "sass-loader": "7.1.0",
-    "tailwindcss": "0.7.4",
-    "v-clipboard": "2.2.1",
+    "v-clipboard": "2.2.2",
     "v-tooltip": "2.0.0-rc.33",
     "vue": "2.5.2",
     "vue-async-computed": "3.6.1"
@@ -23,7 +24,6 @@
   "devDependencies": {
     "autoprefixer": "7.1.2",
     "babel-core": "6.22.1",
-    "babel-eslint": "8.2.1",
     "babel-helper-vue-jsx-merge-props": "2.0.3",
     "babel-loader": "7.1.1",
     "babel-plugin-syntax-jsx": "6.18.0",
@@ -65,8 +65,12 @@
     "vue-template-compiler": "2.5.2",
     "webpack": "3.6.0",
     "webpack-bundle-analyzer": "2.9.0",
-    "webpack-dev-server": "3.1.11",
-    "webpack-merge": "4.1.0"
+    "webpack-dev-server": "2.9.1",
+    "webpack-merge": "4.1.0",
+    "vue-cli": "2.9.6",
+    "webpack-dev-server": "2.9.1",
+    "webpack-merge": "4.1.0",
+    "vue-cli": "2.9.6"
   },
   "engines": {
     "node": ">= 6.0.0",
