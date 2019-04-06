@@ -3,7 +3,7 @@
     <div class="body">
       <Header />
       <div class="flex justify-center text-center">
-        <div class="pr-1 pl-1 pt-3 justify-center rounded" style="background-color: #AAC1B5">
+        <div class="pr-1 pl-1 pt-3 justify-center veryRounded" style="background-color: #AAC1B5">
           <RedeemCard />
         </div>
       </div>
@@ -27,7 +27,7 @@
           </button>
         </div>
         <div v-if="option" class="flex justify-center pt-5">
-          <div class="p-5 pb-10 rounded" style="background-color: #AAC1B5">
+          <div class="p-5 pb-10 veryRounded" style="background-color: #AAC1B5">
             <div v-if="option==='create'">
               <CreateCards />
             </div>
@@ -84,7 +84,7 @@ body {
 html {
   font-size: 24px;
 }
-.rounded
+.veryRounded
 {
   border-radius: 2em;
 }
