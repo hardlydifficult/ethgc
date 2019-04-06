@@ -2,13 +2,15 @@ const Web3 = require("web3");
 const BigNumber = require("bignumber.js");
 
 class HardlyWeb3 {
-  constructor(currentProvider, defaultAccount) {
+  constructor(currentProvider) {
+    if (!currentProvider) {
+      currentProvider = new Web3.providers.HttpProvider("ws://localhost:8546");
+    }
     this.web3 = new Web3(currentProvider);
     this.web3.defaultGasPrice = 4000000000;
-    this.switchAccount(defaultAccount);
   }
 
-  async getEthBalance(account = this.web3.defaultAccount) {
+  async getEthBalance(account = this.defaultAccount()) {
     return new BigNumber(await this.web3.eth.getBalance(account));
   }
 
@@ -46,6 +48,12 @@ class HardlyWeb3 {
   toWei(value, unit = "ether") {
     if (typeof value === "number") value = value.toString();
     return this.web3.utils.toWei(value, unit);
+  }
+
+  defaultAccount() {
+    const account =
+      this.web3.currentProvider.selectedAddress || this.web3.defaultAccount;
+    return account;
   }
 }
 

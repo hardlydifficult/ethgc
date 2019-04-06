@@ -1,9 +1,14 @@
 <template>
-  <div>
-    Redeem Code
-    <input type="text" v-model="card.redeemCode" />
-    <i class="far fa-clipboard" v-on:click="paste()" v-tooltip="'Paste'"></i>
-    <StatusIcon :status="status" />
+  <div class="whitespace-no-wrap">
+    <div class="w-12 inline-block text-left">
+    </div>
+    <input type="text"
+      class="w-64 shadow appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
+      v-model="card.redeemCode" placeholder="Redeem Code" />
+    <div class="w-12 inline-block text-left">
+      <i class="far fa-clipboard" v-on:click="paste()" v-tooltip="'Paste'"></i>
+      <StatusIcon :status="status" />
+    </div>
     <ViewCard :card="card" v-if="card.isValid" />
   </div>
 </template>
@@ -18,15 +23,15 @@ export default {
     ViewCard
   },
   props: {
-    cards: Array,
-    index: Number
+    card: Object
   },
   data: function () {
     return {
       status: undefined,
       // eslint-disable-next-line no-undef
       bouncer: _.debounce(async () => {
-        const card = await this.ethjs.getCardByCode(this.card.redeemCode)
+        const cardAddress = await this.ethjs.getCardAddress(this.card.redeemCode)
+        const card = await this.ethjs.getCard(cardAddress)
         this.$set(this.status, 'loadingMessage', undefined)
         if (!this.card) return
 
@@ -36,10 +41,10 @@ export default {
             message: 'Card not found, check the redeem code.'
           })
           this.$set(this.status, 'loadingMessage', 'Checking if the code was previously redeemed (vs it was never a valid code)')
-          const tx = await this.ethjs.getRedeemTxByCode(this.card.redeemCode)
+          const tx = await this.ethjs.getRedeemTx(cardAddress)
           this.$set(this.status, 'loadingMessage', undefined)
           if (tx) {
-            if (tx.returnValues.redeemer === this.ethjs.hardlyWeb3.web3.defaultAccount) {
+            if (tx.returnValues.redeemer === this.ethjs.hardlyWeb3.defaultAccount()) {
               this.status.url = `https://etherscan.io/tx/${tx.transactionHash}`
               this.status.urlMessage = 'You redeemed this card earlier. Click to view on EtherScan.'
             } else {
@@ -59,17 +64,6 @@ export default {
       }, 2000)
     }
   },
-  computed: {
-    card: {
-      get: function () {
-        if (!this.cards) return
-        return this.cards[this.index]
-      },
-      set: function (newCard) {
-        this.cards[this.index] = newCard
-      }
-    }
-  },
   beforeDestroy: function () {
     this.bouncer.cancel()
   },
@@ -86,12 +80,6 @@ export default {
       this.$emit('cardIsValid')
 
       if (!this.card.redeemCode) {
-        if (this.cards.length > 1) {
-          this.status.status.push({
-            status: 'ERROR',
-            message: 'Enter a redeem code.'
-          })
-        }
         return
       }
 

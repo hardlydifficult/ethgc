@@ -1,49 +1,45 @@
 <template>
   <div>
-    <h2>Redeem a Gift Card</h2>
+    <div class="text-3xl mb-3">Redeem a Gift Card</div>
 
-    <RedeemCodes :cards="cards" v-on:cardIsValid="cardIsValid()"/>
+    <RedeemCode :card="card" v-on:cardIsValid="cardIsValid()"/>
 
-    <div v-if="canRedeem">
-      <div>
-        <button v-on:click="redeem()">Redeem</button>
+    <div style="min-height: 3em">
+      <div v-if="canRedeem" class="pt-5 pb-5">
+
+
+        <button v-on:click="redeem()"
+          class="pt-5 bg-blue hover:bg-blue-light text-white font-bold py-2 px-4 border-b-4 border-blue-dark hover:border-blue rounded"
+        >Redeem</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import RedeemCodes from './RedeemCodes'
+import RedeemCode from './RedeemCode'
 
 export default {
   components: {
-    RedeemCodes
+    RedeemCode
   },
   data: function () {
     return {
-      cards: [{redeemCode: undefined, customCode: false}],
+      card: {redeemCode: undefined, customCode: false},
       canRedeem: false
     }
   },
   methods: {
     cardIsValid: function (newValue) {
-      for (let i = 0; i < this.cards.length; i++) {
-        if (this.cards[i].isValid) {
-          this.canRedeem = true
-          return
-        }
+      if (this.card.isValid) {
+        this.canRedeem = true
+        return
       }
       this.canRedeem = false
     },
     redeem: async function () {
       if (!this.canRedeem) return
-      const redeemableCards = []
-      for (let i = 0; i < this.cards.length; i++) {
-        if (this.cards[i].isValid) {
-          redeemableCards.push(this.cards[i])
-        }
-      }
-      await this.ethjs.redeemCardsByCodes(redeemableCards)
+      await this.ethjs.redeem(this.card.redeemCode)
     }
   }
 }

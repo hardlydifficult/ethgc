@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h2>Create a new Gift Card</h2>
+    <div class="text-3xl text-center">
+      Create a new Gift Card
+    </div>
 
     <RedeemCodes :cards="cards" />
     <Tokens :tokens="tokens" />
@@ -34,7 +36,7 @@ export default {
     createCard: async function () {
       const cardAddresses = []
       for (let i = 0; i < this.cards.length; i++) {
-        cardAddresses.push(await this.ethjs.getAddressByCode(this.cards[i].redeemCode))
+        cardAddresses.push(await this.ethjs.getCardAddress(this.cards[i].redeemCode))
       }
       const tokenAddresses = []
       const tokenValues = []
@@ -46,7 +48,7 @@ export default {
         }
         tokenValues.push(this.tokens[i].baseValue)
       }
-      await this.ethjs.createCards(
+      await this.ethjs.create(
         cardAddresses,
         tokenAddresses,
         tokenValues,
