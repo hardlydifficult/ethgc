@@ -14,12 +14,12 @@
       </div>
       <div>
         Fee to Create a Card:
-          <span v-if="newCardFee">
-            {{ newCardFee }} ether
-          </span>
-          <span v-else>
-            ...
-          </span>
+        <span v-if="newCardFee">
+          {{ newCardFee }} ether
+        </span>
+        <span v-else>
+          ...
+        </span>
       </div>
       <div>
         <div>

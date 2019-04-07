@@ -2,15 +2,29 @@
   <div>
     <h3>Tokens:</h3>
     <div class="tab">
-      <div v-for="(token, index) in tokens" :key="index" class="token">
-        <Token :tokens="tokens" :index="index" />
+      <div
+        v-for="(token, index) in tokens"
+        :key="index"
+        class="token"
+      >
+        <Token
+          :tokens="tokens"
+          :index="index"
+        />
 
         <div v-if="tokens.length > 1">
-          <button v-on:click="removeToken(index)">Remove Token</button>
+          <button @click="removeToken(index)">
+            Remove Token
+          </button>
         </div>
       </div>
 
-      <button v-on:click="addToken()" v-if="tokens.length < 5">Add Token</button>
+      <button
+        v-if="tokens.length < 5"
+        @click="addToken()"
+      >
+        Add Token
+      </button>
     </div>
   </div>
 </template>
@@ -27,7 +41,7 @@ export default {
   },
   methods: {
     addToken () {
-      this.tokens.push({type: 'ERC20', address: 0, value: 1})
+      this.tokens.push({ type: 'ERC20', address: 0, value: 1 })
     },
     removeToken (index) {
       this.tokens.splice(index, 1)

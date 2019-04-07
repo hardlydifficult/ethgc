@@ -1,15 +1,35 @@
 <template>
   <span v-if="status">
-    <span v-if="overallStatus" v-tooltip="messages">
-      <i v-if="overallStatus==='SUCCESS'" class="far fa-thumbs-up green" />
-      <i v-else-if="overallStatus==='WARNING'" class="fas fa-exclamation orange" />
-      <i v-else-if="overallStatus==='ERROR'" class="fas fa-times red" />
+    <span
+      v-if="overallStatus"
+      v-tooltip="messages"
+    >
+      <i
+        v-if="overallStatus==='SUCCESS'"
+        class="far fa-thumbs-up green"
+      />
+      <i
+        v-else-if="overallStatus==='WARNING'"
+        class="fas fa-exclamation orange"
+      />
+      <i
+        v-else-if="overallStatus==='ERROR'"
+        class="fas fa-times red"
+      />
     </span>
-    <a v-if="status.url" v-tooltip="status.urlMessage" :href="status.url" target="blank">
-      <i class="fas fa-receipt"></i>
+    <a
+      v-if="status.url"
+      v-tooltip="status.urlMessage"
+      :href="status.url"
+      target="blank"
+    >
+      <i class="fas fa-receipt" />
     </a>
-    <span v-if="status.loadingMessage" v-tooltip="status.loadingMessage">
-      <i class="fas fa-spinner fa-spin"></i>
+    <span
+      v-if="status.loadingMessage"
+      v-tooltip="status.loadingMessage"
+    >
+      <i class="fas fa-spinner fa-spin" />
     </span>
   </span>
 </template>
