@@ -34,6 +34,7 @@ fi
 
 # copy over or recompile the new site
 cp -a -R ~/repo/website/dist/. .
+mv ./static/CNAME CNAME
 
 # stage any changes and new files
 git add -A
