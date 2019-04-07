@@ -29,7 +29,7 @@ module.exports = {
       }, {
         test: /\.js$/,
         use: {
-          loader: 'babel-loader',
+          loader: 'babel-loader'
         }
       }, {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -58,7 +58,7 @@ module.exports = {
             name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
           }
         }
-      },
+      }
     ]
   },
 
