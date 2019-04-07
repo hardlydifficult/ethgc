@@ -97,8 +97,7 @@ export default {
 </script>
 
 <style lang="scss">
-// TODO font
-//@import url("https://fonts.googleapis.com/css?family=Roboto:100,400,Open-Sans");
+@import url("https://fonts.googleapis.com/css?family=Roboto:100,400,Open-Sans");
 
 body {
   font-family: "Open-Sans", sans-serif;
