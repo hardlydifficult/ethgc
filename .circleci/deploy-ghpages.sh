@@ -18,7 +18,7 @@ cd gh-pages-branch
 git config --global user.email "$GH_EMAIL" > /dev/null 2>&1
 git config --global user.name "$GH_NAME" > /dev/null 2>&1
 git init
-git remote add --fetch origin "$GH_TOKEN@$remote"
+git remote add --fetch origin "$GH_TOKEN"@"$remote"
 
 
 # switch into the the gh-pages branch
