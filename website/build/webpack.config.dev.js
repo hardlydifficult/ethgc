@@ -26,6 +26,11 @@ module.exports = merge(baseConfig, {
   module: {
     rules: [
       {
+        test: /\.(js|vue)$/,
+        use: 'eslint-loader',
+        enforce: 'pre'
+      },
+      {
         test: /\.css$/,
         use: [
           'vue-style-loader',
