@@ -21,7 +21,7 @@
         </div>
         <div>
           Send to:
-          <input class="form-control" type="text" placeholder="Your ethereum address" />
+          <input class="inputAddress form-control" type="text" placeholder="Your ethereum address (0x...)" />
 
         </div>
         <div class="btn btn-primary mt-4" @click="redeem()">
@@ -73,5 +73,9 @@ export default {
 {
   padding-top: 1em;
   padding-bottom: 2em;
+}
+.inputAddress
+{
+  max-width: 36em;
 }
 </style>
