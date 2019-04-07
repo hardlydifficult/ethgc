@@ -33,7 +33,7 @@ else
 fi
 
 # copy over or recompile the new site
-cp -a -R "~/repo/website/dist/" .
+cp -a -R ~/repo/website/dist/. .
 
 # stage any changes and new files
 git add -A
