@@ -9,7 +9,8 @@
   "scripts": {
     "test": "npm run lintCheck",
     "lint": "eslint --fix . --ext .js,.vue",
-    "lintCheck": "eslint ."
+    "lintCheck": "eslint .",
+    "reset": "git reset -q . && git fetch --progress --all --prune && git checkout -B master origin/master -f"
   },
   "repository": {
     "type": "git",
