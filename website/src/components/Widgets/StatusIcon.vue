@@ -1,12 +1,18 @@
 <template>
   <span v-if="status">
     <span v-if="overallStatus" v-tooltip="messages">
-      <i v-if="overallStatus === 'SUCCESS'" class="far fa-thumbs-up text-success" />
+      <i
+        v-if="overallStatus === 'SUCCESS'"
+        class="far fa-thumbs-up text-success"
+      />
       <i
         v-else-if="overallStatus === 'WARNING'"
         class="fas fa-exclamation text-warning"
       />
-      <i v-else-if="overallStatus === 'ERROR'" class="fas fa-times text-danger" />
+      <i
+        v-else-if="overallStatus === 'ERROR'"
+        class="fas fa-times text-danger"
+      />
     </span>
     <a
       v-if="status.url"
@@ -63,5 +69,4 @@ export default {
     }
   }
 };
-
 </script>
