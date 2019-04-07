@@ -6,11 +6,9 @@
   "scripts": {
     "dev": "webpack-dev-server --progress --config build/webpack.config.dev.js",
     "prod": "webpack --config build/webpack.config.prod.js",
-    "build": "npm run prod && npm run lintCheck",
-    "lint": "eslint . --fix",
-    "lintCheck": "eslint .",
+    "build": "npm run prod",
     "test:unit": "jest --config test/jest.config.js",
-    "test": "npm run lint && npm run test:unit",
+    "test": "npm run test:unit",
     "test:debug": "node --inspect node_modules/.bin/jest --runInBand --config test/jest.config.js"
   },
   "keywords": [
