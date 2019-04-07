@@ -11,7 +11,7 @@ pull_request_rules:
   - name: automatic merge on CI success if Greenkeeper
     conditions:
       - "status-success=ci/circleci: build"
-      - author=greenkeeper
+      - author=greenkeeper[bot]
     actions:
       merge:
         method: squash
