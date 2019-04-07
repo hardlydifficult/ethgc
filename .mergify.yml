@@ -2,7 +2,16 @@ pull_request_rules:
   - name: automatic merge on CI success if HD
     conditions:
       - "status-success=ci/circleci: build"
-      - "author=[hardlydifficult, greenkeeper]"
+      - author=hardlydifficult
+    actions:
+      merge:
+        method: squash
+        strict: smart
+      delete_head_branch: {}
+  - name: automatic merge on CI success if Greenkeeper
+    conditions:
+      - "status-success=ci/circleci: build"
+      - author=greenkeeper
     actions:
       merge:
         method: squash
