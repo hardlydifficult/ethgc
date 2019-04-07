@@ -7,9 +7,9 @@
 <script>
 export default {
   asyncComputed: {
-    myCards: async function () {
-      return this.ethjs.getCardsICreated()
+    myCards: async function() {
+      return this.ethjs.getCardsICreated();
     }
   }
-}
+};
 </script>

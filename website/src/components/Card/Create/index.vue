@@ -8,10 +8,7 @@
     <Tokens :tokens="tokens" />
     <Messages :messages="messages" />
 
-    <div
-      class="btn btn-primary"
-      @click="createCard()"
-    >
+    <div class="btn btn-primary" @click="createCard()">
       Create Card
     </div>
 
@@ -20,9 +17,9 @@
 </template>
 
 <script>
-import Messages from './Messages'
-import RedeemCodes from './RedeemCodes'
-import Tokens from './Tokens'
+import Messages from "./Messages";
+import RedeemCodes from "./RedeemCodes";
+import Tokens from "./Tokens";
 
 export default {
   components: {
@@ -30,28 +27,30 @@ export default {
     RedeemCodes,
     Tokens
   },
-  data: function () {
+  data: function() {
     return {
       cards: [{ redeemCode: undefined, customCode: false }],
-      tokens: [{ type: 'ETH', address: 0, value: 1 }],
+      tokens: [{ type: "ETH", address: 0, value: 1 }],
       messages: {}
-    }
+    };
   },
   methods: {
-    createCard: async function () {
-      const cardAddresses = []
+    createCard: async function() {
+      const cardAddresses = [];
       for (let i = 0; i < this.cards.length; i++) {
-        cardAddresses.push(await this.ethjs.getCardAddress(this.cards[i].redeemCode))
+        cardAddresses.push(
+          await this.ethjs.getCardAddress(this.cards[i].redeemCode)
+        );
       }
-      const tokenAddresses = []
-      const tokenValues = []
+      const tokenAddresses = [];
+      const tokenValues = [];
       for (let i = 0; i < this.tokens.length; i++) {
-        if (this.tokens[i].type === 'ETH') {
-          tokenAddresses.push(null)
+        if (this.tokens[i].type === "ETH") {
+          tokenAddresses.push(null);
         } else {
-          tokenAddresses.push(this.tokens[i].address)
+          tokenAddresses.push(this.tokens[i].address);
         }
-        tokenValues.push(this.tokens[i].baseValue)
+        tokenValues.push(this.tokens[i].baseValue);
       }
       await this.ethjs.create(
         cardAddresses,
@@ -59,8 +58,8 @@ export default {
         tokenValues,
         this.messages.description,
         this.messages.redeemedMessage
-      )
+      );
     }
   }
-}
+};
 </script>

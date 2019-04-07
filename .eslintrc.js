@@ -1,11 +1,15 @@
 module.exports = {
-  env: {
-    commonjs: true,
-    es6: true,
-    node: true,
+  root: true,
+  parserOptions: {
+    parser: 'babel-eslint'
   },
-  extends: 'airbnb-base',
+  env: {
+    browser: true,
+    node: true,
+    mocha: true
+  },
   globals: {
+    expect: true,
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
     it: true,
@@ -18,11 +22,17 @@ module.exports = {
     describe: true,
     artifacts: true,
   },
-  parserOptions: {
-    ecmaVersion: 2018,
-  },
+  extends: [
+    "plugin:vue/essential",
+    "plugin:prettier/recommended",
+    "eslint:recommended"
+  ],
+  plugins: [
+    'vue',
+    "prettier"
+  ],
   rules: {
+    "prettier/prettier": "error",
     "no-console": 0
-  },
-  "extends": ["plugin:prettier/recommended"]
-};
+  }
+}

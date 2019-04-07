@@ -9,7 +9,8 @@
           Create gift card
         </div>
         <div class="tab pt-2">
-          Generate a random redeem code and create the card by sending ETH or tokens.
+          Generate a random redeem code and create the card by sending ETH or
+          tokens.
         </div>
       </li>
       <li class="pt-4">
@@ -35,9 +36,9 @@
 <script>
 export default {
   methods: {
-    goToReadTheDocs () {
-      window.open('https://ethgc.readthedocs.io', '_blank')
+    goToReadTheDocs() {
+      window.open("https://ethgc.readthedocs.io", "_blank");
     }
   }
-}
+};
 </script>

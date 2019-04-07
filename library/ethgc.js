@@ -4,7 +4,7 @@ const BigNumber = require("bignumber.js");
 let _this;
 
 class ethgc {
-  //#region Init
+  // #region Init
   constructor(currentProvider) {
     this.hardlyWeb3 = new HardlyWeb3(currentProvider);
     _this = this;
@@ -19,9 +19,9 @@ class ethgc {
       file.address
     );
   }
-  //#endregion
+  // #endregion
 
-  //#region Create / Contribute
+  // #region Create / Contribute
   async create(
     cardAddresses,
     tokenAddresses,
@@ -130,9 +130,9 @@ class ethgc {
       redemptionGas: new BigNumber(redemptionGas)
     };
   }
-  //#endregion
+  // #endregion
 
-  //#region Viewing cards
+  // #region Viewing cards
   async getCardAddress(redeemCode) {
     if (!redeemCode) return;
     await this._init();
@@ -150,9 +150,9 @@ class ethgc {
     }
     return card;
   }
-  //#endregion
+  // #endregion
 
-  //#region Redeem cards
+  // #region Redeem cards
   async redeem(
     redeemCode,
     sendTo = this.hardlyWeb3.defaultAccount(),
@@ -209,9 +209,9 @@ class ethgc {
     }
     return send(this.contract.methods.cancel(cardAddresses, tokenType));
   }
-  //#endregion
+  // #endregion
 
-  //#region Dev only (check)
+  // #region Dev only (check)
   async getDev() {
     return this.contract.methods
       .dev()
@@ -248,9 +248,9 @@ class ethgc {
       })
     );
   }
-  //#endregion
+  // #endregion
 
-  //#region Tx helpers
+  // #region Tx helpers
   async getRedeemTx(cardAddress) {
     if (!cardAddress) return;
     await this._init();
@@ -283,7 +283,7 @@ class ethgc {
   }
 
   async getCardMessages(cardAddress) {
-    if (!redeemCode) return;
+    if (!cardAddress) return;
     await this._init();
     const results = await this.contract.getPastEvents("CreateCard", {
       filter: { cardAddress }, // Using an array means OR: e.g. 20 or 23
@@ -336,7 +336,7 @@ Skip
 !string calldata redeemedMessage
 256 length then bytes rounded up to nearest 256
        */
-      //return request.input
+      // return request.input
       let i = new BigNumber(10 + 64 * 5);
       let cardCount = new BigNumber(request.input.substr(i.toNumber(), 64), 16);
       i = i.plus(cardCount.plus(1).times(64));
@@ -381,7 +381,7 @@ Skip
       };
     }
   }
-  //#endregion
+  // #endregion
 }
 
 async function sign(account, redeemCodePrivateKey) {

@@ -2,15 +2,8 @@
   <div>
     <h3>Tokens:</h3>
     <div class="tab">
-      <div
-        v-for="(token, index) in tokens"
-        :key="index"
-        class="token"
-      >
-        <Token
-          :tokens="tokens"
-          :index="index"
-        />
+      <div v-for="(token, index) in tokens" :key="index" class="token">
+        <Token :tokens="tokens" :index="index" />
 
         <div v-if="tokens.length > 1">
           <button @click="removeToken(index)">
@@ -19,10 +12,7 @@
         </div>
       </div>
 
-      <button
-        v-if="tokens.length < 5"
-        @click="addToken()"
-      >
+      <button v-if="tokens.length < 5" @click="addToken()">
         Add Token
       </button>
     </div>
@@ -30,7 +20,7 @@
 </template>
 
 <script>
-import Token from './Token'
+import Token from "./Token";
 
 export default {
   components: {
@@ -40,19 +30,18 @@ export default {
     tokens: Array
   },
   methods: {
-    addToken () {
-      this.tokens.push({ type: 'ERC20', address: 0, value: 1 })
+    addToken() {
+      this.tokens.push({ type: "ERC20", address: 0, value: 1 });
     },
-    removeToken (index) {
-      this.tokens.splice(index, 1)
+    removeToken(index) {
+      this.tokens.splice(index, 1);
     }
   }
-}
+};
 </script>
 <style>
-.token
-{
-  border:2px solid green;
+.token {
+  border: 2px solid green;
   margin-top: 0.5em;
   margin-bottom: 0.5em;
   padding: 0.5em;

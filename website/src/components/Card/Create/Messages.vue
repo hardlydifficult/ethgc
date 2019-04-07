@@ -23,5 +23,5 @@ export default {
   props: {
     messages: Object
   }
-}
+};
 </script>

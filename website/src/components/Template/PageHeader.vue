@@ -1,7 +1,7 @@
 <template>
   <div class="flex whitespace-no-wrap items-start justify-start">
     <div class="flex-none w-32">
-      <img src="../../assets/Logo_ClaimedDarkness.png">
+      <img src="../../assets/Logo_ClaimedDarkness.png" />
     </div>
     <div class="flex-2 title">
       <div>
@@ -15,15 +15,14 @@
 </template>
 
 <script>
-export default {
-}
+export default {};
 </script>
 <style>
 .title {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-weight: 400;
-  position:relative;
-  top:-1em;
+  position: relative;
+  top: -1em;
 }
 .big {
   font-size: 2.5em;
@@ -34,6 +33,6 @@ export default {
 .light {
   font-weight: 100;
   padding-top: 0.25em;
-  padding-left:2em;
+  padding-left: 2em;
 }
 </style>

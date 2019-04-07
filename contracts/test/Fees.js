@@ -1,5 +1,4 @@
 const BigNumber = require("bignumber.js");
-const shouldFail = require("./helpers/shouldFail");
 const ethgcJs = require("../../library/ethgc.js");
 
 contract("Fees", accounts => {

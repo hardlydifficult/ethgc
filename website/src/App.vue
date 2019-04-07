@@ -14,41 +14,53 @@
         <div class="flex justify-center mt-10">
           <button
             class="text-grey-darkest font-bold py-2 px-4 rounded-l"
-            :class="option==='create' ? 'bg-grey-darker text-orange' : 'bg-grey-light hover:bg-grey'"
-            @click="option === 'create' ? option=undefined : option='create'"
+            :class="
+              option === 'create'
+                ? 'bg-grey-darker text-orange'
+                : 'bg-grey-light hover:bg-grey'
+            "
+            @click="
+              option === 'create' ? (option = undefined) : (option = 'create')
+            "
           >
             Create Card
           </button>
           <button
             class="text-grey-darkest font-bold py-2 px-4"
-            :class="option==='manage' ? 'bg-grey-darker text-orange' : 'bg-grey-light hover:bg-grey'"
-            @click="option === 'manage' ? option=undefined : option='manage'"
+            :class="
+              option === 'manage'
+                ? 'bg-grey-darker text-orange'
+                : 'bg-grey-light hover:bg-grey'
+            "
+            @click="
+              option === 'manage' ? (option = undefined) : (option = 'manage')
+            "
           >
             Manage Cards
           </button>
           <button
             class="text-grey-darkest font-bold py-2 px-4 rounded-r"
-            :class="option==='learn' ? 'bg-grey-darker text-orange ' : 'bg-grey-light hover:bg-grey'"
-            @click="option === 'learn' ? option=undefined : option='learn'"
+            :class="
+              option === 'learn'
+                ? 'bg-grey-darker text-orange '
+                : 'bg-grey-light hover:bg-grey'
+            "
+            @click="
+              option === 'learn' ? (option = undefined) : (option = 'learn')
+            "
           >
             Learn More
           </button>
         </div>
-        <div
-          v-if="option"
-          class="flex justify-center pt-5"
-        >
-          <div
-            class="p-5 pb-10 veryRounded"
-            style="background-color: #AAC1B5"
-          >
-            <div v-if="option==='create'">
+        <div v-if="option" class="flex justify-center pt-5">
+          <div class="p-5 pb-10 veryRounded" style="background-color: #AAC1B5">
+            <div v-if="option === 'create'">
               <CreateCards />
             </div>
-            <div v-else-if="option==='manage'">
+            <div v-else-if="option === 'manage'">
               <ManageCards />
             </div>
-            <div v-else-if="option==='learn'">
+            <div v-else-if="option === 'learn'">
               <LearnMore />
             </div>
           </div>
@@ -59,15 +71,15 @@
   </div>
 </template>
 <script>
-import PageHeader from './components/Template/PageHeader'
-import PageFooter from './components/Template/PageFooter'
-import RedeemCard from './components/Card/Redeem/index'
-import CreateCards from './components/Card/Create/index'
-import ManageCards from './components/Card/Manage/index'
-import LearnMore from './components/About/index'
+import PageHeader from "./components/Template/PageHeader";
+import PageFooter from "./components/Template/PageFooter";
+import RedeemCard from "./components/Card/Redeem/index";
+import CreateCards from "./components/Card/Create/index";
+import ManageCards from "./components/Card/Manage/index";
+import LearnMore from "./components/About/index";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     PageHeader,
     RedeemCard,
@@ -79,27 +91,26 @@ export default {
   data: () => {
     return {
       option: undefined
-    }
+    };
   }
-}
+};
 </script>
 
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css?family=Roboto:100,400,Open-Sans');
+@import url("https://fonts.googleapis.com/css?family=Roboto:100,400,Open-Sans");
 
 body {
-  font-family: 'Open-Sans', sans-serif;
+  font-family: "Open-Sans", sans-serif;
   font-weight: 400;
   width: 100%;
-  background-color: #ECF0F1;
+  background-color: #ecf0f1;
   margin: 0;
-  color: #3C3C3D; // darkest ethereum color
+  color: #3c3c3d; // darkest ethereum color
 }
 html {
   font-size: 24px;
 }
-.veryRounded
-{
+.veryRounded {
   border-radius: 2em;
 }
 .body {
@@ -107,7 +118,7 @@ html {
 }
 .link {
   text-decoration: none;
-  color:  #3C3C3D;
+  color: #3c3c3d;
 }
 .link:hover {
   color: blue;
@@ -118,7 +129,7 @@ html {
 }
 a {
   text-decoration: none;
-  color:  #3C3C3D;
+  color: #3c3c3d;
 }
 a:hover {
   color: blue;
@@ -131,7 +142,7 @@ a:active {
   display: none;
 }
 .small {
-  font-size: .5em;
+  font-size: 0.5em;
 }
 .tokenValue {
   width: 25em;
@@ -145,7 +156,7 @@ a:active {
   z-index: 10000;
 
   .tooltip-inner {
-    background:  #3C3C3D;
+    background: #3c3c3d;
     color: white;
     border-radius: 16px;
     padding: 5px 10px 4px;
@@ -157,7 +168,7 @@ a:active {
     border-style: solid;
     position: absolute;
     margin: 5px;
-    border-color:  #3C3C3D;
+    border-color: #3c3c3d;
   }
 
   &[x-placement^="top"] {
@@ -220,16 +231,16 @@ a:active {
     }
   }
 
-  &[aria-hidden='true'] {
+  &[aria-hidden="true"] {
     visibility: hidden;
     opacity: 0;
-    transition: opacity .15s, visibility .15s;
+    transition: opacity 0.15s, visibility 0.15s;
   }
 
-  &[aria-hidden='false'] {
+  &[aria-hidden="false"] {
     visibility: visible;
     opacity: 1;
-    transition: opacity .15s;
+    transition: opacity 0.15s;
   }
 }
 </style>

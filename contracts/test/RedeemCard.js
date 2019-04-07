@@ -16,11 +16,7 @@ contract("RedeemCard", accounts => {
     before(async () => {
       const cardAddress = await ethgc.getCardAddress(redeemCode);
 
-      const tx = await ethgc.create(
-        [cardAddress],
-        [web3.utils.padLeft(0, 40)],
-        [value]
-      );
+      await ethgc.create([cardAddress], [web3.utils.padLeft(0, 40)], [value]);
     });
 
     it("Can redeem", async () => {
