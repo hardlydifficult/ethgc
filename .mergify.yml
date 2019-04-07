@@ -2,7 +2,7 @@ pull_request_rules:
   - name: automatic merge on CI success if HD
     conditions:
       - "status-success=ci/circleci: build"
-      - author=["hardlydifficult", "greenkeeper"]
+      - "author=['hardlydifficult', 'greenkeeper']"
     actions:
       merge:
         method: squash
