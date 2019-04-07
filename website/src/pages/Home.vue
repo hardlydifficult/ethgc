@@ -76,7 +76,6 @@ body {
   font-family: "Open-Sans", sans-serif;
   font-weight: 400;
   width: 100%;
-  margin: 0;
 }
 html {
   font-size: 24px;
