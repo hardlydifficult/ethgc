@@ -8,6 +8,7 @@ $gray-700: #403f3d;
 $gray-800: #403f3d;
 $gray-900: #403f3d;
 $white: #ecf0f1;
+$black: #131313;
 
 $theme-colors: (
   "primary":    $gray-800,
@@ -16,8 +17,8 @@ $theme-colors: (
   // "info":       $info,
   // "warning":    $warning,
   // "danger":     $danger,
-  "light":      $gray-200,
-  "dark":       $gray-800
+  "light":      $white,
+  "dark":       $black
 );
 
 $body-bg: $white;
