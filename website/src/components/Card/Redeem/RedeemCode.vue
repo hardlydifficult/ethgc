@@ -1,15 +1,24 @@
 <template>
   <div class="whitespace-no-wrap">
-    <div class="w-12 inline-block text-left">
-    </div>
-    <input type="text"
+    <div class="w-12 inline-block text-left" />
+    <input
+      v-model="card.redeemCode"
+      type="text"
       class="w-64 shadow appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
-      v-model="card.redeemCode" placeholder="Redeem Code" />
+      placeholder="Redeem Code"
+    >
     <div class="w-12 inline-block text-left">
-      <i class="far fa-clipboard" v-on:click="paste()" v-tooltip="'Paste'"></i>
+      <i
+        v-tooltip="'Paste'"
+        class="far fa-clipboard"
+        @click="paste()"
+      />
       <StatusIcon :status="status" />
     </div>
-    <ViewCard :card="card" v-if="card.isValid" />
+    <ViewCard
+      v-if="card.isValid"
+      :card="card"
+    />
   </div>
 </template>
 
@@ -64,6 +73,11 @@ export default {
       }, 2000)
     }
   },
+  watch: {
+    'card.redeemCode': function (newCode, oldCode) {
+      this.debouncedGetStatus()
+    }
+  },
   beforeDestroy: function () {
     this.bouncer.cancel()
   },
@@ -75,7 +89,7 @@ export default {
     },
     debouncedGetStatus () {
       this.bouncer.cancel()
-      this.status = {status: []}
+      this.status = { status: [] }
       this.card.isValid = undefined
       this.$emit('cardIsValid')
 
@@ -95,11 +109,6 @@ export default {
 
       this.$set(this.status, 'loadingMessage', 'Checking if this card is still available.')
       this.bouncer()
-    }
-  },
-  watch: {
-    'card.redeemCode': function (newCode, oldCode) {
-      this.debouncedGetStatus()
     }
   }
 }

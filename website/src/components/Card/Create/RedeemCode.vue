@@ -1,9 +1,22 @@
 <template>
   <div>
     Redeem Code
-    <input type="text" v-model="card.redeemCode" v-on:input="card.customCode = true" />
-    <i class="far fa-copy" v-on:click="$clipboard(card.redeemCode)" v-tooltip="'Copy'"></i>
-    <button v-on:click="randomizeCode()" v-tooltip="'Generate a new random code'"><i class="fas fa-redo"></i></button>
+    <input
+      v-model="card.redeemCode"
+      type="text"
+      @input="card.customCode = true"
+    >
+    <i
+      v-tooltip="'Copy'"
+      class="far fa-copy"
+      @click="$clipboard(card.redeemCode)"
+    />
+    <button
+      v-tooltip="'Generate a new random code'"
+      @click="randomizeCode()"
+    >
+      <i class="fas fa-redo" />
+    </button>
     <StatusIcon :status="status" />
   </div>
 </template>
@@ -57,6 +70,11 @@ export default {
       return this.cards[this.index]
     }
   },
+  watch: {
+    'card.redeemCode': function (newCode, oldCode) {
+      this.debouncedGetStatus()
+    }
+  },
   mounted: function () {
     if (!this.card.redeemCode) {
       this.randomizeCode()
@@ -72,7 +90,7 @@ export default {
     },
     debouncedGetStatus () {
       this.bouncer.cancel()
-      this.status = {status: []}
+      this.status = { status: [] }
 
       if (!this.card.redeemCode) {
         this.status.status.push({
@@ -101,11 +119,6 @@ export default {
 
       this.$set(this.status, 'loadingMessage', 'Checking if this code is already in use...')
       this.bouncer()
-    }
-  },
-  watch: {
-    'card.redeemCode': function (newCode, oldCode) {
-      this.debouncedGetStatus()
     }
   }
 }

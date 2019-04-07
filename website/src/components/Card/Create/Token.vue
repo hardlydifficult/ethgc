@@ -1,17 +1,35 @@
 <template>
   <div>
     <div>
-      <input type="radio" v-model="token.type" value="ETH">ETH
-      <input type="radio" v-model="token.type" value="ERC20">Tokens (ERC-20)
-      <input type="radio" v-model="token.type" value="ERC721">NFT (ERC-721)
+      <input
+        v-model="token.type"
+        type="radio"
+        value="ETH"
+      >ETH
+      <input
+        v-model="token.type"
+        type="radio"
+        value="ERC20"
+      >Tokens (ERC-20)
+      <input
+        v-model="token.type"
+        type="radio"
+        value="ERC721"
+      >NFT (ERC-721)
     </div>
     <div v-if="token.type === 'ERC20' || token.type === 'ERC721'">
-      Token address: <input />
+      Token address: <input>
       <!-- TODO display loading, contract not found, or contract confirmed -->
       <!-- TODO display name if available -->
     </div>
     <span v-if="token.type === 'ETH' || token.type === 'ERC20'">
-      Gift Amount: <input type="number" step="0.0001" v-model="token.value" v-on:input="validateCardValue()" class="tokenValue" />
+      Gift Amount: <input
+        v-model="token.value"
+        type="number"
+        step="0.0001"
+        class="tokenValue"
+        @input="validateCardValue()"
+      >
       <span v-if="token.type === 'ETH'">
         ETH
       </span>
@@ -22,7 +40,11 @@
       <!-- TODO display number of decimals if available -->
     </span>
     <span v-else>
-      TokenId: <input type="text" v-model="token.value" class="tokenValue" />
+      TokenId: <input
+        v-model="token.value"
+        type="text"
+        class="tokenValue"
+      >
     </span>
 
     <span v-if="token.type !== 'ETH'">
@@ -39,6 +61,10 @@ const BigNumber = require('bignumber.js')
 export default {
   components: {
     StatusIcon
+  },
+  props: {
+    tokens: Array,
+    index: Number
   },
   data: function () {
     return {
@@ -61,14 +87,21 @@ export default {
       }, 2000)
     }
   },
-  props: {
-    tokens: Array,
-    index: Number
-  },
   computed: {
     token: function () {
       if (!this.tokens) return
       return this.tokens[this.index]
+    }
+  },
+  watch: {
+    'token.address': function () {
+      this.debouncedGetStatus()
+    },
+    'token.type': function () {
+      this.debouncedGetStatus()
+    },
+    'token.value': function () {
+      this.debouncedGetStatus()
     }
   },
   mounted: function () {
@@ -88,7 +121,7 @@ export default {
     },
     debouncedGetStatus () {
       this.bouncer.cancel()
-      this.status = {status: []}
+      this.status = { status: [] }
 
       if (!this.token.value) {
         this.status.status.push({
@@ -118,17 +151,6 @@ export default {
 
       this.$set(this.status, 'loadingMessage', 'Confirming you have the balance available in your wallet')
       this.bouncer()
-    }
-  },
-  watch: {
-    'token.address': function () {
-      this.debouncedGetStatus()
-    },
-    'token.type': function () {
-      this.debouncedGetStatus()
-    },
-    'token.value': function () {
-      this.debouncedGetStatus()
     }
   }
 }

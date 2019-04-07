@@ -1,15 +1,25 @@
 <template>
   <div>
     <div class="tab">
-      <div v-for="(card, index) in cards" :key="index">
-        <RedeemCode :cards="cards" :index="index" />
+      <div
+        v-for="(card, index) in cards"
+        :key="index"
+      >
+        <RedeemCode
+          :cards="cards"
+          :index="index"
+        />
 
         <div v-if="cards.length > 1">
-          <button v-on:click="removeCard(index)">Remove Card</button>
+          <button @click="removeCard(index)">
+            Remove Card
+          </button>
         </div>
       </div>
 
-      <button v-on:click="addCard()">Add Card</button>
+      <button @click="addCard()">
+        Add Card
+      </button>
     </div>
   </div>
 </template>
@@ -26,7 +36,7 @@ export default {
   },
   methods: {
     addCard () {
-      this.cards.push({redeemCode: undefined, customCode: false})
+      this.cards.push({ redeemCode: undefined, customCode: false })
     },
     removeCard (index) {
       this.cards.splice(index, 1)
@@ -34,4 +44,3 @@ export default {
   }
 }
 </script>
-

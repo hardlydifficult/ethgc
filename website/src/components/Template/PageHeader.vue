@@ -1,7 +1,7 @@
 <template>
   <div class="flex whitespace-no-wrap items-start justify-start">
     <div class="flex-none w-32">
-      <img src="../../assets/Logo_ClaimedDarkness.png" />
+      <img src="../../assets/Logo_ClaimedDarkness.png">
     </div>
     <div class="flex-2 title">
       <div>
