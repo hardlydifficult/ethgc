@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="tab">
+    <div>
       <div v-for="(card, index) in cards" :key="index">
         <RedeemCode :cards="cards" :index="index" />
 

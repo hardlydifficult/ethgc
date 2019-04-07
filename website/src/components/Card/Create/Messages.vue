@@ -1,16 +1,16 @@
 <template>
   <div>
     <h3>Messages:</h3>
-    <div class="tab">
+    <div>
       <div>
         Description:
-        <div class="tab">
+        <div>
           <textarea v-model="messages.description" />
         </div>
       </div>
       <div>
         Redeemed Message:
-        <div class="tab">
+        <div>
           <textarea v-model="messages.redeemedMessage" />
         </div>
       </div>

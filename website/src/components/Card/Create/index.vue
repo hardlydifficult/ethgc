@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="text-3xl text-center">
+    <div>
       Create a new Gift Card
     </div>
 
@@ -8,7 +8,7 @@
     <Tokens :tokens="tokens" />
     <Messages :messages="messages" />
 
-    <div class="btn btn-primary" @click="createCard()">
+    <div @click="createCard()">
       Create Card
     </div>
 

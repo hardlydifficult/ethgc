@@ -1,68 +1,41 @@
 <template>
   <div id="app">
-    <div class="body">
-      <PageHeader />
-      <div class="flex justify-center text-center">
-        <div
-          class="pr-1 pl-1 pt-3 justify-center veryRounded"
-          style="background-color: #AAC1B5"
+    <PageHeader />
+    <RedeemCard />
+    <div>
+      <div>
+        <button
+          @click="
+            option === 'create' ? (option = undefined) : (option = 'create')
+          "
         >
-          <RedeemCard />
-        </div>
+          Create Card
+        </button>
+        <button
+          @click="
+            option === 'manage' ? (option = undefined) : (option = 'manage')
+          "
+        >
+          Manage Cards
+        </button>
+        <button
+          @click="
+            option === 'learn' ? (option = undefined) : (option = 'learn')
+          "
+        >
+          Learn More
+        </button>
       </div>
-      <div style="min-height: 5em">
-        <div class="flex justify-center mt-10">
-          <button
-            class="text-grey-darkest font-bold py-2 px-4 rounded-l"
-            :class="
-              option === 'create'
-                ? 'bg-grey-darker text-orange'
-                : 'bg-grey-light hover:bg-grey'
-            "
-            @click="
-              option === 'create' ? (option = undefined) : (option = 'create')
-            "
-          >
-            Create Card
-          </button>
-          <button
-            class="text-grey-darkest font-bold py-2 px-4"
-            :class="
-              option === 'manage'
-                ? 'bg-grey-darker text-orange'
-                : 'bg-grey-light hover:bg-grey'
-            "
-            @click="
-              option === 'manage' ? (option = undefined) : (option = 'manage')
-            "
-          >
-            Manage Cards
-          </button>
-          <button
-            class="text-grey-darkest font-bold py-2 px-4 rounded-r"
-            :class="
-              option === 'learn'
-                ? 'bg-grey-darker text-orange '
-                : 'bg-grey-light hover:bg-grey'
-            "
-            @click="
-              option === 'learn' ? (option = undefined) : (option = 'learn')
-            "
-          >
-            Learn More
-          </button>
-        </div>
-        <div v-if="option" class="flex justify-center pt-5">
-          <div class="p-5 pb-10 veryRounded" style="background-color: #AAC1B5">
-            <div v-if="option === 'create'">
-              <CreateCards />
-            </div>
-            <div v-else-if="option === 'manage'">
-              <ManageCards />
-            </div>
-            <div v-else-if="option === 'learn'">
-              <LearnMore />
-            </div>
+      <div v-if="option">
+        <div>
+          <div v-if="option === 'create'">
+            <CreateCards />
+          </div>
+          <div v-else-if="option === 'manage'">
+            <ManageCards />
+          </div>
+          <div v-else-if="option === 'learn'">
+            <LearnMore />
           </div>
         </div>
       </div>
@@ -97,59 +70,16 @@ export default {
 </script>
 
 <style lang="scss">
-// TODO font
-//@import url("https://fonts.googleapis.com/css?family=Roboto:100,400,Open-Sans");
+@import url("https://fonts.googleapis.com/css?family=Roboto:100,400,Open-Sans");
 
 body {
   font-family: "Open-Sans", sans-serif;
   font-weight: 400;
   width: 100%;
-  background-color: #ecf0f1;
   margin: 0;
-  color: #3c3c3d; // darkest ethereum color
 }
 html {
   font-size: 24px;
-}
-.veryRounded {
-  border-radius: 2em;
-}
-.body {
-  padding-bottom: 3em;
-}
-.link {
-  text-decoration: none;
-  color: #3c3c3d;
-}
-.link:hover {
-  color: blue;
-  text-decoration: underline;
-}
-.link:active {
-  color: red;
-}
-a {
-  text-decoration: none;
-  color: #3c3c3d;
-}
-a:hover {
-  color: blue;
-  text-decoration: underline;
-}
-a:active {
-  color: red;
-}
-.hidden {
-  display: none;
-}
-.small {
-  font-size: 0.5em;
-}
-.tokenValue {
-  width: 25em;
-}
-.tab {
-  margin-left: 1em;
 }
 
 .tooltip {

@@ -1,0 +1,28 @@
+$gray-100: #828585;
+$gray-200: #828585;
+$gray-300: #828585;
+$gray-400: #6b6b6a;
+$gray-500: #6b6b6a;
+$gray-600: #6b6b6a;
+$gray-700: #403f3d;
+$gray-800: #403f3d;
+$gray-900: #403f3d;
+$white: #ecf0f1;
+
+$theme-colors: (
+  "primary":    $gray-800,
+  "secondary":  $gray-500,
+  // "success":    $success,
+  // "info":       $info,
+  // "warning":    $warning,
+  // "danger":     $danger,
+  "light":      $gray-200,
+  "dark":       $gray-800
+);
+
+$body-bg: $white;
+$enable-responsive-font-sizes: true;
+
+
+// Bootstrap and its default variables
+@import "node_modules/bootstrap/scss/bootstrap";

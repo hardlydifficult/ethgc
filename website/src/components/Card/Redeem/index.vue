@@ -1,19 +1,39 @@
 <template>
-  <div>
-    <div class="text-3xl mb-3">
+  <div class="jumbotron text-center px-2">
+    <div class="display-4">
       Redeem a Gift Card
     </div>
 
     <RedeemCode :card="card" @cardIsValid="cardIsValid()" />
 
-    <div style="min-height: 3em">
-      <div v-if="canRedeem" class="pt-5 pb-5">
-        <button
-          class="pt-5 bg-blue hover:bg-blue-light text-white font-bold py-2 px-4 border-b-4 border-blue-dark hover:border-blue rounded"
-          @click="redeem()"
-        >
+    <div>
+      <div v-if="canRedeem" class="mt-2">
+        <div>
+          Card contains:
+          <ul class="list-group">
+            <li class="list-group-item list-group-item-info">
+                42 ETH
+            </li>
+            <li class="list-group-item list-group-item-info">
+                69 SPANK
+            </li>
+          </ul>
+        </div>
+        <div>
+          Send to:
+          <input class="form-control" type="text" placeholder="Your ethereum address" />
+
+        </div>
+        <div class="btn btn-primary mt-4" @click="redeem()">
           Redeem
-        </button>
+        </div>
+        <div>
+          <small class="text-white">No fees!
+            <span v-tooltip="'No transactions fees, the gas required was pre-paid by the card creator.  Simply hit the button and the transaction will be broadcasted (nothing to sign, no metamask prompt)'">
+              <i class="far fa-question-circle"></i>
+            </span>
+          </small>
+        </div>
       </div>
     </div>
   </div>
@@ -47,3 +67,11 @@ export default {
   }
 };
 </script>
+
+<style>
+.jumbotron
+{
+  padding-top: 1em;
+  padding-bottom: 2em;
+}
+</style>

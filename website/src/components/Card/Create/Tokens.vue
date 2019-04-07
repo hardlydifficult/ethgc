@@ -1,8 +1,8 @@
 <template>
   <div>
     <h3>Tokens:</h3>
-    <div class="tab">
-      <div v-for="(token, index) in tokens" :key="index" class="token">
+    <div>
+      <div v-for="(token, index) in tokens" :key="index">
         <Token :tokens="tokens" :index="index" />
 
         <div v-if="tokens.length > 1">
@@ -39,11 +39,3 @@ export default {
   }
 };
 </script>
-<style>
-.token {
-  border: 2px solid green;
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
-  padding: 0.5em;
-}
-</style>

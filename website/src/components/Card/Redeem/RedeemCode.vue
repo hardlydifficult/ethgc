@@ -1,13 +1,10 @@
 <template>
-  <div class="whitespace-no-wrap">
-    <div class="w-12 inline-block text-left" />
-    <input
-      v-model="card.redeemCode"
-      type="text"
-      class="w-64 shadow appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
-      placeholder="Redeem Code"
-    />
-    <div class="w-12 inline-block text-left">
+  <div class="row">
+    <div class="col-md-3" />
+    <div class="col">
+      <input v-model="card.redeemCode" class="form-control" type="text" placeholder="Redeem Code" />
+    </div>
+    <div class="col-3 text-left pl-0 align-self-center">
       <i v-tooltip="'Paste'" class="far fa-clipboard" @click="paste()" />
       <StatusIcon :status="status" />
     </div>

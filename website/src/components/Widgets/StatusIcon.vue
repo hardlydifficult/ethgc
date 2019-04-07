@@ -1,12 +1,12 @@
 <template>
   <span v-if="status">
     <span v-if="overallStatus" v-tooltip="messages">
-      <i v-if="overallStatus === 'SUCCESS'" class="far fa-thumbs-up green" />
+      <i v-if="overallStatus === 'SUCCESS'" class="far fa-thumbs-up text-success" />
       <i
         v-else-if="overallStatus === 'WARNING'"
-        class="fas fa-exclamation orange"
+        class="fas fa-exclamation text-warning"
       />
-      <i v-else-if="overallStatus === 'ERROR'" class="fas fa-times red" />
+      <i v-else-if="overallStatus === 'ERROR'" class="fas fa-times text-danger" />
     </span>
     <a
       v-if="status.url"
@@ -49,10 +49,11 @@ export default {
           throw new Error(`Invalid status ${status}`);
         }
       }
+
       return overallStatus;
     },
     messages() {
-      if (this.status.status.length < 1) return undefined;
+      if (!this.status || this.status.status.length < 1) return undefined;
       let messages = "";
       for (let i = 0; i < this.status.status.length; i++) {
         const statusMessage = this.status.status[i].message;
@@ -62,15 +63,5 @@ export default {
     }
   }
 };
+
 </script>
-<style>
-.orange {
-  color: #f79862;
-}
-.red {
-  color: red;
-}
-.green {
-  color: green;
-}
-</style>

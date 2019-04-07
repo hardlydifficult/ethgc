@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="tab small">
+    <div>
       <div>
         Gift Card Value: {{ cardValue }}
         <span v-if="tokenType == 'eth'">
@@ -24,7 +24,7 @@
           Estimated gas fee: {{ estimatedTotalGasCost }}* ether
           <!-- TODO how consistent is gas fee, can we remove estimated? -->
         </div>
-        <div class="small">
+        <div>
           * at 4 GWEI
         </div>
       </div>

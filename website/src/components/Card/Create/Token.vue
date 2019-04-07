@@ -16,7 +16,6 @@
         v-model="token.value"
         type="number"
         step="0.0001"
-        class="tokenValue"
         @input="validateCardValue()"
       />
       <span v-if="token.type === 'ETH'">
@@ -28,9 +27,7 @@
       </span>
       <!-- TODO display number of decimals if available -->
     </span>
-    <span v-else>
-      TokenId: <input v-model="token.value" type="text" class="tokenValue" />
-    </span>
+    <span v-else> TokenId: <input v-model="token.value" type="text" /> </span>
 
     <span v-if="token.type !== 'ETH'">
       <button>Unlock</button>

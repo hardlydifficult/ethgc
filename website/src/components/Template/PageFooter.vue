@@ -1,15 +1,15 @@
 <template>
-  <div class="footer flex bg-grey-light">
-    <div class="flex-1 pr-5 pb-5">
+  <div>
+    <div>
       <div>
         Giveaway ETH, tokens or NFTs with a simple redeem code.
       </div>
-      <div class="pt-2">
+      <div>
         <a href="https://github.com/hardlydifficult/ethgc/issues/new"
           >Find an issue, have a suggestion: let me know</a
         >
       </div>
-      <div class="pt-2">
+      <div>
         Support development of this tool: tip with
         <span
           v-tooltip="'3EPAsFwUBh1JvPJVqoycXpYVfDE4v3WdQ1 (click to copy)'"
@@ -33,7 +33,7 @@
         </span>
       </div>
     </div>
-    <div class="flex-none">
+    <div>
       <a href="https://github.com/hardlydifficult/ethgc" target="_blank">
         <img
           v-tooltip="'GitHub'"
@@ -55,14 +55,3 @@
 <script>
 export default {};
 </script>
-<style>
-.footer {
-  bottom: 0;
-  width: 100%;
-
-  font-size: 0.6em;
-  margin-top: 1em;
-  padding: 0.5em;
-  min-height: 6em;
-}
-</style>

@@ -1,34 +1,31 @@
 <template>
   <div>
-    <div class="text-3xl text-center">
+    <div>
       How it Works
     </div>
-    <ol class="pt-6">
+    <ol>
       <li>
-        <div class="text-lg font-bold">
+        <div>
           Create gift card
         </div>
-        <div class="tab pt-2">
+        <div>
           Generate a random redeem code and create the card by sending ETH or
           tokens.
         </div>
       </li>
-      <li class="pt-4">
-        <div class="text-lg font-bold">
+      <li>
+        <div>
           Redeem gift
         </div>
-        <div class="tab pt-2">
+        <div>
           Submit the redeem code and get the ETH or tokens inside.
         </div>
       </li>
     </ol>
-    <div class="text-center pt-8">
-      <button
-        class="bg-grey-light hover:bg-grey text-grey-darkest font-bold py-2 px-4 rounded inline-flex items-center"
-        @click.stop.prevent="goToReadTheDocs()"
-      >
+    <div>
+      <button @click.stop.prevent="goToReadTheDocs()">
         <span>Read the Docs</span>
-        <i class="fas fa-external-link-alt pl-2" />
+        <i class="fas fa-external-link-alt" />
       </button>
     </div>
   </div>
