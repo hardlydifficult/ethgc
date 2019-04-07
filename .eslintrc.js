@@ -33,6 +33,8 @@ module.exports = {
   ],
   rules: {
     "prettier/prettier": "error",
-    "no-console": 0
+    "no-console": 0,
+    "no-unused-vars": "warn",
+    "no-case-declarations": 0
   }
 }

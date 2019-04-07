@@ -100,10 +100,10 @@ export default {
       if (!this.token) return;
       switch (this.token.type) {
         case "ETH":
-          const number = new BigNumber(this.token.value);
-          if (number.isPositive()) {
+          const num = new BigNumber(this.token.value);
+          if (num.isPositive()) {
             this.token.value = new BigNumber(
-              number.toFixed(18, BigNumber.ROUND_FLOOR)
+              num.toFixed(18, BigNumber.ROUND_FLOOR)
             ).toFixed();
           }
           break;

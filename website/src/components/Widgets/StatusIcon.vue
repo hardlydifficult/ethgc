@@ -1,18 +1,12 @@
 <template>
   <span v-if="status">
-    <span
-v-if="overallStatus" v-tooltip="messages"
->
-      <i
-v-if="overallStatus === 'SUCCESS'" class="far fa-thumbs-up green"
-/>
+    <span v-if="overallStatus" v-tooltip="messages">
+      <i v-if="overallStatus === 'SUCCESS'" class="far fa-thumbs-up green" />
       <i
         v-else-if="overallStatus === 'WARNING'"
         class="fas fa-exclamation orange"
       />
-      <i
-v-else-if="overallStatus === 'ERROR'" class="fas fa-times red"
-/>
+      <i v-else-if="overallStatus === 'ERROR'" class="fas fa-times red" />
     </span>
     <a
       v-if="status.url"
@@ -22,9 +16,7 @@ v-else-if="overallStatus === 'ERROR'" class="fas fa-times red"
     >
       <i class="fas fa-receipt" />
     </a>
-    <span
-v-if="status.loadingMessage" v-tooltip="status.loadingMessage"
->
+    <span v-if="status.loadingMessage" v-tooltip="status.loadingMessage">
       <i class="fas fa-spinner fa-spin" />
     </span>
   </span>
@@ -42,7 +34,8 @@ export default {
         !this.status.status ||
         this.status.status.length < 1
       ) {
-      { return undefined}
+        return undefined;
+      }
       let overallStatus = this.status.status[0].status;
       for (let i = 0; i < this.status.status.length; i++) {
         const status = this.status.status[i].status;
