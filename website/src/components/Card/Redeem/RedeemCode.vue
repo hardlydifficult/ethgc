@@ -1,8 +1,13 @@
 <template>
-  <div class="row">
+  <div class="row justify-content-center">
     <div class="col-md-3" />
-    <div class="col">
-      <input v-model="card.redeemCode" class="form-control" type="text" placeholder="Redeem Code" />
+    <div class="col inputRedeemCode">
+      <input
+        v-model="card.redeemCode"
+        class="form-control"
+        type="text"
+        placeholder="Redeem Code"
+      />
     </div>
     <div class="col-3 text-left pl-0 align-self-center">
       <i v-tooltip="'Paste'" class="far fa-clipboard" @click="paste()" />

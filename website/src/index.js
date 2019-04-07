@@ -9,7 +9,6 @@ import AsyncComputed from "vue-async-computed";
 import VTooltip from "v-tooltip";
 import Clipboard from "v-clipboard";
 import Ethjs from "../../library/ethgc.js";
-import router from "./router";
 Vue.use(BootstrapVue);
 Vue.use(AsyncComputed);
 Vue.use(VTooltip);
@@ -32,6 +31,5 @@ if (window.ethereum) {
 // });
 
 new Vue({
-  router,
   render: h => h(App)
 }).$mount("#app");

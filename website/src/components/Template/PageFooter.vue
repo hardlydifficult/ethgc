@@ -1,11 +1,13 @@
 <template>
-  <div>
+  <footer class="footer bg-dark text-white">
     <div>
       <div>
         Giveaway ETH, tokens or NFTs with a simple redeem code.
       </div>
       <div>
-        <a href="https://github.com/hardlydifficult/ethgc/issues/new"
+        <a
+          class="text-light"
+         href="https://github.com/hardlydifficult/ethgc/issues/new"
           >Find an issue, have a suggestion: let me know</a
         >
       </div>
@@ -49,9 +51,12 @@
         />
       </a>
     </div>
-  </div>
+  </footer>
 </template>
-
-<script>
-export default {};
-</script>
+<style>
+.footer {
+  flex-shrink: 0;
+  /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
+  padding: 20px;
+}
+</style>

@@ -16,13 +16,13 @@ $theme-colors: (
   // "info":       $info,
   // "warning":    $warning,
   // "danger":     $danger,
-  "light":      $gray-200,
+  "light":      $white,
   "dark":       $gray-800
 );
 
 $body-bg: $white;
 $enable-responsive-font-sizes: true;
-
+$emphasized-link-hover-darken-percentage: 15% !default;
 
 // Bootstrap and its default variables
 @import "node_modules/bootstrap/scss/bootstrap";
