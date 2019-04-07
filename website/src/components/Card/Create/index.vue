@@ -8,7 +8,12 @@
     <Tokens :tokens="tokens" />
     <Messages :messages="messages" />
 
-    <div v-on:click="createCard()" class="btn btn-primary">Create Card</div>
+    <div
+      class="btn btn-primary"
+      @click="createCard()"
+    >
+      Create Card
+    </div>
 
     <!-- TODO add costs -->
   </div>
@@ -27,8 +32,8 @@ export default {
   },
   data: function () {
     return {
-      cards: [{redeemCode: undefined, customCode: false}],
-      tokens: [{type: 'ETH', address: 0, value: 1}],
+      cards: [{ redeemCode: undefined, customCode: false }],
+      tokens: [{ type: 'ETH', address: 0, value: 1 }],
       messages: {}
     }
   },

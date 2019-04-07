@@ -1,7 +1,13 @@
 <template>
   <div>
-    <div v-for="(tokenAddress, index) in card.tokenAddresses" :key="index">
-      <Token :tokenAddress="tokenAddress" :valueOrId="card.valueOrIds[index]" />
+    <div
+      v-for="(tokenAddress, index) in card.tokenAddresses"
+      :key="index"
+    >
+      <Token
+        :token-address="tokenAddress"
+        :value-or-id="card.valueOrIds[index]"
+      />
     </div>
     Created by:
     <Address :address="card.createdBy" />
@@ -17,7 +23,7 @@
       {{ messages.redeemedMessage }} -->
     </div>
     <div v-else>
-      <StatusIcon status.loadingMessage="Loading the card\'s message" />
+      <StatusIcon status-loading-message="Loading the card\'s message" />
     </div>
   </div>
 </template>

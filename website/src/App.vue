@@ -3,7 +3,10 @@
     <div class="body">
       <PageHeader />
       <div class="flex justify-center text-center">
-        <div class="pr-1 pl-1 pt-3 justify-center veryRounded" style="background-color: #AAC1B5">
+        <div
+          class="pr-1 pl-1 pt-3 justify-center veryRounded"
+          style="background-color: #AAC1B5"
+        >
           <RedeemCard />
         </div>
       </div>
@@ -11,23 +14,34 @@
         <div class="flex justify-center mt-10">
           <button
             class="text-grey-darkest font-bold py-2 px-4 rounded-l"
-            v-bind:class="option==='create' ? 'bg-grey-darker text-orange' : 'bg-grey-light hover:bg-grey'"
-            v-on:click="option === 'create' ? option=undefined : option='create'">
+            :class="option==='create' ? 'bg-grey-darker text-orange' : 'bg-grey-light hover:bg-grey'"
+            @click="option === 'create' ? option=undefined : option='create'"
+          >
             Create Card
           </button>
           <button
             class="text-grey-darkest font-bold py-2 px-4"
-            v-bind:class="option==='manage' ? 'bg-grey-darker text-orange' : 'bg-grey-light hover:bg-grey'"
-          v-on:click="option === 'manage' ? option=undefined : option='manage'">Manage Cards</button>
+            :class="option==='manage' ? 'bg-grey-darker text-orange' : 'bg-grey-light hover:bg-grey'"
+            @click="option === 'manage' ? option=undefined : option='manage'"
+          >
+            Manage Cards
+          </button>
           <button
             class="text-grey-darkest font-bold py-2 px-4 rounded-r"
-            v-bind:class="option==='learn' ? 'bg-grey-darker text-orange ' : 'bg-grey-light hover:bg-grey'"
-            v-on:click="option === 'learn' ? option=undefined : option='learn'">
+            :class="option==='learn' ? 'bg-grey-darker text-orange ' : 'bg-grey-light hover:bg-grey'"
+            @click="option === 'learn' ? option=undefined : option='learn'"
+          >
             Learn More
           </button>
         </div>
-        <div v-if="option" class="flex justify-center pt-5">
-          <div class="p-5 pb-10 veryRounded" style="background-color: #AAC1B5">
+        <div
+          v-if="option"
+          class="flex justify-center pt-5"
+        >
+          <div
+            class="p-5 pb-10 veryRounded"
+            style="background-color: #AAC1B5"
+          >
             <div v-if="option==='create'">
               <CreateCards />
             </div>
