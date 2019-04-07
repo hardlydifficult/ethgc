@@ -10,6 +10,8 @@ jobs:
       ignore:
         - gh-pages
 
+    parallelism: 4
+
     docker:
       # specify the version you desire here
       - image: circleci/node:10
