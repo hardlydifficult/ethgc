@@ -3,30 +3,29 @@
     <div class="content">
       <PageHeader />
       <RedeemCard />
-      <div>
-        <div>
-          <button
+      <nav class="nav nav-pills flex-column flex-md-row">
+        <a class="flex-md-fill text-sm-center nav-link"
+          v-bind:class="option==='create' ? 'active' : ''"
             @click="
               option === 'create' ? (option = undefined) : (option = 'create')
             "
-          >
-            Create Card
-          </button>
-          <button
+          href="#"
+          >Create Card</a
+        >
+        <a class="flex-md-fill text-sm-center nav-link" href="#"
+          v-bind:class="option==='manage' ? 'active' : ''"
             @click="
               option === 'manage' ? (option = undefined) : (option = 'manage')
             "
-          >
-            Manage Cards
-          </button>
-          <button
+          >Manage Cards</a
+        >
+        <a class="flex-md-fill text-sm-center nav-link" href="#"
+          v-bind:class="option==='learn' ? 'active' : ''"
             @click="
               option === 'learn' ? (option = undefined) : (option = 'learn')
             "
-          >
-            Learn More
-          </button>
-        </div>
+        >Learn More</a>
+      </nav>
         <div v-if="option">
           <div>
             <div v-if="option === 'create'">
@@ -41,7 +40,6 @@
           </div>
         </div>
       </div>
-    </div>
     <PageFooter />
   </div>
 </template>
@@ -86,6 +84,9 @@ body {
   flex: 1 0 auto;
   /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
   padding: 20px;
+  width: 100%;
+  max-width: 75em;
+  margin: auto;
 }
 body {
   font-family: "Open-Sans", sans-serif;
@@ -99,6 +100,7 @@ html {
 .inputRedeemCode {
   max-width: 36em;
 }
+
 
 .tooltip {
   display: block !important;

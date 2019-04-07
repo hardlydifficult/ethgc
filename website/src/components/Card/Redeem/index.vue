@@ -82,6 +82,7 @@ export default {
 .jumbotron {
   padding-top: 1em;
   padding-bottom: 2em;
+  color: black;
 }
 .inputAddress {
   max-width: 36em;

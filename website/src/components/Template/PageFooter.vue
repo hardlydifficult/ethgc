@@ -7,7 +7,7 @@
       <div>
         <a
           class="text-light"
-         href="https://github.com/hardlydifficult/ethgc/issues/new"
+          href="https://github.com/hardlydifficult/ethgc/issues/new"
           >Find an issue, have a suggestion: let me know</a
         >
       </div>

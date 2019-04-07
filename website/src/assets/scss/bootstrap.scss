@@ -10,6 +10,9 @@ $gray-900: #403f3d;
 $white: #ecf0f1;
 $black: #131313;
 
+$cyan:    #17a2b8 !default;
+$info:          $cyan !default;
+
 $theme-colors: (
   "primary":    $gray-800,
   "secondary":  $gray-500,
@@ -24,6 +27,24 @@ $theme-colors: (
 $body-bg: $white;
 $enable-responsive-font-sizes: true;
 $emphasized-link-hover-darken-percentage: 15% !default;
+
+.nav {
+  padding-top: 1em;
+  padding-bottom: 2em;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+.nav > a:hover {
+  background-color: $gray-100;
+  color: $white;
+}
+.nav > a:active {
+  background-color: $black;
+  color: $white;
+}
+.nav .active {
+  background-color: $gray-500;
+}
 
 // Bootstrap and its default variables
 @import "node_modules/bootstrap/scss/bootstrap";
