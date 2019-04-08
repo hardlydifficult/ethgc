@@ -1,6 +1,5 @@
 {
   "4447": "0x8f0483125FCb9aaAEFA9209D8E9d7b9C8B9Fb90F",
-  "5777": "0xc728Ed89Fd692d173d373F90600C36390a84F37B",
   "abi": [
     {
       "constant": false,
@@ -432,5 +431,5 @@
       "signature": "0x7717e5bd2e90412f6194ccdf5172e836bb09fa0ee7d3087167b421222ecc0171"
     }
   ],
-  "bytecodeHash": "0xa61ec64504b12f5a5b2785ffb3ee622985dd41a81d841a7a919bafdd6155ae89"
+  "bytecodeHash": "0x9158c0f9235a9322cc8a6e65d025a7e4f9dce8d50efd3123f93075dad9388339"
 }
