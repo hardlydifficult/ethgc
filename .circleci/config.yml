@@ -9,6 +9,7 @@ jobs:
     branches:
       ignore:
         - gh-pages
+        - artifacts
 
     # parallelism: 4
 
