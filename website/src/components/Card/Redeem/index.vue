@@ -1,5 +1,7 @@
 <template>
-  <div class="jumbotron text-md-center px-2">
+  <div class="jumbotron text-md-center px-2 mx-auto">
+    <div class="pl-3 pr-3">
+
     <div class="display-4 pb-2">
       Redeem a Gift Card
     </div>
@@ -44,6 +46,7 @@
             </span>
           </small>
         </div>
+    </div>
       </div>
     </div>
   </div>
@@ -80,6 +83,8 @@ export default {
 
 <style>
 .jumbotron {
+  width: 90%;
+  max-width: 40em;
   padding-top: 1em;
   padding-bottom: 2em;
   color: black;

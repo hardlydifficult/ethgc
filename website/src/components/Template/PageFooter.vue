@@ -29,7 +29,7 @@
         Giveaway ETH, tokens or NFTs with a simple redeem code
       </div>
       <div class="pt-2">
-        Tip the developer in
+        Support the developer with a tip in
         <span
           v-tooltip="'3EPAsFwUBh1JvPJVqoycXpYVfDE4v3WdQ1<br><small>click to copy</small>'"
           @click="$clipboard('3EPAsFwUBh1JvPJVqoycXpYVfDE4v3WdQ1')"
