@@ -38,7 +38,7 @@ class ethgc {
       true
     );
 
-    return send(
+    return this.hardlyWeb3.send(
       this.contract.methods.create(
         cardAddresses,
         tokenAddresses,
@@ -80,7 +80,7 @@ class ethgc {
       valueOrIds,
       false
     );
-    return send(
+    return this.hardlyWeb3.send(
       this.contract.methods.contribute(
         cardAddresses,
         tokenAddresses,
@@ -163,7 +163,11 @@ class ethgc {
     }
     await this._init();
     const privateKey = await getPrivateKey(redeemCode);
-    return send(this.contract.methods.redeem(sendTo, tokenType), 0, privateKey);
+    return this.hardlyWeb3.send(
+      this.contract.methods.redeem(sendTo, tokenType),
+      0,
+      privateKey
+    );
   }
 
   async redeemWithSignature(
@@ -188,7 +192,7 @@ class ethgc {
       s.push(sig.s);
     }
 
-    return send(
+    return this.hardlyWeb3.send(
       this.contract.methods.redeemWithSignature(
         cardAddresses,
         v,
@@ -207,7 +211,9 @@ class ethgc {
     if (tokenType == -1) {
       tokenType = "0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF";
     }
-    return send(this.contract.methods.cancel(cardAddresses, tokenType));
+    return this.hardlyWeb3.send(
+      this.contract.methods.cancel(cardAddresses, tokenType)
+    );
   }
   // #endregion
 
@@ -220,7 +226,7 @@ class ethgc {
 
   async devSetFees(createFee, gasForEth, gasForErc20, gasForErc721) {
     await this._init();
-    return send(
+    return this.hardlyWeb3.send(
       this.contract.methods.devSetFees(
         createFee,
         gasForEth,
@@ -232,12 +238,14 @@ class ethgc {
 
   async devTransferAccount(newDevAccount) {
     await this._init();
-    return send(this.contract.methods.devTransferAccount(newDevAccount));
+    return this.hardlyWeb3.send(
+      this.contract.methods.devTransferAccount(newDevAccount)
+    );
   }
 
   async developerWithdrawFees() {
     await this._init();
-    return send(this.contract.methods.developerWithdrawFees());
+    return this.hardlyWeb3.send(this.contract.methods.developerWithdrawFees());
   }
 
   async getFeesCollected() {
@@ -436,38 +444,6 @@ async function setMaxGasPrice(sendOptions) {
 
   // TODO change the gas and value if min kicks in.
   /// ... than add the remainder to the value... which is 0 for this use case.
-}
-
-function send(functionCall, ethValue = undefined, privateKey) {
-  const sendOptions = {
-    value: ethValue ? ethValue.toFixed() : undefined
-  };
-
-  return new Promise(async function(resolve, reject) {
-    if (privateKey) {
-      const account = _this.hardlyWeb3.web3.eth.accounts.privateKeyToAccount(
-        privateKey
-      );
-      _this.hardlyWeb3.web3.eth.accounts.wallet.add(account);
-      sendOptions.from = account.address;
-    } else {
-      sendOptions.from = _this.hardlyWeb3.defaultAccount();
-    }
-
-    sendOptions.gas = new BigNumber(
-      await functionCall.estimateGas(sendOptions)
-    ).plus(3000); // I'm not sure why this helps, but createCard consistently fails without it
-    await setMaxGasPrice(sendOptions);
-
-    functionCall
-      .send(sendOptions)
-      .on("transactionHash", tx => {
-        resolve({ hash: tx });
-      })
-      .on("error", error => {
-        reject(error);
-      });
-  });
 }
 
 function parseInput(tokenAddresses, valueOrIds) {
