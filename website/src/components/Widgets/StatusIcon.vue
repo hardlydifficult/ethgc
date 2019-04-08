@@ -4,14 +4,17 @@
       <i
         v-if="overallStatus === 'SUCCESS'"
         class="far fa-thumbs-up text-success"
+        v-bind:class="status.loadingMessage ? ' fa-spin' : ''"
       />
       <i
         v-else-if="overallStatus === 'WARNING'"
         class="fas fa-exclamation text-warning"
+        v-bind:class="status.loadingMessage ? ' fa-spin' : ''"
       />
       <i
         v-else-if="overallStatus === 'ERROR'"
         class="fas fa-times text-danger"
+        v-bind:class="status.loadingMessage ? ' fa-spin' : ''"
       />
     </span>
     <a
@@ -22,7 +25,7 @@
     >
       <i class="fas fa-receipt" />
     </a>
-    <span v-if="status.loadingMessage" v-tooltip="status.loadingMessage">
+    <span v-if="status.loadingMessage && !overallStatus" v-tooltip="status.loadingMessage">
       <i class="fas fa-spinner fa-spin" />
     </span>
   </span>
@@ -64,6 +67,10 @@ export default {
       for (let i = 0; i < this.status.status.length; i++) {
         const statusMessage = this.status.status[i].message;
         messages += `<div>${statusMessage}</div>`;
+      }
+      if(this.status.loadingMessage)
+      {
+        messages += `<div>${this.status.loadingMessage}</div>`;
       }
       return messages;
     }

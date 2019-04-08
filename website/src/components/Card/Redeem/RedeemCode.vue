@@ -1,6 +1,6 @@
 <template>
   <div class="row justify-content-center">
-    <div class="col-md-3" />
+    <div class="col-md-2" />
     <div class="col inputRedeemCode">
       <input
         v-model="card.redeemCode"
@@ -9,7 +9,7 @@
         placeholder="Redeem Code"
       />
     </div>
-    <div class="col-3 text-left pl-0 align-self-center">
+    <div class="col-2 text-left pl-0 align-self-center">
       <i v-tooltip="'Paste'" class="far fa-clipboard" @click="paste()" />
       <StatusIcon :status="status" />
     </div>
