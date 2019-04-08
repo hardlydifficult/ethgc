@@ -48,19 +48,25 @@ jobs:
             - website/node_modules
           key: v1-dependencies-{{ checksum "package.json" }}-{{ checksum "library/package.json" }}-{{ checksum "contracts/package.json" }}-{{ checksum "website/package.json" }}
 
+      # run tests!
+      - run: npm run test
+      - run: cd contracts && npm run compile && npm run test && cd ..
+
       # get artifacts
       - run: |
             bash .circleci/get-artifacts.sh
 
-      # run tests!
-      - run: npm run test
-      - run: cd contracts && npm run compile && npm run test && cd ..
-      - run: cd website && npm run build && cd ..
-
-      # deploy
+      # artifacts
       - run: |
             if [ $CIRCLE_BRANCH == 'master' ]; then
               cd library && npm run deploy && cd ..
               bash .circleci/deploy-artifacts.sh
+            fi
+
+      - run: cd website && npm run build && cd ..
+
+      # deploy website
+      - run: |
+            if [ $CIRCLE_BRANCH == 'master' ]; then
               bash .circleci/deploy-ghpages.sh
             fi
