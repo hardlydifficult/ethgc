@@ -25,6 +25,7 @@
   font-family: "Roboto", "Open-Sans", sans-serif;
   position: relative;
   top: -2em;
+  left: -0.75em;
 }
 .logoTitle {
   font-size: 2.75em;
