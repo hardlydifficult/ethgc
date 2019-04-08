@@ -22,7 +22,6 @@
   width: 8em;
 }
 .logoText {
-  font-family: "Roboto", "Open-Sans", sans-serif;
   position: relative;
   top: -2em;
 }
