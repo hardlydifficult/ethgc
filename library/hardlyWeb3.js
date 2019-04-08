@@ -28,8 +28,12 @@ class HardlyWeb3 {
   async getReceipt(tx) {
     if (tx.receipt) return tx.receipt;
 
-    const receipt = await this.web3.eth.getTransactionReceipt(tx.hash);
-    return (tx.receipt = receipt);
+    // eslint-disable-next-line no-constant-condition
+    while (true) {
+      const receipt = await this.web3.eth.getTransactionReceipt(tx.hash);
+      if (receipt) return (tx.receipt = receipt);
+      await sleep(2000);
+    }
   }
 
   async getGasCost(tx) {
@@ -126,6 +130,10 @@ class HardlyWeb3 {
 
 function getGasCost(txRequest, txReceipt) {
   return new BigNumber(txRequest.gasPrice).times(txReceipt.gasUsed);
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 module.exports = HardlyWeb3;

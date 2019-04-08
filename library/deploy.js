@@ -10,7 +10,7 @@ module.exports.deploy = async (
   fromAccount = undefined,
   networkNodes = [
     "https://127.0.0.1:8545",
-    "rinkeby.infura.io/v3/1830f67bb051457b8d891301de981bd2"
+    "wss://rinkeby.infura.io/ws/v3/1830f67bb051457b8d891301de981bd2"
   ]
 ) => {
   const hardlyWeb3 = new HardlyWeb3(networkNodes[0]);
@@ -46,10 +46,10 @@ module.exports.deploy = async (
       );
       networkBytecodeHash = networkWeb3.web3.utils.keccak256(networkBytecode);
     }
+
     if (networkBytecodeHash !== json.bytecodeHash) {
       // Deploy to this network
       const contract = new networkWeb3.web3.eth.Contract(json.abi);
-      console.log("try deploy from " + networkWeb3.defaultAccount());
       const tx = await networkWeb3.send(
         contract.deploy({ data: ethgc.bytecode }), // todo byte or deployed?
         0,

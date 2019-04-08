@@ -106,5 +106,4 @@ html {
 .inputRedeemCode {
   max-width: 36em;
 }
-
 </style>

@@ -25,7 +25,10 @@
     >
       <i class="fas fa-receipt" />
     </a>
-    <span v-if="status.loadingMessage && !overallStatus" v-tooltip="status.loadingMessage">
+    <span
+      v-if="status.loadingMessage && !overallStatus"
+      v-tooltip="status.loadingMessage"
+    >
       <i class="fas fa-spinner fa-spin" />
     </span>
   </span>
@@ -68,8 +71,7 @@ export default {
         const statusMessage = this.status.status[i].message;
         messages += `<div>${statusMessage}</div>`;
       }
-      if(this.status.loadingMessage)
-      {
+      if (this.status.loadingMessage) {
         messages += `<div>${this.status.loadingMessage}</div>`;
       }
       return messages;

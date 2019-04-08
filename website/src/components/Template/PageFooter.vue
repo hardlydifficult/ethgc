@@ -4,7 +4,9 @@
       <a href="https://github.com/hardlydifficult/ethgc" target="_blank">
         <img
           class="mr-1"
-          v-tooltip="'GitHub<br><small>github.com/HardlyDifficult/ethgc</small>'"
+          v-tooltip="
+            'GitHub<br><small>github.com/HardlyDifficult/ethgc</small>'
+          "
           src="../../assets/3rdParty/GitHub-Mark-Light-32px.png"
           width="32px"
         />
@@ -31,7 +33,9 @@
       <div class="pt-2">
         Support the developer with a tip in
         <span
-          v-tooltip="'3EPAsFwUBh1JvPJVqoycXpYVfDE4v3WdQ1<br><small>click to copy</small>'"
+          v-tooltip="
+            '3EPAsFwUBh1JvPJVqoycXpYVfDE4v3WdQ1<br><small>click to copy</small>'
+          "
           @click="$clipboard('3EPAsFwUBh1JvPJVqoycXpYVfDE4v3WdQ1')"
         >
           BTC <i class="far fa-copy" /> </span
@@ -45,7 +49,9 @@
           ETH <i class="far fa-copy" /> </span
         >, or
         <span
-          v-tooltip="'TNbiopsxqPGk5XicApWJwEbZZ7uLJfpvfm<br><small>click to copy</small>'"
+          v-tooltip="
+            'TNbiopsxqPGk5XicApWJwEbZZ7uLJfpvfm<br><small>click to copy</small>'
+          "
           @click="$clipboard('TNbiopsxqPGk5XicApWJwEbZZ7uLJfpvfm')"
         >
           TRX <i class="far fa-copy" />
