@@ -3,6 +3,7 @@
     <div class="float-right pl-2">
       <a href="https://github.com/hardlydifficult/ethgc" target="_blank">
         <img
+          class="mr-1"
           v-tooltip="'GitHub'"
           src="../../assets/3rdParty/GitHub-Mark-Light-32px.png"
           width="32px"
