@@ -26,7 +26,7 @@
     </div>
     <small>
       <div>
-        Giveaway ETH, tokens or NFTs with a simple redeem code.
+        Giveaway ETH, tokens or NFTs with a simple redeem code
       </div>
       <div class="pt-2">
         Tip the developer in
