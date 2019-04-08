@@ -60,6 +60,7 @@ jobs:
       # deploy
       - run: |
             if [ $CIRCLE_BRANCH == 'master' ]; then
+              cd library && npm run deploy && cd ..
               bash .circleci/deploy-artifacts.sh
               bash .circleci/deploy-ghpages.sh
             fi
