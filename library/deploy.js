@@ -62,6 +62,7 @@ module.exports.deploy = async (
   }
 
   json = JSON.stringify(json, null, 2);
+  await fs.promises.mkdir(`${__dirname}/artifacts/`, { recursive: true });
   fs.writeFileSync(ETHGC_JSON, json);
 
   console.log("Contracts deployed");
