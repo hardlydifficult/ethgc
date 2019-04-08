@@ -28,6 +28,9 @@ $body-bg: $white;
 $enable-responsive-font-sizes: true;
 $emphasized-link-hover-darken-percentage: 15% !default;
 
+.jumbotron {
+  background-color: $gray-100 !important;
+}
 .nav {
   padding-top: 1em;
   padding-bottom: 2em;
