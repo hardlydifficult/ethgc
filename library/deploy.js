@@ -8,7 +8,10 @@ const privateKey =
 
 module.exports.deploy = async (
   fromAccount = undefined,
-  networkNodes = ["https://127.0.0.1:8545", "rinkeby.infura.io/v3/1830f67bb051457b8d891301de981bd2"]
+  networkNodes = [
+    "https://127.0.0.1:8545",
+    "rinkeby.infura.io/v3/1830f67bb051457b8d891301de981bd2"
+  ]
 ) => {
   const hardlyWeb3 = new HardlyWeb3(networkNodes[0]);
   const ethgc = JSON.parse(
