@@ -37,7 +37,7 @@
             >No fees!
             <span
               v-tooltip="
-                'No transactions fees, the gas required was pre-paid by the card creator.  Simply hit the button and the transaction will be broadcasted (nothing to sign, no metamask prompt)'
+                'No transactions fees, the gas required was pre-paid by the card creator.  Simply hit the button and the transaction will be broadcasted (i.e. nothing to sign!)'
               "
             >
               <i class="far fa-question-circle"></i>

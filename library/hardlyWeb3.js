@@ -4,7 +4,7 @@ const BigNumber = require("bignumber.js");
 class HardlyWeb3 {
   constructor(currentProvider) {
     if (!currentProvider) {
-      currentProvider = new Web3.providers.HttpProvider("ws://localhost:8546");
+      currentProvider = new Web3.providers.HttpProvider("http://127.0.0.1:7545");
     }
     this.web3 = new Web3(currentProvider);
     this.web3.defaultGasPrice = 4000000000;
