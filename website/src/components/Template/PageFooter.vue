@@ -1,18 +1,34 @@
 <template>
   <footer class="footer bg-dark text-white">
-    <div>
+    <div class="float-right pl-2">
+      <a href="https://github.com/hardlydifficult/ethgc" target="_blank">
+        <img
+          v-tooltip="'GitHub'"
+          src="../../assets/3rdParty/GitHub-Mark-Light-32px.png"
+          width="32px"
+        />
+      </a>
+      <a href="https://twitter.com/HardlyDifficult" target="_blank">
+        <img
+          v-tooltip="'Twitter'"
+          src="../../assets/3rdParty/Twitter_Social_Icon_Circle_Color.png"
+          width="32px"
+        />
+      </a>
+      <a href="https://ethgc.readthedocs.io" target="_blank">
+        <img
+          v-tooltip="'Read the Docs'"
+          src="../../assets/3rdParty/rtd-logo-light.svg"
+          width="32px"
+        />
+      </a>
+    </div>
+    <small>
       <div>
         Giveaway ETH, tokens or NFTs with a simple redeem code.
       </div>
-      <div>
-        <a
-          class="text-light"
-          href="https://github.com/hardlydifficult/ethgc/issues/new"
-          >Find an issue, have a suggestion: let me know</a
-        >
-      </div>
-      <div>
-        Support development of this tool: tip with
+      <div class="pt-2">
+        Tip the dev in
         <span
           v-tooltip="'3EPAsFwUBh1JvPJVqoycXpYVfDE4v3WdQ1 (click to copy)'"
           @click="$clipboard('3EPAsFwUBh1JvPJVqoycXpYVfDE4v3WdQ1')"
@@ -34,23 +50,7 @@
           TRX <i class="far fa-copy" />
         </span>
       </div>
-    </div>
-    <div>
-      <a href="https://github.com/hardlydifficult/ethgc" target="_blank">
-        <img
-          v-tooltip="'GitHub'"
-          src="../../assets/3rdParty/GitHub-Mark-Light-32px.png"
-          width="32px"
-        />
-      </a>
-      <a href="https://twitter.com/HardlyDifficult" target="_blank">
-        <img
-          v-tooltip="'Twitter'"
-          src="../../assets/3rdParty/Twitter_Social_Icon_Circle_Color.png"
-          width="32px"
-        />
-      </a>
-    </div>
+    </small>
   </footer>
 </template>
 <style>

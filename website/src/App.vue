@@ -4,42 +4,48 @@
       <PageHeader />
       <RedeemCard />
       <nav class="nav nav-pills flex-column flex-md-row">
-        <a class="flex-md-fill text-sm-center nav-link"
-          v-bind:class="option==='create' ? 'active' : ''"
-            @click="
-              option === 'create' ? (option = undefined) : (option = 'create')
-            "
+        <a
+          class="flex-md-fill text-sm-center nav-link"
+          v-bind:class="option === 'create' ? 'active' : ''"
+          @click="
+            option === 'create' ? (option = undefined) : (option = 'create')
+          "
           href="#"
           >Create Card</a
         >
-        <a class="flex-md-fill text-sm-center nav-link" href="#"
-          v-bind:class="option==='manage' ? 'active' : ''"
-            @click="
-              option === 'manage' ? (option = undefined) : (option = 'manage')
-            "
+        <a
+          class="flex-md-fill text-sm-center nav-link"
+          href="#"
+          v-bind:class="option === 'manage' ? 'active' : ''"
+          @click="
+            option === 'manage' ? (option = undefined) : (option = 'manage')
+          "
           >Manage Cards</a
         >
-        <a class="flex-md-fill text-sm-center nav-link" href="#"
-          v-bind:class="option==='learn' ? 'active' : ''"
-            @click="
-              option === 'learn' ? (option = undefined) : (option = 'learn')
-            "
-        >Learn More</a>
+        <a
+          class="flex-md-fill text-sm-center nav-link"
+          href="#"
+          v-bind:class="option === 'learn' ? 'active' : ''"
+          @click="
+            option === 'learn' ? (option = undefined) : (option = 'learn')
+          "
+          >Learn More</a
+        >
       </nav>
-        <div v-if="option">
-          <div>
-            <div v-if="option === 'create'">
-              <CreateCards />
-            </div>
-            <div v-else-if="option === 'manage'">
-              <ManageCards />
-            </div>
-            <div v-else-if="option === 'learn'">
-              <LearnMore />
-            </div>
+      <div v-if="option">
+        <div>
+          <div v-if="option === 'create'">
+            <CreateCards />
+          </div>
+          <div v-else-if="option === 'manage'">
+            <ManageCards />
+          </div>
+          <div v-else-if="option === 'learn'">
+            <LearnMore />
           </div>
         </div>
       </div>
+    </div>
     <PageFooter />
   </div>
 </template>
@@ -100,7 +106,6 @@ html {
 .inputRedeemCode {
   max-width: 36em;
 }
-
 
 .tooltip {
   display: block !important;
