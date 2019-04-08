@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer bg-dark text-white">
+  <footer class="footer bg-dark text-white mt-5">
     <div class="float-right pl-2">
       <a href="https://github.com/hardlydifficult/ethgc" target="_blank">
         <img
