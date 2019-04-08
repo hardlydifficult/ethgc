@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "description": "giveaway ETH or tokens with a redeem code",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "deploy": "node -e \"require('./deploy.js').deploy()\""},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hardlydifficult/ethgc.git"

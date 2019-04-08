@@ -34,6 +34,36 @@ class HardlyWeb3 {
     return getGasCost(await this.getRequest(tx), await this.getReceipt(tx));
   }
 
+  async send(functionCall, ethValue = undefined, privateKey) {
+    const sendOptions = {
+      value: ethValue ? ethValue.toFixed() : undefined
+    };
+
+    return new Promise(async (resolve, reject) => {
+      if (privateKey) {
+        const account = this.web3.eth.accounts.privateKeyToAccount(privateKey);
+        this.web3.eth.accounts.wallet.add(account);
+        sendOptions.from = account.address;
+      } else {
+        sendOptions.from = this.defaultAccount();
+      }
+
+      sendOptions.gas = new BigNumber(
+        await functionCall.estimateGas(sendOptions)
+      ).plus(3000); // I'm not sure why this helps, but createCard consistently fails without it
+      await this.setMaxGasPrice(sendOptions);
+
+      functionCall
+        .send(sendOptions)
+        .on("transactionHash", tx => {
+          resolve({ hash: tx });
+        })
+        .on("error", error => {
+          reject(error);
+        });
+    });
+  }
+
   /*********************************************************************************
    * Helpers (non-network requests)
    */
@@ -56,6 +86,31 @@ class HardlyWeb3 {
     const account =
       this.web3.currentProvider.selectedAddress || this.web3.defaultAccount;
     return account;
+  }
+
+  async setMaxGasPrice(sendOptions) {
+    let balance = await this.getEthBalance(sendOptions.from);
+    balance = balance.minus(sendOptions.value ? sendOptions.value : 0);
+
+    sendOptions.gasPrice = balance
+      .div(sendOptions.gas)
+      .integerValue(BigNumber.ROUND_DOWN);
+    sendOptions.gasPrice = new BigNumber(
+      Math.min(
+        parseInt(this.toWei("4", "gwei")),
+        sendOptions.gasPrice.toNumber()
+      )
+    );
+    if (sendOptions.gasPrice.lt(this.toWei("0.5", "gwei"))) {
+      throw new Error(
+        `The account does not have enough balance: gasPrice~ ${
+          sendOptions.gasPrice
+        }`
+      );
+    }
+
+    // TODO change the gas and value if min kicks in.
+    /// ... than add the remainder to the value... which is 0 for this use case.
   }
 }
 

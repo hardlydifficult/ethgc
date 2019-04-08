@@ -21,7 +21,7 @@
     "bignumber.js": "8.1.1",
     "vue": "2.6.10",
     "bootstrap": "4.3.1",
-    "bootstrap-vue": "2.0.0-rc.17",
+    "bootstrap-vue": "2.0.0-rc.18",
     "jquery": "3.3.1",
     "node-sass": "4.11.0",
     "sass-loader": "7.1.0"
@@ -59,7 +59,7 @@
     "vue-template-compiler": "2.6.10",
     "webpack": "4.29.6",
     "webpack-cli": "3.3.0",
-    "webpack-dev-server": "3.2.1",
+    "webpack-dev-server": "3.3.0",
     "webpack-merge": "4.2.1",
     "css-loader": "2.1.1",
     "eslint": "5.15.3",
