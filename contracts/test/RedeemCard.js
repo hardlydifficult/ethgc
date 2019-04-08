@@ -1,12 +1,11 @@
+const init = require("./helpers/init");
 const shouldFail = require("./helpers/shouldFail");
-const EthgcJs = require("../../library/ethgc.js");
 
 contract("RedeemCard", accounts => {
   let ethgc;
 
   before(async () => {
-    ethgc = new EthgcJs(web3.currentProvider, accounts[0]);
-    ethgc.hardlyWeb3.switchAccount(accounts[0]);
+    ethgc = await init(accounts);
   });
 
   describe("ETH card", () => {

@@ -1,12 +1,11 @@
 const BigNumber = require("bignumber.js");
-const ethgcJs = require("../../library/ethgc.js");
+const init = require("./helpers/init");
 
 contract("Fees", accounts => {
   let ethgc;
 
   before(async () => {
-    ethgc = new ethgcJs(web3.currentProvider, accounts[0]);
-    ethgc.hardlyWeb3.switchAccount(accounts[0]);
+    ethgc = await init(accounts);
   });
 
   it("Can check the cost to create a card", async () => {

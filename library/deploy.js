@@ -1,15 +1,20 @@
 const fs = require("fs");
 const HardlyWeb3 = require("./hardlyWeb3.js");
-const ETHGC_JSON = "./artifacts/ethgc.json";
-const networkNodes = ["https://127.0.0.1:7545"];
+const ETHGC_JSON = `${__dirname}/artifacts/ethgc.json`;
+
 // TODO move to env variable
 const privateKey =
-  "2bbe937985021fdd8365af80bb37cf948bdd5eb71c38fe91f5e1901632442058";
+  "0x2bbe937985021fdd8365af80bb37cf948bdd5eb71c38fe91f5e1901632442058";
 
-module.exports.deploy = async () => {
+module.exports.deploy = async (
+  fromAccount = undefined,
+  networkNodes = ["https://127.0.0.1:8545"]
+) => {
   const hardlyWeb3 = new HardlyWeb3(networkNodes[0]);
   const ethgc = JSON.parse(
-    fs.readFileSync("./build/contracts/ethgc.json").toString()
+    fs
+      .readFileSync(`${__dirname}/../contracts/build/contracts/ethgc.json`)
+      .toString()
   );
   let json;
 
@@ -25,12 +30,13 @@ module.exports.deploy = async () => {
   }
   json.abi = ethgc.abi;
   json.bytecodeHash = hardlyWeb3.web3.utils.keccak256(ethgc.deployedBytecode);
-
   for (let i = 0; i < networkNodes.length; i++) {
     const networkNode = networkNodes[i];
-    const networkWeb3 = new HardlyWeb3(
-      new hardlyWeb3.providers.WebsocketProvider(networkNode)
-    );
+
+    const networkWeb3 = new HardlyWeb3(networkNode);
+    if (fromAccount) {
+      networkWeb3.switchAccount(fromAccount);
+    }
     const networkId = await networkWeb3.web3.eth.net.getId();
     let networkBytecodeHash;
     if (json[networkId]) {
@@ -41,9 +47,16 @@ module.exports.deploy = async () => {
     }
     if (networkBytecodeHash !== json.bytecodeHash) {
       // Deploy to this network
-      const contract = new networkWeb3.eth.Contract(json.abi);
-      const tx = await contract.deploy({ data: ethgc.deployedBytecode }).send();
-      console.log(tx);
+      const contract = new networkWeb3.web3.eth.Contract(json.abi);
+      console.log("try deploy from " + networkWeb3.defaultAccount());
+      const tx = await networkWeb3.send(
+        contract.deploy({ data: ethgc.bytecode }), // todo byte or deployed?
+        0,
+        fromAccount ? undefined : privateKey,
+        4200000
+      );
+      const receipt = await networkWeb3.getReceipt(tx);
+      json[networkId] = receipt.contractAddress;
     }
   }
 
@@ -53,5 +66,4 @@ module.exports.deploy = async () => {
   // todo git commit and push contracts from contracts branch
 
   console.log("Contracts deployed");
-  process.exit();
 };

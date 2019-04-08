@@ -4,9 +4,11 @@ const BigNumber = require("bignumber.js");
 class HardlyWeb3 {
   constructor(currentProvider) {
     if (!currentProvider) {
-      currentProvider = new Web3.providers.HttpProvider(
-        "http://127.0.0.1:7545"
+      currentProvider = new Web3.providers.WebsocketProvider(
+        "http://127.0.0.1:8545"
       );
+    } else if (typeof currentProvider === "string") {
+      currentProvider = new Web3.providers.WebsocketProvider(currentProvider);
     }
     this.web3 = new Web3(currentProvider);
     this.web3.defaultGasPrice = 4000000000;
@@ -34,7 +36,7 @@ class HardlyWeb3 {
     return getGasCost(await this.getRequest(tx), await this.getReceipt(tx));
   }
 
-  async send(functionCall, ethValue = undefined, privateKey) {
+  async send(functionCall, ethValue = undefined, privateKey, fixedGas) {
     const sendOptions = {
       value: ethValue ? ethValue.toFixed() : undefined
     };
@@ -48,10 +50,14 @@ class HardlyWeb3 {
         sendOptions.from = this.defaultAccount();
       }
 
-      sendOptions.gas = new BigNumber(
-        await functionCall.estimateGas(sendOptions)
-      ).plus(3000); // I'm not sure why this helps, but createCard consistently fails without it
-      await this.setMaxGasPrice(sendOptions);
+      if (fixedGas) {
+        sendOptions.gas = fixedGas;
+      } else {
+        sendOptions.gas = new BigNumber(
+          await functionCall.estimateGas(sendOptions)
+        ).plus(3000); // I'm not sure why this helps, but createCard consistently fails without it
+        await this.setMaxGasPrice(sendOptions);
+      }
 
       functionCall
         .send(sendOptions)

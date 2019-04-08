@@ -1,4 +1,4 @@
-const ethgcJs = require("../../library/ethgc.js");
+const init = require("./helpers/init");
 
 contract("CardCreator", accounts => {
   const redeemCode = "abc123";
@@ -6,8 +6,7 @@ contract("CardCreator", accounts => {
   let ethgc;
 
   before(async () => {
-    ethgc = new ethgcJs(web3.currentProvider);
-    ethgc.hardlyWeb3.switchAccount(accounts[0]);
+    ethgc = await init(accounts);
   });
 
   describe("For cards I created", () => {
