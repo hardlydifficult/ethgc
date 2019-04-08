@@ -1,6 +1,6 @@
 <template>
   <span>
-    <span v-tooltip="`${address} (click to view on EtherScan)`">
+    <span v-tooltip="`${address}<br><small>click to view on EtherScan</small>`">
       <a :href="`https://etherscan.io/address/${address}`" target="_blank">
         <span>0x</span>{{ shortAddressPrefix }}<span>...</span
         >{{ shortAddressSuffix }}</a
