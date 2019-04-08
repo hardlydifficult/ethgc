@@ -18,8 +18,6 @@ module.exports.deploy = async (
   );
   let json;
 
-  // todo git pull contracts from contracts branch
-
   try {
     json = JSON.parse(fs.readFileSync(ETHGC_JSON).toString());
   } catch (e) {
@@ -62,8 +60,6 @@ module.exports.deploy = async (
 
   json = JSON.stringify(json, null, 2);
   fs.writeFileSync(ETHGC_JSON, json);
-
-  // todo git commit and push contracts from contracts branch
 
   console.log("Contracts deployed");
 };

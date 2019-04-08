@@ -55,5 +55,6 @@ jobs:
       # deploy
       - run: |
             if [ $CIRCLE_BRANCH == 'master' ]; then
+              bash .circleci/deploy-artifacts.sh
               bash .circleci/deploy-ghpages.sh
             fi
