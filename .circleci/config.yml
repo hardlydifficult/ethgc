@@ -53,6 +53,7 @@ jobs:
             bash .circleci/get-artifacts.sh
 
       # run tests!
+      - run: npm run compile
       - run: npm run test
       - run: cd contracts && npm run test && cd ..
       - run: cd website && npm run build && cd ..
