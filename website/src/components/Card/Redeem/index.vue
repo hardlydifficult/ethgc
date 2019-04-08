@@ -1,6 +1,6 @@
 <template>
-  <div class="jumbotron text-center px-2">
-    <div class="display-4">
+  <div class="jumbotron text-md-center px-2">
+    <div class="display-4 pb-2">
       Redeem a Gift Card
     </div>
 
