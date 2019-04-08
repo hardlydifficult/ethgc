@@ -33,7 +33,7 @@ else
 fi
 
 # copy over or recompile the new site
-cp -a -R ~/repo/library/artifacts/. .
+cp -a ~/repo/library/artifacts/ethgc.json ./ethgc.json
 
 # stage any changes and new files
 git add -A
