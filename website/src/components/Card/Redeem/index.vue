@@ -1,5 +1,5 @@
 <template>
-  <div class="jumbotron text-md-center px-2 mx-auto">
+  <div class="jumbotron bg-gray-100 text-md-center px-2 mx-auto">
     <div class="pl-3 pr-3">
 
     <div class="display-4 pb-2">
