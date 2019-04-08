@@ -39,7 +39,7 @@
       <a href="https://github.com/hardlydifficult/ethgc" target="_blank">
         <img
           v-tooltip="'GitHub'"
-          src="../../assets/3rdParty/GitHub-Mark-32px.png"
+          src="../../assets/3rdParty/GitHub-Mark-Light-32px.png"
           width="32px"
         />
       </a>
