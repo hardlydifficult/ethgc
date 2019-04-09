@@ -1,8 +1,4 @@
-
-# Javascript Node CircleCI 2.0 configuration file
-#
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
-#
 version: 2
 jobs:
   build:
@@ -11,10 +7,7 @@ jobs:
         - gh-pages
         - artifacts
 
-    # parallelism: 4
-
     docker:
-      # specify the version you desire here
       - image: circleci/node:10
 
       # Specify service dependencies here if necessary
@@ -48,7 +41,7 @@ jobs:
             - website/node_modules
           key: v1-dependencies-{{ checksum "package.json" }}-{{ checksum "library/package.json" }}-{{ checksum "contracts/package.json" }}-{{ checksum "website/package.json" }}
 
-      # run tests!
+      # run tests
       - run: npm run test
       - run: cd contracts && npm run compile && npm run test && npm run lint && cd ..
 
