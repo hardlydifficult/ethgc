@@ -4,7 +4,7 @@ const BigNumber = require("bignumber.js");
 let _this;
 
 class ethgc {
-  //#region Init
+  // #region Init
   constructor(currentProvider) {
     this.hardlyWeb3 = new HardlyWeb3(currentProvider);
     _this = this;
@@ -13,15 +13,12 @@ class ethgc {
   async _init() {
     if (this.contract) return;
     const id = await this.hardlyWeb3.web3.eth.net.getId();
-    const file = require(`./abi/${id}.json`);
-    this.contract = new this.hardlyWeb3.web3.eth.Contract(
-      file.abi,
-      file.address
-    );
+    const file = require(`./artifacts/ethgc.json`);
+    this.contract = new this.hardlyWeb3.web3.eth.Contract(file.abi, file[id]);
   }
-  //#endregion
+  // #endregion
 
-  //#region Create / Contribute
+  // #region Create / Contribute
   async create(
     cardAddresses,
     tokenAddresses,
@@ -38,7 +35,7 @@ class ethgc {
       true
     );
 
-    return send(
+    return this.hardlyWeb3.send(
       this.contract.methods.create(
         cardAddresses,
         tokenAddresses,
@@ -80,7 +77,7 @@ class ethgc {
       valueOrIds,
       false
     );
-    return send(
+    return this.hardlyWeb3.send(
       this.contract.methods.contribute(
         cardAddresses,
         tokenAddresses,
@@ -130,9 +127,9 @@ class ethgc {
       redemptionGas: new BigNumber(redemptionGas)
     };
   }
-  //#endregion
+  // #endregion
 
-  //#region Viewing cards
+  // #region Viewing cards
   async getCardAddress(redeemCode) {
     if (!redeemCode) return;
     await this._init();
@@ -150,9 +147,9 @@ class ethgc {
     }
     return card;
   }
-  //#endregion
+  // #endregion
 
-  //#region Redeem cards
+  // #region Redeem cards
   async redeem(
     redeemCode,
     sendTo = this.hardlyWeb3.defaultAccount(),
@@ -163,7 +160,11 @@ class ethgc {
     }
     await this._init();
     const privateKey = await getPrivateKey(redeemCode);
-    return send(this.contract.methods.redeem(sendTo, tokenType), 0, privateKey);
+    return this.hardlyWeb3.send(
+      this.contract.methods.redeem(sendTo, tokenType),
+      0,
+      privateKey
+    );
   }
 
   async redeemWithSignature(
@@ -188,7 +189,7 @@ class ethgc {
       s.push(sig.s);
     }
 
-    return send(
+    return this.hardlyWeb3.send(
       this.contract.methods.redeemWithSignature(
         cardAddresses,
         v,
@@ -207,11 +208,13 @@ class ethgc {
     if (tokenType == -1) {
       tokenType = "0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF";
     }
-    return send(this.contract.methods.cancel(cardAddresses, tokenType));
+    return this.hardlyWeb3.send(
+      this.contract.methods.cancel(cardAddresses, tokenType)
+    );
   }
-  //#endregion
+  // #endregion
 
-  //#region Dev only (check)
+  // #region Dev only (check)
   async getDev() {
     return this.contract.methods
       .dev()
@@ -220,7 +223,7 @@ class ethgc {
 
   async devSetFees(createFee, gasForEth, gasForErc20, gasForErc721) {
     await this._init();
-    return send(
+    return this.hardlyWeb3.send(
       this.contract.methods.devSetFees(
         createFee,
         gasForEth,
@@ -232,12 +235,14 @@ class ethgc {
 
   async devTransferAccount(newDevAccount) {
     await this._init();
-    return send(this.contract.methods.devTransferAccount(newDevAccount));
+    return this.hardlyWeb3.send(
+      this.contract.methods.devTransferAccount(newDevAccount)
+    );
   }
 
   async developerWithdrawFees() {
     await this._init();
-    return send(this.contract.methods.developerWithdrawFees());
+    return this.hardlyWeb3.send(this.contract.methods.developerWithdrawFees());
   }
 
   async getFeesCollected() {
@@ -248,9 +253,9 @@ class ethgc {
       })
     );
   }
-  //#endregion
+  // #endregion
 
-  //#region Tx helpers
+  // #region Tx helpers
   async getRedeemTx(cardAddress) {
     if (!cardAddress) return;
     await this._init();
@@ -283,7 +288,7 @@ class ethgc {
   }
 
   async getCardMessages(cardAddress) {
-    if (!redeemCode) return;
+    if (!cardAddress) return;
     await this._init();
     const results = await this.contract.getPastEvents("CreateCard", {
       filter: { cardAddress }, // Using an array means OR: e.g. 20 or 23
@@ -336,7 +341,7 @@ Skip
 !string calldata redeemedMessage
 256 length then bytes rounded up to nearest 256
        */
-      //return request.input
+      // return request.input
       let i = new BigNumber(10 + 64 * 5);
       let cardCount = new BigNumber(request.input.substr(i.toNumber(), 64), 16);
       i = i.plus(cardCount.plus(1).times(64));
@@ -381,7 +386,7 @@ Skip
       };
     }
   }
-  //#endregion
+  // #endregion
 }
 
 async function sign(account, redeemCodePrivateKey) {
@@ -436,38 +441,6 @@ async function setMaxGasPrice(sendOptions) {
 
   // TODO change the gas and value if min kicks in.
   /// ... than add the remainder to the value... which is 0 for this use case.
-}
-
-function send(functionCall, ethValue = undefined, privateKey) {
-  const sendOptions = {
-    value: ethValue ? ethValue.toFixed() : undefined
-  };
-
-  return new Promise(async function(resolve, reject) {
-    if (privateKey) {
-      const account = _this.hardlyWeb3.web3.eth.accounts.privateKeyToAccount(
-        privateKey
-      );
-      _this.hardlyWeb3.web3.eth.accounts.wallet.add(account);
-      sendOptions.from = account.address;
-    } else {
-      sendOptions.from = _this.hardlyWeb3.defaultAccount();
-    }
-
-    sendOptions.gas = new BigNumber(
-      await functionCall.estimateGas(sendOptions)
-    ).plus(3000); // I'm not sure why this helps, but createCard consistently fails without it
-    await setMaxGasPrice(sendOptions);
-
-    functionCall
-      .send(sendOptions)
-      .on("transactionHash", tx => {
-        resolve({ hash: tx });
-      })
-      .on("error", error => {
-        reject(error);
-      });
-  });
 }
 
 function parseInput(tokenAddresses, valueOrIds) {

@@ -1,9 +1,6 @@
 <template>
   <div>
-    <div
-      v-for="(tokenAddress, index) in card.tokenAddresses"
-      :key="index"
-    >
+    <div v-for="(tokenAddress, index) in card.tokenAddresses" :key="index">
       <Token
         :token-address="tokenAddress"
         :value-or-id="card.valueOrIds[index]"
@@ -11,7 +8,7 @@
     </div>
     Created by:
     <Address :address="card.createdBy" />
-    <br>
+    <br />
     <div v-if="messages">
       <div v-if="messages.description">
         Description: {{ messages.description }}
@@ -28,9 +25,9 @@
   </div>
 </template>
 <script>
-import Address from '../../Widgets/Address'
-import Token from './Token'
-import StatusIcon from '../../Widgets/StatusIcon'
+import Address from "../../Widgets/Address";
+import Token from "./Token";
+import StatusIcon from "../../Widgets/StatusIcon";
 
 export default {
   components: {
@@ -42,9 +39,9 @@ export default {
     card: Object
   },
   asyncComputed: {
-    messages: async function () {
-      return this.ethjs.getCardMessages(this.card.redeemCode)
+    messages: async function() {
+      return this.ethjs.getCardMessages(this.card.redeemCode);
     }
   }
-}
+};
 </script>

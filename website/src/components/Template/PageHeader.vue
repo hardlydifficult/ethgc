@@ -1,39 +1,41 @@
 <template>
-  <div class="flex whitespace-no-wrap items-start justify-start">
-    <div class="flex-none w-32">
-      <img src="../../assets/Logo_ClaimedDarkness.png">
+  <div>
+    <div class="d-inline-block align-top">
+      <img class="logoImage" src="../../assets/Logo_ClaimedDarkness.png" />
     </div>
-    <div class="flex-2 title">
-      <div>
-        <span class="big">eth<span class="huge">gc</span></span>
+    <div class="logoText d-inline-block">
+      <div class="logoTitle">
+        <span>eth<span class="logoGC">gc</span></span>
       </div>
-      <div class="light">
+      <div class="logoSubtitle">
         ethereum gift card
       </div>
     </div>
   </div>
 </template>
 
-<script>
-export default {
-}
-</script>
 <style>
-.title {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 400;
-  position:relative;
-  top:-1em;
+.test {
+  width: 100%;
 }
-.big {
-  font-size: 2.5em;
+.logoImage {
+  width: 8em;
 }
-.huge {
+.logoText {
+  position: relative;
+  top: -2em;
+  left: -0.75em;
+}
+.logoTitle {
+  font-size: 2.75em;
+}
+.logoGC {
   font-size: 1.75em;
 }
-.light {
+.logoSubtitle {
+  position: relative;
+  top: -1em;
   font-weight: 100;
-  padding-top: 0.25em;
-  padding-left:2em;
+  padding-left: 2em;
 }
 </style>

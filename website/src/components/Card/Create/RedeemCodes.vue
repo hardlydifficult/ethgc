@@ -1,14 +1,8 @@
 <template>
   <div>
-    <div class="tab">
-      <div
-        v-for="(card, index) in cards"
-        :key="index"
-      >
-        <RedeemCode
-          :cards="cards"
-          :index="index"
-        />
+    <div>
+      <div v-for="(card, index) in cards" :key="index">
+        <RedeemCode :cards="cards" :index="index" />
 
         <div v-if="cards.length > 1">
           <button @click="removeCard(index)">
@@ -25,7 +19,7 @@
 </template>
 
 <script>
-import RedeemCode from './RedeemCode'
+import RedeemCode from "./RedeemCode";
 
 export default {
   components: {
@@ -35,12 +29,12 @@ export default {
     cards: Array
   },
   methods: {
-    addCard () {
-      this.cards.push({ redeemCode: undefined, customCode: false })
+    addCard() {
+      this.cards.push({ redeemCode: undefined, customCode: false });
     },
-    removeCard (index) {
-      this.cards.splice(index, 1)
+    removeCard(index) {
+      this.cards.splice(index, 1);
     }
   }
-}
+};
 </script>

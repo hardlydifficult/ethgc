@@ -1,6 +1,4 @@
-const BigNumber = require("bignumber.js");
-const shouldFail = require("./helpers/shouldFail");
-const ethgcJs = require("../../library/ethgc.js");
+const init = require("./helpers/init");
 
 contract("CardCreator", accounts => {
   const redeemCode = "abc123";
@@ -8,8 +6,7 @@ contract("CardCreator", accounts => {
   let ethgc;
 
   before(async () => {
-    ethgc = new ethgcJs(web3.currentProvider);
-    ethgc.hardlyWeb3.switchAccount(accounts[0]);
+    ethgc = await init(accounts);
   });
 
   describe("For cards I created", () => {
@@ -18,11 +15,7 @@ contract("CardCreator", accounts => {
     before(async () => {
       cardAddress = await ethgc.getCardAddress(redeemCode);
 
-      const tx = await ethgc.create(
-        [cardAddress],
-        [web3.utils.padLeft(0, 40)],
-        [value]
-      );
+      await ethgc.create([cardAddress], [web3.utils.padLeft(0, 40)], [value]);
     });
 
     it("can cancel the card and get the ETH back", async () => {
@@ -47,11 +40,7 @@ contract("CardCreator", accounts => {
       cardAddress = await ethgc.getCardAddress(redeemCode);
 
       ethgc.hardlyWeb3.switchAccount(accounts[2]);
-      const tx = await ethgc.create(
-        [cardAddress],
-        [web3.utils.padLeft(0, 40)],
-        [value]
-      );
+      await ethgc.create([cardAddress], [web3.utils.padLeft(0, 40)], [value]);
       ethgc.hardlyWeb3.switchAccount(accounts[0]);
     });
 

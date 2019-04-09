@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="tab small">
+    <div>
       <div>
         Gift Card Value: {{ cardValue }}
         <span v-if="tokenType == 'eth'">
@@ -14,9 +14,7 @@
       </div>
       <div>
         Fee to Create a Card:
-        <span v-if="newCardFee">
-          {{ newCardFee }} ether
-        </span>
+        <span v-if="newCardFee"> {{ newCardFee }} ether </span>
         <span v-else>
           ...
         </span>
@@ -26,7 +24,7 @@
           Estimated gas fee: {{ estimatedTotalGasCost }}* ether
           <!-- TODO how consistent is gas fee, can we remove estimated? -->
         </div>
-        <div class="small">
+        <div>
           * at 4 GWEI
         </div>
       </div>
@@ -54,35 +52,36 @@
   </div>
 </template>
 <script>
-import Constants from '../../../logic/constants.js'
-const BigNumber = require('bignumber.js')
+import Constants from "../../../logic/constants.js";
+const BigNumber = require("bignumber.js");
 
-function sleep (ms) { // todo remove
-  return new Promise(resolve => setTimeout(resolve, ms))
+function sleep(ms) {
+  // todo remove
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 export default {
-
   computed: {
-    estimatedTotalGasCost () {
+    estimatedTotalGasCost() {
       return this.ethjs.hardlyWeb3.fromWei(
-        this.ethjs.hardlyWeb3.toWei(4, 'gwei') * Constants.gas.createCard,
-        'ether')
+        this.ethjs.hardlyWeb3.toWei(4, "gwei") * Constants.gas.createCard,
+        "ether"
+      );
     }
   },
   asyncComputed: {
-    async newCardFee () {
-      await sleep(1000)
-      return 0.0005 // TODO add library
+    async newCardFee() {
+      await sleep(1000);
+      return 0.0005; // TODO add library
     },
-    async estimatedTotalCost () {
-      if (this.newCardFee === null) return
+    async estimatedTotalCost() {
+      if (this.newCardFee === null) return;
 
-      return new BigNumber(this.tokenType === 'eth' ? this.cardValue : 0)
+      return new BigNumber(this.tokenType === "eth" ? this.cardValue : 0)
         .plus(this.newCardFee)
         .plus(this.estimatedTotalGasCost)
-        .toFixed()
+        .toFixed();
     }
   }
-}
+};
 </script>

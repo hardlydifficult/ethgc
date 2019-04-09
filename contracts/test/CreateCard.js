@@ -1,13 +1,11 @@
 const BigNumber = require("bignumber.js");
-const shouldFail = require("./helpers/shouldFail");
-const ethgcJs = require("../../library/ethgc.js");
+const init = require("./helpers/init");
 
 contract("CreateCard", accounts => {
   let ethgc;
 
   before(async () => {
-    ethgc = new ethgcJs(web3.currentProvider, accounts[0]);
-    ethgc.hardlyWeb3.switchAccount(accounts[0]);
+    ethgc = await init(accounts);
   });
 
   describe("ETH card", () => {

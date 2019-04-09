@@ -4,7 +4,11 @@ const BigNumber = require("bignumber.js");
 class HardlyWeb3 {
   constructor(currentProvider) {
     if (!currentProvider) {
-      currentProvider = new Web3.providers.HttpProvider("ws://localhost:8546");
+      currentProvider = new Web3.providers.HttpProvider(
+        "http://127.0.0.1:8545"
+      );
+    } else if (typeof currentProvider === "string") {
+      currentProvider = new Web3.providers.HttpProvider(currentProvider);
     }
     this.web3 = new Web3(currentProvider);
     this.web3.defaultGasPrice = 4000000000;
@@ -24,12 +28,50 @@ class HardlyWeb3 {
   async getReceipt(tx) {
     if (tx.receipt) return tx.receipt;
 
-    const receipt = await this.web3.eth.getTransactionReceipt(tx.hash);
-    return (tx.receipt = receipt);
+    // eslint-disable-next-line no-constant-condition
+    while (true) {
+      const receipt = await this.web3.eth.getTransactionReceipt(tx.hash);
+      if (receipt) return (tx.receipt = receipt);
+      await sleep(2000);
+    }
   }
 
   async getGasCost(tx) {
     return getGasCost(await this.getRequest(tx), await this.getReceipt(tx));
+  }
+
+  async send(functionCall, ethValue = undefined, privateKey, fixedGas) {
+    const sendOptions = {
+      value: ethValue ? ethValue.toFixed() : undefined
+    };
+
+    return new Promise(async (resolve, reject) => {
+      if (privateKey) {
+        const account = this.web3.eth.accounts.privateKeyToAccount(privateKey);
+        this.web3.eth.accounts.wallet.add(account);
+        sendOptions.from = account.address;
+      } else {
+        sendOptions.from = this.defaultAccount();
+      }
+
+      if (fixedGas) {
+        sendOptions.gas = fixedGas;
+      } else {
+        sendOptions.gas = new BigNumber(
+          await functionCall.estimateGas(sendOptions)
+        ).plus(3000); // I'm not sure why this helps, but createCard consistently fails without it
+        await this.setMaxGasPrice(sendOptions);
+      }
+
+      functionCall
+        .send(sendOptions)
+        .on("transactionHash", tx => {
+          resolve({ hash: tx });
+        })
+        .on("error", error => {
+          reject(error);
+        });
+    });
   }
 
   /*********************************************************************************
@@ -55,6 +97,31 @@ class HardlyWeb3 {
       this.web3.currentProvider.selectedAddress || this.web3.defaultAccount;
     return account;
   }
+
+  async setMaxGasPrice(sendOptions) {
+    let balance = await this.getEthBalance(sendOptions.from);
+    balance = balance.minus(sendOptions.value ? sendOptions.value : 0);
+
+    sendOptions.gasPrice = balance
+      .div(sendOptions.gas)
+      .integerValue(BigNumber.ROUND_DOWN);
+    sendOptions.gasPrice = new BigNumber(
+      Math.min(
+        parseInt(this.toWei("4", "gwei")),
+        sendOptions.gasPrice.toNumber()
+      )
+    );
+    if (sendOptions.gasPrice.lt(this.toWei("0.5", "gwei"))) {
+      throw new Error(
+        `The account does not have enough balance: gasPrice~ ${
+          sendOptions.gasPrice
+        }`
+      );
+    }
+
+    // TODO change the gas and value if min kicks in.
+    /// ... than add the remainder to the value... which is 0 for this use case.
+  }
 }
 
 /*********************************************************************************
@@ -63,6 +130,10 @@ class HardlyWeb3 {
 
 function getGasCost(txRequest, txReceipt) {
   return new BigNumber(txRequest.gasPrice).times(txReceipt.gasUsed);
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 module.exports = HardlyWeb3;

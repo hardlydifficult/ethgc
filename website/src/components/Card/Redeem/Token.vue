@@ -16,13 +16,13 @@ export default {
     valueOrId: String
   },
   computed: {
-    isEth: function () {
-      return this.tokenAddress === '0x0000000000000000000000000000000000000000'
+    isEth: function() {
+      return this.tokenAddress === "0x0000000000000000000000000000000000000000";
     },
-    shiftedValue: function () {
-      if (!this.isEth) return this.valueOrId
-      return this.ethjs.hardlyWeb3.fromWei(this.valueOrId, 'ether')
+    shiftedValue: function() {
+      if (!this.isEth) return this.valueOrId;
+      return this.ethjs.hardlyWeb3.fromWei(this.valueOrId, "ether");
     }
   }
-}
+};
 </script>

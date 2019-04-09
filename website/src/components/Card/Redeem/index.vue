@@ -1,55 +1,94 @@
 <template>
-  <div>
-    <div class="text-3xl mb-3">
-      Redeem a Gift Card
-    </div>
+  <div class="jumbotron text-md-center px-2 mx-auto">
+    <div class="pl-3 pr-3">
+      <div class="display-4 pb-2">
+        Redeem a Gift Card
+      </div>
 
-    <RedeemCode
-      :card="card"
-      @cardIsValid="cardIsValid()"
-    />
+      <RedeemCode :card="card" @cardIsValid="cardIsValid()" />
 
-    <div style="min-height: 3em">
-      <div
-        v-if="canRedeem"
-        class="pt-5 pb-5"
-      >
-        <button
-          class="pt-5 bg-blue hover:bg-blue-light text-white font-bold py-2 px-4 border-b-4 border-blue-dark hover:border-blue rounded"
-          @click="redeem()"
-        >
-          Redeem
-        </button>
+      <div>
+        <div v-if="canRedeem" class="mt-2">
+          <div>
+            Card contains:
+            <ul class="list-group">
+              <li class="list-group-item list-group-item-info">
+                42 ETH
+              </li>
+              <li class="list-group-item list-group-item-info">
+                69 SPANK
+              </li>
+            </ul>
+          </div>
+          <div class="pt-2">
+            Send to:
+            <div class="inputAddress input-group mx-auto">
+              <input
+                class="form-control"
+                type="text"
+                placeholder="Your ethereum address (0x...)"
+              />
+            </div>
+          </div>
+          <div class="btn btn-primary mt-4" @click="redeem()">
+            Redeem
+          </div>
+          <div>
+            <small class="text-white"
+              >No fees!
+              <span
+                v-tooltip="
+                  'No transactions fees, the gas required was pre-paid by the card creator.  Simply hit the button and the transaction will be broadcasted (i.e. nothing to sign!)'
+                "
+              >
+                <i class="far fa-question-circle"></i>
+              </span>
+            </small>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import RedeemCode from './RedeemCode'
+import RedeemCode from "./RedeemCode";
 
 export default {
   components: {
     RedeemCode
   },
-  data: function () {
+  data: function() {
     return {
       card: { redeemCode: undefined, customCode: false },
       canRedeem: false
-    }
+    };
   },
   methods: {
-    cardIsValid: function (newValue) {
+    cardIsValid: function(newValue) {
       if (this.card.isValid) {
-        this.canRedeem = true
-        return
+        this.canRedeem = true;
+        return;
       }
-      this.canRedeem = false
+      this.canRedeem = false;
     },
-    redeem: async function () {
-      if (!this.canRedeem) return
-      await this.ethjs.redeem(this.card.redeemCode)
+    redeem: async function() {
+      if (!this.canRedeem) return;
+      await this.ethjs.redeem(this.card.redeemCode);
     }
   }
-}
+};
 </script>
+
+<style>
+.jumbotron {
+  width: 90%;
+  max-width: 40em;
+  padding-top: 1em;
+  padding-bottom: 2em;
+  color: black;
+}
+.inputAddress {
+  max-width: 36em;
+}
+</style>
