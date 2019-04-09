@@ -24,7 +24,7 @@ pull_request_rules:
       merge:
         method: squash
         strict: smart
-  - name: delete source branch after merge
+  - name: delete branch after merge
     conditions:
       - merged
     actions:
