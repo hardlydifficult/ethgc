@@ -15,6 +15,9 @@ module.exports.deploy = async (
     "https://goerli.infura.io/v3/1830f67bb051457b8d891301de981bd2"
   ]
 ) => {
+  process.on("unhandledRejection", (error) => {
+    throw new Error(error);
+  });
   const hardlyWeb3 = new HardlyWeb3(networkNodes[0]);
   const ethgc = JSON.parse(
     fs
