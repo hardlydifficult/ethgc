@@ -36,6 +36,7 @@ jobs:
       - save_cache:
           paths:
             - node_modules
+            - package-lock.json
             - library/node_modules
             - library/package-lock.json
             - contracts/node_modules
