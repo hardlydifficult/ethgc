@@ -12,7 +12,7 @@ module.exports.deploy = async (
     "https://ropsten.infura.io/v3/1830f67bb051457b8d891301de981bd2",
     "https://kovan.infura.io/v3/1830f67bb051457b8d891301de981bd2",
     "https://rinkeby.infura.io/v3/1830f67bb051457b8d891301de981bd2",
-    "https://goerli.infura.io/v3/1830f67bb051457b8d891301de981bd2",
+    "https://goerli.infura.io/v3/1830f67bb051457b8d891301de981bd2"
   ]
 ) => {
   const hardlyWeb3 = new HardlyWeb3(networkNodes[0]);
