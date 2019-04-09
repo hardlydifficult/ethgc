@@ -1,6 +1,6 @@
 const HardlyWeb3 = require("./hardlyWeb3.js");
 const BigNumber = require("bignumber.js");
-const ethgcJson = require(`./artifacts/ethgc.json`);
+const ethgcJson = require(`${__dirname}/artifacts/ethgc.json`);
 
 let _this;
 
