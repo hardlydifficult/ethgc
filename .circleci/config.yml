@@ -50,7 +50,7 @@ jobs:
 
       # run tests!
       - run: npm run test
-      - run: cd contracts && npm run compile && npm run test && cd ..
+      - run: cd contracts && npm run compile && npm run test && npm run lint && cd ..
 
       # get artifacts
       - run: |

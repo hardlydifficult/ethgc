@@ -46,7 +46,7 @@ contract MixinRedeem is
   ) external payable
     nonReentrant
   {
-    require(sendTo != address(0) && sendTo != msg.sender, 'INVALID_DESTINATION');
+    require(sendTo != address(0) && sendTo != msg.sender, "INVALID_DESTINATION");
 
     _sendGift(msg.sender, tokenType, sendTo);
 
@@ -148,7 +148,7 @@ contract MixinRedeem is
   ) private
   {
     Card storage card = addressToCard[cardAddress];
-    require(card.createdBy != address(0), 'ALREADY_CLAIMED');
+    require(card.createdBy != address(0), "ALREADY_CLAIMED");
 
     bool allSuccessful = true;
     uint tokenCount = card.tokens.length;
