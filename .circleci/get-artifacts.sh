@@ -34,7 +34,7 @@ fi
 
 # copy over or recompile the new site
 mkdir -p ~/repo/library/artifacts/.
-cp -a -R . ~/repo/library/artifacts/.
+cp -a ./ethgc.json ~/repo/library/artifacts/ethgc.json
 
 # go back to where we started and remove the artifacts git repo we made and used
 # for deployment

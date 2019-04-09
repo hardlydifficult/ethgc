@@ -59,7 +59,9 @@ module.exports.deploy = async (
         4200000
       );
       const receipt = await networkWeb3.getReceipt(tx);
-      json[networkId] = receipt.contractAddress;
+      if (receipt && receipt.contractAddress) {
+        json[networkId] = receipt.contractAddress;
+      }
     }
   }
 
