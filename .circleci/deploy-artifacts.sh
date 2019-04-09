@@ -38,9 +38,9 @@ cp -a ~/repo/library/artifacts/ethgc.json ./ethgc.json
 # stage any changes and new files
 git add -A
 # now commit, ignoring branch artifacts doesn't seem to work, so trying skip
-git commit -m "Deploy to artifacts [ci skip]"
+git commit --allow-empty -m "Deploy to artifacts [ci skip]"
 # and push, but send any output to /dev/null to hide anything sensitive
-git push --allow-empty --force --quiet origin artifacts
+git push --force --quiet origin artifacts
 # go back to where we started and remove the artifacts git repo we made and used
 # for deployment
 cd ..
