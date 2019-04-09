@@ -9,7 +9,6 @@ const privateKey =
 module.exports.deploy = async (
   fromAccount = undefined,
   networkNodes = [
-    "https://127.0.0.1:8545",
     "wss://rinkeby.infura.io/ws/v3/1830f67bb051457b8d891301de981bd2"
   ]
 ) => {
