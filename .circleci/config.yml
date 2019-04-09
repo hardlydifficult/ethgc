@@ -37,8 +37,11 @@ jobs:
           paths:
             - node_modules
             - library/node_modules
+            - library/package-lock.json
             - contracts/node_modules
+            - contracts/package-lock.json
             - website/node_modules
+            - website/package-lock.json
           key: v1-dependencies-{{ checksum "package.json" }}-{{ checksum "library/package.json" }}-{{ checksum "contracts/package.json" }}-{{ checksum "website/package.json" }}
 
       # run tests
