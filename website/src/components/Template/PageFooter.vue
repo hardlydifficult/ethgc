@@ -1,6 +1,13 @@
 <template>
   <footer class="footer bg-primary text-white mt-5">
     <div class="float-right pl-2">
+      <a href="https://ethgc.readthedocs.io" target="_blank">
+        <img
+          v-tooltip="'Read the Docs<br><small>ethgc.readthedocs.io</small>'"
+          src="../../assets/3rdParty/rtd-logo-light.svg"
+          width="32px"
+        />
+      </a>
       <a href="https://github.com/hardlydifficult/ethgc" target="_blank">
         <img
           class="mr-1"
@@ -15,13 +22,6 @@
         <img
           v-tooltip="'Twitter<br><small>twitter.com/HardlyDifficult</small>'"
           src="../../assets/3rdParty/Twitter_Social_Icon_Circle_Color.png"
-          width="32px"
-        />
-      </a>
-      <a href="https://ethgc.readthedocs.io" target="_blank">
-        <img
-          v-tooltip="'Read the Docs<br><small>ethgc.readthedocs.io</small>'"
-          src="../../assets/3rdParty/rtd-logo-light.svg"
           width="32px"
         />
       </a>
