@@ -23,10 +23,10 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "package.json" }}-{{ checksum "library/package.json" }}-{{ checksum "contracts/package.json" }}-{{ checksum "website/package.json" }}
+            - v2-dependencies-{{ checksum "package.json" }}-{{ checksum "library/package.json" }}-{{ checksum "contracts/package.json" }}-{{ checksum "website/package.json" }}
 
             # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
+            - v2-dependencies-
 
       - run: npm i
       - run: cd library && npm i && cd ..
@@ -43,7 +43,7 @@ jobs:
             - contracts/package-lock.json
             - website/node_modules
             - website/package-lock.json
-          key: v1-dependencies-{{ checksum "package.json" }}-{{ checksum "library/package.json" }}-{{ checksum "contracts/package.json" }}-{{ checksum "website/package.json" }}
+          key: v2-dependencies-{{ checksum "package.json" }}-{{ checksum "library/package.json" }}-{{ checksum "contracts/package.json" }}-{{ checksum "website/package.json" }}
 
       # run tests
       - run: npm run test
