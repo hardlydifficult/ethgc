@@ -1,5 +1,5 @@
 pull_request_rules:
-  - name: automatic merge on CI success if HD
+  - name: merge if HD
     conditions:
       - "status-success=ci/circleci: build"
       - author=hardlydifficult
@@ -7,8 +7,7 @@ pull_request_rules:
       merge:
         method: squash
         strict: smart
-      delete_head_branch: {}
-  - name: automatic merge on CI success if Greenkeeper
+  - name: merge if Greenkeeper
     conditions:
       - "status-success=ci/circleci: build"
       - author=greenkeeper[bot]
@@ -16,8 +15,7 @@ pull_request_rules:
       merge:
         method: squash
         strict: smart
-      delete_head_branch: {}
-  - name: automatic merge on CI success if approved
+  - name: merge if approved by HD
     conditions:
       - "status-success=ci/circleci: build"
       - approved-reviews-by=hardlydifficult
@@ -26,4 +24,8 @@ pull_request_rules:
       merge:
         method: squash
         strict: smart
+  - name: delete source branch after merge
+    conditions:
+      - merged
+    actions:
       delete_head_branch: {}
