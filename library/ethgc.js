@@ -1,5 +1,6 @@
 const HardlyWeb3 = require("./hardlyWeb3.js");
 const BigNumber = require("bignumber.js");
+const ethgcJson = require(`./artifacts/ethgc.json`);
 
 let _this;
 
@@ -13,8 +14,10 @@ class ethgc {
   async _init() {
     if (this.contract) return;
     const id = await this.hardlyWeb3.web3.eth.net.getId();
-    const file = require(`./artifacts/ethgc.json`);
-    this.contract = new this.hardlyWeb3.web3.eth.Contract(file.abi, file[id]);
+    this.contract = new this.hardlyWeb3.web3.eth.Contract(
+      ethgcJson.abi,
+      ethgcJson[id]
+    );
   }
   // #endregion
 
