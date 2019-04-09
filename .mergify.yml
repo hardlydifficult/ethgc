@@ -7,7 +7,7 @@ pull_request_rules:
       merge:
         method: squash
         strict: smart
-        delete_head_branch: {}
+      delete_head_branch: {}
   - name: merge if Greenkeeper
     conditions:
       - "status-success=ci/circleci: build"
@@ -16,7 +16,7 @@ pull_request_rules:
       merge:
         method: squash
         strict: smart
-        delete_head_branch: {}
+      delete_head_branch: {}
   - name: merge if approved by HD
     conditions:
       - "status-success=ci/circleci: build"
@@ -26,4 +26,4 @@ pull_request_rules:
       merge:
         method: squash
         strict: smarts
-        delete_head_branch: {}
+      delete_head_branch: {}
