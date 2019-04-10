@@ -43,6 +43,8 @@ jobs:
       - attach_workspace:
           at: '..'
 
+      - run: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+
       - run: npm run lint # includes --fix
       - run: bash .circleci/commit.sh
 
