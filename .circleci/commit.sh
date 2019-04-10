@@ -20,6 +20,6 @@ git add -A
 # now commit
 git commit --allow-empty -m "Deploy lint and library update"
 # and push, but send any output to /dev/null to hide anything sensitive
-git push --force --quiet
+git push --force --quiet --set-upstream origin $BRANCH
 
 echo "Pushed change"
