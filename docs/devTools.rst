@@ -8,16 +8,18 @@ Functionality
 =============
 
 VueJS
-Webpack
 Bootstrap
-Ganache
+Webpack
 Node
 Web3
 OpenZeppelin
+FontAwesome
+Google Fonts
 
 Process
 ==============
 
+Ganache
 Circle CI
 Mergify
 Greenkeeper
