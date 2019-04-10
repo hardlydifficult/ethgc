@@ -5,7 +5,7 @@
 # Used with their MIT license https://github.com/eldarlabs/ghpages-deploy-script/blob/master/LICENSE
 
 # abort the script if there is a non-zero error
-set -e
+# set -e
 
 # show where we are on the machine
 pwd
