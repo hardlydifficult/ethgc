@@ -7,56 +7,60 @@
 
       <RedeemCode :card="card" @cardIsValid="cardIsValid()" />
 
-      <div>
-        <div v-if="canRedeem" class="mt-2">
-          <div>
-            Card contains:
-            <ul class="list-group">
-              <li class="list-group-item list-group-item-info">
-                42 ETH
-              </li>
-              <li class="list-group-item list-group-item-info">
-                69 SPANK
-              </li>
-            </ul>
-          </div>
-          <div class="pt-2">
-            Send to:
-            <div class="inputAddress input-group mx-auto">
-              <input
-                class="form-control"
-                type="text"
-                placeholder="Your ethereum address (0x...)"
-              />
-            </div>
-          </div>
-          <div class="btn btn-primary mt-4" @click="redeem()">
-            Redeem
-          </div>
-          <div>
-            <small class="text-white"
-              >No fees!
-              <span
-                v-tooltip="
-                  'No transactions fees, the gas required was pre-paid by the card creator.  Simply hit the button and the transaction will be broadcasted (i.e. nothing to sign!)'
-                "
-              >
-                <i class="far fa-question-circle"></i>
-              </span>
-            </small>
+      <div v-if="canRedeem" class="mt-2">
+        <div>
+          Card contains:
+          <ul class="list-group">
+            <li class="list-group-item list-group-item-info">
+              42 ETH
+            </li>
+            <li class="list-group-item list-group-item-info">
+              69 SPANK
+            </li>
+          </ul>
+        </div>
+        <ViewCard v-if="card.isValid" :card="card" />
+        <div class="pt-2">
+          Send to:
+          <div class="inputAddress input-group mx-auto">
+            <input
+              class="form-control"
+              type="text"
+              placeholder="Your ethereum address (0x...)"
+            />
           </div>
         </div>
+        <div class="btn btn-primary mt-4" @click="redeem()">
+          Redeem
+        </div>
+        <div>
+          <small class="text-white"
+            >No fees!
+            <span
+              v-tooltip="
+                'No transactions fees, the gas required was pre-paid by the card creator.  Simply hit the button and the transaction will be broadcasted (i.e. nothing to sign!)'
+              "
+            >
+              <i class="far fa-question-circle"></i>
+            </span>
+          </small>
+        </div>
       </div>
+      <CreatedBy :card="card" />
     </div>
   </div>
 </template>
 
 <script>
 import RedeemCode from "./RedeemCode";
+import ViewCard from "./ViewCard";
+import CreatedBy from "./CreatedBy"
 
 export default {
   components: {
-    RedeemCode
+    CreatedBy,
+    RedeemCode,
+    ViewCard
   },
   data: function() {
     return {

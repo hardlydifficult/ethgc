@@ -6,9 +6,6 @@
         :value-or-id="card.valueOrIds[index]"
       />
     </div>
-    Created by:
-    <Address :address="card.createdBy" />
-    <br />
     <div v-if="messages">
       <div v-if="messages.description">
         Description: {{ messages.description }}

@@ -287,11 +287,12 @@ class EthGcNetwork {
   async getCardMessages(cardAddress) {
     if (!cardAddress) return;
     await this._init();
-    const results = await this.contract.getPastEvents("CreateCard", {
+    const results = await this.contract.getPastEvents("Create", {
       filter: { cardAddress }, // Using an array means OR: e.g. 20 or 23
       fromBlock: 0,
       toBlock: "latest"
     });
+    console.log(results);
     if (results.length > 0) {
       const tx = results[results.length - 1].transactionHash;
       const request = await this.hardlyWeb3.web3.eth.getTransaction(tx);
@@ -377,6 +378,7 @@ Skip
         i.toNumber(),
         redeemedMessageLength * 2
       );
+      if (!description && !redeemedMessage) return undefined;
       return {
         description: this.hex_to_ascii(description),
         redeemedMessage: this.hex_to_ascii(redeemedMessage)

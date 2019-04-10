@@ -13,18 +13,15 @@
       <i v-tooltip="'Paste'" class="far fa-clipboard" @click="paste()" />
       <StatusIcon :status="status" />
     </div>
-    <ViewCard v-if="card.isValid" :card="card" />
   </div>
 </template>
 
 <script>
 import StatusIcon from "../../Widgets/StatusIcon";
-import ViewCard from "./ViewCard";
 
 export default {
   components: {
     StatusIcon,
-    ViewCard
   },
   props: {
     card: Object
@@ -71,6 +68,7 @@ export default {
         }
         Object.assign(this.card, card);
         this.card.isValid = true;
+        this.$forceUpdate(); // TODO can we do better?
         this.$emit("cardIsValid");
         this.status.status.push({
           status: "SUCCESS",
