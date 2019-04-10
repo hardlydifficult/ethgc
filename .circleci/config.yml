@@ -70,4 +70,4 @@ jobs:
 
       # commit changes (lint and/or library updated)
       - run: |
-            bash .circleci/deploy-ghpages.sh
+            bash .circleci/commit.sh
