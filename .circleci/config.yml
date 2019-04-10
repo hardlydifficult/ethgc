@@ -30,14 +30,18 @@ jobs:
             - website/package-lock.json
           key: npm-{{ checksum "package.json" }}-{{ checksum "library/package.json" }}-{{ checksum "contracts/package.json" }}-{{ checksum "website/package.json" }}
 
+      - persist_to_workspace:
+          root: '..'
+          paths:
+            - repo
+
   lint:
     docker:
       - image: circleci/node:10
     working_directory: ~/repo
     steps:
-      - restore_cache:
-          keys:
-            - npm-{{ checksum "package.json" }}-{{ checksum "library/package.json" }}-{{ checksum "contracts/package.json" }}-{{ checksum "website/package.json" }}
+      - attach_workspace:
+          at: '..'
 
       # run tests
       - run: npm run lint # includes --fix
@@ -47,9 +51,8 @@ jobs:
       - image: circleci/node:10
     working_directory: ~/repo
     steps:
-      - restore_cache:
-          keys:
-            - npm-{{ checksum "package.json" }}-{{ checksum "library/package.json" }}-{{ checksum "contracts/package.json" }}-{{ checksum "website/package.json" }}
+      - attach_workspace:
+          at: '..'
 
       - run: cd contracts && npm run compile && npm run test && npm run lint && cd ..
 
