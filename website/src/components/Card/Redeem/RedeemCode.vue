@@ -21,7 +21,7 @@ import StatusIcon from "../../Widgets/StatusIcon";
 
 export default {
   components: {
-    StatusIcon,
+    StatusIcon
   },
   props: {
     card: Object
@@ -51,10 +51,7 @@ export default {
           const tx = await this.ethGc.getRedeemTx(cardAddress);
           this.$set(this.status, "loadingMessage", undefined);
           if (tx) {
-            if (
-              tx.returnValues.redeemer ===
-              this.ethGc.defaultAccount()
-            ) {
+            if (tx.returnValues.redeemer === this.ethGc.defaultAccount()) {
               this.status.url = `https://etherscan.io/tx/${tx.transactionHash}`;
               this.status.urlMessage =
                 "You redeemed this card earlier. Click to view on EtherScan.";

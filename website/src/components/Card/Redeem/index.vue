@@ -54,7 +54,7 @@
 <script>
 import RedeemCode from "./RedeemCode";
 import ViewCard from "./ViewCard";
-import CreatedBy from "./CreatedBy"
+import CreatedBy from "./CreatedBy";
 
 export default {
   components: {

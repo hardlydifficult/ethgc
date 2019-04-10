@@ -55,9 +55,7 @@ export default {
       bouncer: _.debounce(async () => {
         const balance = await this.ethGc.getEthBalance();
         this.$set(this.status, "loadingMessage", undefined);
-        if (
-          balance.gte(this.ethGc.toWei(this.token.value, "ether"))
-        ) {
+        if (balance.gte(this.ethGc.toWei(this.token.value, "ether"))) {
           this.status.status.push({
             status: "SUCCESS",
             message: "You have enough tokens in your wallet for this gift"

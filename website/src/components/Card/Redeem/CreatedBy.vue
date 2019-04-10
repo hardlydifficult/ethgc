@@ -3,7 +3,6 @@
     Created by:
     <Address :address="card.createdBy" />
   </div>
-
 </template>
 <script>
 import Address from "../../Widgets/Address";

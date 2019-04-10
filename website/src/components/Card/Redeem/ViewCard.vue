@@ -22,13 +22,11 @@
   </div>
 </template>
 <script>
-import Address from "../../Widgets/Address";
 import Token from "./Token";
 import StatusIcon from "../../Widgets/StatusIcon";
 
 export default {
   components: {
-    Address,
     Token,
     StatusIcon
   },
