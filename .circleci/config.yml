@@ -70,26 +70,26 @@ jobs:
 
 workflows:
   build-deploy:
-    filters:
-      branches:
-        ignore:
-          - gh-pages
-          - artifacts
     jobs:
-      - build
+      - build:
+        filters:
+          branches:
+            ignore:
+              - gh-pages
+              - artifacts
   lint-step:
-    filters:
-      branches:
-        ignore:
-          - gh-pages
-          - artifacts
     jobs:
-      - lint
+      - lint:
+        filters:
+          branches:
+            ignore:
+              - gh-pages
+              - artifacts
   everything-else:
-    filters:
-      branches:
-        ignore:
-          - gh-pages
-          - artifacts
     jobs:
-      - rest
+      - rest:
+        filters:
+          branches:
+            ignore:
+              - gh-pages
+              - artifacts
