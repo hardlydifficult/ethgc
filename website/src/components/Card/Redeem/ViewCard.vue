@@ -40,7 +40,7 @@ export default {
   },
   asyncComputed: {
     messages: async function() {
-      return this.ethjs.getCardMessages(this.card.redeemCode);
+      return this.ethGc.getCardMessages(this.card.redeemCode);
     }
   }
 };

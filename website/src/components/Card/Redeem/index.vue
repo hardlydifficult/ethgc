@@ -74,7 +74,7 @@ export default {
     },
     redeem: async function() {
       if (!this.canRedeem) return;
-      await this.ethjs.redeem(this.card.redeemCode);
+      await this.ethGc.redeem(this.card.redeemCode);
     }
   }
 };

@@ -39,7 +39,7 @@ export default {
       const cardAddresses = [];
       for (let i = 0; i < this.cards.length; i++) {
         cardAddresses.push(
-          await this.ethjs.getCardAddress(this.cards[i].redeemCode)
+          await this.ethGc.getCardAddress(this.cards[i].redeemCode)
         );
       }
       const tokenAddresses = [];
@@ -52,7 +52,7 @@ export default {
         }
         tokenValues.push(this.tokens[i].baseValue);
       }
-      await this.ethjs.create(
+      await this.ethGc.create(
         cardAddresses,
         tokenAddresses,
         tokenValues,

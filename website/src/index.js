@@ -8,7 +8,7 @@ import App from "./App";
 import AsyncComputed from "vue-async-computed";
 import VTooltip from "v-tooltip";
 import Clipboard from "v-clipboard";
-import Ethjs from "../../library/ethgc.js";
+import EthGc from "../../library/EthGc.js";
 Vue.use(BootstrapVue);
 Vue.use(AsyncComputed);
 Vue.use(VTooltip);
@@ -16,7 +16,7 @@ Vue.use(Clipboard);
 
 Vue.config.productionTip = false;
 
-Vue.prototype.ethjs = new Ethjs(
+Vue.prototype.ethGc = new EthGc(
   window.web3 ? window.web3.currentProvider : undefined
 );
 if (window.ethereum) {
