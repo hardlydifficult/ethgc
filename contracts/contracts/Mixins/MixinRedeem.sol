@@ -38,7 +38,6 @@ contract MixinRedeem is
     transaction.  Any `msg.value` included is forwarded to the `sendTo` account.
 
     @param sendTo The account to receive the tokens.
-    @param tokenType 0: send all, value: send only a ERC20 or ERC721, max: send ETH.
    */
   function redeem(
     address payable sendTo
