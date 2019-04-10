@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -e
+# set -e
 
 cd library/artifacts
 # now lets setup a new repo so we can update the artifacts branch
@@ -12,7 +12,7 @@ git add -A
 # now commit, ignoring branch artifacts doesn't seem to work, so trying skip
 git commit --allow-empty -m "Deploy to artifacts [ci skip]"
 # and push, but send any output to /dev/null to hide anything sensitive
-git push --force --quiet origin artifacts --set-upstream origin artifacts
+git push --force --quiet --set-upstream origin artifacts
 # go back to where we started and remove the artifacts git repo we made and used
 # for deployment
 cd ../..
