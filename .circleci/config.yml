@@ -1,12 +1,6 @@
-# Check https://circleci.com/docs/2.0/language-javascript/ for more details
-version: 2
+version: 2.1
 jobs:
   build:
-    branches:
-      ignore:
-        - gh-pages
-        - artifacts
-
     docker:
       - image: circleci/node:10
 
@@ -69,3 +63,25 @@ jobs:
       # commit changes (lint and/or library updated)
       - run: |
             bash .circleci/commit.sh
+
+workflows:
+  build-deploy:
+    jobs:
+      - build:
+          filters:
+            branches:
+              ignore:
+                - gh-pages
+                - artifacts
+      - deploy-stage:
+          requires:
+            - build
+          filters:
+            branches:
+              only: staging
+      - deploy-prod:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
