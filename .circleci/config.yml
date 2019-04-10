@@ -72,24 +72,24 @@ workflows:
   build-deploy:
     jobs:
       - build:
-        filters:
-          branches:
-            ignore:
-              - gh-pages
-              - artifacts
+          filters:
+            branches:
+              ignore:
+                - gh-pages
+                - artifacts
       - lint:
-        requires:
-          - build
-        filters:
-          branches:
-            ignore:
-              - gh-pages
-              - artifacts
+          requires:
+            - build
+          filters:
+            branches:
+              ignore:
+                - gh-pages
+                - artifacts
       - rest:
-        requires:
-          - build
-        filters:
-          branches:
-            ignore:
-              - gh-pages
-              - artifacts
+          requires:
+            - build
+          filters:
+            branches:
+              ignore:
+                - gh-pages
+                - artifacts
