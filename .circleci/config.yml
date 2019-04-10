@@ -1,6 +1,6 @@
 version: 2.1
 jobs:
-  build:
+  checkoutAndNpm:
     docker:
       - image: circleci/node:10
     working_directory: ~/repo
@@ -35,7 +35,18 @@ jobs:
           paths:
             - repo
 
-  lint:
+  lintJs:
+    docker:
+      - image: circleci/node:10
+    working_directory: ~/repo
+    steps:
+      - attach_workspace:
+          at: '..'
+
+      - run: npm run lint # includes --fix
+      - run: bash .circleci/commit.sh
+
+  lintSolidity:
     docker:
       - image: circleci/node:10
     working_directory: ~/repo
@@ -44,9 +55,9 @@ jobs:
           at: '..'
 
       # run tests
-      - run: npm run lint # includes --fix
+      - run: cd contracts && npm run lint
 
-  rest:
+  compileContracts:
     docker:
       - image: circleci/node:10
     working_directory: ~/repo
@@ -54,47 +65,130 @@ jobs:
       - attach_workspace:
           at: '..'
 
-      - run: cd contracts && npm run compile && npm run test && npm run lint && cd ..
+      - run: cd contracts && npm run compile
 
-      # artifacts
-      - run: |
-            if [ $CIRCLE_BRANCH == 'master' ]; then
-              cd library && npm run deploy && cd ..
-              bash .circleci/deploy-artifacts.sh
-            fi
+      - persist_to_workspace:
+          root: '..'
+          paths:
+            - repo/contracts/build
+
+  testContracts:
+    docker:
+      - image: circleci/node:10
+    working_directory: ~/repo
+    steps:
+      - attach_workspace:
+          at: '..'
+
+      - run: cd contracts && npm run test
+
+  deployContracts:
+    docker:
+      - image: circleci/node:10
+    working_directory: ~/repo
+    steps:
+      - attach_workspace:
+          at: '..'
+
+      - run: cd library && npm run deploy && cd ..
+      - run: bash .circleci/deploy-artifacts.sh
+
+  buildWebsite:
+    docker:
+      - image: circleci/node:10
+    working_directory: ~/repo
+    steps:
+      - attach_workspace:
+          at: '..'
 
       - run: cd website && npm run build && cd ..
 
-      # deploy website
-      - run: |
-            if [ $CIRCLE_BRANCH == 'master' ]; then
-              bash .circleci/deploy-ghpages.sh
-            fi
+  deployWebsite:
+    docker:
+      - image: circleci/node:10
+    working_directory: ~/repo
+    steps:
+      - attach_workspace:
+          at: '..'
 
-      # commit changes (lint and/or library updated)
-      - run: |
-            bash .circleci/commit.sh
+      - run: bash .circleci/deploy-ghpages.sh
+
+  prLibraryChange:
+    docker:
+      - image: circleci/node:10
+    working_directory: ~/repo
+    steps:
+      - attach_workspace:
+          at: '..'
+
+      # todo open PR
 
 workflows:
   build-deploy:
     jobs:
-      - build:
+      - checkoutAndNpm:
           filters:
             branches:
               ignore:
                 - gh-pages
                 - artifacts
-      - lint:
+      - lintJs:
           requires:
-            - build
+            - checkoutAndNpm
           filters:
             branches:
               ignore:
                 - gh-pages
                 - artifacts
-      - rest:
+      - lintSolidity:
           requires:
-            - build
+            - checkoutAndNpm
+          filters:
+            branches:
+              ignore:
+                - gh-pages
+                - artifacts
+      - compileContracts:
+          requires:
+            - checkoutAndNpm
+          filters:
+            branches:
+              ignore:
+                - gh-pages
+                - artifacts
+      - testContracts:
+          requires:
+            - compileContracts
+          filters:
+            branches:
+              ignore:
+                - gh-pages
+                - artifacts
+      - deployContracts:
+          requires:
+            - compileContracts
+          filters:
+            branches:
+              only:
+                - master
+      - buildWebsite:
+          requires:
+            - deployContracts
+          filters:
+            branches:
+              ignore:
+                - gh-pages
+                - artifacts
+      - deployWebsite:
+          requires:
+            - buildWebsite
+          filters:
+            branches:
+              only:
+                - master
+      - prLibraryChange:
+          requires:
+            - deployContracts
           filters:
             branches:
               ignore:
