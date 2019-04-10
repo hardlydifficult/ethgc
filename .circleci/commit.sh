@@ -18,7 +18,7 @@ git config --global user.name "$GH_NAME" > /dev/null 2>&1
 # stage any changes and new files
 git add -A
 # now commit
-git commit --allow-empty -m "Deploy lint and library update"
+git commit -m "Deploy lint and library update"
 # and push, but send any output to /dev/null to hide anything sensitive
 git push --force --quiet --set-upstream origin $BRANCH
 
