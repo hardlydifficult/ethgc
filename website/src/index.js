@@ -8,7 +8,7 @@ import App from "./App";
 import AsyncComputed from "vue-async-computed";
 import VTooltip from "v-tooltip";
 import Clipboard from "v-clipboard";
-import EthGc from "../../library/EthGc.js";
+import EthGc from "../../library/ethGc.js";
 Vue.use(BootstrapVue);
 Vue.use(AsyncComputed);
 Vue.use(VTooltip);
