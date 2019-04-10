@@ -73,15 +73,3 @@ workflows:
               ignore:
                 - gh-pages
                 - artifacts
-      - deploy-stage:
-          requires:
-            - build
-          filters:
-            branches:
-              only: staging
-      - deploy-prod:
-          requires:
-            - build
-          filters:
-            branches:
-              only: master
