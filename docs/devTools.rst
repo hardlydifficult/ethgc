@@ -7,30 +7,33 @@ These are the primary dependancies for the project, helping to make this possibl
 Functionality
 =============
 
-VueJS
-Bootstrap
-Webpack
-Node
-Web3
-OpenZeppelin
-FontAwesome
-Google Fonts
+VueJS: user interface framework
+Bootstrap: style framework
+Webpack: builds the site
+Node: Javascript runtime
+Web3: interfacing with Ethereum nodes
+OpenZeppelin: smart-contract library
+FontAwesome: icons
+Google Fonts: hosts the Roboto font we use
 
 Process
 ==============
 
-Ganache
-Circle CI
-Mergify
-Greenkeeper
-Read the docs
-GitHub pages
-Cloudflare
-Truffle
+Build Process
+---------------
+
+Ganache: local EVM for testing
+Circle CI: continous integration
+Mergify: bot to automatically merge PRs
+Read the docs: build and host the doc website
+GitHub pages: hosts the main website
+Truffle: compile and test Solidity contracts
+Cloudflare: CDN
+Greenkeeper: create PR for every dependency update
 
 Static analysis 
 ----------------
 
-eslint
-Solium
-Truffle security
+eslint: linter for JS
+Solium: linter for Solidity
+Truffle security: Solidity static analysis by MythX
