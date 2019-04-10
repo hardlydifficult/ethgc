@@ -13,6 +13,8 @@ Webpack
 Node
 Web3
 OpenZeppelin
+FontAwesome
+Google Fonts
 
 Process
 ==============
