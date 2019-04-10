@@ -149,8 +149,7 @@ class EthGcNetwork {
   // #region Redeem cards
   async redeem(
     redeemCode,
-    sendTo = this.hardlyWeb3.defaultAccount(),
-    tokenType = "0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"
+    sendTo = this.hardlyWeb3.defaultAccount()
   ) {
     if (tokenType == -1) {
       tokenType = "0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF";
@@ -158,7 +157,7 @@ class EthGcNetwork {
     await this._init();
     const privateKey = await this.getPrivateKey(redeemCode);
     return this.hardlyWeb3.send(
-      this.contract.methods.redeem(sendTo, tokenType),
+      this.contract.methods.redeem(sendTo),
       0,
       privateKey
     );
