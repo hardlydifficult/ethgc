@@ -19,6 +19,8 @@ jobs:
 
     steps:
       - checkout
+      - run: git submodule sync
+      - run: git submodule update --init
 
       # Download and cache dependencies
       - restore_cache:
@@ -46,12 +48,8 @@ jobs:
           key: v2-dependencies-{{ checksum "package.json" }}-{{ checksum "library/package.json" }}-{{ checksum "contracts/package.json" }}-{{ checksum "website/package.json" }}
 
       # run tests
-      - run: npm run test
+      - run: npm run lint # includes --fix
       - run: cd contracts && npm run compile && npm run test && npm run lint && cd ..
-
-      # get artifacts
-      - run: |
-            bash .circleci/get-artifacts.sh
 
       # artifacts
       - run: |
@@ -67,3 +65,7 @@ jobs:
             if [ $CIRCLE_BRANCH == 'master' ]; then
               bash .circleci/deploy-ghpages.sh
             fi
+
+      # commit changes (lint and/or library updated)
+      - run: |
+            bash .circleci/commit.sh

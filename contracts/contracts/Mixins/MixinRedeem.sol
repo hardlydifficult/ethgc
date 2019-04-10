@@ -38,17 +38,15 @@ contract MixinRedeem is
     transaction.  Any `msg.value` included is forwarded to the `sendTo` account.
 
     @param sendTo The account to receive the tokens.
-    @param tokenType 0: send all, value: send only a ERC20 or ERC721, max: send ETH.
    */
   function redeem(
-    address payable sendTo,
-    address tokenType
+    address payable sendTo
   ) external payable
     nonReentrant
   {
     require(sendTo != address(0) && sendTo != msg.sender, "INVALID_DESTINATION");
 
-    _sendGift(msg.sender, tokenType, sendTo);
+    _sendGift(msg.sender, address(-1), sendTo);
 
     if(msg.value > 0)
     {

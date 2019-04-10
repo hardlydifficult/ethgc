@@ -13,18 +13,15 @@
       <i v-tooltip="'Paste'" class="far fa-clipboard" @click="paste()" />
       <StatusIcon :status="status" />
     </div>
-    <ViewCard v-if="card.isValid" :card="card" />
   </div>
 </template>
 
 <script>
 import StatusIcon from "../../Widgets/StatusIcon";
-import ViewCard from "./ViewCard";
 
 export default {
   components: {
-    StatusIcon,
-    ViewCard
+    StatusIcon
   },
   props: {
     card: Object
@@ -34,10 +31,10 @@ export default {
       status: undefined,
       // eslint-disable-next-line no-undef
       bouncer: _.debounce(async () => {
-        const cardAddress = await this.ethjs.getCardAddress(
+        const cardAddress = await this.ethGc.getCardAddress(
           this.card.redeemCode
         );
-        const card = await this.ethjs.getCard(cardAddress);
+        const card = await this.ethGc.getCard(cardAddress);
         this.$set(this.status, "loadingMessage", undefined);
         if (!this.card) return;
 
@@ -51,13 +48,10 @@ export default {
             "loadingMessage",
             "Checking if the code was previously redeemed (vs it was never a valid code)"
           );
-          const tx = await this.ethjs.getRedeemTx(cardAddress);
+          const tx = await this.ethGc.getRedeemTx(cardAddress);
           this.$set(this.status, "loadingMessage", undefined);
           if (tx) {
-            if (
-              tx.returnValues.redeemer ===
-              this.ethjs.hardlyWeb3.defaultAccount()
-            ) {
+            if (tx.returnValues.redeemer === this.ethGc.defaultAccount()) {
               this.status.url = `https://etherscan.io/tx/${tx.transactionHash}`;
               this.status.urlMessage =
                 "You redeemed this card earlier. Click to view on EtherScan.";
@@ -71,6 +65,7 @@ export default {
         }
         Object.assign(this.card, card);
         this.card.isValid = true;
+        this.$forceUpdate(); // TODO can we do better?
         this.$emit("cardIsValid");
         this.status.status.push({
           status: "SUCCESS",

@@ -1,9 +1,9 @@
-const deploy = require("../../../library/deploy.js");
-const ethgcJs = require("../../../library/ethgc.js");
+const deploy = require("../../../library/deploy");
+const EthGc = require("../../../library/ethGcNetwork");
 
 module.exports = async function init(accounts) {
   await deploy.deploy(accounts[0], [web3.currentProvider]);
-  const ethgc = new ethgcJs(web3.currentProvider);
-  ethgc.hardlyWeb3.switchAccount(accounts[0]);
-  return ethgc;
+  const ethGc = new EthGc(web3.currentProvider);
+  ethGc.hardlyWeb3.switchAccount(accounts[0]);
+  return ethGc;
 };

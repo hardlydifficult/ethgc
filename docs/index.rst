@@ -17,6 +17,7 @@ Contents
     redeem.rst
     createAndManage.rst
     smartContract.rst
+    devTools.rst
     
     
 View the `Expanded TOC`_.

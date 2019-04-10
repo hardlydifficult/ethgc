@@ -16,9 +16,11 @@ export default {
   },
   computed: {
     shortAddressPrefix() {
+      if (!this.address) return undefined;
       return this.address.substr(2, 4);
     },
     shortAddressSuffix() {
+      if (!this.address) return undefined;
       return this.address.substr(42 - 4);
     }
   }

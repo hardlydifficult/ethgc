@@ -6,9 +6,6 @@
         :value-or-id="card.valueOrIds[index]"
       />
     </div>
-    Created by:
-    <Address :address="card.createdBy" />
-    <br />
     <div v-if="messages">
       <div v-if="messages.description">
         Description: {{ messages.description }}
@@ -25,13 +22,11 @@
   </div>
 </template>
 <script>
-import Address from "../../Widgets/Address";
 import Token from "./Token";
 import StatusIcon from "../../Widgets/StatusIcon";
 
 export default {
   components: {
-    Address,
     Token,
     StatusIcon
   },
@@ -40,7 +35,7 @@ export default {
   },
   asyncComputed: {
     messages: async function() {
-      return this.ethjs.getCardMessages(this.card.redeemCode);
+      return this.ethGc.getCardMessages(this.card.redeemCode);
     }
   }
 };
