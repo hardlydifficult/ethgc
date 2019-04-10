@@ -129,7 +129,7 @@ jobs:
       - attach_workspace:
           at: '..'
 
-    - run: |
+      - run: |
           if [ $CIRCLE_BRANCH == 'master' ]; then
             # todo open PR
           fi
