@@ -77,17 +77,17 @@ workflows:
             ignore:
               - gh-pages
               - artifacts
-  lint-step:
-    jobs:
       - lint:
+        requires:
+          - build
         filters:
           branches:
             ignore:
               - gh-pages
               - artifacts
-  everything-else:
-    jobs:
       - rest:
+        requires:
+          - build
         filters:
           branches:
             ignore:
