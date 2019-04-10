@@ -92,8 +92,11 @@ jobs:
       - attach_workspace:
           at: '..'
 
-      - run: cd library && npm run deploy && cd ..
-      - run: bash .circleci/deploy-artifacts.sh
+      - run: |
+            if [ $CIRCLE_BRANCH == 'master' ]; then
+              cd library && npm run deploy && cd ..
+              bash .circleci/deploy-artifacts.sh
+            fi
 
   buildWebsite:
     docker:
@@ -113,7 +116,10 @@ jobs:
       - attach_workspace:
           at: '..'
 
-      - run: bash .circleci/deploy-ghpages.sh
+      - run: |
+            if [ $CIRCLE_BRANCH == 'master' ]; then
+              bash .circleci/deploy-ghpages.sh
+            fi
 
   prLibraryChange:
     docker:
@@ -123,7 +129,10 @@ jobs:
       - attach_workspace:
           at: '..'
 
-      # todo open PR
+    - run: |
+          if [ $CIRCLE_BRANCH == 'master' ]; then
+            # todo open PR
+          fi
 
 workflows:
   build-deploy:
@@ -137,62 +146,24 @@ workflows:
       - lintJs:
           requires:
             - checkoutAndNpm
-          filters:
-            branches:
-              ignore:
-                - gh-pages
-                - artifacts
       - lintSolidity:
           requires:
             - checkoutAndNpm
-          filters:
-            branches:
-              ignore:
-                - gh-pages
-                - artifacts
       - compileContracts:
           requires:
             - checkoutAndNpm
-          filters:
-            branches:
-              ignore:
-                - gh-pages
-                - artifacts
       - testContracts:
           requires:
             - compileContracts
-          filters:
-            branches:
-              ignore:
-                - gh-pages
-                - artifacts
       - deployContracts:
           requires:
             - compileContracts
-          filters:
-            branches:
-              only:
-                - master
       - buildWebsite:
           requires:
             - deployContracts
-          filters:
-            branches:
-              ignore:
-                - gh-pages
-                - artifacts
       - deployWebsite:
           requires:
             - buildWebsite
-          filters:
-            branches:
-              only:
-                - master
       - prLibraryChange:
           requires:
             - deployContracts
-          filters:
-            branches:
-              ignore:
-                - gh-pages
-                - artifacts
