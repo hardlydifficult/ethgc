@@ -77,7 +77,7 @@ workflows:
           - artifacts
     jobs:
       - build
-  lint:
+  lint-step:
     filters:
       branches:
         ignore:
