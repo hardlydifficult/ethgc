@@ -128,9 +128,9 @@ jobs:
       - attach_workspace:
           at: '..'
 
+      # todo open PR
       - run: |
           if [ $CIRCLE_BRANCH == 'master' ]; then
-            # todo open PR
           fi
 
 workflows:
