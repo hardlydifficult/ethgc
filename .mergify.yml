@@ -5,11 +5,9 @@ pull_request_rules:
       - "status-success=ci/circleci: checkoutAndNpm"
       - "status-success=ci/circleci: compileContracts"
       - "status-success=ci/circleci: deployContracts"
-      - "status-success=ci/circleci: deployWebsite"
-      - "status-success=ci/circleci: lintJs"
-      - "status-success=ci/circleci: lintSolidity"
+      - "status-success=ci/circleci: lint"
+      - "status-success=ci/circleci: push"
       - "status-success=ci/circleci: testContracts"
-      - "status-success=ci/circleci: prLibraryChange"
       - author=hardlydifficult
     actions:
       merge:
@@ -22,11 +20,9 @@ pull_request_rules:
       - "status-success=ci/circleci: checkoutAndNpm"
       - "status-success=ci/circleci: compileContracts"
       - "status-success=ci/circleci: deployContracts"
-      - "status-success=ci/circleci: deployWebsite"
-      - "status-success=ci/circleci: lintJs"
-      - "status-success=ci/circleci: lintSolidity"
+      - "status-success=ci/circleci: lint"
+      - "status-success=ci/circleci: push"
       - "status-success=ci/circleci: testContracts"
-      - "status-success=ci/circleci: prLibraryChange"
       - author=greenkeeper[bot]
     actions:
       merge:
@@ -39,11 +35,9 @@ pull_request_rules:
       - "status-success=ci/circleci: checkoutAndNpm"
       - "status-success=ci/circleci: compileContracts"
       - "status-success=ci/circleci: deployContracts"
-      - "status-success=ci/circleci: deployWebsite"
-      - "status-success=ci/circleci: lintJs"
-      - "status-success=ci/circleci: lintSolidity"
+      - "status-success=ci/circleci: lint"
+      - "status-success=ci/circleci: push"
       - "status-success=ci/circleci: testContracts"
-      - "status-success=ci/circleci: prLibraryChange"
       - approved-reviews-by=hardlydifficult
       - "#changes-requested-reviews-by=0"
     actions:
