@@ -1,39 +1,17 @@
-
-# Javascript Node CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-javascript/ for more details
-#
-version: 2
+version: 2.1
 jobs:
-  build:
-    branches:
-      ignore:
-        - gh-pages
-        - artifacts
-
-    # parallelism: 4
-
+  checkoutAndNpm:
     docker:
-      # specify the version you desire here
       - image: circleci/node:10
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mongo:3.4.4
-
     working_directory: ~/repo
-
     steps:
       - checkout
+      - run: git submodule sync
+      - run: git submodule update --init
 
-      # Download and cache dependencies
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "package.json" }}-{{ checksum "library/package.json" }}-{{ checksum "contracts/package.json" }}-{{ checksum "website/package.json" }}
-
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
+            - npm-{{ checksum "package.json" }}-{{ checksum "library/package.json" }}-{{ checksum "contracts/package.json" }}-{{ checksum "website/package.json" }}
 
       - run: npm i
       - run: cd library && npm i && cd ..
@@ -43,30 +21,119 @@ jobs:
       - save_cache:
           paths:
             - node_modules
+            - package-lock.json
             - library/node_modules
+            - library/package-lock.json
             - contracts/node_modules
+            - contracts/package-lock.json
             - website/node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}-{{ checksum "library/package.json" }}-{{ checksum "contracts/package.json" }}-{{ checksum "website/package.json" }}
+            - website/package-lock.json
+          key: npm-{{ checksum "package.json" }}-{{ checksum "library/package.json" }}-{{ checksum "contracts/package.json" }}-{{ checksum "website/package.json" }}
 
-      # run tests!
-      - run: npm run test
-      - run: cd contracts && npm run compile && npm run test && cd ..
+      - persist_to_workspace:
+          root: '..'
+          paths:
+            - repo
 
-      # get artifacts
-      - run: |
-            bash .circleci/get-artifacts.sh
+  lint:
+    docker:
+      - image: circleci/node:10
+    working_directory: ~/repo
+    steps:
+      - attach_workspace:
+          at: '..'
+      - run: mkdir ~/.ssh
+      - run: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+      - run: npm run lint # includes --fix
+      - run: cd contracts && npm run lint
+      - run: bash .circleci/commit.sh
 
-      # artifacts
+  compileContracts:
+    docker:
+      - image: circleci/node:10
+    working_directory: ~/repo
+    steps:
+      - attach_workspace:
+          at: '..'
+
+      - run: cd contracts && npm run compile
+
       - run: |
             if [ $CIRCLE_BRANCH == 'master' ]; then
               cd library && npm run deploy && cd ..
-              bash .circleci/deploy-artifacts.sh
             fi
+
+      - persist_to_workspace:
+          root: '..'
+          paths:
+            - repo/contracts/build
+            - repo/library/artifacts
+
+  testContracts:
+    docker:
+      - image: circleci/node:10
+    working_directory: ~/repo
+    steps:
+      - attach_workspace:
+          at: '..'
+
+      - run: cd contracts && npm run test
+
+  buildWebsite:
+    docker:
+      - image: circleci/node:10
+    working_directory: ~/repo
+    steps:
+      - attach_workspace:
+          at: '..'
 
       - run: cd website && npm run build && cd ..
 
-      # deploy website
-      - run: |
+      - persist_to_workspace:
+          root: '..'
+          paths:
+            - repo/website/dist
+
+  push:
+    docker:
+      - image: circleci/node:10
+    working_directory: ~/repo
+    steps:
+      - attach_workspace:
+          at: '..'
+
+      - run: mkdir ~/.ssh
+      - run: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+      - run:  |
             if [ $CIRCLE_BRANCH == 'master' ]; then
+              bash .circleci/pr.sh
               bash .circleci/deploy-ghpages.sh
+              bash .circleci/deploy-artifacts.sh
             fi
+
+workflows:
+  build:
+    jobs:
+      - checkoutAndNpm:
+          filters:
+            branches:
+              ignore:
+                - gh-pages
+                - artifacts
+      - compileContracts:
+          requires:
+            - checkoutAndNpm
+      - buildWebsite:
+          requires:
+            - compileContracts
+      - lint:
+          requires:
+            - checkoutAndNpm
+      - push:
+          requires:
+            - lint
+            - testContracts
+            - buildWebsite
+      - testContracts:
+          requires:
+            - compileContracts

@@ -9,3 +9,4 @@ Expanded Table of Contents
     redeem.rst
     createAndManage.rst
     smartContract.rst
+    devTools.rst

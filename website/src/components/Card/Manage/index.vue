@@ -8,7 +8,7 @@
 export default {
   asyncComputed: {
     myCards: async function() {
-      return this.ethjs.getCardsICreated();
+      return this.ethGc.getCardsICreated();
     }
   }
 };

@@ -21,7 +21,7 @@ export default {
     },
     shiftedValue: function() {
       if (!this.isEth) return this.valueOrId;
-      return this.ethjs.hardlyWeb3.fromWei(this.valueOrId, "ether");
+      return this.ethGc.fromWei(this.valueOrId, "ether");
     }
   }
 };

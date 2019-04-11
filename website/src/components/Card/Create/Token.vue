@@ -53,11 +53,9 @@ export default {
       status: undefined,
       // eslint-disable-next-line no-undef
       bouncer: _.debounce(async () => {
-        const balance = await this.ethjs.hardlyWeb3.getEthBalance();
+        const balance = await this.ethGc.getEthBalance();
         this.$set(this.status, "loadingMessage", undefined);
-        if (
-          balance.gte(this.ethjs.hardlyWeb3.toWei(this.token.value, "ether"))
-        ) {
+        if (balance.gte(this.ethGc.toWei(this.token.value, "ether"))) {
           this.status.status.push({
             status: "SUCCESS",
             message: "You have enough tokens in your wallet for this gift"
@@ -118,7 +116,7 @@ export default {
         return;
       }
       if (this.token.type === "ETH") {
-        this.token.baseValue = this.ethjs.hardlyWeb3.toWei(this.token.value);
+        this.token.baseValue = this.ethGc.toWei(this.token.value);
         for (let i = 0; i < this.index; i++) {
           if (
             this.tokens[i].type === this.token.type &&

@@ -1,0 +1,4 @@
+[submodule "library/artifacts"]
+	path = library/artifacts
+	url = https://github.com/hardlydifficult/ethgc.git
+	branch = artifacts

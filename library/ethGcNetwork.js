@@ -1,13 +1,10 @@
 const HardlyWeb3 = require("./hardlyWeb3.js");
 const BigNumber = require("bignumber.js");
 
-let _this;
-
-class ethgc {
+class EthGcNetwork {
   // #region Init
   constructor(currentProvider) {
     this.hardlyWeb3 = new HardlyWeb3(currentProvider);
-    _this = this;
   }
 
   async _init() {
@@ -27,7 +24,7 @@ class ethgc {
     redeemedMessage = ""
   ) {
     await this._init();
-    parseInput(tokenAddresses, valueOrIds);
+    this.parseInput(tokenAddresses, valueOrIds);
     let ethValue = await this.calcEthRequired(
       cardAddresses,
       tokenAddresses,
@@ -49,7 +46,7 @@ class ethgc {
 
   async calcEthRequired(cardAddresses, tokenAddresses, valueOrIds, isNewCard) {
     await this._init();
-    parseInput(tokenAddresses, valueOrIds);
+    this.parseInput(tokenAddresses, valueOrIds);
     const { totalCreateFee, redemptionGas } = await this.getFees(
       cardAddresses,
       tokenAddresses,
@@ -70,7 +67,7 @@ class ethgc {
 
   async contribute(cardAddresses, tokenAddresses, valueOrIds) {
     await this._init();
-    parseInput(tokenAddresses, valueOrIds);
+    this.parseInput(tokenAddresses, valueOrIds);
     let ethValue = await this.calcEthRequired(
       cardAddresses,
       tokenAddresses,
@@ -115,7 +112,7 @@ class ethgc {
 
   async getFees(cardAddresses, tokenAddresses, valueOrIds, isNewCard) {
     await this._init();
-    parseInput(tokenAddresses, valueOrIds);
+    this.parseInput(tokenAddresses, valueOrIds);
     const {
       totalCreateFee,
       redemptionGas
@@ -133,7 +130,7 @@ class ethgc {
   async getCardAddress(redeemCode) {
     if (!redeemCode) return;
     await this._init();
-    return getAddressByPrivateKey(getPrivateKey(redeemCode));
+    return this.getAddressByPrivateKey(this.getPrivateKey(redeemCode));
   }
 
   async getCard(cardAddress) {
@@ -150,18 +147,11 @@ class ethgc {
   // #endregion
 
   // #region Redeem cards
-  async redeem(
-    redeemCode,
-    sendTo = this.hardlyWeb3.defaultAccount(),
-    tokenType = "0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"
-  ) {
-    if (tokenType == -1) {
-      tokenType = "0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF";
-    }
+  async redeem(redeemCode, sendTo = this.hardlyWeb3.defaultAccount()) {
     await this._init();
-    const privateKey = await getPrivateKey(redeemCode);
+    const privateKey = await this.getPrivateKey(redeemCode);
     return this.hardlyWeb3.send(
-      this.contract.methods.redeem(sendTo, tokenType),
+      this.contract.methods.redeem(sendTo),
       0,
       privateKey
     );
@@ -181,9 +171,9 @@ class ethgc {
     const s = [];
 
     for (let i = 0; i < redeemCodes.length; i++) {
-      const privateKey = await getPrivateKey(redeemCodes[i].redeemCode);
-      cardAddresses.push(await getAddressByPrivateKey(privateKey));
-      const sig = await sign(this.hardlyWeb3.defaultAccount(), privateKey);
+      const privateKey = await this.getPrivateKey(redeemCodes[i].redeemCode);
+      cardAddresses.push(await this.getAddressByPrivateKey(privateKey));
+      const sig = await this.sign(this.hardlyWeb3.defaultAccount(), privateKey);
       v.push(sig.v);
       r.push(sig.r);
       s.push(sig.s);
@@ -290,11 +280,12 @@ class ethgc {
   async getCardMessages(cardAddress) {
     if (!cardAddress) return;
     await this._init();
-    const results = await this.contract.getPastEvents("CreateCard", {
+    const results = await this.contract.getPastEvents("Create", {
       filter: { cardAddress }, // Using an array means OR: e.g. 20 or 23
       fromBlock: 0,
       toBlock: "latest"
     });
+    console.log(results);
     if (results.length > 0) {
       const tx = results[results.length - 1].transactionHash;
       const request = await this.hardlyWeb3.web3.eth.getTransaction(tx);
@@ -380,81 +371,82 @@ Skip
         i.toNumber(),
         redeemedMessageLength * 2
       );
+      if (!description && !redeemedMessage) return undefined;
       return {
-        description: hex_to_ascii(description),
-        redeemedMessage: hex_to_ascii(redeemedMessage)
+        description: this.hex_to_ascii(description),
+        redeemedMessage: this.hex_to_ascii(redeemedMessage)
       };
+    }
+  }
+
+  async sign(account, redeemCodePrivateKey) {
+    const sig = this.hardlyWeb3.web3.eth.accounts
+      .privateKeyToAccount(redeemCodePrivateKey)
+      .sign(
+        this.hardlyWeb3.web3.utils.keccak256(
+          this.contract.options.address + account.substring(2)
+        )
+      );
+    return { v: sig.v, r: sig.r, s: sig.s };
+  }
+
+  getPrivateKey(redeemCode) {
+    if (!redeemCode) return;
+    const code = "ethgc.com/" + redeemCode;
+    return this.hardlyWeb3.web3.utils.keccak256(code);
+  }
+
+  getAddressByPrivateKey(privateKey) {
+    if (!privateKey) return;
+    return this.hardlyWeb3.web3.eth.accounts.privateKeyToAccount(privateKey)
+      .address;
+  }
+
+  hex_to_ascii(str1) {
+    var hex = str1.toString();
+    var str = "";
+    for (var n = 0; n < hex.length; n += 2) {
+      str += String.fromCharCode(parseInt(hex.substr(n, 2), 16));
+    }
+    return str;
+  }
+
+  async setMaxGasPrice(sendOptions) {
+    let balance = await this.hardlyWeb3.getEthBalance(sendOptions.from);
+    balance = balance.minus(sendOptions.value ? sendOptions.value : 0);
+
+    sendOptions.gasPrice = new BigNumber(
+      Math.min(
+        parseInt(this.hardlyWeb3.toWei("4", "gwei")),
+        balance.div(sendOptions.gas).toNumber()
+      )
+    ).integerValue(BigNumber.ROUND_DOWN);
+    if (sendOptions.gasPrice.lt(this.hardlyWeb3.toWei("0.5", "gwei"))) {
+      throw new Error(
+        `The account does not have enough balance: gasPrice~ ${
+          sendOptions.gasPrice
+        }`
+      );
+    }
+
+    // TODO change the gas and value if min kicks in.
+    /// ... than add the remainder to the value... which is 0 for this use case.
+  }
+
+  parseInput(tokenAddresses, valueOrIds) {
+    for (let i = 0; i < tokenAddresses.length; i++) {
+      if (!tokenAddresses[i] || tokenAddresses[i] == "0") {
+        tokenAddresses[i] = this.hardlyWeb3.web3.utils.padLeft(0, 40);
+      }
+    }
+
+    for (let i = 0; i < valueOrIds.length; i++) {
+      if (typeof valueOrIds[i] !== "string") {
+        valueOrIds[i] = new BigNumber(valueOrIds[i]).toFixed();
+      }
     }
   }
   // #endregion
 }
 
-async function sign(account, redeemCodePrivateKey) {
-  const sig = _this.hardlyWeb3.web3.eth.accounts
-    .privateKeyToAccount(redeemCodePrivateKey)
-    .sign(
-      _this.hardlyWeb3.web3.utils.keccak256(
-        _this.contract.options.address + account.substring(2)
-      )
-    );
-  return { v: sig.v, r: sig.r, s: sig.s };
-}
-
-function getPrivateKey(redeemCode) {
-  if (!redeemCode) return;
-  const code = _this.contract.options.address + redeemCode;
-  return _this.hardlyWeb3.web3.utils.keccak256(code);
-}
-
-function getAddressByPrivateKey(privateKey) {
-  if (!privateKey) return;
-  return _this.hardlyWeb3.web3.eth.accounts.privateKeyToAccount(privateKey)
-    .address;
-}
-
-function hex_to_ascii(str1) {
-  var hex = str1.toString();
-  var str = "";
-  for (var n = 0; n < hex.length; n += 2) {
-    str += String.fromCharCode(parseInt(hex.substr(n, 2), 16));
-  }
-  return str;
-}
-
-async function setMaxGasPrice(sendOptions) {
-  let balance = await _this.hardlyWeb3.getEthBalance(sendOptions.from);
-  balance = balance.minus(sendOptions.value ? sendOptions.value : 0);
-
-  sendOptions.gasPrice = new BigNumber(
-    Math.min(
-      parseInt(_this.hardlyWeb3.toWei("4", "gwei")),
-      balance.div(sendOptions.gas).toNumber()
-    )
-  ).integerValue(BigNumber.ROUND_DOWN);
-  if (sendOptions.gasPrice.lt(_this.hardlyWeb3.toWei("0.5", "gwei"))) {
-    throw new Error(
-      `The account does not have enough balance: gasPrice~ ${
-        sendOptions.gasPrice
-      }`
-    );
-  }
-
-  // TODO change the gas and value if min kicks in.
-  /// ... than add the remainder to the value... which is 0 for this use case.
-}
-
-function parseInput(tokenAddresses, valueOrIds) {
-  for (let i = 0; i < tokenAddresses.length; i++) {
-    if (!tokenAddresses[i] || tokenAddresses[i] == "0") {
-      tokenAddresses[i] = _this.hardlyWeb3.web3.utils.padLeft(0, 40);
-    }
-  }
-
-  for (let i = 0; i < valueOrIds.length; i++) {
-    if (typeof valueOrIds[i] !== "string") {
-      valueOrIds[i] = new BigNumber(valueOrIds[i]).toFixed();
-    }
-  }
-}
-
-module.exports = ethgc;
+module.exports = EthGcNetwork;

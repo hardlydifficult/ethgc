@@ -63,8 +63,8 @@ function sleep(ms) {
 export default {
   computed: {
     estimatedTotalGasCost() {
-      return this.ethjs.hardlyWeb3.fromWei(
-        this.ethjs.hardlyWeb3.toWei(4, "gwei") * Constants.gas.createCard,
+      return this.ethGc.fromWei(
+        this.ethGc.toWei(4, "gwei") * Constants.gas.createCard,
         "ether"
       );
     }

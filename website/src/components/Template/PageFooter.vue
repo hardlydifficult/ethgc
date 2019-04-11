@@ -1,27 +1,27 @@
 <template>
   <footer class="footer bg-primary text-white mt-5">
     <div class="float-right pl-2">
-      <a href="https://github.com/hardlydifficult/ethgc" target="_blank">
+      <a href="https://ethgc.readthedocs.io" target="_blank">
         <img
-          class="mr-1"
-          v-tooltip="
-            'GitHub<br><small>github.com/HardlyDifficult/ethgc</small>'
-          "
-          src="../../assets/3rdParty/GitHub-Mark-Light-32px.png"
+          v-tooltip="'Read the Docs<br><small>ethgc.readthedocs.io</small>'"
+          src="../../assets/3rdParty/rtd-logo-light.svg"
           width="32px"
         />
       </a>
       <a href="https://twitter.com/HardlyDifficult" target="_blank">
         <img
           v-tooltip="'Twitter<br><small>twitter.com/HardlyDifficult</small>'"
-          src="../../assets/3rdParty/Twitter_Social_Icon_Circle_Color.png"
+          src="../../assets/3rdParty/Twitter_Social_Icon_Circle_White.svg"
           width="32px"
         />
       </a>
-      <a href="https://ethgc.readthedocs.io" target="_blank">
+      <a href="https://github.com/hardlydifficult/ethgc" target="_blank">
         <img
-          v-tooltip="'Read the Docs<br><small>ethgc.readthedocs.io</small>'"
-          src="../../assets/3rdParty/rtd-logo-light.svg"
+          class="ml-1"
+          v-tooltip="
+            'GitHub<br><small>github.com/HardlyDifficult/ethgc</small>'
+          "
+          src="../../assets/3rdParty/Octicons-mark-github.svg"
           width="32px"
         />
       </a>
