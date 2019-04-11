@@ -129,9 +129,6 @@ jobs:
           at: '..'
 
       # todo open PR
-      - run: |
-          if [ $CIRCLE_BRANCH == 'master' ]; then
-          fi
 
 workflows:
   build:
@@ -163,6 +160,6 @@ workflows:
       - deployWebsite:
           requires:
             - buildWebsite
-      - prLibraryChange:
-          requires:
-            - deployContracts
+      #- prLibraryChange:
+      #    requires:
+      #      - deployContracts
