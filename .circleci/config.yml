@@ -36,8 +36,6 @@ jobs:
             - repo
 
   lint:
-    docker:
-      - image: circleci/node:10
     working_directory: ~/repo
     steps:
       - attach_workspace:
@@ -49,8 +47,6 @@ jobs:
       - run: bash .circleci/commit.sh
 
   buildContracts:
-    docker:
-      - image: circleci/node:10
     working_directory: ~/repo
     steps:
       - attach_workspace:
@@ -70,8 +66,6 @@ jobs:
             - repo/library/artifacts
 
   buildWebsite:
-    docker:
-      - image: circleci/node:10
     working_directory: ~/repo
     steps:
       - attach_workspace:
@@ -85,8 +79,6 @@ jobs:
             - repo/website/dist
 
   testContracts:
-    docker:
-      - image: circleci/node:10
     working_directory: ~/repo
     steps:
       - attach_workspace:
@@ -95,8 +87,6 @@ jobs:
       - run: cd contracts && npm run test
 
   push:
-    docker:
-      - image: circleci/node:10
     working_directory: ~/repo
     steps:
       - attach_workspace:
