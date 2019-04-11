@@ -18,7 +18,6 @@ jobs:
       - run: cd contracts && npm i && cd ..
       - run: cd website && npm i && cd ..
 
-      - run: mkdir ~/.ssh
       - run: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
       - run: npm run lint # includes --fix
       - run: cd contracts && npm run lint
