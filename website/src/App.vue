@@ -4,7 +4,15 @@
       <PageHeader />
       <RedeemCard />
       <nav class="nav nav-pills flex-column flex-md-row">
-        <a class="flex-md-fill text-sm-center nav-link" v-bind:class="option === 'create' ? 'active' : ''" @click="option === 'create' ? (option = undefined) : (option = 'create')" href="#">Create Card</a>
+        <a
+          class="flex-md-fill text-sm-center nav-link"
+          v-bind:class="option === 'create' ? 'active' : ''"
+          @click="
+            option === 'create' ? (option = undefined) : (option = 'create')
+          "
+          href="#"
+          >Create Card</a
+        >
         <a
           class="flex-md-fill text-sm-center nav-link"
           href="#"
