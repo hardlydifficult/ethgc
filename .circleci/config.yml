@@ -42,6 +42,7 @@ jobs:
     steps:
       - attach_workspace:
           at: '..'
+      - add_ssh_keys
       - run: npm run lint # includes --fix
       - run: bash .circleci/commit.sh
 
