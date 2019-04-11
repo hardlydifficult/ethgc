@@ -20,7 +20,7 @@ git fetch origin artifacts
 git checkout -f artifacts
 
 # now commit
-git add library/artifacts
+git add -a
 if ! git diff-index --quiet HEAD --; then
     git commit -am "library update"
     # and push, but send any output to /dev/null to hide anything sensitive
