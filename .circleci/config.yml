@@ -18,6 +18,19 @@ jobs:
       - run: cd contracts && npm i && cd ..
       - run: cd website && npm i && cd ..
 
+      - run: mkdir ~/.ssh
+      - run: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+      - run: npm run lint # includes --fix
+      - run: cd contracts && npm run lint
+      - run: bash .circleci/commit.sh
+
+      - run: cd contracts && npm run compile
+
+      - run: |
+            if [ $CIRCLE_BRANCH == 'master' ]; then
+              cd library && npm run deploy && cd ..
+            fi
+
       - save_cache:
           paths:
             - node_modules
@@ -34,40 +47,6 @@ jobs:
           root: '..'
           paths:
             - repo
-
-  lint:
-    docker:
-      - image: circleci/node:10
-    working_directory: ~/repo
-    steps:
-      - attach_workspace:
-          at: '..'
-      - run: mkdir ~/.ssh
-      - run: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
-      - run: npm run lint # includes --fix
-      - run: cd contracts && npm run lint
-      - run: bash .circleci/commit.sh
-
-  buildContracts:
-    docker:
-      - image: circleci/node:10
-    working_directory: ~/repo
-    steps:
-      - attach_workspace:
-          at: '..'
-
-      - run: cd contracts && npm run compile
-
-      - run: |
-            if [ $CIRCLE_BRANCH == 'master' ]; then
-              cd library && npm run deploy && cd ..
-            fi
-
-      - persist_to_workspace:
-          root: '..'
-          paths:
-            - repo/contracts/build
-            - repo/library/artifacts
 
   buildWebsite:
     docker:
@@ -120,20 +99,13 @@ workflows:
               ignore:
                 - gh-pages
                 - artifacts
-      - buildContracts:
-          requires:
-            - npm
       - buildWebsite:
           requires:
             - buildContracts
-      - lint:
-          requires:
-            - npm
       - testContracts:
           requires:
             - buildContracts
       - push:
           requires:
-            - lint
             - testContracts
             - buildWebsite
