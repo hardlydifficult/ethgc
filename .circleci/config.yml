@@ -91,6 +91,8 @@ jobs:
       - attach_workspace:
           at: '..'
 
+      - run: mkdir ~/.ssh
+      - run: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
       - run: |
             if [ $CIRCLE_BRANCH == 'master' ]; then
               cd library && npm run deploy && cd ..
@@ -115,6 +117,8 @@ jobs:
       - attach_workspace:
           at: '..'
 
+      - run: mkdir ~/.ssh
+      - run: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
       - run: |
             if [ $CIRCLE_BRANCH == 'master' ]; then
               bash .circleci/deploy-ghpages.sh
