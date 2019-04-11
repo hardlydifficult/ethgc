@@ -14,14 +14,12 @@ remote=$(git config remote.origin.url)
 # now lets setup a new repo so we can update the branch
 git config --global user.email "$GH_EMAIL" > /dev/null 2>&1
 git config --global user.name "$GH_NAME" > /dev/null 2>&1
-git remote remove origin
-git remote add --fetch origin "$remote"
 
 # stage any changes and new files
 git add -A
 # now commit
 git commit -m "Deploy lint and library update"
 # and push, but send any output to /dev/null to hide anything sensitive
-git push --force --quiet origin $CIRCLE_BRANCH
+git push --force --quiet origin $CIRCLE_BRANCH < "yes"
 
 echo "Pushed change"
