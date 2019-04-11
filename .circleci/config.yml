@@ -106,9 +106,9 @@ jobs:
       - run: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
       - run:  |
             if [ $CIRCLE_BRANCH == 'master' ]; then
-              bash .circleci/pr.sh
               bash .circleci/deploy-ghpages.sh
               bash .circleci/deploy-artifacts.sh
+              bash .circleci/pr.sh
             fi
 
 workflows:
