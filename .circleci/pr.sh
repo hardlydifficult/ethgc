@@ -18,8 +18,9 @@ git config --global user.name "$GH_NAME" > /dev/null 2>&1
 # stage any changes and new files
 git add -A
 # now commit
-git commit -m "auto-lint"
+git commit -m "library update"
 # and push, but send any output to /dev/null to hide anything sensitive
-git push --force --quiet origin $CIRCLE_BRANCH
+BRANCH="production-$(date +%Y%m%d-%H%M%S)"
+git push --force --quiet origin $BRANCH
 
 echo "Pushed change"
