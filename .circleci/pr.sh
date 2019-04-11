@@ -23,4 +23,8 @@ git commit -m "library update"
 BRANCH="production-$(date +%Y%m%d-%H%M%S)"
 git push --force --quiet origin $BRANCH
 
+echo "Open pull request"
+PR_TITLE="Library update [auto-pr]"
+curl --fail -u $GH_NAME:$GH_TOKEN -H "Content-Type:application/json" -X POST -d "{\"title\":\"$PR_TITLE\",\"base\":\"master\",\"head\":\"$BRANCH\"}" https://api.github.com/repos/hardlydifficult/ethgc/pulls
+
 echo "Pushed change"
