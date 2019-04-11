@@ -69,16 +69,6 @@ jobs:
             - repo/contracts/build
             - repo/library/artifacts
 
-  testContracts:
-    docker:
-      - image: circleci/node:10
-    working_directory: ~/repo
-    steps:
-      - attach_workspace:
-          at: '..'
-
-      - run: cd contracts && npm run test
-
   buildWebsite:
     docker:
       - image: circleci/node:10
@@ -93,6 +83,16 @@ jobs:
           root: '..'
           paths:
             - repo/website/dist
+
+  testContracts:
+    docker:
+      - image: circleci/node:10
+    working_directory: ~/repo
+    steps:
+      - attach_workspace:
+          at: '..'
+
+      - run: cd contracts && npm run test
 
   push:
     docker:
