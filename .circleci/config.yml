@@ -96,7 +96,7 @@ jobs:
               bash .circleci/deploy-ghpages.sh
             fi
 
-  prLibraryChange:
+  push:
     docker:
       - image: circleci/node:10
     working_directory: ~/repo
@@ -130,7 +130,7 @@ workflows:
             - checkoutAndNpm
       - push:
           requires:
-            - deployContracts
+            - compileContracts
             - testContracts
       - testContracts:
           requires:
