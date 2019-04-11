@@ -2,8 +2,8 @@ pull_request_rules:
   - name: merge if HD
     conditions:
       - "status-success=ci/circleci: buildWebsite"
-      - "status-success=ci/circleci: checkoutAndNpm"
-      - "status-success=ci/circleci: compileContracts"
+      - "status-success=ci/circleci: npm"
+      - "status-success=ci/circleci: buildContracts"
       - "status-success=ci/circleci: lint"
       - "status-success=ci/circleci: push"
       - "status-success=ci/circleci: testContracts"
@@ -16,8 +16,8 @@ pull_request_rules:
   - name: merge if Greenkeeper
     conditions:
       - "status-success=ci/circleci: buildWebsite"
-      - "status-success=ci/circleci: checkoutAndNpm"
-      - "status-success=ci/circleci: compileContracts"
+      - "status-success=ci/circleci: npm"
+      - "status-success=ci/circleci: buildContracts"
       - "status-success=ci/circleci: lint"
       - "status-success=ci/circleci: push"
       - "status-success=ci/circleci: testContracts"
@@ -30,8 +30,8 @@ pull_request_rules:
   - name: merge if approved by HD
     conditions:
       - "status-success=ci/circleci: buildWebsite"
-      - "status-success=ci/circleci: checkoutAndNpm"
-      - "status-success=ci/circleci: compileContracts"
+      - "status-success=ci/circleci: npm"
+      - "status-success=ci/circleci: buildContracts"
       - "status-success=ci/circleci: lint"
       - "status-success=ci/circleci: push"
       - "status-success=ci/circleci: testContracts"
