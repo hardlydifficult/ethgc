@@ -37,7 +37,7 @@ git commit --allow-empty -m "Deploy to artifacts [ci skip]"
 git push --force --quiet origin artifacts
 # go back to where we started and remove the artifacts git repo we made and used
 # for deployment
-cd ../..
+cd ../
 rm -rf artifacts-branch
 
 echo "Complete"
