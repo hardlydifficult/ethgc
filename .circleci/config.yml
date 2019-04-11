@@ -130,7 +130,7 @@ workflows:
             - checkoutAndNpm
       - push:
           requires:
-            - compileContracts
+            - lint
             - testContracts
       - testContracts:
           requires:
