@@ -142,18 +142,9 @@ workflows:
               ignore:
                 - gh-pages
                 - artifacts
-      - lintJs:
-          requires:
-            - checkoutAndNpm
-      - lintSolidity:
-          requires:
-            - checkoutAndNpm
       - compileContracts:
           requires:
             - checkoutAndNpm
-      - testContracts:
-          requires:
-            - compileContracts
       - deployContracts:
           requires:
             - compileContracts
@@ -163,6 +154,15 @@ workflows:
       - deployWebsite:
           requires:
             - buildWebsite
+      - lintJs:
+          requires:
+            - checkoutAndNpm
       - prLibraryChange:
           requires:
             - deployContracts
+      - lintSolidity:
+          requires:
+            - checkoutAndNpm
+      - testContracts:
+          requires:
+            - compileContracts
