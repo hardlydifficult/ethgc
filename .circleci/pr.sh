@@ -16,6 +16,7 @@ git config --global user.email "$GH_EMAIL" > /dev/null 2>&1
 git config --global user.name "$GH_NAME" > /dev/null 2>&1
 
 # now commit
+git add library/artifacts
 git commit -am "library update"
 # and push, but send any output to /dev/null to hide anything sensitive
 BRANCH="library-$(date +%Y%m%d-%H%M%S)"
