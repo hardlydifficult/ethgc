@@ -25,5 +25,5 @@ contract ethgc is
   MixinCreate,
   MixinRedeem
 {
-  require(msg.sender != address(0)); // TODO remove, this is a test
+  uint i = 0;
 }
