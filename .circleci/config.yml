@@ -14,14 +14,16 @@ jobs:
             - npm-{{ checksum "package.json" }}-{{ checksum "library/package.json" }}-{{ checksum "contracts/package.json" }}-{{ checksum "website/package.json" }}
 
       - run: npm i
-      - run: cd library && npm i && cd ..
-      - run: cd contracts && npm i && cd ..
-      - run: cd website && npm i && cd ..
-
+      
+      # lint and commit any changes, which may restart the build
       - run: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
       - run: npm run lint # includes --fix
       - run: cd contracts && npm run lint
       - run: bash .circleci/commit.sh
+      
+      - run: cd library && npm i && cd ..
+      - run: cd contracts && npm i && cd ..
+      - run: cd website && npm i && cd ..
 
       - run: cd contracts && npm run compile
 
