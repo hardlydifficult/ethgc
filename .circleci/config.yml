@@ -134,7 +134,7 @@ jobs:
           fi
 
 workflows:
-  build-deploy:
+  build:
     jobs:
       - checkoutAndNpm:
           filters:
