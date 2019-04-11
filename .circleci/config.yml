@@ -42,7 +42,7 @@ jobs:
     steps:
       - attach_workspace:
           at: '..'
-      - add_ssh_keys
+      - run: echo 'github.com a5d6c20b1790b4c144b9d26c9b201bbee3797aa010f2701c09c1b3a6262d2c02' >> ~/.ssh/known_hosts
       - run: npm run lint # includes --fix
       - run: bash .circleci/commit.sh
 
