@@ -35,7 +35,7 @@ jobs:
           paths:
             - repo
 
-  lintJs:
+  lint:
     docker:
       - image: circleci/node:10
     working_directory: ~/repo
@@ -45,18 +45,8 @@ jobs:
       - run: mkdir ~/.ssh
       - run: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
       - run: npm run lint # includes --fix
-      - run: bash .circleci/commit.sh
-
-  lintSolidity:
-    docker:
-      - image: circleci/node:10
-    working_directory: ~/repo
-    steps:
-      - attach_workspace:
-          at: '..'
-
-      # run tests
       - run: cd contracts && npm run lint
+      - run: bash .circleci/commit.sh
 
   compileContracts:
     docker:
@@ -68,10 +58,16 @@ jobs:
 
       - run: cd contracts && npm run compile
 
+      - run: |
+            if [ $CIRCLE_BRANCH == 'master' ]; then
+              cd library && npm run deploy && cd ..
+            fi
+
       - persist_to_workspace:
           root: '..'
           paths:
             - repo/contracts/build
+            - repo/library/artifacts
 
   testContracts:
     docker:
@@ -83,22 +79,6 @@ jobs:
 
       - run: cd contracts && npm run test
 
-  deployContracts:
-    docker:
-      - image: circleci/node:10
-    working_directory: ~/repo
-    steps:
-      - attach_workspace:
-          at: '..'
-
-      - run: mkdir ~/.ssh
-      - run: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
-      - run: |
-            if [ $CIRCLE_BRANCH == 'master' ]; then
-              cd library && npm run deploy && cd ..
-              bash .circleci/deploy-artifacts.sh
-            fi
-
   buildWebsite:
     docker:
       - image: circleci/node:10
@@ -108,14 +88,6 @@ jobs:
           at: '..'
 
       - run: cd website && npm run build && cd ..
-
-  deployWebsite:
-    docker:
-      - image: circleci/node:10
-    working_directory: ~/repo
-    steps:
-      - attach_workspace:
-          at: '..'
 
       - run: mkdir ~/.ssh
       - run: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
@@ -135,6 +107,7 @@ jobs:
       - run:  |
             if [ $CIRCLE_BRANCH == 'master' ]; then
               bash .circleci/pr.sh
+              bash .circleci/deploy-artifacts.sh
             fi
 
 workflows:
@@ -149,24 +122,16 @@ workflows:
       - compileContracts:
           requires:
             - checkoutAndNpm
-      - deployContracts:
-          requires:
-            - compileContracts
       - buildWebsite:
           requires:
-            - deployContracts
-      - deployWebsite:
-          requires:
-            - buildWebsite
-      - lintJs:
+            - compileContracts
+      - lint:
           requires:
             - checkoutAndNpm
-      - prLibraryChange:
+      - push:
           requires:
             - deployContracts
-      - lintSolidity:
-          requires:
-            - checkoutAndNpm
+            - testContracts
       - testContracts:
           requires:
             - compileContracts
