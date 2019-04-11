@@ -15,6 +15,10 @@ remote=$(git config remote.origin.url)
 git config --global user.email "$GH_EMAIL" > /dev/null 2>&1
 git config --global user.name "$GH_NAME" > /dev/null 2>&1
 
+cd library/artifacts
+git fetch artifacts
+git checkout artifacts
+
 # now commit
 git add library/artifacts
 if ! git diff-index --quiet HEAD --; then
