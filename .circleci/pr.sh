@@ -17,7 +17,7 @@ git config --global user.name "$GH_NAME" > /dev/null 2>&1
 
 cd library/artifacts
 git fetch origin artifacts
-git checkout -f artifacts
+git pull origin artifacts -f --allow-unrelated-histories
 
 # now commit
 if ! git diff-index --quiet HEAD --; then
