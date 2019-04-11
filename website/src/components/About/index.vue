@@ -9,8 +9,8 @@
           Create gift card
         </div>
         <div>
-          Generate a random redeem code and create the card by sending ETH or
-          tokens.
+          Generate a random redeem code and create the card by sending ETH,
+          tokens, and/or NFTs.
         </div>
       </li>
       <li>
