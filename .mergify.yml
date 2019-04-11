@@ -3,8 +3,6 @@ pull_request_rules:
     conditions:
       - "status-success=ci/circleci: buildWebsite"
       - "status-success=ci/circleci: npm"
-      - "status-success=ci/circleci: buildContracts"
-      - "status-success=ci/circleci: lint"
       - "status-success=ci/circleci: push"
       - "status-success=ci/circleci: testContracts"
       - author=hardlydifficult
@@ -17,8 +15,6 @@ pull_request_rules:
     conditions:
       - "status-success=ci/circleci: buildWebsite"
       - "status-success=ci/circleci: npm"
-      - "status-success=ci/circleci: buildContracts"
-      - "status-success=ci/circleci: lint"
       - "status-success=ci/circleci: push"
       - "status-success=ci/circleci: testContracts"
       - author=greenkeeper[bot]
@@ -31,8 +27,6 @@ pull_request_rules:
     conditions:
       - "status-success=ci/circleci: buildWebsite"
       - "status-success=ci/circleci: npm"
-      - "status-success=ci/circleci: buildContracts"
-      - "status-success=ci/circleci: lint"
       - "status-success=ci/circleci: push"
       - "status-success=ci/circleci: testContracts"
       - approved-reviews-by=hardlydifficult
