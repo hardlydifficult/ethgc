@@ -84,12 +84,9 @@ jobs:
 
       - run: mkdir ~/.ssh
       - run: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
-      - run:  |
-            if [ $CIRCLE_BRANCH == 'master' ]; then
-              bash .circleci/deploy-ghpages.sh
-              bash .circleci/deploy-artifacts.sh
-              bash .circleci/pr.sh
-            fi
+      - run: bash .circleci/deploy-ghpages.sh
+      - run: bash .circleci/deploy-artifacts.sh
+      - run: bash .circleci/pr.sh
 
 workflows:
   build:
@@ -107,6 +104,10 @@ workflows:
           requires:
             - npm
       - push:
+          filters:
+            branches:
+              only:
+                - master
           requires:
             - testContracts
             - buildWebsite
