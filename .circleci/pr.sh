@@ -17,7 +17,7 @@ git config --global user.name "$GH_NAME" > /dev/null 2>&1
 
 cd library/artifacts
 git fetch origin artifacts
-git checkout artifacts
+git checkout -f artifacts
 
 # now commit
 git add library/artifacts
