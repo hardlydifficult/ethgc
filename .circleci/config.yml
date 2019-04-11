@@ -1,6 +1,6 @@
 version: 2.1
 jobs:
-  checkoutAndNpm:
+  npm:
     docker:
       - image: circleci/node:10
     working_directory: ~/repo
@@ -48,7 +48,7 @@ jobs:
       - run: cd contracts && npm run lint
       - run: bash .circleci/commit.sh
 
-  compileContracts:
+  buildContracts:
     docker:
       - image: circleci/node:10
     working_directory: ~/repo
@@ -114,26 +114,26 @@ jobs:
 workflows:
   build:
     jobs:
-      - checkoutAndNpm:
+      - npm:
           filters:
             branches:
               ignore:
                 - gh-pages
                 - artifacts
-      - compileContracts:
+      - buildContracts:
           requires:
-            - checkoutAndNpm
+            - npm
       - buildWebsite:
           requires:
-            - compileContracts
+            - buildContracts
       - lint:
           requires:
-            - checkoutAndNpm
+            - npm
+      - testContracts:
+          requires:
+            - buildContracts
       - push:
           requires:
             - lint
             - testContracts
             - buildWebsite
-      - testContracts:
-          requires:
-            - compileContracts
