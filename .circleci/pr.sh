@@ -16,11 +16,11 @@ git config --global user.email "$GH_EMAIL" > /dev/null 2>&1
 git config --global user.name "$GH_NAME" > /dev/null 2>&1
 
 # stage any changes and new files
-git add -A
+git add library/artifacts
 # now commit
 git commit -m "library update"
 # and push, but send any output to /dev/null to hide anything sensitive
-BRANCH="production-$(date +%Y%m%d-%H%M%S)"
+BRANCH="library-$(date +%Y%m%d-%H%M%S)"
 git checkout -B $BRANCH
 git push --force --quiet origin $BRANCH
 
