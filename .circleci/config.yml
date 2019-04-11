@@ -101,10 +101,10 @@ workflows:
                 - artifacts
       - buildWebsite:
           requires:
-            - buildContracts
+            - npm
       - testContracts:
           requires:
-            - buildContracts
+            - npm
       - push:
           requires:
             - testContracts
