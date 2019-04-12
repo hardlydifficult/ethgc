@@ -21,6 +21,17 @@ pull_request_rules:
         method: squash
         strict: smart
       delete_head_branch: {}
+  - name: merge if imagebot
+    conditions:
+      - "status-success=ci/circleci: buildWebsite"
+      - "status-success=ci/circleci: npm"
+      - "status-success=ci/circleci: testContracts"
+      - author=imagebot[bot]
+    actions:
+      merge:
+        method: squash
+        strict: smart
+      delete_head_branch: {}
   - name: merge if approved by HD
     conditions:
       - "status-success=ci/circleci: buildWebsite"
