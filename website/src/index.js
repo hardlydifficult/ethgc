@@ -23,11 +23,6 @@ if (window.ethereum) {
   window.ethereum.enable();
 } // TODO maybe else means go get metamask
 
-
-
-
-  
-
 new Vue({
   render: h => h(App)
 }).$mount("#app");
