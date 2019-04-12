@@ -25,11 +25,14 @@ Build Process
 Ganache: local EVM for testing
 Circle CI: continous integration
 Mergify: bot to automatically merge PRs
-Read the docs: build and host the doc website
+Read the docs: build and host the doc website - replace with https://docusaurus.io/
 GitHub pages: hosts the main website
 Truffle: compile and test Solidity contracts
 Cloudflare: CDN
 Greenkeeper: create PR for every dependency update
+
+imgBot
+WIP
 
 Static analysis 
 ----------------
@@ -37,3 +40,6 @@ Static analysis
 eslint: linter for JS
 Solium: linter for Solidity
 Truffle security: Solidity static analysis by MythX
+
+
+todo Codecov

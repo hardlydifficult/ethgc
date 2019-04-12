@@ -1,6 +1,6 @@
 version: 2.1
 jobs:
-  checkoutAndNpm:
+  npm:
     docker:
       - image: circleci/node:10
     working_directory: ~/repo
@@ -14,9 +14,23 @@ jobs:
             - npm-{{ checksum "package.json" }}-{{ checksum "library/package.json" }}-{{ checksum "contracts/package.json" }}-{{ checksum "website/package.json" }}
 
       - run: npm i
-      - run: cd library && npm i && cd ..
+      
+      # lint and commit any changes, which may restart the build
+      - run: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+      - run: npm run lint # includes --fix
+      - run: bash .circleci/commit.sh
+      
       - run: cd contracts && npm i && cd ..
+      - run: cd contracts && npm run lint # todo add --fix and push
+      - run: cd library && npm i && cd ..
       - run: cd website && npm i && cd ..
+
+      - run: cd contracts && npm run compile
+
+      - run: |
+            if [ $CIRCLE_BRANCH == 'master' ]; then
+              cd library && npm run deploy && cd ..
+            fi
 
       - save_cache:
           paths:
@@ -34,40 +48,6 @@ jobs:
           root: '..'
           paths:
             - repo
-
-  lint:
-    docker:
-      - image: circleci/node:10
-    working_directory: ~/repo
-    steps:
-      - attach_workspace:
-          at: '..'
-      - run: mkdir ~/.ssh
-      - run: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
-      - run: npm run lint # includes --fix
-      - run: cd contracts && npm run lint
-      - run: bash .circleci/commit.sh
-
-  compileContracts:
-    docker:
-      - image: circleci/node:10
-    working_directory: ~/repo
-    steps:
-      - attach_workspace:
-          at: '..'
-
-      - run: cd contracts && npm run compile
-
-      - run: |
-            if [ $CIRCLE_BRANCH == 'master' ]; then
-              cd library && npm run deploy && cd ..
-            fi
-
-      - persist_to_workspace:
-          root: '..'
-          paths:
-            - repo/contracts/build
-            - repo/library/artifacts
 
   buildWebsite:
     docker:
@@ -104,36 +84,30 @@ jobs:
 
       - run: mkdir ~/.ssh
       - run: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
-      - run:  |
-            if [ $CIRCLE_BRANCH == 'master' ]; then
-              bash .circleci/pr.sh
-              bash .circleci/deploy-ghpages.sh
-              bash .circleci/deploy-artifacts.sh
-            fi
+      - run: bash .circleci/deploy-ghpages.sh
+      - run: bash .circleci/deploy-artifacts.sh
+      - run: bash .circleci/pr.sh
 
 workflows:
   build:
     jobs:
-      - checkoutAndNpm:
+      - npm:
           filters:
             branches:
               ignore:
                 - gh-pages
                 - artifacts
-      - compileContracts:
-          requires:
-            - checkoutAndNpm
       - buildWebsite:
           requires:
-            - compileContracts
-      - lint:
-          requires:
-            - checkoutAndNpm
-      - push:
-          requires:
-            - lint
-            - testContracts
-            - buildWebsite
+            - npm
       - testContracts:
           requires:
-            - compileContracts
+            - npm
+      - push:
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - testContracts
+            - buildWebsite

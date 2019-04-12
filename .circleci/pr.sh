@@ -15,17 +15,20 @@ remote=$(git config remote.origin.url)
 git config --global user.email "$GH_EMAIL" > /dev/null 2>&1
 git config --global user.name "$GH_NAME" > /dev/null 2>&1
 
-# stage any changes and new files
-git add -A
-# now commit
-git commit -m "library update"
-# and push, but send any output to /dev/null to hide anything sensitive
-BRANCH="production-$(date +%Y%m%d-%H%M%S)"
-git checkout -B $BRANCH
-git push --force --quiet origin $BRANCH
+cd library/artifacts
+git checkout --force -B "artifacts" "origin/artifacts"
 
-echo "Open pull request"
-PR_TITLE="Library update [auto-pr]"
-curl --fail -u $GH_NAME:$GH_TOKEN -H "Content-Type:application/json" -X POST -d "{\"title\":\"$PR_TITLE\",\"base\":\"master\",\"head\":\"$BRANCH\"}" https://api.github.com/repos/hardlydifficult/ethgc/pulls
+# now commit
+#if ! git diff-index --quiet HEAD --; then
+    git commit -am "library update"
+    # and push, but send any output to /dev/null to hide anything sensitive
+    BRANCH="library-$(date +%Y%m%d-%H%M%S)"
+    git checkout -B $BRANCH
+    git push --force --quiet origin $BRANCH
+
+    echo "Open pull request"
+    PR_TITLE="Library update [auto-pr]"
+    curl --fail -u $GH_NAME:$GH_TOKEN -H "Content-Type:application/json" -X POST -d "{\"title\":\"$PR_TITLE\",\"base\":\"master\",\"head\":\"$BRANCH\"}" https://api.github.com/repos/hardlydifficult/ethgc/pulls
+#fi
 
 echo "Pushed change"
