@@ -23,12 +23,10 @@ if (window.ethereum) {
   window.ethereum.enable();
 } // TODO maybe else means go get metamask
 
-/* eslint-disable no-new */
-// new Vue({
-//   el: "#app",
-//   components: { App },
-//   template: "<App/>"
-// });
+
+
+
+  
 
 new Vue({
   render: h => h(App)
