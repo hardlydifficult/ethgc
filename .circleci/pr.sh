@@ -28,7 +28,7 @@ git checkout --force -B "artifacts" "origin/artifacts"
 
     echo "Open pull request"
     PR_TITLE="Library update [auto-pr]"
-    curl --fail -u $GH_NAME:$GH_TOKEN -H "Content-Type:application/json" -X POST -d "{\"title\":\"$PR_TITLE\",\"base\":\"master\",\"head\":\"$BRANCH\"}" https://api.github.com/repos/hardlydifficult/ethgc/pulls
+    curl --fail -u $GH_NAME -H "Content-Type:application/json" -X POST -d "{\"title\":\"$PR_TITLE\",\"base\":\"master\",\"head\":\"$BRANCH\"}" https://api.github.com/repos/hardlydifficult/ethgc/pulls
 #fi
 
 echo "Pushed change"
