@@ -2,13 +2,13 @@ pull_request_rules:
   - name: merge if HD
     conditions:
       - author=hardlydifficult
-      - "status-success=greenkeeper/testContracts"
-      - "status-success=greenkeeper/init"
-      - "status-success=greenkeeper/buildWebsite"
-      - "status-success=greenkeeper/buildLibrary"
-      - "status-success=greenkeeper/buildDocs"
-      - "status-success=greenkeeper/buildContracts"
-      - "status-success=greenkeeper/WIP"     
+      - "status-success=ci/circleci: testContracts"
+      - "status-success=ci/circleci: init"
+      - "status-success=ci/circleci: buildWebsite"
+      - "status-success=ci/circleci: buildLibrary"
+      - "status-success=ci/circleci: buildDocs"
+      - "status-success=ci/circleci: buildContracts"
+      - "status-success=WIP"
     actions:
       merge:
         method: squash
@@ -18,13 +18,13 @@ pull_request_rules:
     conditions:    
       - author=greenkeeper[bot]
       - "status-success=greenkeeper/verify"
-      - "status-success=greenkeeper/testContracts"
-      - "status-success=greenkeeper/init"
-      - "status-success=greenkeeper/buildWebsite"
-      - "status-success=greenkeeper/buildLibrary"
-      - "status-success=greenkeeper/buildDocs"
-      - "status-success=greenkeeper/buildContracts"
-      - "status-success=greenkeeper/WIP"  
+      - "status-success=ci/circleci: testContracts"
+      - "status-success=ci/circleci: init"
+      - "status-success=ci/circleci: buildWebsite"
+      - "status-success=ci/circleci: buildLibrary"
+      - "status-success=ci/circleci: buildDocs"
+      - "status-success=ci/circleci: buildContracts"
+      - "status-success=WIP"
     actions:
       merge:
         method: squash
@@ -33,13 +33,13 @@ pull_request_rules:
   - name: merge if imgbot
     conditions:
       - author=imgbot[bot]
-      - "status-success=greenkeeper/testContracts"
-      - "status-success=greenkeeper/init"
-      - "status-success=greenkeeper/buildWebsite"
-      - "status-success=greenkeeper/buildLibrary"
-      - "status-success=greenkeeper/buildDocs"
-      - "status-success=greenkeeper/buildContracts"
-      - "status-success=greenkeeper/WIP"     
+      - "status-success=ci/circleci: testContracts"
+      - "status-success=ci/circleci: init"
+      - "status-success=ci/circleci: buildWebsite"
+      - "status-success=ci/circleci: buildLibrary"
+      - "status-success=ci/circleci: buildDocs"
+      - "status-success=ci/circleci: buildContracts"
+      - "status-success=WIP"
     actions:
       merge:
         method: squash
@@ -49,13 +49,13 @@ pull_request_rules:
     conditions:
       - approved-reviews-by=hardlydifficult
       - "#changes-requested-reviews-by=0"
-      - "status-success=greenkeeper/testContracts"
-      - "status-success=greenkeeper/init"
-      - "status-success=greenkeeper/buildWebsite"
-      - "status-success=greenkeeper/buildLibrary"
-      - "status-success=greenkeeper/buildDocs"
-      - "status-success=greenkeeper/buildContracts"
-      - "status-success=greenkeeper/WIP"     
+      - "status-success=ci/circleci: testContracts"
+      - "status-success=ci/circleci: init"
+      - "status-success=ci/circleci: buildWebsite"
+      - "status-success=ci/circleci: buildLibrary"
+      - "status-success=ci/circleci: buildDocs"
+      - "status-success=ci/circleci: buildContracts"
+      - "status-success=WIP"
     actions:
       merge:
         method: squash
