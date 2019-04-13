@@ -16,6 +16,7 @@ git config --global user.email "$GH_EMAIL" > /dev/null 2>&1
 git config --global user.name "$GH_NAME" > /dev/null 2>&1
 
 cd library/artifacts
+git remote add --fetch origin "$remote"
 
 # now commit
 #if ! git diff-index --quiet HEAD --; then
@@ -23,11 +24,13 @@ cd library/artifacts
     # and push, but send any output to /dev/null to hide anything sensitive
     BRANCH="library-$(date +%Y%m%d-%H%M%S)"
     git checkout -B $BRANCH
-    git push -u $GH_NAME --force origin $BRANCH
+    git push --force --quiet origin $BRANCH
 
     echo "Open pull request"
     PR_TITLE="Library update [auto-pr]"
     curl --fail -u $GH_NAME -H "Content-Type:application/json" -X POST -d "{\"title\":\"$PR_TITLE\",\"base\":\"master\",\"head\":\"$BRANCH\"}" https://api.github.com/repos/hardlydifficult/ethgc/pulls
 #fi
+
+cd ../..
 
 echo "Pushed change"
