@@ -1,6 +1,6 @@
 version: 2.1
 jobs:
-  npm:
+  init: # checkout and auto-lint
     docker:
       - image: circleci/node:10
     working_directory: ~/repo
@@ -9,9 +9,15 @@ jobs:
       - run: git submodule sync
       - run: git submodule update --init
 
+      # save checkout
+      - persist_to_workspace:
+          root: '..'
+          paths:
+            - repo
+
       - restore_cache:
           keys:
-            - npm-{{ checksum "package.json" }}-{{ checksum "library/package.json" }}-{{ checksum "contracts/package.json" }}-{{ checksum "website/package.json" }}
+            - v1-{{ checksum "package.json" }}
 
       - run: npm i
 
@@ -20,37 +26,13 @@ jobs:
       - run: npm run lint # includes --fix
       - run: bash .circleci/commit.sh
 
-      - run: cd contracts && npm i && cd ..
-      - run: cd contracts && npm run lint # todo add --fix and push
-      - run: cd library && npm i && cd ..
-      - run: cd website && npm i && cd ..
-      - run: cd docs/website && npm i && cd ../..
-
-      - run: cd contracts && npm run compile
-
-      - run: |
-            if [ $CIRCLE_BRANCH == 'master' ]; then
-              cd library && npm run deploy && cd ..
-            fi
-
       - save_cache:
           paths:
             - node_modules
             - package-lock.json
-            - library/node_modules
-            - library/package-lock.json
-            - contracts/node_modules
-            - contracts/package-lock.json
-            - website/node_modules
-            - website/package-lock.json
-          key: npm-{{ checksum "package.json" }}-{{ checksum "library/package.json" }}-{{ checksum "contracts/package.json" }}-{{ checksum "website/package.json" }}
+          key: v1-{{ checksum "package.json" }}
 
-      - persist_to_workspace:
-          root: '..'
-          paths:
-            - repo
-
-  buildWebsite:
+  buildContracts:
     docker:
       - image: circleci/node:10
     working_directory: ~/repo
@@ -58,13 +40,25 @@ jobs:
       - attach_workspace:
           at: '..'
 
-      - run: cd website && npm run build && cd ..
-      - run: cd docs/website && npm run build && cd ../..
+      - run: cd contracts
+
+      - restore_cache:
+          keys:
+            - v1-{{ checksum "package.json" }}
+      - run: npm i
+      - save_cache:
+          paths:
+            - node_modules
+            - package-lock.json
+          key: v1-{{ checksum "package.json" }}
+
+      - run: npm run compile
+      - run: cd ..
 
       - persist_to_workspace:
           root: '..'
           paths:
-            - repo/website/dist
+            - contracts/build
 
   testContracts:
     docker:
@@ -74,7 +68,106 @@ jobs:
       - attach_workspace:
           at: '..'
 
-      - run: cd contracts && npm run test
+      - run: cd contracts
+
+      - restore_cache:
+          keys:
+            - v1-{{ checksum "package.json" }}
+      - run: npm i
+      - save_cache:
+          paths:
+            - node_modules
+            - package-lock.json
+          key: v1-{{ checksum "package.json" }}
+
+      - run: npm run test
+      - run: npm run lint # todo add --fix and push
+      - run: cd ..
+
+  buildLibrary:
+    docker:
+      - image: circleci/node:10
+    working_directory: ~/repo
+    steps:
+      - attach_workspace:
+          at: '..'
+
+      - run: cd library
+
+      - restore_cache:
+          keys:
+            - v1-{{ checksum "package.json" }}
+      - run: npm i
+      - save_cache:
+          paths:
+            - node_modules
+            - package-lock.json
+          key: v1-{{ checksum "package.json" }}
+
+      - run: |
+            if [ $CIRCLE_BRANCH == 'master' ]; then
+              npm run deploy
+            fi
+
+      - run: cd ..
+
+  buildWebsite:
+    docker:
+      - image: circleci/node:10
+    working_directory: ~/repo
+    steps:
+      - attach_workspace:
+          at: '..'
+
+      - run: cd website
+
+      - restore_cache:
+          keys:
+            - v1-{{ checksum "package.json" }}
+      - run: npm i
+      - save_cache:
+          paths:
+            - node_modules
+            - package-lock.json
+          key: v1-{{ checksum "package.json" }}
+
+      - run: npm run build
+
+      - persist_to_workspace:
+          root: '..'
+          paths:
+            - repo/website/dist
+
+      - run: cd ..
+
+  buildDocs:
+    docker:
+      - image: circleci/node:10
+    working_directory: ~/repo
+    steps:
+      - attach_workspace:
+          at: '..'
+
+      - run: cd docs/website
+
+      - restore_cache:
+          keys:
+            - v1-{{ checksum "package.json" }}
+      - run: npm i
+      - save_cache:
+          paths:
+            - node_modules
+            - package-lock.json
+          key: v1-{{ checksum "package.json" }}
+
+      - run: npm run build
+
+      - persist_to_workspace:
+          root: '..'
+          paths:
+            - repo/docs/website/build
+
+      - run: cd ../..
 
   push:
     docker:
@@ -93,23 +186,40 @@ jobs:
 workflows:
   build:
     jobs:
-      - npm:
+      - init:
           filters:
             branches:
               ignore:
                 - gh-pages
                 - artifacts
-      - buildWebsite:
+      - buildContracts:
           requires:
-            - npm
+            - init
+      - buildDocs:
+          requires:
+            - init
+      - buildLibrary:
+          requires:
+            - init
+            - buildContracts
       - testContracts:
           requires:
-            - npm
+            - init
+            - buildContracts
+            - buildLibrary
+      - buildWebsite:
+          requires:
+            - init
+            - buildContracts
+            - buildLibrary
       - push:
           filters:
             branches:
               only:
                 - master
           requires:
+            - init
             - testContracts
             - buildWebsite
+            - buildDocs
+            - buildLibrary
