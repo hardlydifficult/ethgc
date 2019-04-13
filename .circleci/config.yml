@@ -55,7 +55,7 @@ jobs:
       - persist_to_workspace:
           root: '..'
           paths:
-            - contracts/build
+            - repo/contracts/build
 
   testContracts:
     docker:
