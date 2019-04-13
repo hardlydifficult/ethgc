@@ -16,7 +16,6 @@ git config --global user.email "$GH_EMAIL" > /dev/null 2>&1
 git config --global user.name "$GH_NAME" > /dev/null 2>&1
 
 cd library/artifacts
-git checkout --force -B "artifacts" "origin/artifacts"
 
 # now commit
 #if ! git diff-index --quiet HEAD --; then
@@ -24,7 +23,7 @@ git checkout --force -B "artifacts" "origin/artifacts"
     # and push, but send any output to /dev/null to hide anything sensitive
     BRANCH="library-$(date +%Y%m%d-%H%M%S)"
     git checkout -B $BRANCH
-    git push --force --quiet origin $BRANCH
+    git push --force origin $BRANCH
 
     echo "Open pull request"
     PR_TITLE="Library update [auto-pr]"
