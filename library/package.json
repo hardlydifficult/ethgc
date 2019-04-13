@@ -18,6 +18,6 @@
   "homepage": "https://github.com/hardlydifficult/ethgc#readme",
   "dependencies": {
     "bignumber.js": "8.1.1",
-    "web3": "1.0.0-beta.52"
+    "web3": "1.0.0-beta.37"
   }
 }
