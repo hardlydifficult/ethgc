@@ -24,6 +24,7 @@ jobs:
       - run: cd contracts && npm run lint # todo add --fix and push
       - run: cd library && npm i && cd ..
       - run: cd website && npm i && cd ..
+      - run: cd docs/website && npm i && cd ../..
 
       - run: cd contracts && npm run compile
 
