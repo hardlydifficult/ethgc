@@ -52,11 +52,6 @@ jobs:
 
       - run: cd contracts && npm run compile
 
-      - persist_to_workspace:
-          root: '..'
-          paths:
-            - repo/contracts/build
-
       # build library
       - restore_cache:
           keys:
@@ -72,6 +67,12 @@ jobs:
             if [ $CIRCLE_BRANCH == 'master' ]; then
               cd library && npm run deploy
             fi
+
+      - persist_to_workspace:
+          root: '..'
+          paths:
+            - repo/contracts/build
+            - repo/library/artifacts
 
   testContracts:
     docker:

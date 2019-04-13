@@ -60,6 +60,7 @@ module.exports.deploy = async (
         );
         const receipt = await networkWeb3.getReceipt(tx);
         json[networkId] = receipt.contractAddress;
+        console.log(`deployed ${receipt.contractAddress} on ${networkId}`);
       }
     }
 
