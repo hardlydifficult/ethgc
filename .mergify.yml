@@ -2,15 +2,29 @@ pull_request_rules:
   - name: merge if HD
     conditions:
       - author=hardlydifficult
+      - "status-success=greenkeeper/testContracts"
+      - "status-success=greenkeeper/init"
+      - "status-success=greenkeeper/buildWebsite"
+      - "status-success=greenkeeper/buildLibrary"
+      - "status-success=greenkeeper/buildDocs"
+      - "status-success=greenkeeper/buildContracts"
+      - "status-success=greenkeeper/WIP"     
     actions:
       merge:
         method: squash
         strict: smart
       delete_head_branch: {}
   - name: merge if Greenkeeper
-    conditions:
-      - "status-success=greenkeeper/verify"
+    conditions:    
       - author=greenkeeper[bot]
+      - "status-success=greenkeeper/verify"
+      - "status-success=greenkeeper/testContracts"
+      - "status-success=greenkeeper/init"
+      - "status-success=greenkeeper/buildWebsite"
+      - "status-success=greenkeeper/buildLibrary"
+      - "status-success=greenkeeper/buildDocs"
+      - "status-success=greenkeeper/buildContracts"
+      - "status-success=greenkeeper/WIP"  
     actions:
       merge:
         method: squash
@@ -19,6 +33,13 @@ pull_request_rules:
   - name: merge if imgbot
     conditions:
       - author=imgbot[bot]
+      - "status-success=greenkeeper/testContracts"
+      - "status-success=greenkeeper/init"
+      - "status-success=greenkeeper/buildWebsite"
+      - "status-success=greenkeeper/buildLibrary"
+      - "status-success=greenkeeper/buildDocs"
+      - "status-success=greenkeeper/buildContracts"
+      - "status-success=greenkeeper/WIP"     
     actions:
       merge:
         method: squash
@@ -28,6 +49,13 @@ pull_request_rules:
     conditions:
       - approved-reviews-by=hardlydifficult
       - "#changes-requested-reviews-by=0"
+      - "status-success=greenkeeper/testContracts"
+      - "status-success=greenkeeper/init"
+      - "status-success=greenkeeper/buildWebsite"
+      - "status-success=greenkeeper/buildLibrary"
+      - "status-success=greenkeeper/buildDocs"
+      - "status-success=greenkeeper/buildContracts"
+      - "status-success=greenkeeper/WIP"     
     actions:
       merge:
         method: squash
