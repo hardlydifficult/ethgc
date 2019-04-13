@@ -12,7 +12,8 @@
     },
     "website": {
       "packages": [
-        "website/package.json"
+        "website/package.json",
+        "docs/website/package.json"
       ]
     }
   }

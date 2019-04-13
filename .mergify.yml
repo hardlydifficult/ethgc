@@ -1,23 +1,28 @@
 pull_request_rules:
   - name: merge if HD
     conditions:
-      - "status-success=ci/circleci: buildWebsite"
-      - "status-success=ci/circleci: npm"
-      - "status-success=ci/circleci: testContracts"
-      - "status-success=WIP"
       - author=hardlydifficult
+      - "status-success=ci/circleci: testContracts"
+      - "status-success=ci/circleci: init"
+      - "status-success=ci/circleci: buildWebsite"
+      - "status-success=ci/circleci: buildDocs"
+      - "status-success=ci/circleci: buildContracts"
+      - "status-success=WIP"
     actions:
       merge:
         method: squash
         strict: smart
       delete_head_branch: {}
   - name: merge if Greenkeeper
-    conditions:
-      - "status-success=ci/circleci: buildWebsite"
-      - "status-success=ci/circleci: npm"
-      - "status-success=ci/circleci: testContracts"
-      - "status-success=WIP"
+    conditions:    
       - author=greenkeeper[bot]
+      - "status-success=greenkeeper/verify"
+      - "status-success=ci/circleci: testContracts"
+      - "status-success=ci/circleci: init"
+      - "status-success=ci/circleci: buildWebsite"
+      - "status-success=ci/circleci: buildDocs"
+      - "status-success=ci/circleci: buildContracts"
+      - "status-success=WIP"
     actions:
       merge:
         method: squash
@@ -25,11 +30,13 @@ pull_request_rules:
       delete_head_branch: {}
   - name: merge if imgbot
     conditions:
-      - "status-success=ci/circleci: buildWebsite"
-      - "status-success=ci/circleci: npm"
-      - "status-success=ci/circleci: testContracts"
-      - "status-success=WIP"
       - author=imgbot[bot]
+      - "status-success=ci/circleci: testContracts"
+      - "status-success=ci/circleci: init"
+      - "status-success=ci/circleci: buildWebsite"
+      - "status-success=ci/circleci: buildDocs"
+      - "status-success=ci/circleci: buildContracts"
+      - "status-success=WIP"
     actions:
       merge:
         method: squash
@@ -37,12 +44,14 @@ pull_request_rules:
       delete_head_branch: {}
   - name: merge if approved by HD
     conditions:
-      - "status-success=ci/circleci: buildWebsite"
-      - "status-success=ci/circleci: npm"
-      - "status-success=ci/circleci: testContracts"
-      - "status-success=WIP"
       - approved-reviews-by=hardlydifficult
       - "#changes-requested-reviews-by=0"
+      - "status-success=ci/circleci: testContracts"
+      - "status-success=ci/circleci: init"
+      - "status-success=ci/circleci: buildWebsite"
+      - "status-success=ci/circleci: buildDocs"
+      - "status-success=ci/circleci: buildContracts"
+      - "status-success=WIP"
     actions:
       merge:
         method: squash
