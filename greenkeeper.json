@@ -1,13 +1,9 @@
 {
   "groups": {
-    "library": {
-      "packages": [
-        "library/package.json"
-      ]
-    },
     "contract": {
       "packages": [
-        "contracts/package.json"
+        "contracts/package.json",
+        "library/package.json"
       ]
     },
     "website": {
