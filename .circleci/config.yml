@@ -57,6 +57,22 @@ jobs:
           paths:
             - repo/contracts/build
 
+      # build library
+      - restore_cache:
+          keys:
+            - v3-{{ checksum "library/package.json" }}
+      - run: cd library && npm i
+      - save_cache:
+          paths:
+            - library/node_modules
+            - library/package-lock.json
+          key: v3-{{ checksum "library/package.json" }}
+
+      - run: |
+            if [ $CIRCLE_BRANCH == 'master' ]; then
+              cd library && npm run deploy
+            fi
+
   testContracts:
     docker:
       - image: circleci/node:10
@@ -74,29 +90,6 @@ jobs:
 
       - run: cd contracts && npm run test
       - run: cd contracts && npm run lint # todo add --fix and push (in init?)
-
-  buildLibrary:
-    docker:
-      - image: circleci/node:10
-    working_directory: ~/repo
-    steps:
-      - attach_workspace:
-          at: '..'
-
-      - restore_cache:
-          keys:
-            - v3-{{ checksum "library/package.json" }}
-      - run: cd library && npm i
-      - save_cache:
-          paths:
-            - library/node_modules
-            - library/package-lock.json
-          key: v3-{{ checksum "library/package.json" }}
-
-      - run: |
-            if [ $CIRCLE_BRANCH == 'master' ]; then
-              cd library && npm run deploy
-            fi
 
   buildWebsite:
     docker:
@@ -181,20 +174,14 @@ workflows:
       - buildDocs:
           requires:
             - init
-      - buildLibrary:
-          requires:
-            - init
-            - buildContracts
       - testContracts:
           requires:
             - init
             - buildContracts
-            - buildLibrary
       - buildWebsite:
           requires:
             - init
             - buildContracts
-            - buildLibrary
       - push:
           filters:
             branches:
@@ -205,4 +192,3 @@ workflows:
             - testContracts
             - buildWebsite
             - buildDocs
-            - buildLibrary
