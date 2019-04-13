@@ -67,6 +67,9 @@ jobs:
 
       - restore_cache:
           keys:
+            - v2-{{ checksum "library/package.json" }}
+      - restore_cache:
+          keys:
             - v2-{{ checksum "contracts/package.json" }}
 
       - run: cd contracts && npm run test
@@ -103,6 +106,9 @@ jobs:
       - attach_workspace:
           at: '..'
 
+      - restore_cache:
+          keys:
+            - v2-{{ checksum "library/package.json" }}
       - restore_cache:
           keys:
             - v2-{{ checksum "website/package.json" }}
