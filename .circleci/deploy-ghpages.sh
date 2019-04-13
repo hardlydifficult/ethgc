@@ -32,6 +32,7 @@ fi
 
 # copy over or recompile the new site
 cp -a -R ~/repo/website/dist/. .
+cp -a -R ~/repo/docs/website/build/ethgc/. ./docs
 mv ./static/CNAME CNAME
 
 # stage any changes and new files
