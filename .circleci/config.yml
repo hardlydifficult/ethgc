@@ -40,20 +40,17 @@ jobs:
       - attach_workspace:
           at: '..'
 
-      - run: cd contracts
-
       - restore_cache:
           keys:
-            - v1-{{ checksum "package.json" }}
-      - run: npm i
+            - v1-{{ checksum "contracts/package.json" }}
+      - run: cd contracts && npm i
       - save_cache:
           paths:
-            - node_modules
-            - package-lock.json
-          key: v1-{{ checksum "package.json" }}
+            - contracts/node_modules
+            - contracts/package-lock.json
+          key: v1-{{ checksum "contracts/package.json" }}
 
-      - run: npm run compile
-      - run: cd ..
+      - run: cd contracts && npm run compile
 
       - persist_to_workspace:
           root: '..'
@@ -68,21 +65,12 @@ jobs:
       - attach_workspace:
           at: '..'
 
-      - run: cd contracts
-
       - restore_cache:
           keys:
-            - v1-{{ checksum "package.json" }}
-      - run: npm i
-      - save_cache:
-          paths:
-            - node_modules
-            - package-lock.json
-          key: v1-{{ checksum "package.json" }}
+            - v1-{{ checksum "contracts/package.json" }}
 
-      - run: npm run test
-      - run: npm run lint # todo add --fix and push
-      - run: cd ..
+      - run: cd contracts && npm run test
+      - run: cd contracts && npm run lint # todo add --fix and push (in init?)
 
   buildLibrary:
     docker:
@@ -92,24 +80,20 @@ jobs:
       - attach_workspace:
           at: '..'
 
-      - run: cd library
-
       - restore_cache:
           keys:
-            - v1-{{ checksum "package.json" }}
-      - run: npm i
+            - v1-{{ checksum "library/package.json" }}
+      - run: cd library && npm i
       - save_cache:
           paths:
-            - node_modules
-            - package-lock.json
-          key: v1-{{ checksum "package.json" }}
+            - library/node_modules
+            - library/package-lock.json
+          key: v1-{{ checksum "library/package.json" }}
 
       - run: |
             if [ $CIRCLE_BRANCH == 'master' ]; then
-              npm run deploy
+              cd library && npm run deploy
             fi
-
-      - run: cd ..
 
   buildWebsite:
     docker:
@@ -119,26 +103,22 @@ jobs:
       - attach_workspace:
           at: '..'
 
-      - run: cd website
-
       - restore_cache:
           keys:
-            - v1-{{ checksum "package.json" }}
-      - run: npm i
+            - v1-{{ checksum "website/package.json" }}
+      - run: cd website && npm i
       - save_cache:
           paths:
-            - node_modules
-            - package-lock.json
-          key: v1-{{ checksum "package.json" }}
+            - website/node_modules
+            - website/package-lock.json
+          key: v1-{{ checksum "website/package.json" }}
 
-      - run: npm run build
+      - run: cd website && npm run build
 
       - persist_to_workspace:
           root: '..'
           paths:
             - repo/website/dist
-
-      - run: cd ..
 
   buildDocs:
     docker:
@@ -148,26 +128,23 @@ jobs:
       - attach_workspace:
           at: '..'
 
-      - run: cd docs/website
 
       - restore_cache:
           keys:
-            - v1-{{ checksum "package.json" }}
-      - run: npm i
+            - v1-{{ checksum "docs/website/package.json" }}
+      - run: cd docs/website && npm i
       - save_cache:
           paths:
             - node_modules
             - package-lock.json
-          key: v1-{{ checksum "package.json" }}
+          key: v1-{{ checksum "docs/website/package.json" }}
 
-      - run: npm run build
+      - run: cd docs/website && npm run build
 
       - persist_to_workspace:
           root: '..'
           paths:
             - repo/docs/website/build
-
-      - run: cd ../..
 
   push:
     docker:
