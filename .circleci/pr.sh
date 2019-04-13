@@ -23,7 +23,7 @@ cd library/artifacts
     # and push, but send any output to /dev/null to hide anything sensitive
     BRANCH="library-$(date +%Y%m%d-%H%M%S)"
     git checkout -B $BRANCH
-    git push --force origin $BRANCH
+    git push -u $GH_NAME --force origin $BRANCH
 
     echo "Open pull request"
     PR_TITLE="Library update [auto-pr]"
