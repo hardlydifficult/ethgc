@@ -9,6 +9,7 @@ pull_request_rules:
       delete_head_branch: {}
   - name: merge if Greenkeeper
     conditions:
+      - "status-success=greenkeeper/verify"
       - author=greenkeeper[bot]
     actions:
       merge:
