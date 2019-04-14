@@ -50,17 +50,16 @@ cd ~/repo/library/artifacts
 git remote add --fetch origin "$remote"
 git checkout --force -B artifacts origin/artifacts
 
-cd ..
+cd ../..
 
-git remote add --fetch origin "$remote"
 # now commit
-git submodule update --init --recursive "artifacts"
+git submodule update --init --recursive "library/artifacts"
 #if ! git diff-index --quiet HEAD --; then
     git commit -am "library update"
     # and push, but send any output to /dev/null to hide anything sensitive
     BRANCH="library-$(date +%Y%m%d-%H%M%S)"
     git checkout -B $BRANCH
-    git push -u $GH_NAME --force origin $BRANCH
+    git push --force origin $BRANCH
 
     echo "Open pull request"
     PR_TITLE="Library update [auto-pr]"
