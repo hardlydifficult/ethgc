@@ -29,7 +29,9 @@ git add -A
 # now commit
 git commit -m "artifacts-update"
 
-# and push, but send any output to /dev/null to hide anything sensitive
-git push --force --quiet origin $CIRCLE_BRANCH
+if ! git diff-index --quiet HEAD --; then
+  # and push, but send any output to /dev/null to hide anything sensitive
+  git push --force --quiet origin $CIRCLE_BRANCH
+fi
 
 echo "Pushed change"
