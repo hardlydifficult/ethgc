@@ -15,6 +15,11 @@ remote=$(git config remote.origin.url)
 git config --global user.email "$GH_EMAIL" > /dev/null 2>&1
 git config --global user.name "$GH_NAME" > /dev/null 2>&1
 
+# stage any changes and new files
+git add -A
+# now commit
+git commit -m "auto-lint"
+
 cd ~/repo/library/artifacts
 git pull --rebase --progress "origin" +refs/heads/artifacts
 cd ~/repo
@@ -22,7 +27,8 @@ cd ~/repo
 # stage any changes and new files
 git add -A
 # now commit
-git commit -m "auto-lint"
+git commit -m "artifacts-update"
+
 # and push, but send any output to /dev/null to hide anything sensitive
 git push --force --quiet origin $CIRCLE_BRANCH
 
