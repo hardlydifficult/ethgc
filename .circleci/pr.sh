@@ -33,7 +33,7 @@ else
     git checkout --orphan artifacts
 fi
 
-cp -a -R ~/repo/library/artifacts/. .
+cp -a -R ~/repo/library/artifacts/ethgc.json ./ethgc.json
 
 # stage any changes and new files
 git add -A
