@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>Messages:</h3>
+    <h5>Messages:</h5>
     <div>
       <div>
         Description:

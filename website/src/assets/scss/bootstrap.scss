@@ -1,4 +1,4 @@
-$gray-100: #828585;
+$gray-100: #cecece;
 $gray-200: #828585;
 $gray-300: #828585;
 $gray-400: #6b6b6a;
@@ -20,7 +20,7 @@ $theme-colors: (
   // "info":       $info,
   // "warning":    $warning,
   // "danger":     $danger,
-  "light":      $white,
+  "light":      $gray-300,
   "dark":       $black
 );
 

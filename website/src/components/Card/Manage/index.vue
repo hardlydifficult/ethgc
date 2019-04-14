@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h2>My Cards</h2>
+  <div class="jumbotron bg-gray-100 mx-auto">
+    <h3>My Cards</h3>
     {{ myCards }}
   </div>
 </template>

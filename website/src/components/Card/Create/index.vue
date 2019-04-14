@@ -1,14 +1,14 @@
 <template>
-  <div>
-    <div>
+  <div class="jumbotron bg-gray-100 mx-auto">
+    <h3>
       Create a new Gift Card
-    </div>
+    </h3>
 
     <RedeemCodes :cards="cards" />
     <Tokens :tokens="tokens" />
     <Messages :messages="messages" />
 
-    <div @click="createCard()">
+    <div @click="createCard()" class="btn btn-primary">
       Create Card
     </div>
 

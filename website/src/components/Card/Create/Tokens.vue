@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>Tokens:</h3>
+    <h5>Tokens:</h5>
     <div>
       <div v-for="(token, index) in tokens" :key="index">
         <Token :tokens="tokens" :index="index" />

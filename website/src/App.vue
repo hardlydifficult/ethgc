@@ -106,4 +106,7 @@ html {
 .inputRedeemCode {
   max-width: 36em;
 }
+.pointer {
+  cursor: pointer;
+}
 </style>

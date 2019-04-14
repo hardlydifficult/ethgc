@@ -8,12 +8,12 @@
     />
     <i
       v-tooltip="'Copy'"
-      class="far fa-copy"
+      class="far fa-copy pointer"
       @click="$clipboard(card.redeemCode)"
     />
-    <button v-tooltip="'Generate a new random code'" @click="randomizeCode()">
+    <span v-tooltip="'Generate a new random code'" @click="randomizeCode()" class="pointer">
       <i class="fas fa-redo" />
-    </button>
+    </span>
     <StatusIcon :status="status" />
   </div>
 </template>

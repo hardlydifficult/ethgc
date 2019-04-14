@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <div>
+  <div class="jumbotron bg-gray-100 mx-auto">
+    <h3>
       How it Works
-    </div>
+    </h3>
     <ol>
       <li>
         <div>
@@ -22,9 +22,9 @@
         </div>
       </li>
     </ol>
-    <div>
-      <button @click.stop.prevent="goToReadTheDocs()">
-        <span>Read the Docs</span>
+    <div class="text-center pt-3">
+      <button @click.stop.prevent="goToDocs()" class="btn btn-secondary">
+        <span>Documentation</span>
         <i class="fas fa-external-link-alt" />
       </button>
     </div>
@@ -33,8 +33,8 @@
 <script>
 export default {
   methods: {
-    goToReadTheDocs() {
-      window.open("https://ethgc.readthedocs.io", "_blank");
+    goToDocs() {
+      window.open("/docs", "_blank");
     }
   }
 };

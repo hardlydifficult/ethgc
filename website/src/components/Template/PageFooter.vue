@@ -1,12 +1,10 @@
 <template>
   <footer class="footer bg-primary text-white mt-5">
     <div class="float-right pl-2">
-      <a href="https://ethgc.readthedocs.io" target="_blank">
-        <img
-          v-tooltip="'Read the Docs<br><small>ethgc.readthedocs.io</small>'"
-          src="../../assets/3rdParty/rtd-logo-light.svg"
-          width="32px"
-        />
+      <a href="/docs" target="_blank">
+        <i
+          v-tooltip="'Documentation<br><small>ethgc.com/docs</small>'"
+          class="fas fa-book text-white docIcon mr-1"></i>
       </a>
       <a href="https://twitter.com/HardlyDifficult" target="_blank">
         <img
@@ -37,6 +35,7 @@
             '3EPAsFwUBh1JvPJVqoycXpYVfDE4v3WdQ1<br><small>click to copy</small>'
           "
           @click="$clipboard('3EPAsFwUBh1JvPJVqoycXpYVfDE4v3WdQ1')"
+          class="pointer"
         >
           BTC <i class="far fa-copy" /> </span
         >,
@@ -45,6 +44,7 @@
             '0x7A23608a8eBe71868013BDA0d900351A83bb4Dc2<br><small>click to copy</small>'
           "
           @click="$clipboard('0x7A23608a8eBe71868013BDA0d900351A83bb4Dc2')"
+          class="pointer"
         >
           ETH <i class="far fa-copy" /> </span
         >, or
@@ -53,6 +53,7 @@
             'TNbiopsxqPGk5XicApWJwEbZZ7uLJfpvfm<br><small>click to copy</small>'
           "
           @click="$clipboard('TNbiopsxqPGk5XicApWJwEbZZ7uLJfpvfm')"
+          class="pointer"
         >
           TRX <i class="far fa-copy" />
         </span>
@@ -65,5 +66,11 @@
   flex-shrink: 0;
   /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
   padding: 20px;
+}
+.docIcon
+{
+  font-size:30px;
+  position: relative;
+  top:6px;
 }
 </style>

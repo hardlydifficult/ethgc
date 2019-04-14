@@ -20,7 +20,7 @@ Vue.prototype.ethGc = new EthGc(
   window.web3 ? window.web3.currentProvider : undefined
 );
 if (window.ethereum) {
-  window.ethereum.enable();
+  //window.ethereum.enable();
 } // TODO maybe else means go get metamask
 
 new Vue({
