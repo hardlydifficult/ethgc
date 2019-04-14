@@ -11,9 +11,9 @@
     No Ethereum wallet detected
     </h3>
     <div>We recommend you use Metamask - it's a browser extension to manage your account (and supports hardware wallets if you have one).</div>
-    <a href="https://metamask.io/" target="_blank">
+    <a href="https://metamask.io" target="_blank">
     <img src="../../assets/3rdParty/Metamask.svg" />
-    <div class="text-center metamaskLink">https://metamask.io/</div>
+    <div class="text-center metamaskLink">https://metamask.io</div>
     </a>
   </div>
   </div>
