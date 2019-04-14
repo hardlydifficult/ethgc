@@ -47,7 +47,7 @@ cd ..
 rm -rf artifacts
 
 cd ~/repo/library/artifacts
-git fetch
+git remote add --fetch origin "$remote"
 git checkout --force -B artifacts origin/artifacts
 
 cd ..
