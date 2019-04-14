@@ -1,18 +1,23 @@
 <template>
-  <div class="jumbotron bg-gray-100 mx-auto">
-    <h3>
-      Create a new Gift Card
-    </h3>
+  <div class="jumbotron bg-gray-100 mx-auto pb-1">
+    <div v-if="walletConnected" class="pb-4">
+      <h3>
+        Create a new Gift Card
+      </h3>
 
-    <RedeemCodes :cards="cards" />
-    <Tokens :tokens="tokens" />
-    <Messages :messages="messages" />
+      <RedeemCodes :cards="cards" />
+      <Tokens :tokens="tokens" />
+      <Messages :messages="messages" />
 
-    <div @click="createCard()" class="btn btn-primary">
-      Create Card
+      <div @click="createCard()" class="btn btn-primary">
+        Create Card
+      </div>
+
+      <!-- TODO add costs -->
     </div>
-
-    <!-- TODO add costs -->
+    <div v-else>
+      <ConnectToWallet />
+    </div>
   </div>
 </template>
 
@@ -20,9 +25,11 @@
 import Messages from "./Messages";
 import RedeemCodes from "./RedeemCodes";
 import Tokens from "./Tokens";
+import ConnectToWallet from "../../Widgets/ConnectToWallet"
 
 export default {
   components: {
+    ConnectToWallet,
     Messages,
     RedeemCodes,
     Tokens

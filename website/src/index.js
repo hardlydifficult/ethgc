@@ -16,13 +16,41 @@ Vue.use(Clipboard);
 
 Vue.config.productionTip = false;
 
-Vue.prototype.ethGc = new EthGc(
-  window.web3 ? window.web3.currentProvider : undefined
-);
-if (window.ethereum) {
-  //window.ethereum.enable();
-} // TODO maybe else means go get metamask
+getWalletIfApproved();
+
+Vue.prototype.$copy = value => {
+  Vue.prototype.$clipboard(value);
+  Vue.prototype.$toast.success(`copied:${value}`);
+};
 
 new Vue({
   render: h => h(App)
 }).$mount("#app");
+
+function getWalletIfApproved() {
+  Vue.prototype.walletConnected = false;
+  const provider = window.web3 ? window.web3.currentProvider : undefined;
+  Vue.prototype.ethGc = new EthGc(provider);
+
+  if (provider) {
+    if (window.ethereum && window.ethereum._metamask) {
+      return window.ethereum._metamask.isApproved().then(approved => {
+        if (approved) {
+          return window.ethereum.enable().then(() => {
+            connectWallet();
+          });
+        }
+      });
+    }
+
+    connectWallet();
+  }
+}
+
+function connectWallet() {
+  const provider = window.web3 ? window.web3.currentProvider : undefined;
+  if (provider.selectedAddress) {
+    console.log(`Connected to wallet ${provider.selectedAddress}`);
+    Vue.prototype.walletConnected = true;
+  }
+}
