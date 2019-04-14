@@ -8,8 +8,8 @@
   },
   "scripts": {
     "test": "npm run lintCheck",
-    "lint": "eslint --fix . --ext .js,.vue,.ts,.htm,.html,.json",
-    "lintCheck": "eslint . --ext .js,.vue,.ts,.htm,.html,.json",
+    "lint": "eslint --fix . --ext .js,.vue,.ts,.htm,.html,.json && solium -d contracts/contracts --fix",
+    "lintCheck": "eslint . --ext .js,.vue,.ts,.htm,.html,.json && solium -d contracts/contracts",
     "reset": "git reset -q . && git fetch --progress --all --prune && git checkout -B master origin/master -f"
   },
   "repository": {
@@ -54,6 +54,7 @@
     "eslint-plugin-security": "1.4.0",
     "eslint-plugin-standard": "4.0.0",
     "eslint-plugin-vue": "5.2.2",
+    "solium": "1.2.4",
     "prettier": "1.17.0"
   },
   "dependencies": {}
