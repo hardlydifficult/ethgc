@@ -1,21 +1,23 @@
 <template>
   <div>
     <div v-if="hasWallet">
-
-    <button class="btn btn-primary"
-      v-on:click="connectToWallet()"
-    >Connect to Metamask (or ??)</button>
-  </div>
-  <div v-else>
-    <h3>
-    No Ethereum wallet detected
-    </h3>
-    <div>We recommend you use Metamask - it's a browser extension to manage your account (and supports hardware wallets if you have one).</div>
-    <a href="https://metamask.io/" target="_blank">
-    <img src="../../assets/3rdParty/Metamask.svg" />
-    <div class="text-center metamaskLink">https://metamask.io/</div>
-    </a>
-  </div>
+      <button class="btn btn-primary" v-on:click="connectToWallet()">
+        Connect to Metamask (or ??)
+      </button>
+    </div>
+    <div v-else>
+      <h3>
+        No Ethereum wallet detected
+      </h3>
+      <div>
+        We recommend you use Metamask - it's a browser extension to manage your
+        account (and supports hardware wallets if you have one).
+      </div>
+      <a href="https://metamask.io/" target="_blank">
+        <img src="../../assets/3rdParty/Metamask.svg" />
+        <div class="text-center metamaskLink">https://metamask.io/</div>
+      </a>
+    </div>
   </div>
 </template>
 
@@ -24,15 +26,15 @@ export default {
   methods: {
     async connectToWallet() {
       await window.ethereum.enable();
-      location.reload()
+      location.reload();
     }
   },
   computed: {
     hasWallet() {
-      return window.ethereum !== undefined
+      return window.ethereum !== undefined;
     }
   }
-}
+};
 </script>
 <style>
 .metamaskLink {

@@ -25,7 +25,7 @@
 import Messages from "./Messages";
 import RedeemCodes from "./RedeemCodes";
 import Tokens from "./Tokens";
-import ConnectToWallet from "../../Widgets/ConnectToWallet"
+import ConnectToWallet from "../../Widgets/ConnectToWallet";
 
 export default {
   components: {

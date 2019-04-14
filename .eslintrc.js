@@ -28,8 +28,11 @@ module.exports = {
     "eslint:recommended"
   ],
   plugins: [
+    'markdown',
+    'html',
     'vue',
-    "prettier"
+    "prettier",
+    'json'
   ],
   rules: {
     "prettier/prettier": "error",
