@@ -4,7 +4,8 @@
       <a href="/docs" target="_blank">
         <i
           v-tooltip="'Documentation<br><small>ethgc.com/docs</small>'"
-          class="fas fa-book text-white docIcon mr-1"></i>
+          class="fas fa-book text-white docIcon mr-1"
+        ></i>
       </a>
       <a href="https://twitter.com/HardlyDifficult" target="_blank">
         <img
@@ -67,10 +68,9 @@
   /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
   padding: 20px;
 }
-.docIcon
-{
-  font-size:30px;
+.docIcon {
+  font-size: 30px;
   position: relative;
-  top:6px;
+  top: 6px;
 }
 </style>

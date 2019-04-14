@@ -10,7 +10,11 @@
       />
     </div>
     <div class="col-2 text-left pl-0 align-self-center">
-      <i v-tooltip="'Paste'" class="far fa-clipboard pointer" @click="paste()" />
+      <i
+        v-tooltip="'Paste'"
+        class="far fa-clipboard pointer"
+        @click="paste()"
+      />
       <StatusIcon :status="status" />
     </div>
   </div>
