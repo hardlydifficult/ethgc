@@ -53,6 +53,7 @@ git checkout --force -B artifacts origin/artifacts
 cd ..
 
 # now commit
+git submodule update --init --recursive "artifacts"
 if ! git diff-index --quiet HEAD --; then
     git commit -am "library update"
     # and push, but send any output to /dev/null to hide anything sensitive
