@@ -48,13 +48,12 @@ rm -rf artifacts
 
 cd ~/repo/library/artifacts
 git remote add --fetch origin "$remote"
-git checkout --force -B artifacts origin/artifacts
+git pull --rebase --progress "origin" +refs/heads/artifacts
 
 cd ../..
 
 # now commit
-git submodule update --init --recursive "library/artifacts"
-#if ! git diff-index --quiet HEAD --; then
+if ! git diff-index --quiet HEAD --; then
     git commit -am "library update"
     # and push, but send any output to /dev/null to hide anything sensitive
     BRANCH="library-$(date +%Y%m%d-%H%M%S)"
@@ -64,6 +63,6 @@ git submodule update --init --recursive "library/artifacts"
     echo "Open pull request"
     PR_TITLE="Library update [auto-pr]"
     curl --fail -u $GH_NAME -H "Content-Type:application/json" -X POST -d "{\"title\":\"$PR_TITLE\",\"base\":\"master\",\"head\":\"$BRANCH\"}" https://api.github.com/repos/hardlydifficult/ethgc/pulls
-#fi
+fi
 
 echo "Pushed change"
