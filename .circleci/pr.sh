@@ -46,22 +46,4 @@ git push --force --quiet origin artifacts
 cd ..
 rm -rf artifacts
 
-cd ~/repo/library/artifacts
-git pull --rebase --progress "origin" +refs/heads/artifacts
-
-cd ../..
-
-# now commit
-if ! git diff-index --quiet HEAD --; then
-    git commit -am "library update"
-    # and push, but send any output to /dev/null to hide anything sensitive
-    BRANCH="library-$(date +%Y%m%d-%H%M%S)"
-    git checkout -B $BRANCH
-    git push --force origin $BRANCH
-
-    echo "Open pull request"
-    PR_TITLE="Library update [auto-pr]"
-    curl --fail -u $GH_NAME:$GH_TOKEN -H "Content-Type:application/json" -X POST -d "{\"title\":\"$PR_TITLE\",\"base\":\"master\",\"head\":\"$BRANCH\"}" https://api.github.com/repos/hardlydifficult/ethgc/pulls
-fi
-
 echo "Pushed change"
