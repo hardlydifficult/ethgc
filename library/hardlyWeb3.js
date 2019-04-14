@@ -4,9 +4,7 @@ const BigNumber = require("bignumber.js");
 class HardlyWeb3 {
   constructor(currentProvider) {
     if (!currentProvider) {
-      currentProvider = new Web3.providers.HttpProvider(
-        "http://127.0.0.1:8545"
-      );
+      throw new Error("Missing provider");
     } else if (typeof currentProvider === "string") {
       currentProvider = new Web3.providers.HttpProvider(currentProvider);
     }

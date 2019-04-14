@@ -8,26 +8,24 @@
       <RedeemCode :card="card" @cardIsValid="cardIsValid()" />
 
       <div v-if="canRedeem" class="mt-2">
-        <div>
-          Card contains:
-          <ul class="list-group">
-            <li class="list-group-item list-group-item-info">
-              42 ETH
-            </li>
-            <li class="list-group-item list-group-item-info">
-              69 SPANK
-            </li>
-          </ul>
-        </div>
         <ViewCard v-if="card.isValid" :card="card" />
         <div class="pt-2">
+          <div v-if="walletConnected">
+            Sending to: {{sendTo}}
+            <div><small>(your connected address)</small></div>
+          </div>
+          <div v-else>
           Send to:
           <div class="inputAddress input-group mx-auto">
             <input
               class="form-control"
               type="text"
               placeholder="Your ethereum address (0x...)"
+              :value="window.ethereum.selectedAddress"
             />
+          </div>
+          or connect to Metamask
+          <ConnectToWallet />
           </div>
         </div>
         <div class="btn btn-primary mt-4" @click="redeem()">
@@ -55,9 +53,11 @@
 import RedeemCode from "./RedeemCode";
 import ViewCard from "./ViewCard";
 import CreatedBy from "./CreatedBy";
+import ConnectToWallet from "../../Widgets/ConnectToWallet";
 
 export default {
   components: {
+    ConnectToWallet,
     CreatedBy,
     RedeemCode,
     ViewCard
@@ -67,6 +67,11 @@ export default {
       card: { redeemCode: undefined, customCode: false },
       canRedeem: false
     };
+  },
+  computed: {
+    sendTo() {
+      return window.ethereum.selectedAddress
+    }
   },
   methods: {
     cardIsValid: function(newValue) {

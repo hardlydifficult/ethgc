@@ -2,36 +2,39 @@ const BigNumber = require("bignumber.js");
 const EthGcNetwork = require("./ethGcNetwork");
 const Web3 = require("web3");
 
-const networkNodes = [
-  // todo mainnet
-  "https://ropsten.infura.io/v3/1830f67bb051457b8d891301de981bd2",
-  "https://kovan.infura.io/v3/1830f67bb051457b8d891301de981bd2",
-  "https://rinkeby.infura.io/v3/1830f67bb051457b8d891301de981bd2"
-];
-
 class EthGc {
   constructor(currentProvider) {
-    this.userWallet = new EthGcNetwork(currentProvider);
     this.networks = [
       {
         name: "ropsten",
         ethGc: new EthGcNetwork(
-          new Web3.providers.HttpProvider(networkNodes[0])
+          new Web3.providers.HttpProvider(
+            "https://ropsten.infura.io/v3/1830f67bb051457b8d891301de981bd2"
+          )
         )
       },
       {
         name: "kovan",
         ethGc: new EthGcNetwork(
-          new Web3.providers.HttpProvider(networkNodes[1])
+          new Web3.providers.HttpProvider(
+            "https://kovan.infura.io/v3/1830f67bb051457b8d891301de981bd2"
+          )
         )
       },
       {
         name: "rinkeby",
         ethGc: new EthGcNetwork(
-          new Web3.providers.HttpProvider(networkNodes[2])
+          new Web3.providers.HttpProvider(
+            "https://rinkeby.infura.io/v3/1830f67bb051457b8d891301de981bd2"
+          )
         )
       }
     ];
+    if (currentProvider) {
+      this.defaultWallet = new EthGcNetwork(currentProvider);
+    } else {
+      this.defaultWallet = this.networks[0].ethGc;
+    }
   }
 
   // #region Create / Contribute
@@ -42,7 +45,7 @@ class EthGc {
     description = "",
     redeemedMessage = ""
   ) {
-    return this.userWallet.create(
+    return this.defaultWallet.create(
       cardAddresses,
       tokenAddresses,
       valueOrIds,
@@ -52,7 +55,7 @@ class EthGc {
   }
 
   async calcEthRequired(cardAddresses, tokenAddresses, valueOrIds, isNewCard) {
-    return this.userWallet.calcEthRequired(
+    return this.defaultWallet.calcEthRequired(
       cardAddresses,
       tokenAddresses,
       valueOrIds,
@@ -61,7 +64,7 @@ class EthGc {
   }
 
   async contribute(cardAddresses, tokenAddresses, valueOrIds) {
-    return this.userWallet.contribute(
+    return this.defaultWallet.contribute(
       cardAddresses,
       tokenAddresses,
       valueOrIds
@@ -69,11 +72,11 @@ class EthGc {
   }
 
   async getFeeRates() {
-    return this.userWallet.getFeeRates();
+    return this.defaultWallet.getFeeRates();
   }
 
   async getFees(cardAddresses, tokenAddresses, valueOrIds, isNewCard) {
-    return this.userWallet.getFees(
+    return this.defaultWallet.getFees(
       cardAddresses,
       tokenAddresses,
       valueOrIds,
@@ -84,7 +87,8 @@ class EthGc {
 
   // #region Viewing cards
   async getCardAddress(redeemCode) {
-    return this.userWallet.getCardAddress(redeemCode);
+    const address = this.defaultWallet.getCardAddress(redeemCode);
+    return address;
   }
 
   async getCard(cardAddress) {
@@ -118,11 +122,11 @@ class EthGc {
 
   // #region Dev only (check)
   async getDev() {
-    return this.userWallet.getDev();
+    return this.defaultWallet.getDev();
   }
 
   async devSetFees(createFee, gasForEth, gasForErc20, gasForErc721) {
-    return this.userWallet.devSetFees(
+    return this.defaultWallet.devSetFees(
       createFee,
       gasForEth,
       gasForErc20,
@@ -131,15 +135,15 @@ class EthGc {
   }
 
   async devTransferAccount(newDevAccount) {
-    return this.userWallet.devTransferAccount(newDevAccount);
+    return this.defaultWallet.devTransferAccount(newDevAccount);
   }
 
   async developerWithdrawFees() {
-    return this.userWallet.developerWithdrawFees();
+    return this.defaultWallet.developerWithdrawFees();
   }
 
   async getFeesCollected() {
-    return this.userWallet.getFeesCollected();
+    return this.defaultWallet.getFeesCollected();
   }
   // #endregion
 
@@ -149,7 +153,7 @@ class EthGc {
   }
 
   async getCardsICreated() {
-    return this.userWallet.getCardsICreated();
+    return this.defaultWallet.getCardsICreated();
   }
 
   async getCardMessages(cardAddress) {
@@ -157,10 +161,12 @@ class EthGc {
   }
 
   async checkAll(method, a, b, c, d, e) {
-    let result = await this.networks[0].ethGc[method](a, b, c, d, e);
-    if (result) {
-      return result;
-    }
+    try {
+      let result = await this.networks[0].ethGc[method](a, b, c, d, e);
+      if (result) {
+        return result;
+      }
+    } catch (e) {}
 
     return new Promise(async resolve => {
       const promises = [];
@@ -168,19 +174,21 @@ class EthGc {
       for (let i = 1; i < this.networks.length; i++) {
         promises.push(
           (async () => {
-            let networkResult = await this.networks[i].ethGc[method](
-              a,
-              b,
-              c,
-              d,
-              e
-            );
-            if (networkResult) {
-              if (!wasResolved) {
-                resolve(networkResult);
-                wasResolved = true;
+            try {
+              let networkResult = await this.networks[i].ethGc[method](
+                a,
+                b,
+                c,
+                d,
+                e
+              );
+              if (networkResult) {
+                if (!wasResolved) {
+                  resolve(networkResult);
+                  wasResolved = true;
+                }
               }
-            }
+            } catch (e) {}
           })()
         );
       }
@@ -197,15 +205,15 @@ class EthGc {
 
   // #region Web3 wrapper
   toWei(value, unit = "ether") {
-    return this.userWallet.hardlyWeb3.toWei(value, unit);
+    return this.defaultWallet.hardlyWeb3.toWei(value, unit);
   }
 
   fromWei(value, unit = "ether") {
-    return this.userWallet.hardlyWeb3.fromWei(value, unit);
+    return this.defaultWallet.hardlyWeb3.fromWei(value, unit);
   }
 
   getEthBalance(account) {
-    return this.userWallet.hardlyWeb3.getEthBalance(account);
+    return this.defaultWallet.hardlyWeb3.getEthBalance(account);
   }
   // #endregion
 }

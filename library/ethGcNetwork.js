@@ -285,7 +285,6 @@ class EthGcNetwork {
       fromBlock: 0,
       toBlock: "latest"
     });
-    console.log(results);
     if (results.length > 0) {
       const tx = results[results.length - 1].transactionHash;
       const request = await this.hardlyWeb3.web3.eth.getTransaction(tx);
