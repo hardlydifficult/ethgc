@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="d-inline-block align-top">
-      <img class="logoImage" src="../../assets/Logo_ClaimedDarkness.png" />
+      <img class="logoImage" src="../../assets/logo.png" />
     </div>
     <div class="logoText d-inline-block">
       <div class="logoTitle">
