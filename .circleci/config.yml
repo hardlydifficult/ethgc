@@ -90,7 +90,6 @@ jobs:
             - v3-{{ checksum "contracts/package.json" }}
 
       - run: cd contracts && npm run test
-      - run: cd contracts && npm run lint # todo add --fix and push (in init?)
 
   buildWebsite:
     docker:
