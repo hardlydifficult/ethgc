@@ -2,6 +2,7 @@ pull_request_rules:
   - name: approved
     conditions:
       - "#approved-reviews-by>=1"
+      - "#status-failure=0"
     actions:
       label:
         add: ["auto-merge"]
@@ -9,6 +10,7 @@ pull_request_rules:
   - name: hd
     conditions:
       - author=hardlydifficult
+      - "#status-failure=0"
     actions:
       label:
         add: ["auto-merge"]
@@ -16,6 +18,7 @@ pull_request_rules:
   - name: dependabot
     conditions:
       - author=dependabot[bot]
+      - "#status-failure=0"
     actions:
       label:
         add: ["auto-merge"]
@@ -23,13 +26,22 @@ pull_request_rules:
   - name: imgbot
     conditions:
       - author=imgbot[bot]
+      - "#status-failure=0"
     actions:
       label:
         add: ["auto-merge"]
 
-  - name: auto-merge
+  - name: imgbot
     conditions:
       - label=["auto-merge"]
+      - "#status-failure>=1"
+    actions:
+      label:
+        remove: ["auto-merge"]
+
+  - name: auto-merge
+    conditions:
+      - label=auto-merge
       - "#changes-requested-reviews-by=0"
       - "status-success=ci/circleci: testContracts"
       - "status-success=ci/circleci: init"
