@@ -5,6 +5,7 @@
   "scripts": {
     "build": "npm run compile",
     "compile": "truffle compile --all",
+    "dev": "npm run compile && npm run test",
     "test": "truffle test",
     "verify": "truffle run verify"
   },

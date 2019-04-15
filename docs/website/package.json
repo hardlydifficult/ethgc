@@ -3,7 +3,7 @@
   "license": "MIT",
   "author": "HardlyDifficult",
   "scripts": {
-    "start": "docusaurus-start",
+    "dev": "docusaurus-start",
     "build": "docusaurus-build",
     "write-translations": "docusaurus-write-translations",
     "version": "docusaurus-version",
