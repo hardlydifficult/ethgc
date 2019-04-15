@@ -1,25 +1,4 @@
 pull_request_rules:
-  - name: merge if HD
-    conditions:
-      - author=hardlydifficult
-    actions:
-      - label:
-        - add: auto-merge
-
-  - name: dependabot
-    conditions:
-      - author=dependabot[bot]
-    actions:
-      - label:
-        - add: auto-merge
-
-  - name: imgbot
-    conditions:
-      - author=imgbot[bot]
-    actions:
-      - label:
-        - add: auto-merge
-
   - name: approved by HD
     conditions:
       - approved-reviews-by=hardlydifficult
