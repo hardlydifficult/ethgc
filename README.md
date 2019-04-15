@@ -79,7 +79,7 @@ When changes are submitted, the following steps are performed:
 
 - Push changes
 
-  CI will push the latest website and artifacts if all tests pass on the master branch.
+  CI will push the latest website and artifacts if all the other steps complete successfully on the master branch.
 
 The website and docs are static files after they are built.  Hosted by [Github Pages](https://pages.github.com/) with [Cloudflare CDN](https://www.cloudflare.com/) fronting requests.  All the data / network requests use the [Infura APIs](https://infura.io/).
 
