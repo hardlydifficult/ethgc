@@ -31,9 +31,9 @@ pull_request_rules:
       label:
         add: ["auto-merge"]
 
-  - name: imgbot
+  - name: stop on failure
     conditions:
-      - label=["auto-merge"]
+      - label=auto-merge
       - "#status-failure>=1"
     actions:
       label:
