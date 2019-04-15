@@ -4,7 +4,7 @@ pull_request_rules:
       - approved-reviews-by=hardlydifficult
     actions:
       - label:
-        - add: auto-merge
+        - add: ["auto-merge"]
 
   - name: auto-merge
     conditions:
