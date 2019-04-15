@@ -1,7 +1,7 @@
 pull_request_rules:
   - name: merge if HD
     conditions:
-      - author=hardlydifficult
+      - author=@hardlydifficult
       - "status-success=ci/circleci: testContracts"
       - "status-success=ci/circleci: init"
       - "status-success=ci/circleci: buildWebsite"
@@ -15,7 +15,7 @@ pull_request_rules:
       delete_head_branch: {}
   - name: merge if dependabot
     conditions:    
-      - author=dependabot[bot]
+      - author=@dependabot[bot]
       - "status-success=ci/circleci: testContracts"
       - "status-success=ci/circleci: init"
       - "status-success=ci/circleci: buildWebsite"
@@ -29,7 +29,7 @@ pull_request_rules:
       delete_head_branch: {}
   - name: merge if imgbot
     conditions:
-      - author=imgbot[bot]
+      - author=@imgbot[bot]
       - "status-success=ci/circleci: testContracts"
       - "status-success=ci/circleci: init"
       - "status-success=ci/circleci: buildWebsite"
@@ -43,7 +43,7 @@ pull_request_rules:
       delete_head_branch: {}
   - name: merge if approved by HD
     conditions:
-      - approved-reviews-by=hardlydifficult
+      - approved-reviews-by=@hardlydifficult
       - "#changes-requested-reviews-by=0"
       - "status-success=ci/circleci: testContracts"
       - "status-success=ci/circleci: init"
