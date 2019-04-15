@@ -1,8 +1,8 @@
 # ethgc: ethereum gift card
 
-**[ethgc.com](ethgc.com)**
+**[ethgc.com](https://ethgc.com)**
 
-To learn more about redeeming or creating cards, see [ethgc.com/docs](ethgc.com/docs).
+To learn more about redeeming or creating cards, see [ethgc.com/docs](https://ethgc.com/docs).
 
 ## Development environment
 
@@ -44,7 +44,7 @@ This will open a tab with the docs website running locally.  Any changes you mak
 ### Contract
 
 ```
-cd docs\contract
+cd contract
 npm run dev
 ```
 
@@ -53,7 +53,6 @@ This will compile contracts and run the test suite.  Run this anytime you change
 ### Library
 
 At the moment, the library does not have any tests of its own.  If you change the library, you can test using the contract tests or by interacting with the website.
-
 
 ## Build Process
 
