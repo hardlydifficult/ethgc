@@ -63,25 +63,25 @@ When changes are submitted, the following steps are performed:
 
   CI will lint the files. If `--fix` was able to make corrections, it will commit the changes and restart the build.  If there's a lint error which can't be auto-fixed then the build fails.
 
-- run-tests
+- Test
 
   All contract tests, which implicitly test the library as well, must pass or the build fails.
 
   *At the moment the only tests we have are the contract tests.*
 
-- delpoy-contracts
+- Delpoy contracts
 
   CI will deploy the contract to all testnets and update the `artifacts` branch which is used by the Library to get the contract ABI and its addresses.
 
-- build-website
+- Build website
 
   CI will build the website for production - both the main ethgc site as well as the docs site.
 
-- push-changes
+- Push changes
 
   CI will push the latest website and artifacts if all tests pass on the master branch.
 
-The website and docs are static files after they are built.  Hosted by Github Pages with a Cloudflare CDN fronting requests.  All the data / network requests use the Infura API.
+The website and docs are static files after they are built.  Hosted by [Github Pages](https://pages.github.com/) with [Cloudflare CDN](https://www.cloudflare.com/) fronting requests.  All the data / network requests use the [Infura APIs](https://infura.io/).
 
 Additionally we are using the following Github bots:
  - [Mergify](https://mergify.io/): a configurable bot to automatically merge PRs
