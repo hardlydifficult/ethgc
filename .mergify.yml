@@ -41,6 +41,14 @@ pull_request_rules:
     actions:
       label:
         remove: ["auto-merge"]
+        
+  - name: stop on label
+    conditions:
+      - label=auto-merge
+      - "#label>=2"
+    actions:
+      label:
+        remove: ["auto-merge"]
 
   - name: auto-merge
     conditions:
