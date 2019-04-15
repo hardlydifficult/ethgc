@@ -2,48 +2,34 @@ pull_request_rules:
   - name: merge if HD
     conditions:
       - author=hardlydifficult
-      - "status-success=ci/circleci: testContracts"
-      - "status-success=ci/circleci: init"
-      - "status-success=ci/circleci: buildWebsite"
-      - "status-success=ci/circleci: buildDocs"
-      - "status-success=ci/circleci: buildContracts"
-      - "status-success=WIP"
     actions:
-      merge:
-        method: squash
-        strict: smart
-      delete_head_branch: {}
-  - name: merge if dependabot
-    conditions:    
+      - label:
+        - add: auto-merge
+
+  - name: dependabot
+    conditions:
       - author=dependabot[bot]
-      - "status-success=ci/circleci: testContracts"
-      - "status-success=ci/circleci: init"
-      - "status-success=ci/circleci: buildWebsite"
-      - "status-success=ci/circleci: buildDocs"
-      - "status-success=ci/circleci: buildContracts"
-      - "status-success=WIP"
     actions:
-      merge:
-        method: squash
-        strict: smart
-      delete_head_branch: {}
-  - name: merge if imgbot
+      - label:
+        - add: auto-merge
+
+  - name: imgbot
     conditions:
       - author=imgbot[bot]
-      - "status-success=ci/circleci: testContracts"
-      - "status-success=ci/circleci: init"
-      - "status-success=ci/circleci: buildWebsite"
-      - "status-success=ci/circleci: buildDocs"
-      - "status-success=ci/circleci: buildContracts"
-      - "status-success=WIP"
     actions:
-      merge:
-        method: squash
-        strict: smart
-      delete_head_branch: {}
-  - name: merge if approved by HD
+      - label:
+        - add: auto-merge
+
+  - name: approved by HD
     conditions:
       - approved-reviews-by=hardlydifficult
+    actions:
+      - label:
+        - add: auto-merge
+
+  - name: auto-merge
+    conditions:
+      - label=auto-merge
       - "#changes-requested-reviews-by=0"
       - "status-success=ci/circleci: testContracts"
       - "status-success=ci/circleci: init"
