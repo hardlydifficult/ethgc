@@ -6,6 +6,27 @@ pull_request_rules:
       label:
         add: ["auto-merge"]
 
+  - name: hd
+    conditions:
+      - author=hardlydifficult
+    actions:
+      label:
+        add: ["auto-merge"]
+
+  - name: dependabot
+    conditions:
+      - author=dependabot[bot]
+    actions:
+      label:
+        add: ["auto-merge"]
+
+  - name: imgbot
+    conditions:
+      - author=imgbot[bot]
+    actions:
+      label:
+        add: ["auto-merge"]
+
   - name: auto-merge
     conditions:
       - label=["auto-merge"]
