@@ -18,8 +18,7 @@
   },
   "scripts": {
     "lint": "eslint --fix . --ext .js,.vue,.ts,.json && solium -d contracts/contracts --fix && npmPkgJsonLint . --fix",
-    "postinstall": "cd contracts && npm i && cd ../docs/website && npm i && cd ../../library && npm i && cd ../website && npm i",
-    "reset": "git reset -q . && git fetch --progress --all --prune && git checkout -B master origin/master -f"
+    "postinstall": "cd contracts && npm i && cd ../docs/website && npm i && cd ../../library && npm i && cd ../website && npm i"
   },
   "devDependencies": {
     "@ljharb/eslint-config": "13.1.1",
