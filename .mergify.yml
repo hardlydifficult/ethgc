@@ -41,7 +41,7 @@ pull_request_rules:
 
   - name: auto-merge
     conditions:
-      - label=["auto-merge"]
+      - label=auto-merge
       - "#changes-requested-reviews-by=0"
       - "status-success=ci/circleci: testContracts"
       - "status-success=ci/circleci: init"
