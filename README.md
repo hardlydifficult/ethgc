@@ -1,8 +1,8 @@
 # ethgc: ethereum gift card
 
-**[ethgc.com](ethgc.com)**
+**[ethgc.com](https://ethgc.com)**
 
-To learn more about redeeming or creating cards, see [ethgc.com/docs](ethgc.com/docs).
+To learn more about redeeming or creating cards, see [ethgc.com/docs](https://ethgc.com/docs).
 
 ## Development environment
 
