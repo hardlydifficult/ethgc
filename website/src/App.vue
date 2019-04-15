@@ -109,4 +109,8 @@ html {
 .pointer {
   cursor: pointer;
 }
+.quote {
+  vertical-align: text-top;
+  font-size: .75em;
+}
 </style>

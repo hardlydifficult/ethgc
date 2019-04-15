@@ -9,6 +9,8 @@ import AsyncComputed from "vue-async-computed";
 import VTooltip from "v-tooltip";
 import Clipboard from "v-clipboard";
 import EthGc from "../../library/ethGc.js";
+import Toasted from "vue-toasted";
+Vue.use(Toasted);
 Vue.use(BootstrapVue);
 Vue.use(AsyncComputed);
 Vue.use(VTooltip);
@@ -18,9 +20,26 @@ Vue.config.productionTip = false;
 
 getWalletIfApproved();
 
-Vue.prototype.$copy = value => {
+Vue.prototype.$copy = (value, itemDescription) => {
   Vue.prototype.$clipboard(value);
-  Vue.prototype.$toast.success(`copied:${value}`);
+  Vue.prototype.$toasted.show(
+    `<div class="text-center mt-2 mb-3">
+      <div>copied</div>
+      <div><span class='h6'><span class="quote">&#8220;</span>${value}<span class="quote">&#8221;</span></span></div>
+      <small>${itemDescription}</small>
+    </div>`,
+    {
+      theme: "bubble",
+      position: "top-right",
+      duration: 3000,
+      action: {
+        text: "close",
+        onClick: (e, toastObject) => {
+          toastObject.goAway(0);
+        }
+      }
+    }
+  );
 };
 
 new Vue({

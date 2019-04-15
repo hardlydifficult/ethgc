@@ -9,7 +9,7 @@
     <i
       v-tooltip="'Copy'"
       class="far fa-copy pointer"
-      @click="$clipboard(card.redeemCode)"
+      @click="$copy(card.redeemCode, 'the gift card\'s redeem code')"
     />
     <span
       v-tooltip="'Generate a new random code'"
