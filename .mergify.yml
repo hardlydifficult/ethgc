@@ -1,7 +1,7 @@
 pull_request_rules:
-  - name: approved by HD
+  - name: approved
     conditions:
-      - approved-reviews-by=hardlydifficult
+      - "#approved-reviews-by>=1"
     actions:
       label:
         add: ["auto-merge"]
