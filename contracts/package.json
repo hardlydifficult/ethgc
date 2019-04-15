@@ -1,28 +1,17 @@
 {
   "name": "ethgc-contracts",
-  "version": "0.0.1",
-  "description": "giveaway ETH or tokens with a redeem code",
-  "main": "index.js",
+  "license": "MIT",
+  "author": "HardlyDifficult",
   "scripts": {
     "build": "npm run compile",
     "compile": "truffle compile --all",
     "test": "truffle test",
     "verify": "truffle run verify"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/hardlydifficult/ethgc.git"
-  },
-  "author": "HardlyDifficult",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/hardlydifficult/ethgc/issues"
-  },
-  "homepage": "https://github.com/hardlydifficult/ethgc#readme",
   "dependencies": {
     "bignumber.js": "8.1.1",
     "ganache-cli": "6.4.2",
-    "openzeppelin-solidity": "2.2.0",
+    "openzeppen-solidity": "2.2.0",
     "truffle": "5.0.12",
     "truffle-security": "1.3.4"
   }
