@@ -11,21 +11,21 @@
         <ViewCard v-if="card.isValid" :card="card" />
         <div class="pt-2">
           <div v-if="walletConnected">
-            Sending to: {{sendTo}}
+            Sending to: {{ sendTo }}
             <div><small>(your connected address)</small></div>
           </div>
           <div v-else>
-          Send to:
-          <div class="inputAddress input-group mx-auto">
-            <input
-              class="form-control"
-              type="text"
-              placeholder="Your ethereum address (0x...)"
-              :value="window.ethereum.selectedAddress"
-            />
-          </div>
-          or connect to Metamask
-          <ConnectToWallet />
+            Send to:
+            <div class="inputAddress input-group mx-auto">
+              <input
+                class="form-control"
+                type="text"
+                placeholder="Your ethereum address (0x...)"
+                :value="window.ethereum.selectedAddress"
+              />
+            </div>
+            or connect to Metamask
+            <ConnectToWallet />
           </div>
         </div>
         <div class="btn btn-primary mt-4" @click="redeem()">
@@ -70,7 +70,7 @@ export default {
   },
   computed: {
     sendTo() {
-      return window.ethereum.selectedAddress
+      return window.ethereum.selectedAddress;
     }
   },
   methods: {

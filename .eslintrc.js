@@ -29,7 +29,6 @@ module.exports = {
   ],
   plugins: [
     'markdown',
-    'html',
     'vue',
     "prettier",
     'json'
@@ -38,6 +37,7 @@ module.exports = {
     "prettier/prettier": "error",
     "no-console": 0,
     "no-unused-vars": "warn",
-    "no-case-declarations": 0
+    "no-case-declarations": 0,
+    "no-empty": 0
   }
 }

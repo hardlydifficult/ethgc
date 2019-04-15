@@ -15,7 +15,8 @@
       <div v-if="messages.description">
         <small>from the card creator:</small>
         <div>
-        &OpenCurlyDoubleQuote;<span class="lead">{{ messages.description }}</span>&CloseCurlyDoubleQuote;
+          &#8220;<span class="lead">{{ messages.description }}</span
+          >&#8221;
         </div>
       </div>
       <div v-else>
