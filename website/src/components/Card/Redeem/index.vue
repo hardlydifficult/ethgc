@@ -43,8 +43,30 @@
             </span>
           </small>
         </div>
+        <CreatedBy :card="card" class="pt-3" />
+
+        <div style="min-height: 1.5em">
+          <div v-if="messages">
+            <div v-if="messages.description">
+              <div>
+                &#8220;<span class="lead">{{ messages.description }}</span
+                >&#8221;
+              </div>
+            </div>
+            <div v-else>
+              (no description)
+            </div>
+            <!-- <br><br>
+      {{ messages.redeemedMessage }} -->
+          </div>
+          <div v-else>
+            <!-- TODO move lower or middle alignment -->
+            <StatusIcon
+              :status="{ loadingMessage: 'Loading the card\'s message' }"
+            />
+          </div>
+        </div>
       </div>
-      <CreatedBy :card="card" />
     </div>
   </div>
 </template>
@@ -54,13 +76,15 @@ import RedeemCode from "./RedeemCode";
 import ViewCard from "./ViewCard";
 import CreatedBy from "./CreatedBy";
 import ConnectToWallet from "../../Widgets/ConnectToWallet";
+import StatusIcon from "../../Widgets/StatusIcon";
 
 export default {
   components: {
     ConnectToWallet,
     CreatedBy,
     RedeemCode,
-    ViewCard
+    ViewCard,
+    StatusIcon
   },
   data: function() {
     return {
@@ -73,6 +97,11 @@ export default {
       return window.ethereum.selectedAddress;
     }
   },
+  asyncComputed: {
+    messages: async function() {
+      return this.ethGc.getCardMessages(this.card.redeemCode);
+    }
+  },
   methods: {
     cardIsValid: function(newValue) {
       if (this.card.isValid) {
@@ -83,7 +112,7 @@ export default {
     },
     redeem: async function() {
       if (!this.canRedeem) return;
-      await this.ethGc.redeem(this.card.redeemCode);
+      await this.ethGc.redeem(this.card.redeemCode, this.sendTo);
     }
   }
 };
