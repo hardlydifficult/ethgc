@@ -19,7 +19,7 @@ jobs:
           keys:
             - v3-{{ checksum "package.json" }}
 
-      - run: npm i
+      - run: npm i --ignore-scripts
 
       # lint and commit any changes, which may restart the build
       - run: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
