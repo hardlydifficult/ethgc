@@ -13,10 +13,9 @@ pull_request_rules:
         method: squash
         strict: smart
       delete_head_branch: {}
-  - name: merge if Greenkeeper
+  - name: merge if dependabot
     conditions:    
-      - author=greenkeeper[bot]
-      - "status-success=greenkeeper/verify"
+      - author=dependabot[bot]
       - "status-success=ci/circleci: testContracts"
       - "status-success=ci/circleci: init"
       - "status-success=ci/circleci: buildWebsite"

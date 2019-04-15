@@ -157,7 +157,6 @@ jobs:
       - run: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
       - run: bash .circleci/deploy-ghpages.sh
       - run: bash .circleci/deploy-artifacts.sh
-      - run: bash .circleci/pr.sh
 
 workflows:
   build:
