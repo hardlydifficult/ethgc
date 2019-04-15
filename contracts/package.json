@@ -8,7 +8,7 @@
     "test": "truffle test",
     "verify": "truffle run verify"
   },
-  "dependencies": {
+  "devDependencies": {
     "bignumber.js": "8.1.1",
     "ganache-cli": "6.4.2",
     "openzeppelin-solidity": "2.2.0",
