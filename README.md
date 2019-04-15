@@ -19,7 +19,7 @@ npm i
 
 *this uses `postinstall` to install all packages in the monorepo*
 
-Now you can jump into the specific project of interest:
+Now you can jump into the specific project of interest as described below.  We use [Zenhub](https://app.zenhub.com/workspaces/ethgc-5c8dd086d76ef51f6b0fd246/board?filterLogic=any&repos=176020934&showPRs=false&showClosed=false&showPipelineDescriptions=false) to manage the backlog, but you are welcome to make any change and open a PR for discussion.
 
 ### Website
 
