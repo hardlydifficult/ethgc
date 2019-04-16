@@ -16,9 +16,9 @@ pull_request_rules:
       label:
         add: ["auto-merge"]
 
-  - name: dependabot
+  - name: renovate
     conditions:
-      - author=dependabot[bot]
+      - author=renovate[bot]
       - "#status-failure=0"
       - "#label=0"
     actions:
@@ -41,7 +41,7 @@ pull_request_rules:
     actions:
       label:
         remove: ["auto-merge"]
-        
+
   - name: stop on label
     conditions:
       - label=auto-merge
