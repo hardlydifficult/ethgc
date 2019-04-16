@@ -53,12 +53,12 @@
 
       <!-- Optional -->
       <div slot="declineContent">
-        OPT OUT
+        Opt Out
       </div>
 
       <!-- Optional -->
       <div slot="acceptContent">
-        GOT IT!
+        Ok
       </div>
     </vue-cookie-accept-decline>
   </div>
