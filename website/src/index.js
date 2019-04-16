@@ -10,14 +10,25 @@ import VTooltip from "v-tooltip";
 import Clipboard from "v-clipboard";
 import EthGc from "../../library/ethGc.js";
 import Toasted from "vue-toasted";
+import Storage from "vue-ls";
 import VueCookieAcceptDecline from "vue-cookie-accept-decline";
+
 Vue.component("vue-cookie-accept-decline", VueCookieAcceptDecline);
+
+const options = {
+  namespace: "vuejs__", // key prefix
+  name: "ls", // name variable Vue.[ls] or this.[$ls],
+  storage: "local" // storage name session, local, memory
+};
+
+Vue.use(Storage, options);
 Vue.use(Toasted);
 Vue.use(BootstrapVue);
 Vue.use(AsyncComputed);
 Vue.use(VTooltip);
 Vue.use(Clipboard);
 
+// Hides the dev-mode warning message
 Vue.config.productionTip = false;
 
 getWalletIfApproved();
