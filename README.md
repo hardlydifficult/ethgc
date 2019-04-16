@@ -84,6 +84,6 @@ The website and docs are static files after they are built.  Hosted by [Github P
 
 Additionally we are using the following Github bots:
  - [Mergify](https://mergify.io/): a configurable bot to automatically merge PRs
- - [Dependabot](https://dependabot.com/): creates a PR anytime a dependency updates
+ - [Renovate](https://renovatebot.com): creates a PR anytime a dependency updates
  - [imgBot](https://imgbot.net/): creates a PR anytime an image can be losslessly compressed
  - [WIP](https://github.com/marketplace/wip): add "WIP" to the title of a PR to block it from being merged
