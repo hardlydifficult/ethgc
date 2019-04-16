@@ -3,11 +3,19 @@
     <div class="container py-3">
       <div class="row justify-content-center">
         <div class="col-xl-4">
-          <button @click="cookieClickedDecline" v-if="status==='accept'" class="btn btn-primary mb-4">
-                Disable Local Storage
+          <button
+            @click="cookieClickedDecline"
+            v-if="status === 'accept'"
+            class="btn btn-primary mb-4"
+          >
+            Disable Local Storage
           </button>
-          <button @click="cookieClickedAccept" v-else-if="status==='decline'" class="btn btn-primary mb-4">
-                Enable Local Storage
+          <button
+            @click="cookieClickedAccept"
+            v-else-if="status === 'decline'"
+            class="btn btn-primary mb-4"
+          >
+            Enable Local Storage
           </button>
         </div>
       </div>

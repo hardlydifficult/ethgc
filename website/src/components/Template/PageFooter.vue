@@ -35,7 +35,12 @@
           v-tooltip="
             '3EPAsFwUBh1JvPJVqoycXpYVfDE4v3WdQ1<br><small>click to copy</small>'
           "
-          @click="$copy('3EPAsFwUBh1JvPJVqoycXpYVfDE4v3WdQ1', 'the developer\'s Bitcoin (BTC) address')"
+          @click="
+            $copy(
+              '3EPAsFwUBh1JvPJVqoycXpYVfDE4v3WdQ1',
+              'the developer\'s Bitcoin (BTC) address'
+            )
+          "
           class="pointer"
         >
           BTC <i class="far fa-copy" /> </span
@@ -44,7 +49,12 @@
           v-tooltip="
             '0x7A23608a8eBe71868013BDA0d900351A83bb4Dc2<br><small>click to copy</small>'
           "
-          @click="$copy('0x7A23608a8eBe71868013BDA0d900351A83bb4Dc2', 'the developer\'s Ethereum (ETH) address')"
+          @click="
+            $copy(
+              '0x7A23608a8eBe71868013BDA0d900351A83bb4Dc2',
+              'the developer\'s Ethereum (ETH) address'
+            )
+          "
           class="pointer"
         >
           ETH <i class="far fa-copy" /> </span
@@ -53,7 +63,12 @@
           v-tooltip="
             'TNbiopsxqPGk5XicApWJwEbZZ7uLJfpvfm<br><small>click to copy</small>'
           "
-          @click="$copy('TNbiopsxqPGk5XicApWJwEbZZ7uLJfpvfm', 'the developer\'s Tron (TRX) address')"
+          @click="
+            $copy(
+              'TNbiopsxqPGk5XicApWJwEbZZ7uLJfpvfm',
+              'the developer\'s Tron (TRX) address'
+            )
+          "
           class="pointer"
         >
           TRX <i class="far fa-copy" />

@@ -17,7 +17,7 @@
     "url": "git+https://github.com/hardlydifficult/ethgc.git"
   },
   "scripts": {
-    "lint": "eslint --fix . --ext .js,.vue,.ts,.json && solium -d contracts/contracts --fix && npmPkgJsonLint . --fix",
+    "lint": "solium -d contracts/contracts --fix && npmPkgJsonLint . --fix && eslint --fix . --ext .js,.vue,.ts,.json",
     "postinstall": "cd contracts && npm i && cd ../docs/website && npm i && cd ../../library && npm i && cd ../website && npm i"
   },
   "devDependencies": {

@@ -46,6 +46,7 @@
         </div>
       </div>
     </div>
+    <TxHistory />
     <GDPR />
     <PageFooter />
   </div>
@@ -57,7 +58,8 @@ import RedeemCard from "./components/Card/Redeem/index";
 import CreateCards from "./components/Card/Create/index";
 import ManageCards from "./components/Card/Manage/index";
 import LearnMore from "./components/About/index";
-import GDPR from './components/Widgets/GDPR'
+import TxHistory from "./components/TxHistory/index";
+import GDPR from "./components/Widgets/GDPR";
 
 export default {
   name: "App",
@@ -68,7 +70,8 @@ export default {
     ManageCards,
     PageFooter,
     LearnMore,
-    GDPR
+    GDPR,
+    TxHistory
   },
   data: () => {
     return {
@@ -114,6 +117,6 @@ html {
 }
 .quote {
   vertical-align: text-top;
-  font-size: .75em;
+  font-size: 0.75em;
 }
 </style>

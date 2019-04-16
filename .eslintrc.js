@@ -38,6 +38,7 @@ module.exports = {
     "no-console": 0,
     "no-unused-vars": "warn",
     "no-case-declarations": 0,
-    "no-empty": 0
+    "no-empty": 0,
+    "quotes": ["error", "double"]
   }
 }

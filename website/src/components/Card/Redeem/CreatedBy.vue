@@ -1,15 +1,15 @@
 <template>
   <div v-if="card.isValid">
     Created by:
-    <Address :address="card.createdBy" />
+    <Hex :value="card.createdBy" />
   </div>
 </template>
 <script>
-import Address from "../../Widgets/Address";
+import Hex from "../../Widgets/Hex";
 
 export default {
   components: {
-    Address
+    Hex
   },
   props: {
     card: Object
