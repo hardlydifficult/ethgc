@@ -25,6 +25,15 @@ pull_request_rules:
       label:
         add: ["auto-merge"]
 
+  - name: dependabot
+    conditions:
+      - author=dependabot[bot]
+      - "#status-failure=0"
+      - "#label=0"
+    actions:
+      label:
+        add: ["auto-merge"]
+
   - name: imgbot
     conditions:
       - author=imgbot[bot]
