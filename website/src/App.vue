@@ -46,6 +46,7 @@
         </div>
       </div>
     </div>
+    <GDPR />
     <PageFooter />
   </div>
 </template>
@@ -56,6 +57,7 @@ import RedeemCard from "./components/Card/Redeem/index";
 import CreateCards from "./components/Card/Create/index";
 import ManageCards from "./components/Card/Manage/index";
 import LearnMore from "./components/About/index";
+import GDPR from './components/Widgets/GDPR'
 
 export default {
   name: "App",
@@ -65,7 +67,8 @@ export default {
     CreateCards,
     ManageCards,
     PageFooter,
-    LearnMore
+    LearnMore,
+    GDPR
   },
   data: () => {
     return {

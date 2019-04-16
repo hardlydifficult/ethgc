@@ -10,6 +10,8 @@ import VTooltip from "v-tooltip";
 import Clipboard from "v-clipboard";
 import EthGc from "../../library/ethGc.js";
 import Toasted from "vue-toasted";
+import VueCookieAcceptDecline from "vue-cookie-accept-decline";
+Vue.component("vue-cookie-accept-decline", VueCookieAcceptDecline);
 Vue.use(Toasted);
 Vue.use(BootstrapVue);
 Vue.use(AsyncComputed);
