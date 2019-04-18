@@ -1,5 +1,3 @@
-=================
-Smart Contract
-=================
+# Smart Contract
 
 todo

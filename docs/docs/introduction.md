@@ -1,12 +1,9 @@
-================
-Introduction to ethgc
-================
+
+# Introduction to ethgc
 
 todo
 
-------------
-Process
-------------
+## Process
 
 1) Create gift card
 
@@ -16,9 +13,7 @@ Process
 
     Submit the redeem code and get the ETH or tokens inside.
 
---------------
-FAQ
---------------
+## FAQ
 
 How much does it cost?
 

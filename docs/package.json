@@ -1,0 +1,13 @@
+{
+  "name": "ethgc-docs",
+  "license": "MIT",
+  "author": "HardlyDifficult",
+  "scripts": {
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs"
+  },
+  "devDependencies": {},
+  "dependencies": {
+    "vuepress": "0.14.11"
+  }
+}

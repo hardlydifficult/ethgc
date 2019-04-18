@@ -18,7 +18,7 @@
   },
   "scripts": {
     "lint": "solium -d contracts/contracts --fix && npmPkgJsonLint . --fix && eslint --fix . --ext .js,.vue,.ts,.json",
-    "postinstall": "cd contracts && npm i && cd ../docs/website && npm i && cd ../../library && npm i && cd ../website && npm i"
+    "postinstall": "cd contracts && npm i && cd ../docs && npm i && cd ../library && npm i && cd ../website && npm i"
   },
   "devDependencies": {
     "@ljharb/eslint-config": "13.1.1",

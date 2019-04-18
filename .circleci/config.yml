@@ -130,20 +130,20 @@ jobs:
 
       - restore_cache:
           keys:
-            - v4-{{ checksum "docs/website/package.json" }}
-      - run: cd docs/website && npm i
+            - v4-{{ checksum "docs/package.json" }}
+      - run: cd docs && npm i
       - save_cache:
           paths:
             - node_modules
             - package-lock.json
-          key: v4-{{ checksum "docs/website/package.json" }}
+          key: v4-{{ checksum "docs/package.json" }}
 
-      - run: cd docs/website && npm run build
+      - run: cd docs && npm run build
 
       - persist_to_workspace:
           root: '..'
           paths:
-            - repo/docs/website/build
+            - repo/docs/docs/.vuepress/dist
 
   push:
     docker:
