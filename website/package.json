@@ -11,7 +11,7 @@
     "test": "npm run test:unit",
     "test:debug": "node --inspect node_modules/.bin/jest --runInBand --config test/jest.config.js"
   },
-  "devDependencies": {
+  "dependencies": {
     "@babel/core": "7.4.3",
     "@babel/preset-env": "7.4.3",
     "@babel/preset-react": "7.0.0",
