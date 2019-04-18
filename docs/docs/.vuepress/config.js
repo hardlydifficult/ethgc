@@ -1,6 +1,7 @@
 module.exports = {
   title: 'ethgc',
   description: 'ethereum gift card',
+  base: 'https://ethgc.com/docs',
   themeConfig: {
     nav: [
       { text: 'Home', link: '/' },
