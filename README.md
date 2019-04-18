@@ -33,7 +33,7 @@ This will open a tab with the ethgc website running locally.  Any changes you ma
 ### Documentation
 
 ```
-cd docs\website
+cd docs
 npm run dev
 ```
 
