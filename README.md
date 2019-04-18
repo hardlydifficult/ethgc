@@ -70,7 +70,7 @@ When changes are submitted, the following steps are performed:
 
 - Delpoy contracts
 
-  CI will deploy the contract to all testnets if anything changed and update the `artifacts` branch which is used by the Library to get the contract ABI and its addresses.
+  CI will deploy the contract to all testnets if anything changed.
 
 - Build website
 
