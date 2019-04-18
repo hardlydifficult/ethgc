@@ -9,7 +9,7 @@ To learn more about redeeming or creating cards, see [ethgc.com/docs](https://et
 If you'd like to contribute to the project, awesome - thanks!
 
 ```
-git clone --recurse-submodules <github_repo>
+git clone --recurse-submodules https://github.com/hardlydifficult/ethgc.git
 cd ethgc
 
 npm i
