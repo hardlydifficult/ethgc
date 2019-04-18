@@ -8,24 +8,24 @@ class EthGc {
       {
         name: "ropsten",
         ethGc: new EthGcNetwork(
-          new Web3.providers.HttpProvider(
-            "https://ropsten.infura.io/v3/1830f67bb051457b8d891301de981bd2"
+          new Web3.providers.WebsocketProvider(
+            "wss://ropsten.infura.io/ws/v3/1830f67bb051457b8d891301de981bd2"
           )
         )
       },
       {
         name: "kovan",
         ethGc: new EthGcNetwork(
-          new Web3.providers.HttpProvider(
-            "https://kovan.infura.io/v3/1830f67bb051457b8d891301de981bd2"
+          new Web3.providers.WebsocketProvider(
+            "wss://kovan.infura.io/ws/v3/1830f67bb051457b8d891301de981bd2"
           )
         )
       },
       {
         name: "rinkeby",
         ethGc: new EthGcNetwork(
-          new Web3.providers.HttpProvider(
-            "https://rinkeby.infura.io/v3/1830f67bb051457b8d891301de981bd2"
+          new Web3.providers.WebsocketProvider(
+            "wss://rinkeby.infura.io/ws/v3/1830f67bb051457b8d891301de981bd2"
           )
         )
       }
