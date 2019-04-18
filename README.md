@@ -8,8 +8,6 @@ To learn more about redeeming or creating cards, see [ethgc.com/docs](https://et
 
 If you'd like to contribute to the project, awesome - thanks!
 
-New to `git`?  Check out this [contribution guide](https://github.com/MarcDiethelm/contributing) for the steps involved (note we are not using a *develop* branch).  Please try to keep PRs small (e.g. try to focus on one feature or component per-PR) but don't hestitate to suggest anything you have and we'll discuss in the PR.
-
 ```
 git clone --recurse-submodules <github_repo>
 cd ethgc
