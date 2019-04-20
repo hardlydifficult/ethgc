@@ -47,7 +47,7 @@
       </div>
     </div>
     <TxHistory />
-    <GDPR />
+    <GDPR class="mt-5" />
     <PageFooter />
   </div>
 </template>

@@ -1,7 +1,7 @@
 <template>
   <div v-on:tx="onTx">
     Transaction history:
-    <ul class="list-group" v-if="transactions">
+    <ul class="list-group" v-if="transactions.length">
       <li class="list-group-item" v-for="(tx, index) in transactions" :key="index">
           <StatusIcon :status="{url: '0x86c74643e51183b739c3f2164455ec6ef5077f9c037d4c657764a77c3470aab1', urlMessage: 'etherscan.com'}" />
           <!-- <StatusIcon :status="{loadingMessage:'wip<br><small>click to view on EtherScan</small>'}" /> -->
@@ -16,8 +16,6 @@
         (none)
       </small>
     </div>
-
-    <button v-on:click="testTx()">test</button>
   </div>
 </template>
 
@@ -39,11 +37,7 @@ export default {
     this.$observable.subscribe("tx", this.onTx);
   },
   methods: {
-    testTx() {
-      this.$observable.fire("tx", "data");
-    },
     onTx(tx) {
-      console.log("yo")
       this.transactions.push(tx)
     }
   }
