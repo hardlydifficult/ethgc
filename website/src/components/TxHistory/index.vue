@@ -27,13 +27,11 @@
 
 <script>
 import Date from "../Widgets/Date";
-import StatusIcon from "../Widgets/StatusIcon";
 import ViewOnEtherscan from "../Widgets/ViewOnEtherscan";
 
 export default {
   components: {
     Date,
-    StatusIcon,
     ViewOnEtherscan
   },
   data() {
