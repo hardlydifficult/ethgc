@@ -112,7 +112,8 @@ export default {
     },
     redeem: async function() {
       if (!this.canRedeem) return;
-      await this.ethGc.redeem(this.card.redeemCode, this.sendTo);
+      const tx = await this.ethGc.redeem(this.card.redeemCode, this.sendTo);
+      this.$observable.fire("tx", tx);
     }
   }
 };
