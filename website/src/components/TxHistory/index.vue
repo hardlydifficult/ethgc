@@ -34,11 +34,13 @@ export default {
     }
   },
   mounted () {
+    this.transactions = this.$ls.get("transactions") || []
     this.$observable.subscribe("tx", this.onTx);
   },
   methods: {
     onTx(tx) {
       this.transactions.push(tx)
+      this.$ls.set("transactions", this.transactions)
     }
   }
 };
