@@ -31,7 +31,8 @@ module.exports = {
     'markdown',
     'vue',
     "prettier",
-    'json'
+    'json',
+    'html'
   ],
   rules: {
     "prettier/prettier": "error",
