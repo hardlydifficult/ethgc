@@ -59,13 +59,14 @@ export default {
         }
         tokenValues.push(this.tokens[i].baseValue);
       }
-      await this.ethGc.create(
+      const tx = await this.ethGc.create(
         cardAddresses,
         tokenAddresses,
         tokenValues,
         this.messages.description,
         this.messages.redeemedMessage
       );
+      this.$observable.fire("tx", tx);
     }
   }
 };
