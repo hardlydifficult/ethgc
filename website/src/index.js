@@ -12,6 +12,11 @@ import EthGc from "../../library/ethGc.js";
 import Toasted from "vue-toasted";
 import Storage from "vue-ls";
 import VueCookieAcceptDecline from "vue-cookie-accept-decline";
+import VueSub from "vue-sub";
+
+Vue.use(VueSub);
+
+const observable = new VueSub();
 
 Vue.component("vue-cookie-accept-decline", VueCookieAcceptDecline);
 
@@ -56,7 +61,8 @@ Vue.prototype.$copy = (value, itemDescription) => {
 };
 
 new Vue({
-  render: h => h(App)
+  render: h => h(App),
+  observable
 }).$mount("#app");
 
 function getWalletIfApproved() {
