@@ -2,9 +2,19 @@
   <div v-on:tx="onTx">
     Transaction history:
     <ul class="list-group" v-if="transactions">
-      <li class="list-group-item" v-for="(tx, index) in transactions" :key="index">
-          <StatusIcon :status="{url: '0x86c74643e51183b739c3f2164455ec6ef5077f9c037d4c657764a77c3470aab1', urlMessage: 'etherscan.com'}" />
-          <!-- <StatusIcon :status="{loadingMessage:'wip<br><small>click to view on EtherScan</small>'}" /> -->
+      <li
+        class="list-group-item"
+        v-for="(tx, index) in transactions"
+        :key="index"
+      >
+        <StatusIcon
+          :status="{
+            url:
+              '0x86c74643e51183b739c3f2164455ec6ef5077f9c037d4c657764a77c3470aab1',
+            urlMessage: 'etherscan.com'
+          }"
+        />
+        <!-- <StatusIcon :status="{loadingMessage:'wip<br><small>click to view on EtherScan</small>'}" /> -->
         Create card
         <Date :date="Date.now()" />
         <span v-tooltip="'Success - 5 confirmations. Mined 20 mins ago'">
@@ -23,7 +33,7 @@
 
 <script>
 import Date from "../Widgets/Date";
-import StatusIcon from "../Widgets/StatusIcon"
+import StatusIcon from "../Widgets/StatusIcon";
 
 export default {
   components: {
@@ -33,9 +43,9 @@ export default {
   data() {
     return {
       transactions: []
-    }
+    };
   },
-  mounted () {
+  mounted() {
     this.$observable.subscribe("tx", this.onTx);
   },
   methods: {
@@ -43,8 +53,8 @@ export default {
       this.$observable.fire("tx", "data");
     },
     onTx(tx) {
-      console.log("yo")
-      this.transactions.push(tx)
+      console.log("yo");
+      this.transactions.push(tx);
     }
   }
 };
