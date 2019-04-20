@@ -23,13 +23,11 @@
 
 <script>
 import Date from "../Widgets/Date";
-import Hex from "../Widgets/Hex";
 import StatusIcon from "../Widgets/StatusIcon"
 
 export default {
   components: {
     Date,
-    Hex,
     StatusIcon
   },
   data() {
