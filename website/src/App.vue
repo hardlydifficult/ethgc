@@ -11,12 +11,8 @@
             option === 'create' ? (option = undefined) : (option = 'create')
           "
           href="#"
-          >
-          
-          
-          
-          
-                                                                                    Create Card</a
+        >
+          Create Card</a
         >
         <a
           class="flex-md-fill text-sm-center nav-link"
