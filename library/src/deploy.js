@@ -84,11 +84,16 @@ async function deployContract(
       artifactsJson[networkId] = receipt.contractAddress;
     }
 
-    networkWeb3.web3.currentProvider.connection.close();
+    if (networkWeb3.web3.currentProvider.connection) {
+      networkWeb3.web3.currentProvider.connection.close();
+    }
   }
   fs.mkdirSync(dirArtifacts, { recursive: true });
   fs.writeFileSync(fileArtifactsJson, JSON.stringify(artifactsJson, null, 2));
-  hardlyWeb3.web3.currentProvider.connection.close();
+
+  if (hardlyWeb3.web3.currentProvider.connection) {
+    hardlyWeb3.web3.currentProvider.connection.close();
+  }
 
   return artifactsJson;
 }
