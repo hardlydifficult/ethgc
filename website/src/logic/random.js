@@ -1,19 +1,5 @@
-/**
- * Removing:
-0/o/O
-1/i/l/L
-5/s/S
-u/v/U/V
-2/z/Z
-
-TODO change
-4/A
-
-TODO add
-b/G/6
-g/q/9
-  */
-const characterSet = "bcdefghjkmnpqrtwxy36789";
+const characterSet =
+  "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789!@#$%&*?";
 
 export default class Random {
   getRandomCode(length, addHypens) {
@@ -25,7 +11,7 @@ export default class Random {
     }
 
     if (addHypens) {
-      for (let i = 4; i < length; i += 5) {
+      for (let i = addHypens; i < length; i += addHypens + 1) {
         result = result.slice(0, i) + "-" + result.slice(i);
       }
     }
