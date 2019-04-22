@@ -63,10 +63,7 @@ jobs:
             - library/package-lock.json
           key: v5-{{ checksum "library/package.json" }}
 
-      - run: |
-            if [ $CIRCLE_BRANCH == 'master' ]; then
-              cd library && npm run deploy
-            fi
+      - run: cd library && npm run deploy
 
       - persist_to_workspace:
           root: '..'
