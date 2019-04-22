@@ -4,27 +4,27 @@
       Redeem Code
     </label>
     <div class="col-9 no-wrap">
-    <input
-      v-model="card.redeemCode"
-      id="redeemCode"
-      class="form-control"
-      type="text"
-      placeholder="Redeem Code"
-      @input="card.customCode = true"
-    />
-    <i
-      v-tooltip="'Copy'"
-      class="far fa-copy pointer"
-      @click="$copy(card.redeemCode, 'the gift card\'s redeem code')"
-    />
-    <span
-      v-tooltip="'Generate a new random code'"
-      @click="randomizeCode()"
-      class="pointer"
-    >
-      <i class="fas fa-redo" />
-    </span>
-    <StatusIcon :status="status" />
+      <input
+        v-model="card.redeemCode"
+        id="redeemCode"
+        class="form-control"
+        type="text"
+        placeholder="Redeem Code"
+        @input="card.customCode = true"
+      />
+      <i
+        v-tooltip="'Copy'"
+        class="far fa-copy pointer"
+        @click="$copy(card.redeemCode, 'the gift card\'s redeem code')"
+      />
+      <span
+        v-tooltip="'Generate a new random code'"
+        @click="randomizeCode()"
+        class="pointer"
+      >
+        <i class="fas fa-redo" />
+      </span>
+      <StatusIcon :status="status" />
     </div>
   </div>
 </template>
