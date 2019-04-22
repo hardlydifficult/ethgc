@@ -22,7 +22,7 @@ Vue.component("vue-cookie-accept-decline", VueCookieAcceptDecline);
 
 const options = {
   namespace: "vuejs__", // key prefix
-  name: "ls", // name variable Vue.[ls] or this.[$ls],
+  name: "_ls", // name variable Vue.[ls] or this.[$ls],
   storage: "local" // storage name session, local, memory
 };
 
@@ -64,6 +64,14 @@ new Vue({
   render: h => h(App),
   observable
 }).$mount("#app");
+
+Vue.prototype.$ls = {
+  get: Vue._ls.get,
+  set: () => {
+    console.log("wtf");
+    console.log(Storage.getCookieStatus());
+  }
+};
 
 function getWalletIfApproved() {
   Vue.prototype.walletConnected = false;

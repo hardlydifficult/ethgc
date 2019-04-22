@@ -1,9 +1,15 @@
 <template>
-  <div>
-    Redeem Code
+  <div class="form-group row">
+    <label for="redeemCode" class="col-3 col-form-label">
+      Redeem Code
+    </label>
+    <div class="col-9 no-wrap">
     <input
       v-model="card.redeemCode"
+      id="redeemCode"
+      class="form-control"
       type="text"
+      placeholder="Redeem Code"
       @input="card.customCode = true"
     />
     <i
@@ -19,6 +25,7 @@
       <i class="fas fa-redo" />
     </span>
     <StatusIcon :status="status" />
+    </div>
   </div>
 </template>
 
@@ -89,7 +96,7 @@ export default {
   },
   methods: {
     randomizeCode() {
-      this.card.redeemCode = random.getRandomCode(16, true);
+      this.card.redeemCode = random.getRandomCode(20, 5);
       this.card.customCode = false;
     },
     debouncedGetStatus() {
