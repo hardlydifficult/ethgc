@@ -52,7 +52,6 @@ class HardlyWeb3 {
         sendOptions.from = this.defaultAccount();
       }
 
-      console.log(sendOptions);
       if (fixedGas) {
         sendOptions.gas = fixedGas;
       } else {
@@ -61,7 +60,6 @@ class HardlyWeb3 {
         ).plus(3000); // I'm not sure why this helps, but createCard consistently fails without it
         await this.setMaxGasPrice(sendOptions);
       }
-      console.log(sendOptions);
 
       functionCall
         .send(sendOptions)

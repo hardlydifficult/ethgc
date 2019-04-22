@@ -14,10 +14,11 @@ module.exports.deploy = async (
     Networks.rinkeby.provider
   ]
 ) => {
-  const ethgc = await deployContract(networkNodes, "Ethgc", [], {
+  console.log(`Deploy to ${JSON.stringify(networkNodes)}`);
+  const ethgc = await deployContract(networkNodes, "Ethgc", undefined, {
     from: fromAccount
   });
-  await deployContract(networkNodes, "EthgcExt", [ethgc.address], {
+  await deployContract(networkNodes, "EthgcExt", ethgc, {
     from: fromAccount
   });
 };
@@ -25,7 +26,7 @@ module.exports.deploy = async (
 async function deployContract(
   networkNodes,
   contractName,
-  deployParameters,
+  ethgcJson,
   txOptions
 ) {
   const fileBuildJson = `${__dirname}/../../contracts/build/contracts/${contractName}.json`;
@@ -63,14 +64,18 @@ async function deployContract(
       );
       networkBytecodeHash = networkWeb3.web3.utils.keccak256(networkBytecode);
     }
+    console.log(networkBytecodeHash);
 
-    if (networkBytecodeHash !== buildJson.bytecodeHash) {
+    if (
+      artifactsJson.bytecodeHash === undefined ||
+      networkBytecodeHash !== artifactsJson.bytecodeHash
+    ) {
       // Deploy to this network
       const contract = new networkWeb3.web3.eth.Contract(buildJson.abi);
       const tx = await networkWeb3.send(
         contract.deploy({
           data: buildJson.bytecode,
-          arguments: deployParameters
+          arguments: ethgcJson ? [ethgcJson[networkId]] : []
         }),
         0,
         txOptions.from ? undefined : privateKey,
@@ -78,12 +83,10 @@ async function deployContract(
       );
       const receipt = await networkWeb3.getReceipt(tx);
       artifactsJson[networkId] = receipt.contractAddress;
-      console.log(`deployed ${receipt.contractAddress} on ${networkId}`);
     }
   }
 
-  artifactsJson = JSON.stringify(artifactsJson, null, 2);
   await fs.promises.mkdir(dirArtifacts, { recursive: true });
-  fs.writeFileSync(fileArtifactsJson, artifactsJson);
+  fs.writeFileSync(fileArtifactsJson, JSON.stringify(artifactsJson, null, 2));
   return artifactsJson;
 }
