@@ -1,9 +1,6 @@
 import "babel-polyfill";
 import Vue from "vue";
-import BootstrapVue from "bootstrap-vue";
-
 import "./assets/scss/bootstrap.scss";
-
 import App from "./App";
 import AsyncComputed from "vue-async-computed";
 import VTooltip from "v-tooltip";
@@ -28,7 +25,6 @@ const options = {
 
 Vue.use(Storage, options);
 Vue.use(Toasted);
-Vue.use(BootstrapVue);
 Vue.use(AsyncComputed);
 Vue.use(VTooltip);
 Vue.use(Clipboard);
