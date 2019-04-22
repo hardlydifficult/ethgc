@@ -14,7 +14,6 @@ module.exports.deploy = async (
     Networks.rinkeby.provider
   ]
 ) => {
-  console.log(`Deploy to ${JSON.stringify(networkNodes)}`);
   const ethgc = await deployContract(networkNodes, "Ethgc", undefined, {
     from: fromAccount
   });
@@ -51,20 +50,20 @@ async function deployContract(
   );
   for (let i = 0; i < networkNodes.length; i++) {
     const networkNode = networkNodes[i];
-
     const networkWeb3 = new HardlyWeb3(networkNode);
     if (txOptions.from) {
       networkWeb3.switchAccount(txOptions.from);
     }
-    const networkId = await networkWeb3.web3.eth.net.getId();
     let networkBytecodeHash;
-    if (artifactsJson[networkId]) {
-      const networkBytecode = await networkWeb3.web3.eth.getCode(
-        artifactsJson[networkId]
-      );
-      networkBytecodeHash = networkWeb3.web3.utils.keccak256(networkBytecode);
-    }
-    console.log(networkBytecodeHash);
+    const networkId = await networkWeb3.web3.eth.net.getId();
+    try {
+      if (artifactsJson[networkId]) {
+        const networkBytecode = await networkWeb3.web3.eth.getCode(
+          artifactsJson[networkId]
+        );
+        networkBytecodeHash = networkWeb3.web3.utils.keccak256(networkBytecode);
+      }
+    } catch (error) {}
 
     if (
       artifactsJson.bytecodeHash === undefined ||
@@ -84,9 +83,12 @@ async function deployContract(
       const receipt = await networkWeb3.getReceipt(tx);
       artifactsJson[networkId] = receipt.contractAddress;
     }
-  }
 
-  await fs.promises.mkdir(dirArtifacts, { recursive: true });
+    networkWeb3.web3.currentProvider.connection.close();
+  }
+  fs.mkdirSync(dirArtifacts, { recursive: true });
   fs.writeFileSync(fileArtifactsJson, JSON.stringify(artifactsJson, null, 2));
+  hardlyWeb3.web3.currentProvider.connection.close();
+
   return artifactsJson;
 }
