@@ -10,9 +10,9 @@ import Toasted from "vue-toasted";
 import Storage from "vue-ls";
 import VueCookieAcceptDecline from "vue-cookie-accept-decline";
 import VueSub from "vue-sub";
+import VueSweetalert2 from "vue-sweetalert2";
 
-Vue.use(VueSub);
-
+Vue.use(VueSweetalert2);
 const observable = new VueSub();
 
 Vue.component("vue-cookie-accept-decline", VueCookieAcceptDecline);
