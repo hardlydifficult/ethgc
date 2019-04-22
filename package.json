@@ -24,10 +24,7 @@
     "postinstall": "cd contracts && npm i && cd ../docs && npm i && cd ../library && npm i && cd ../website && npm i"
   },
   "dependencies": {
-    "@ljharb/eslint-config": "13.1.1",
-    "@logux/eslint-config": "28.1.0",
     "babel-eslint": "10.0.1",
-    "escope": "3.6.0",
     "eslint": "5.16.0",
     "eslint-config-airbnb": "17.1.0",
     "eslint-config-postcss": "3.0.7",
