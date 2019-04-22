@@ -16,7 +16,7 @@ import "./Mixins/MixinRedeem.sol";
   @notice Give away ETH, tokens, or NFTs with a simple redeem code.
   @dev https://github.com/hardlydifficult/ethgc
  */
-contract ethgc is
+contract Ethgc is
   ReentrancyGuard,
   MixinDev,
   MixinFees,
