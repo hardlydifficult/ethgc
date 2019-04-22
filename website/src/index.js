@@ -13,13 +13,14 @@ import VueSub from "vue-sub";
 import VueSweetalert2 from "vue-sweetalert2";
 
 Vue.use(VueSweetalert2);
+Vue.use(VueSub);
 const observable = new VueSub();
 
 Vue.component("vue-cookie-accept-decline", VueCookieAcceptDecline);
 
 const options = {
   namespace: "vuejs__", // key prefix
-  name: "_ls", // name variable Vue.[ls] or this.[$ls],
+  name: "ls", // name variable Vue.[ls] or this.[$ls],
   storage: "local" // storage name session, local, memory
 };
 
@@ -61,13 +62,13 @@ new Vue({
   observable
 }).$mount("#app");
 
-Vue.prototype.$ls = {
-  get: Vue._ls.get,
-  set: () => {
-    console.log("wtf");
-    console.log(Storage.getCookieStatus());
-  }
-};
+// Vue.prototype.$ls = {
+//   get: Vue.ls.get,
+//   set: () => {
+//     console.log("wtf");
+//     console.log(Storage.getCookieStatus());
+//   }
+// };
 
 function getWalletIfApproved() {
   Vue.prototype.walletConnected = false;
