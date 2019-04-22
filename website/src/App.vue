@@ -85,7 +85,7 @@ export default {
       'This is still Under Construction!',
       text:
       'There is no mainnet contract yet but it may work on testnet.',
-      footer: '<a href="https://github.com/hardlydifficult/ethgc">View on GitHub</a>'
+      footer:         "<a href='https://github.com/hardlydifficult/ethgc'>View on GitHub</a>"
     })
   }
 };
