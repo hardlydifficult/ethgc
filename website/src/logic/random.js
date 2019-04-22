@@ -1,5 +1,5 @@
 const characterSet =
-  "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789!@#$%&*?";
+  "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 
 export default class Random {
   getRandomCode(length, addHypens) {
