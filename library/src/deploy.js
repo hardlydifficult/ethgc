@@ -1,6 +1,7 @@
 const fs = require("fs");
 const HardlyWeb3 = require("./hardlyWeb3.js");
-const ETHGC_JSON = `${__dirname}/artifacts/ethgc.json`;
+const ETHGC_JSON = `${__dirname}/../artifacts/ethgc.json`;
+const Networks = require("./networks");
 
 // TODO move to env variable
 const privateKey =
@@ -9,16 +10,16 @@ const privateKey =
 module.exports.deploy = async (
   fromAccount = undefined,
   networkNodes = [
-    "https://ropsten.infura.io/v3/1830f67bb051457b8d891301de981bd2",
-    "https://kovan.infura.io/v3/1830f67bb051457b8d891301de981bd2",
-    "https://rinkeby.infura.io/v3/1830f67bb051457b8d891301de981bd2"
+    Networks.ropsten.provider,
+    Networks.kovan.provider,
+    Networks.rinkeby.provider
   ]
 ) => {
   try {
     const hardlyWeb3 = new HardlyWeb3(networkNodes[0]);
     const ethgc = JSON.parse(
       fs
-        .readFileSync(`${__dirname}/../contracts/build/contracts/ethgc.json`)
+        .readFileSync(`${__dirname}/../../contracts/build/contracts/ethgc.json`)
         .toString()
     );
     let json;
@@ -65,7 +66,7 @@ module.exports.deploy = async (
     }
 
     json = JSON.stringify(json, null, 2);
-    await fs.promises.mkdir(`${__dirname}/artifacts/`, { recursive: true });
+    await fs.promises.mkdir(`${__dirname}/../artifacts/`, { recursive: true });
     fs.writeFileSync(ETHGC_JSON, json);
   } catch (error) {
     throw new Error(`Deploy failed ${error}`);

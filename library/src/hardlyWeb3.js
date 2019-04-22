@@ -6,7 +6,7 @@ class HardlyWeb3 {
     if (!currentProvider) {
       throw new Error("Missing provider");
     } else if (typeof currentProvider === "string") {
-      currentProvider = new Web3.providers.HttpProvider(currentProvider);
+      currentProvider = new Web3.providers.WebsocketProvider(currentProvider);
     }
     this.web3 = new Web3(currentProvider);
     this.web3.defaultGasPrice = 4000000000;

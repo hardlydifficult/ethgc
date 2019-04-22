@@ -5,7 +5,7 @@ import App from "./App";
 import AsyncComputed from "vue-async-computed";
 import VTooltip from "v-tooltip";
 import Clipboard from "v-clipboard";
-import EthGc from "../../library/ethGc.js";
+import EthGc from "../../library/src/ethGc.js";
 import Toasted from "vue-toasted";
 import Storage from "vue-ls";
 import VueCookieAcceptDecline from "vue-cookie-accept-decline";

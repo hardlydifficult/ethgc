@@ -1,33 +1,22 @@
 const BigNumber = require("bignumber.js");
 const EthGcNetwork = require("./ethGcNetwork");
 const Web3 = require("web3");
+const Networks = require("./networks");
 
 class EthGc {
   constructor(currentProvider) {
     this.networks = [
       {
-        name: "ropsten",
-        ethGc: new EthGcNetwork(
-          new Web3.providers.WebsocketProvider(
-            "wss://ropsten.infura.io/ws/v3/1830f67bb051457b8d891301de981bd2"
-          )
-        )
+        ...Networks.ropsten,
+        ethGc: new EthGcNetwork(Networks.ropsten.provider)
       },
       {
-        name: "kovan",
-        ethGc: new EthGcNetwork(
-          new Web3.providers.WebsocketProvider(
-            "wss://kovan.infura.io/ws/v3/1830f67bb051457b8d891301de981bd2"
-          )
-        )
+        ...Networks.kovan,
+        ethGc: new EthGcNetwork(Networks.kovan.provider)
       },
       {
-        name: "rinkeby",
-        ethGc: new EthGcNetwork(
-          new Web3.providers.WebsocketProvider(
-            "wss://rinkeby.infura.io/ws/v3/1830f67bb051457b8d891301de981bd2"
-          )
-        )
+        ...Networks.rinkeby,
+        ethGc: new EthGcNetwork(Networks.rinkeby.provider)
       }
     ];
     if (currentProvider) {

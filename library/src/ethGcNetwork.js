@@ -10,7 +10,7 @@ class EthGcNetwork {
   async _init() {
     if (this.contract) return;
     const id = await this.hardlyWeb3.web3.eth.net.getId();
-    const file = require("./artifacts/ethgc.json");
+    const file = require("../artifacts/ethgc.json");
     this.contract = new this.hardlyWeb3.web3.eth.Contract(file.abi, file[id]);
   }
   // #endregion
