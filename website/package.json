@@ -52,6 +52,7 @@
     "vue-server-renderer": "2.6.10",
     "vue-style-loader": "4.1.2",
     "vue-sub": "1.1.1",
+    "vue-sweetalert2": "1.6.4",
     "vue-template-compiler": "2.6.10",
     "vue-toasted": "1.1.26",
     "webpack": "4.30.0",
