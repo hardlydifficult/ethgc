@@ -1,5 +1,5 @@
-const deploy = require("../../../library/deploy");
-const EthGc = require("../../../library/ethGcNetwork");
+const deploy = require("../../../library/src/deploy");
+const EthGc = require("../../../library/src/ethGcNetwork");
 
 module.exports = async function init(accounts) {
   await deploy.deploy(accounts[0], [web3.currentProvider]);

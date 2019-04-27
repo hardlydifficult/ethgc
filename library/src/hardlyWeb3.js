@@ -6,7 +6,7 @@ class HardlyWeb3 {
     if (!currentProvider) {
       throw new Error("Missing provider");
     } else if (typeof currentProvider === "string") {
-      currentProvider = new Web3.providers.HttpProvider(currentProvider);
+      currentProvider = new Web3.providers.WebsocketProvider(currentProvider);
     }
     this.web3 = new Web3(currentProvider);
     this.web3.defaultGasPrice = 4000000000;
@@ -52,7 +52,6 @@ class HardlyWeb3 {
         sendOptions.from = this.defaultAccount();
       }
 
-      console.log(sendOptions);
       if (fixedGas) {
         sendOptions.gas = fixedGas;
       } else {
@@ -61,7 +60,6 @@ class HardlyWeb3 {
         ).plus(3000); // I'm not sure why this helps, but createCard consistently fails without it
         await this.setMaxGasPrice(sendOptions);
       }
-      console.log(sendOptions);
 
       functionCall
         .send(sendOptions)

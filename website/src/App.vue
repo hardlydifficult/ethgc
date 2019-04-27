@@ -82,7 +82,7 @@ export default {
     this.$swal({
       type: "error",
       title: "This is still Under Construction!",
-      text: "There is no mainnet contract yet but it may work on testnet.",
+      text: "There is no mainnet contract yet but it might work on testnet.",
       footer:
         "<a href='https://github.com/hardlydifficult/ethgc'>View on GitHub</a>"
     });
