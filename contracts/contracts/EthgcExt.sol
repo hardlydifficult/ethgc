@@ -1,12 +1,14 @@
 pragma solidity ^0.5.6;
 
 import "./Ethgc.sol";
+import "./interfaces/ICard.sol";
 
 /**
   @title ethgc.com extensions (read-only helper functions)
   @author HardlyDifficult
  */
-contract EthgcExt
+contract EthgcExt is
+  ICard
 {
   Ethgc private _ethgc;
 
@@ -19,6 +21,71 @@ contract EthgcExt
     returns (Ethgc)
   {
     return _ethgc;
+  }
+
+  function getFees(
+    address payable[] calldata cardAddresses,
+    address[] calldata tokenAddresses,
+    uint[] calldata valueOrIds,
+    bool isNewCard
+  ) external view
+    returns (uint totalCreateFee, uint redemptionGas)
+  {
+    return (1,1);
+    if(isNewCard)
+    {
+      totalCreateFee = _ethgc.createFee() * cardAddresses.length;
+    }
+
+    bool isEntryPerCard = valueOrIds.length > tokenAddresses.length;
+
+    for(uint cardId = 0; cardId < cardAddresses.length; cardId++)
+    {
+      Card memory card = _getCard(cardAddresses[cardId]);
+      uint tokenOffset = valueOrIds.length > tokenAddresses.length
+        ? cardId * cardAddresses.length
+        : 0;
+
+      for(uint tokenId = 0; tokenId < tokenAddresses.length; tokenId++)
+      {
+        uint valueOrId = valueOrIds[tokenOffset + tokenId];
+        require(valueOrId != 0, "INVALID_CARD_VALUE");
+
+        // contribute: Discover existing token if applicable
+        uint tokenIndex = uint(-1);
+        if(isNewCard && (
+            tokenAddresses[tokenId] == address(0)
+            || !isNft(tokenAddresses[tokenId])
+            ))
+        {
+          uint existingTokenCount = card.tokens.length;
+          for(uint existingTokenId = 0; existingTokenId < existingTokenCount; existingTokenId++)
+          {
+            if(card.tokens[existingTokenId].tokenAddress == tokenAddresses[tokenId])
+            {
+              tokenIndex = existingTokenId;
+              break;
+            }
+          }
+        }
+
+        if(tokenIndex == uint(-1))
+        { // New token type for the card
+          if(tokenAddresses[tokenId] == address(0))
+          {
+            redemptionGas += _ethgc.gasForEth();
+          }
+          else if(isNft(tokenAddresses[tokenId]))
+          {
+            redemptionGas += _ethgc.gasForErc721();
+          }
+          else
+          {
+            redemptionGas += _ethgc.gasForErc20();
+          }
+        }
+      }
+    }
   }
 
   function getFirstCard(
@@ -40,5 +107,33 @@ contract EthgcExt
         break;
       }
     }
+  }
+
+  function isNft(
+    address token
+  ) public view
+    returns (bool)
+  {
+    // 0x80ac58cd is from eip-721
+    return IERC165(token).supportsInterface(0x80ac58cd);
+  }
+
+  function _getCard(
+    address cardAddress
+  ) private view
+    returns (Card memory)
+  {
+    (
+      address createdBy,
+      address[] memory tokenAddresses,
+      uint[] memory valueOrIds
+    ) = _ethgc.getCard(cardAddress);
+    uint length = tokenAddresses.length;
+    Token[] memory tokens = new Token[](length);
+    for(uint i = 0; i < length; i++)
+    {
+      tokens[i] = Token(tokenAddresses[i], valueOrIds[i]);
+    }
+    return Card(createdBy, tokens);
   }
 }
