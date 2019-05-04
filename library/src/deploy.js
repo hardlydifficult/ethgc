@@ -48,8 +48,7 @@ async function deployContract(
   artifactsJson.bytecodeHash = hardlyWeb3.web3.utils.keccak256(
     buildJson.deployedBytecode
   );
-  for (let i = 0; i < networkNodes.length; i++) {
-    const networkNode = networkNodes[i];
+  await Promise.all(networkNodes.forEach(networkNode => {
     const networkWeb3 = new HardlyWeb3(networkNode);
     if (txOptions.from) {
       networkWeb3.switchAccount(txOptions.from);
