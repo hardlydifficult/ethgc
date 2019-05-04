@@ -118,14 +118,12 @@ class EthGcNetwork {
   async getFees(cardAddresses, tokenAddresses, valueOrIds, isNewCard) {
     await this._init();
     this.parseInput(tokenAddresses, valueOrIds);
-    console.log(cardAddresses, tokenAddresses, valueOrIds, isNewCard);
     const {
       totalCreateFee,
       redemptionGas
     } = await this.extContract.methods
       .getFees(cardAddresses, tokenAddresses, valueOrIds, isNewCard)
       .call({ from: this.hardlyWeb3.defaultAccount() });
-    console.log("got here");
     return {
       totalCreateFee: new BigNumber(totalCreateFee),
       redemptionGas: new BigNumber(redemptionGas)
