@@ -57,7 +57,7 @@ class HardlyWeb3 {
       } else {
         sendOptions.gas = new BigNumber(
           await functionCall.estimateGas(sendOptions)
-        ).plus(3000); // I'm not sure why this helps, but createCard consistently fails without it
+        );
         await this.setMaxGasPrice(sendOptions);
       }
 
