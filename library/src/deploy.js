@@ -48,45 +48,49 @@ async function deployContract(
   artifactsJson.bytecodeHash = hardlyWeb3.web3.utils.keccak256(
     buildJson.deployedBytecode
   );
-  await Promise.all(networkNodes.forEach(async networkNode => {
-    const networkWeb3 = new HardlyWeb3(networkNode);
-    if (txOptions.from) {
-      networkWeb3.switchAccount(txOptions.from);
-    }
-    let networkBytecodeHash;
-    const networkId = await networkWeb3.web3.eth.net.getId();
-    try {
-      if (artifactsJson[networkId]) {
-        const networkBytecode = await networkWeb3.web3.eth.getCode(
-          artifactsJson[networkId]
-        );
-        networkBytecodeHash = networkWeb3.web3.utils.keccak256(networkBytecode);
+  await Promise.all(
+    networkNodes.forEach(async networkNode => {
+      const networkWeb3 = new HardlyWeb3(networkNode);
+      if (txOptions.from) {
+        networkWeb3.switchAccount(txOptions.from);
       }
-    } catch (error) {}
+      let networkBytecodeHash;
+      const networkId = await networkWeb3.web3.eth.net.getId();
+      try {
+        if (artifactsJson[networkId]) {
+          const networkBytecode = await networkWeb3.web3.eth.getCode(
+            artifactsJson[networkId]
+          );
+          networkBytecodeHash = networkWeb3.web3.utils.keccak256(
+            networkBytecode
+          );
+        }
+      } catch (error) {}
 
-    if (
-      artifactsJson.bytecodeHash === undefined ||
-      networkBytecodeHash !== artifactsJson.bytecodeHash
-    ) {
-      // Deploy to this network
-      const contract = new networkWeb3.web3.eth.Contract(buildJson.abi);
-      const tx = await networkWeb3.send(
-        contract.deploy({
-          data: buildJson.bytecode,
-          arguments: ethgcJson ? [ethgcJson[networkId]] : []
-        }),
-        0,
-        txOptions.from ? undefined : privateKey,
-        4200000
-      );
-      const receipt = await networkWeb3.getReceipt(tx);
-      artifactsJson[networkId] = receipt.contractAddress;
-    }
+      if (
+        artifactsJson.bytecodeHash === undefined ||
+        networkBytecodeHash !== artifactsJson.bytecodeHash
+      ) {
+        // Deploy to this network
+        const contract = new networkWeb3.web3.eth.Contract(buildJson.abi);
+        const tx = await networkWeb3.send(
+          contract.deploy({
+            data: buildJson.bytecode,
+            arguments: ethgcJson ? [ethgcJson[networkId]] : []
+          }),
+          0,
+          txOptions.from ? undefined : privateKey,
+          4200000
+        );
+        const receipt = await networkWeb3.getReceipt(tx);
+        artifactsJson[networkId] = receipt.contractAddress;
+      }
 
-    if (networkWeb3.web3.currentProvider.connection) {
-      networkWeb3.web3.currentProvider.connection.close();
-    }
-  }))
+      if (networkWeb3.web3.currentProvider.connection) {
+        networkWeb3.web3.currentProvider.connection.close();
+      }
+    })
+  );
   fs.mkdirSync(dirArtifacts, { recursive: true });
   fs.writeFileSync(fileArtifactsJson, JSON.stringify(artifactsJson, null, 2));
 
