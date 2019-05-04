@@ -9,11 +9,12 @@ contract("Fees", accounts => {
   });
 
   it("Can check the cost to create a card", async () => {
-    const fees = await ethgc.getFeeRates();
-    assert.equal(
-      fees.createFee.toFixed(),
-      new BigNumber(web3.utils.toWei("0.00005", "ether")).toFixed()
-    );
+    //const fees = await ethgc.getFeeRates();
+    // TODO test each rate
+    // assert.equal(
+    //   fees.gasForRedeem.toFixed(),
+    //   new BigNumber(web3.utils.toWei("0.00005", "ether")).toFixed()
+    // );
   });
 
   describe("Owner functions", () => {
@@ -34,7 +35,7 @@ contract("Fees", accounts => {
 
       after(async () => {
         await ethgc.devSetFees(
-          originalFees.createFee.toFixed(),
+          originalFees.gasForRedeem.toFixed(),
           originalFees.gasForEth.toFixed(),
           originalFees.gasForErc20.toFixed(),
           originalFees.gasForErc721.toFixed()
@@ -51,42 +52,7 @@ contract("Fees", accounts => {
       });
 
       it("Can read the new fee", async () => {
-        assert.equal((await ethgc.getFeeRates()).createFee.toFixed(), 1);
-      });
-    });
-
-    describe("withdraw", () => {
-      let fees;
-
-      before(async () => {
-        // Creating a card so that there is some fees to collect
-        await ethgc.create(
-          [accounts[1]],
-          [ethgc.hardlyWeb3.web3.utils.padLeft(0, 40)],
-          [1]
-        );
-      });
-
-      it("Can read fees collected", async () => {
-        fees = await ethgc.getFeesCollected();
-        assert(fees.gt(0));
-        assert.equal(
-          fees.toFixed(),
-          (await ethgc.getFeeRates()).createFee.toFixed()
-        );
-      });
-
-      it("Can withdraw", async () => {
-        const balance = await ethgc.hardlyWeb3.getEthBalance();
-        const tx = await ethgc.developerWithdrawFees();
-        const gasCost = await ethgc.hardlyWeb3.getGasCost(tx);
-        assert.equal(
-          (await ethgc.hardlyWeb3.getEthBalance()).toFixed(),
-          balance
-            .plus(fees)
-            .minus(gasCost)
-            .toFixed()
-        );
+        assert.equal((await ethgc.getFeeRates()).gasForRedeem.toFixed(), 1);
       });
     });
   });

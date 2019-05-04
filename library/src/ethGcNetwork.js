@@ -91,24 +91,27 @@ class EthGcNetwork {
 
   async getFeeRates() {
     await this._init();
-    const [createFee, gasForEth, gasForErc20, gasForErc721] = await Promise.all(
-      [
-        this.contract.methods
-          .createFee()
-          .call({ from: this.hardlyWeb3.defaultAccount() }),
-        this.contract.methods
-          .gasForEth()
-          .call({ from: this.hardlyWeb3.defaultAccount() }),
-        this.contract.methods
-          .gasForErc20()
-          .call({ from: this.hardlyWeb3.defaultAccount() }),
-        this.contract.methods
-          .gasForErc721()
-          .call({ from: this.hardlyWeb3.defaultAccount() })
-      ]
-    );
+    const [
+      gasForRedeem,
+      gasForEth,
+      gasForErc20,
+      gasForErc721
+    ] = await Promise.all([
+      this.contract.methods
+        .gasForRedeem()
+        .call({ from: this.hardlyWeb3.defaultAccount() }),
+      this.contract.methods
+        .gasForEth()
+        .call({ from: this.hardlyWeb3.defaultAccount() }),
+      this.contract.methods
+        .gasForErc20()
+        .call({ from: this.hardlyWeb3.defaultAccount() }),
+      this.contract.methods
+        .gasForErc721()
+        .call({ from: this.hardlyWeb3.defaultAccount() })
+    ]);
     return {
-      createFee: new BigNumber(createFee),
+      gasForRedeem: new BigNumber(gasForRedeem),
       gasForEth: new BigNumber(gasForEth),
       gasForErc20: new BigNumber(gasForErc20),
       gasForErc721: new BigNumber(gasForErc721)
@@ -210,11 +213,11 @@ class EthGcNetwork {
       .call({ from: this.hardlyWeb3.defaultAccount() });
   }
 
-  async devSetFees(createFee, gasForEth, gasForErc20, gasForErc721) {
+  async devSetFees(gasForRedeem, gasForEth, gasForErc20, gasForErc721) {
     await this._init();
     return this.hardlyWeb3.send(
       this.contract.methods.devSetFees(
-        createFee,
+        gasForRedeem,
         gasForEth,
         gasForErc20,
         gasForErc721
