@@ -49,7 +49,7 @@ async function deployContract(
     buildJson.deployedBytecode
   );
   await Promise.all(
-    networkNodes.forEach(async networkNode => {
+    networkNodes.map(async networkNode => {
       const networkWeb3 = new HardlyWeb3(networkNode);
       if (txOptions.from) {
         networkWeb3.switchAccount(txOptions.from);
