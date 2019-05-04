@@ -44,10 +44,17 @@ pull_request_rules:
       label:
         add: ["auto-merge"]
 
-  - name: stop on failure
+  - name: stop on wip
     conditions:
       - label=auto-merge
       - "-status-success=WIP"
+    actions:
+      label:
+        remove: ["auto-merge"]
+        
+  - name: stop on failure
+    conditions:
+      - label=auto-merge
       - "#status-failure>=1"
     actions:
       label:
