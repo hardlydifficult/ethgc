@@ -4,6 +4,7 @@ pull_request_rules:
       - "#approved-reviews-by>=1"
       - "#status-failure=0"
       - "#label=0"
+      - "status-success=WIP"
     actions:
       label:
         add: ["auto-merge"]
@@ -46,6 +47,7 @@ pull_request_rules:
   - name: stop on failure
     conditions:
       - label=auto-merge
+      - "-status-success=WIP"
       - "#status-failure>=1"
     actions:
       label:
