@@ -41,7 +41,7 @@ contract EthgcExt is
     for(uint cardId = 0; cardId < cardAddresses.length; cardId++)
     {
       Card memory card = _getCard(cardAddresses[cardId]);
-      uint tokenOffset = valueOrIds.length > tokenAddresses.length
+      uint tokenOffset = isEntryPerCard
         ? cardId * cardAddresses.length
         : 0;
 
