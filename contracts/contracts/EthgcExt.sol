@@ -29,11 +29,11 @@ contract EthgcExt is
     uint[] calldata valueOrIds,
     bool isNewCard
   ) external view
-    returns (uint totalCreateFee, uint redemptionGas)
+    returns (uint redemptionGas)
   {
     if(isNewCard)
     {
-      totalCreateFee = _ethgc.createFee() * cardAddresses.length;
+      redemptionGas = _ethgc.gasForRedeem() * tokenAddresses.length;
     }
 
     bool isEntryPerCard = valueOrIds.length > tokenAddresses.length;

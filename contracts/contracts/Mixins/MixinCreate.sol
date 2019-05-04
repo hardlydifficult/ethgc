@@ -130,8 +130,7 @@ contract MixinCreate is
     if(isNewCard)
     {
       // Create fee
-      ethRequired = createFee * cardAddresses.length;
-      feesCollected += ethRequired;
+      ethRequired = gasForRedeem * cardAddresses.length;
     }
 
     bool isEntryPerCard = valueOrIds.length > tokenAddresses.length;

@@ -7,9 +7,9 @@ contract MixinFees is
   MixinDev
 {
   /**
-    A small fee for the developer, charged in ETH when a card is created.
+    The base gas fee to redeem a card.
    */
-  uint public createFee;
+  uint public gasForRedeem;
 
   /**
     The amount of ETH to reserve to pay gas fees on redeem for a card which includes
@@ -30,31 +30,19 @@ contract MixinFees is
   uint public gasForErc721;
 
   /**
-    A sum of the fees collected for the devolper since the last withdrawal.
-   */
-  uint public feesCollected;
-
-  /**
     This is about being transparent regarding any changes.
    */
   event SetFees(
-    uint createFee,
+    uint gasForRedeem,
     uint gasForEth,
     uint gasForErc20,
     uint gasForErc721
   );
 
-  /**
-    This is to be transparent regarding the profit made.
-   */
-  event DeveloperWithdraw(
-    uint amount
-  );
-
   constructor() internal
   {
     devSetFees({
-      newCreateFee:    0.00005 ether,
+      newGasForRedeem: 10000 * 1e9, // TODO measure these
       newGasForEth:    78500 * 1e9, // all inclusive
       newGasForErc20:  52000 * 1e9,
       newGasForErc721: 140000 * 1e9
@@ -64,38 +52,23 @@ contract MixinFees is
   /**
     May only be called by the developer.
 
-    Allow the developer to collect the fees from creating cards.
-   */
-  function developerWithdrawFees(
-  ) external
-    onlyDev
-  {
-    uint amount = feesCollected;
-    feesCollected = 0; // This protects against re-entrancy
-    emit DeveloperWithdraw(amount);
-    msg.sender.transfer(amount);
-  }
-
-  /**
-    May only be called by the developer.
-
     Allow the developer to change the cost per gift card.
    */
   function devSetFees(
-    uint newCreateFee,
+    uint newGasForRedeem,
     uint newGasForEth,
     uint newGasForErc20,
     uint newGasForErc721
   ) public
     onlyDev
   {
-    createFee = newCreateFee;
+    gasForRedeem = newGasForRedeem;
     gasForEth = newGasForEth;
     gasForErc20 = newGasForErc20;
     gasForErc721 = newGasForErc721;
 
     emit SetFees(
-      newCreateFee,
+      newGasForRedeem,
       newGasForEth,
       newGasForErc20,
       newGasForErc721
