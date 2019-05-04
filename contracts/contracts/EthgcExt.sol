@@ -31,7 +31,6 @@ contract EthgcExt is
   ) external view
     returns (uint totalCreateFee, uint redemptionGas)
   {
-    return (1,1);
     if(isNewCard)
     {
       totalCreateFee = _ethgc.createFee() * cardAddresses.length;
