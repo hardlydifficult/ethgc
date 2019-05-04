@@ -17,7 +17,7 @@ jobs:
 
       - restore_cache:
           keys:
-            - v5-{{ checksum "package.json" }}
+            - v6-{{ checksum "package.json" }}
 
       - run: npm i --production --ignore-scripts
 
@@ -30,7 +30,7 @@ jobs:
           paths:
             - node_modules
             - package-lock.json
-          key: v5-{{ checksum "package.json" }}
+          key: v6-{{ checksum "package.json" }}
 
   buildContracts:
     docker:
@@ -42,26 +42,26 @@ jobs:
 
       - restore_cache:
           keys:
-            - v5-{{ checksum "contracts/package.json" }}
+            - v6-{{ checksum "contracts/package.json" }}
       - run: cd contracts && npm i --production
       - save_cache:
           paths:
             - contracts/node_modules
             - contracts/package-lock.json
-          key: v5-{{ checksum "contracts/package.json" }}
+          key: v6-{{ checksum "contracts/package.json" }}
 
       - run: cd contracts && npm run compile
 
       # build library
       - restore_cache:
           keys:
-            - v5-{{ checksum "library/package.json" }}
+            - v6-{{ checksum "library/package.json" }}
       - run: cd library && npm i --production
       - save_cache:
           paths:
             - library/node_modules
             - library/package-lock.json
-          key: v5-{{ checksum "library/package.json" }}
+          key: v6-{{ checksum "library/package.json" }}
 
       - run: cd library && npm run deploy
 
@@ -81,10 +81,10 @@ jobs:
 
       - restore_cache:
           keys:
-            - v5-{{ checksum "library/package.json" }}
+            - v6-{{ checksum "library/package.json" }}
       - restore_cache:
           keys:
-            - v5-{{ checksum "contracts/package.json" }}
+            - v6-{{ checksum "contracts/package.json" }}
 
       - run: cd contracts && npm run test
 
@@ -98,16 +98,16 @@ jobs:
 
       - restore_cache:
           keys:
-            - v5-{{ checksum "library/package.json" }}
+            - v6-{{ checksum "library/package.json" }}
       - restore_cache:
           keys:
-            - v5-{{ checksum "website/package.json" }}
+            - v6-{{ checksum "website/package.json" }}
       - run: cd website && npm i --production
       - save_cache:
           paths:
             - website/node_modules
             - website/package-lock.json
-          key: v5-{{ checksum "website/package.json" }}
+          key: v6-{{ checksum "website/package.json" }}
 
       - run: cd website && npm run build
 
@@ -127,13 +127,13 @@ jobs:
 
       - restore_cache:
           keys:
-            - v5-{{ checksum "docs/package.json" }}
+            - v6-{{ checksum "docs/package.json" }}
       - run: cd docs && npm i --production
       - save_cache:
           paths:
             - node_modules
             - package-lock.json
-          key: v5-{{ checksum "docs/package.json" }}
+          key: v6-{{ checksum "docs/package.json" }}
 
       - run: cd docs && npm run build
 
