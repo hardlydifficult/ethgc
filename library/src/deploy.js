@@ -86,7 +86,7 @@ async function deployContract(
     if (networkWeb3.web3.currentProvider.connection) {
       networkWeb3.web3.currentProvider.connection.close();
     }
-  }
+  }))
   fs.mkdirSync(dirArtifacts, { recursive: true });
   fs.writeFileSync(fileArtifactsJson, JSON.stringify(artifactsJson, null, 2));
 
