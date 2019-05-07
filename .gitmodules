@@ -1,0 +1,4 @@
+[submodule "SolidityContracts"]
+	path = SolidityContracts
+	url = https://github.com/hardlydifficult/soliditycontracts.git
+	branch = master
