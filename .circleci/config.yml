@@ -7,7 +7,7 @@ jobs:
     steps:
       - checkout
       - run: git submodule sync
-      - run: git submodule update --init
+      - run: git submodule update --init --recursive
 
       # save checkout
       - persist_to_workspace:
@@ -42,13 +42,6 @@ jobs:
             - SolidityContracts/library/node_modules
             - SolidityContracts/library/package-lock.json
           key: v5-{{ checksum "SolidityContracts/library/package.json" }}
-
-      - run: cd SolidityContracts/library && npm run deploy
-
-      - persist_to_workspace:
-          root: '..'
-          paths:
-            - repo/SolidityContracts/artifacts
 
   buildWebsite:
     docker:
@@ -85,7 +78,6 @@ jobs:
     steps:
       - attach_workspace:
           at: '..'
-
 
       - restore_cache:
           keys:
