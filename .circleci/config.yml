@@ -55,21 +55,20 @@ jobs:
       # build library
       - restore_cache:
           keys:
-            - v5-{{ checksum "library/package.json" }}
-      - run: cd library && npm i --production
+            - v5-{{ checksum "SolidityContracts/library/package.json" }}
+      - run: cd SolidityContracts/library && npm i --production
       - save_cache:
           paths:
-            - library/node_modules
-            - library/package-lock.json
-          key: v5-{{ checksum "library/package.json" }}
+            - SolidityContracts/library/node_modules
+            - SolidityContracts/library/package-lock.json
+          key: v5-{{ checksum "SolidityContracts/library/package.json" }}
 
-      - run: cd library && npm run deploy
+      - run: cd SolidityContracts/library && npm run deploy
 
       - persist_to_workspace:
           root: '..'
           paths:
-            - repo/contracts/build
-            - repo/library/artifacts
+            - repo/SolidityContracts/artifacts
 
   testContracts:
     docker:
