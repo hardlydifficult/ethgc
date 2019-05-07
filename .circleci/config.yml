@@ -60,7 +60,7 @@ jobs:
 
       - restore_cache:
           keys:
-            - v5-{{ checksum "library/package.json" }}
+            - v5-{{ checksum "SolidityContracts/library/package.json" }}
       - restore_cache:
           keys:
             - v5-{{ checksum "website/package.json" }}
