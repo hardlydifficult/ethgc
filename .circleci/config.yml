@@ -32,26 +32,6 @@ jobs:
             - package-lock.json
           key: v5-{{ checksum "package.json" }}
 
-  buildContracts:
-    docker:
-      - image: circleci/node:10
-    working_directory: ~/repo
-    steps:
-      - attach_workspace:
-          at: '..'
-
-      - restore_cache:
-          keys:
-            - v5-{{ checksum "contracts/package.json" }}
-      - run: cd contracts && npm i --production
-      - save_cache:
-          paths:
-            - contracts/node_modules
-            - contracts/package-lock.json
-          key: v5-{{ checksum "contracts/package.json" }}
-
-      - run: cd contracts && npm run compile
-
       # build library
       - restore_cache:
           keys:
@@ -69,23 +49,6 @@ jobs:
           root: '..'
           paths:
             - repo/SolidityContracts/artifacts
-
-  testContracts:
-    docker:
-      - image: circleci/node:10
-    working_directory: ~/repo
-    steps:
-      - attach_workspace:
-          at: '..'
-
-      - restore_cache:
-          keys:
-            - v5-{{ checksum "library/package.json" }}
-      - restore_cache:
-          keys:
-            - v5-{{ checksum "contracts/package.json" }}
-
-      - run: cd contracts && npm run test
 
   buildWebsite:
     docker:
@@ -163,20 +126,12 @@ workflows:
               ignore:
                 - gh-pages
                 - artifacts
-      - buildContracts:
-          requires:
-            - init
       - buildDocs:
           requires:
             - init
-      - testContracts:
-          requires:
-            - init
-            - buildContracts
       - buildWebsite:
           requires:
             - init
-            - buildContracts
       - push:
           filters:
             branches:
@@ -184,6 +139,5 @@ workflows:
                 - master
           requires:
             - init
-            - testContracts
             - buildWebsite
             - buildDocs
