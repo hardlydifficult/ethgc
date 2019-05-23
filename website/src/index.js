@@ -79,8 +79,12 @@ function getWalletIfApproved() {
     if (window.ethereum && window.ethereum._metamask) {
       return window.ethereum._metamask.isApproved().then(approved => {
         if (approved) {
-          return window.ethereum.enable().then(() => {
-            connectWallet();
+          return window.ethereum._metamask.isUnlocked().then(unlocked => {
+            if (unlocked) {
+              return window.ethereum.enable().then(() => {
+                connectWallet();
+              });
+            }
           });
         }
       });
