@@ -5,7 +5,7 @@ import App from "./App";
 import AsyncComputed from "vue-async-computed";
 import VTooltip from "v-tooltip";
 import Clipboard from "v-clipboard";
-import EthGc from "../../SolidityContracts/library/src/ethgc/ethGc.js";
+//import EthGc from "../../SolidityContracts/library/src/ethgc/ethGc.js";
 import Toasted from "vue-toasted";
 import Storage from "vue-ls";
 import VueCookieAcceptDecline from "vue-cookie-accept-decline";
@@ -73,7 +73,7 @@ new Vue({
 function getWalletIfApproved() {
   Vue.prototype.walletConnected = false;
   const provider = window.web3 ? window.web3.currentProvider : undefined;
-  Vue.prototype.ethGc = new EthGc(provider);
+  //Vue.prototype.ethGc = new EthGc(provider);
 
   if (provider) {
     if (window.ethereum && window.ethereum._metamask) {

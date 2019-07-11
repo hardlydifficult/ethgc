@@ -20,7 +20,7 @@
     "eslint": "eslint --fix . --ext .js,.vue,.ts,.json",
     "npmLint": "npmPkgJsonLint . --fix",
     "lint": "npm run eslint && npm run npmLint",
-    "postinstall": "cd ./docs && npm i && cd ../SolidityContracts/library && npm i && cd ../../website && npm i"
+    "postinstall": "cd ./docs && npm i && cd ../website && npm i"
   },
   "dependencies": {
     "babel-eslint": "10.0.1",

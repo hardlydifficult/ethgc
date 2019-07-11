@@ -33,15 +33,15 @@ jobs:
           key: v6-{{ checksum "package.json" }}
 
       # build library
-      - restore_cache:
-          keys:
-            - v6-{{ checksum "SolidityContracts/library/package.json" }}
-      - run: cd SolidityContracts/library && npm i --production
-      - save_cache:
-          paths:
-            - SolidityContracts/library/node_modules
-            - SolidityContracts/library/package-lock.json
-          key: v6-{{ checksum "SolidityContracts/library/package.json" }}
+      # - restore_cache:
+      #     keys:
+      #       - v6-{{ checksum "SolidityContracts/library/package.json" }}
+      # - run: cd SolidityContracts/library && npm i --production
+      # - save_cache:
+      #     paths:
+      #       - SolidityContracts/library/node_modules
+      #       - SolidityContracts/library/package-lock.json
+      #     key: v6-{{ checksum "SolidityContracts/library/package.json" }}
 
   buildWebsite:
     docker:
@@ -51,9 +51,9 @@ jobs:
       - attach_workspace:
           at: '..'
 
-      - restore_cache:
-          keys:
-            - v6-{{ checksum "SolidityContracts/library/package.json" }}
+      # - restore_cache:
+      #     keys:
+      #       - v6-{{ checksum "SolidityContracts/library/package.json" }}
       - restore_cache:
           keys:
             - v6-{{ checksum "website/package.json" }}

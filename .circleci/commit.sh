@@ -19,8 +19,10 @@ if ! git diff-index --quiet HEAD --; then
   git push --force --quiet origin $CIRCLE_BRANCH > /dev/null 2>&1
 fi
 
-cd ~/repo/SolidityContracts
-git pull --rebase --progress "origin" +refs/heads/master
+# Submodule update
+# cd ~/repo/SolidityContracts
+# git pull --rebase --progress "origin" +refs/heads/master
+
 cd ~/repo
 
 if ! git diff-index --quiet HEAD --; then
