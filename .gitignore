@@ -64,3 +64,4 @@ typings/
 *package-lock.json
 
 /docs/docs/.vuepress/dist/
+.directory
