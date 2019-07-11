@@ -23,7 +23,7 @@
     "bignumber.js": "9.0.0",
     "bootstrap": "4.3.1",
     "copy-webpack-plugin": "5.0.3",
-    "css-loader": "2.1.1",
+    "css-loader": "3.0.0",
     "file-loader": "4.0.0",
     "html-webpack-plugin": "3.2.0",
     "jest": "24.8.0",
@@ -56,7 +56,7 @@
     "vue-template-compiler": "2.6.10",
     "vue-toasted": "1.1.27",
     "webpack": "4.35.3",
-    "webpack-cli": "3.3.2",
+    "webpack-cli": "3.3.5",
     "webpack-dev-server": "3.7.2",
     "webpack-merge": "4.2.1"
   }
