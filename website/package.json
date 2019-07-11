@@ -57,7 +57,7 @@
     "vue-toasted": "1.1.27",
     "webpack": "4.32.2",
     "webpack-cli": "3.3.2",
-    "webpack-dev-server": "3.5.0",
+    "webpack-dev-server": "3.7.2",
     "webpack-merge": "4.2.1"
   }
 }
