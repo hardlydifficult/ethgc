@@ -29,7 +29,6 @@
     "eslint-config-postcss": "3.0.7",
     "eslint-config-prettier": "4.3.0",
     "eslint-config-standard": "12.0.0",
-    "eslint-traverser": "1.5.2",
     "eslint-plugin-es5": "1.4.1",
     "eslint-plugin-html": "6.0.0",
     "eslint-plugin-import": "2.17.3",
@@ -43,6 +42,7 @@
     "eslint-plugin-security": "1.4.0",
     "eslint-plugin-standard": "4.0.0",
     "eslint-plugin-vue": "5.2.3",
+    "eslint-traverser": "1.5.2",
     "npm-package-json-lint": "3.6.1",
     "npm-package-json-lint-config-default": "2.0.0",
     "prettier": "1.17.0"
