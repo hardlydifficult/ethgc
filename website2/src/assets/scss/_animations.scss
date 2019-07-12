@@ -1,0 +1,13 @@
+.fade-enter-active {
+  animation-name: fadeInUp;
+  animation-duration: 200ms;
+  animation-fill-mode: both;
+
+}
+
+.fade-leave-active {
+  animation-name: fadeOutDown;
+  position: absolute;
+  animation-duration: 200ms;
+  animation-fill-mode: both;
+}

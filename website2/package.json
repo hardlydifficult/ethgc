@@ -1,5 +1,5 @@
 {
-  "name": "website2",
+  "name": "ethgc",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -12,6 +12,7 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "animate.css": "^3.7.2",
     "core-js": "^2.6.5",
     "register-service-worker": "^1.6.2",
     "tailwindcss": "^1.0.5",

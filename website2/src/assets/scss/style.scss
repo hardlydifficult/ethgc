@@ -1,0 +1,14 @@
+@import './_variables';
+@import './_fonts';
+@import './animations';
+@import './_tailwind';
+
+
+
+body,
+html {
+  min-height: 100%;
+  position: relative;
+  background-color: $color--primary;
+  color: darken(#fff, 1);
+}
