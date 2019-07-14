@@ -51,6 +51,9 @@ jobs:
       - attach_workspace:
           at: '..'
 
+      - restore_cache:
+          keys:
+            - v7-{{ checksum "package.json" }}
       # - restore_cache:
       #     keys:
       #       - v7-{{ checksum "SolidityContracts/library/package.json" }}
