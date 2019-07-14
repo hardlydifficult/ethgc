@@ -57,7 +57,7 @@ jobs:
       - restore_cache:
           keys:
             - v7-{{ checksum "website/package.json" }}
-      - run: cd website && npm i --production
+      - run: cd website && npm i
       - save_cache:
           paths:
             - website/node_modules
