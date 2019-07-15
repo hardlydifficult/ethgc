@@ -4,8 +4,6 @@ import router from './router'
 import store from './store'
 import './registerServiceWorker'
 
-import 'animate.css'
-
 Vue.config.productionTip = false
 
 new Vue({

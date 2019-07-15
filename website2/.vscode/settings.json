@@ -1,0 +1,123 @@
+{
+  "svg.preview.background": "black",
+
+  // Eslint
+  "eslint.autoFixOnSave": true,
+  "eslint.enable": true,
+  "eslint.options": {
+    "config": ".eslintrc.js"
+  },
+  "eslint.validate": [
+    {
+      "autoFix": true,
+      "language": "javascript"
+    },
+    "javascriptreact",
+    {
+      "autoFix": true,
+      "language": "vue"
+    }
+  ],
+
+  // NPM Intellisense
+  "npm-intellisense.importDeclarationType": "const",
+  "npm-intellisense.importES6": true,
+  "npm-intellisense.importLinebreak": "\r\n",
+  "npm-intellisense.importQuotes": "'",
+  "npm.enableScriptExplorer": true,
+  "path-intellisense.mappings": {
+    "/": "${workspaceRoot}",
+    "@": "${workspaceRoot}/src"
+  },
+  "path-intellisense.showHiddenFiles": true,
+
+  // Prettier
+  "prettier.disableLanguages": ["vue"],
+  "prettier.eslintIntegration": true,
+  "prettier.printWidth": 80,
+  "prettier.semi": false,
+  "prettier.singleQuote": true,
+  "prettier.stylelintIntegration": false,
+  "vetur.format.defaultFormatter.js": "prettier-eslint",
+  "vetur.format.defaultFormatter.html": "prettyhtml",
+  "vetur.format.defaultFormatter.scss": "prettier",
+  "vetur.format.defaultFormatterOptions": {
+    "js-beautify-html": {
+      "wrap_attributes": "force-aligned",
+      "wrap_line_length": 100
+    },
+    "prettier": {
+      "eslintIntegration": true,
+      "semi": false,
+      "singleQuote": true,
+      "stylelintIntegration": false
+    },
+    "prettyhtml": {
+      "sortAttributes": true,
+      "wrapAttributes": true
+    }
+  },
+
+  // Comment Coloring
+  "better-comments.tags": [
+    {
+      "tag": "!",
+      "color": "#FF2D00",
+      "strikethrough": false,
+      "backgroundColor": "transparent"
+    },
+    {
+      "tag": "?",
+      "color": "#3498DB",
+      "strikethrough": false,
+      "backgroundColor": "transparent"
+    },
+    {
+      "tag": "//",
+      "color": "#474747",
+      "strikethrough": true,
+      "backgroundColor": "transparent"
+    },
+    {
+      "tag": "todo",
+      "color": "#FF8C00",
+      "strikethrough": false,
+      "backgroundColor": "transparent"
+    },
+    {
+      "tag": "*",
+      "color": "#98C379",
+      "strikethrough": false,
+      "backgroundColor": "transparent"
+    },
+    {
+      "tag": "^",
+      "color": "#F52EE4",
+      "strikethrough": false,
+      "backgroundColor": "transparent"
+    },
+    {
+      "tag": "$",
+      "color": "#C176Ef",
+      "strikethrough": false,
+      "backgroundColor": "transparent"
+    },
+    {
+      "tag": "~",
+      "color": "#54beff",
+      "strikethrough": false,
+      "backgroundColor": "transparent"
+    }
+  ],
+  
+  // Additional Options
+  "bookmarks.useWorkaroundForFormatters": true,
+  "scss.validate": false,
+  "tslint.enable": false,
+  "tslint.jsEnable": false,
+  "vetur.experimental.templateInterpolationService": true,
+  "breadcrumbs.enabled": true,
+  "javascript.referencesCodeLens.enabled": true,
+  "typescript.implementationsCodeLens.enabled": true,
+  
+}
