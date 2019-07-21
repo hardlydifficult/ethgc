@@ -5,8 +5,6 @@
     "require-name": "error",
     "require-license": "error",
     "require-version": "off",
-    "prefer-absolute-version-dependencies": "error",
-    "prefer-absolute-version-devDependencies": "error",
     "prefer-alphabetical-peerDependencies": "error",
     "prefer-alphabetical-optionalDependencies": "error",
     "prefer-alphabetical-bundledDependencies": "error",
