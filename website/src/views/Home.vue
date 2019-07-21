@@ -1,5 +1,5 @@
 <template>
-  <div class="home p-4 w-screen">
+  <div class="home p-4 w-full">
     <!-- Redeem Card -->
     <card class="rounded-lg w-full"
           icon="gift">
@@ -16,25 +16,27 @@
       </button>
     </card>
 
+    <!-- Navigation -->
+    <main-nav />
+
     <!-- Results -->
     <transition name="fade"
                 mode="out-in">
-      <div v-show="code"
-           key="content"
-           class="results">
-        Hello
-      </div>
+      <router-view :key="$route.fullPath"
+                   class="relative" />
     </transition>
   </div>
 </template>
 
 <script>
 import CardVue from '../components/containers/Card.vue'
+import MainNavVue from '../components/MainNav.vue'
 
 export default {
   name:       'Home',
   components: {
-    Card: CardVue
+    Card:    CardVue,
+    MainNav: MainNavVue
   },
   data: () => ({
     code: 'hey dude'

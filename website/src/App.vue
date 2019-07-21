@@ -2,7 +2,7 @@
   <div id="app">
     <transition mode="out-in"
                 name="fade">
-      <router-view :key="$route.fullPath" />
+      <router-view />
     </transition>
   </div>
 </template>

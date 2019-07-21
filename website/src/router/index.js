@@ -14,7 +14,22 @@ export default new Router({
         {
           path:      'default',
           alias:     '/',
-          component: () => import('@/views/Home.vue')
+          component: () => import('@/views/Home.vue'),
+          children:  [
+            {
+              path:      'credit-card',
+              alias:     '/',
+              component: () => import('@/views/Create.vue')
+            },
+            {
+              path:      'manage',
+              component: () => import('@/views/Manage.vue')
+            },
+            {
+              path:      'learn',
+              component: () => import('@/views/Learn.vue')
+            }
+          ]
         },
         {
           path:      'about',

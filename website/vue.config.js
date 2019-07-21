@@ -23,6 +23,7 @@ module.exports = {
 
 
   configureWebpack: config => {
+
     /**
      * Copy datasets directory into build
      */
@@ -36,7 +37,6 @@ module.exports = {
         }
       ])
     )
-
     if(process.env.NODE_ENV === 'production') {
 
       const CompressionPlugin = require('compression-webpack-plugin')
