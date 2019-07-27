@@ -34,7 +34,6 @@ jobs:
       - attach_workspace:
           at: '..'
 
-      - run: cd contracts && npm i
       - run: cd contracts && npm run test
 
   buildWebsite:
@@ -45,7 +44,6 @@ jobs:
       - attach_workspace:
           at: '..'
 
-      - run: cd website && npm i
       - run: cd website && npm run build
 
       - persist_to_workspace:
@@ -61,7 +59,6 @@ jobs:
       - attach_workspace:
           at: '..'
 
-      - run: cd docs && npm i --production
       - run: cd docs && npm run build
 
       - persist_to_workspace:
