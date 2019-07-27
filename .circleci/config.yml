@@ -26,7 +26,7 @@ jobs:
       - attach_workspace:
           at: '..'
 
-      - run: cd contracts && npm i --ignore-scripts # --production causes issues with the gas reporter
+      - run: cd contracts && npm i # --production causes issues with the gas reporter
       - run: cd contracts && npm run compile
       - run: cd contracts && npm run test
 
@@ -44,7 +44,7 @@ jobs:
       - attach_workspace:
           at: '..'
 
-      - run: cd website && npm i --ignore-scripts # --production breaks the build
+      - run: cd website && npm i # --production breaks the build
       - run: cd website && npm run build
 
       - persist_to_workspace:
@@ -61,7 +61,7 @@ jobs:
       - attach_workspace:
           at: '..'
 
-      - run: cd docs && npm i --production --ignore-scripts
+      - run: cd docs && npm i --production
       - run: cd docs && npm run build
 
       - persist_to_workspace:
