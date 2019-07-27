@@ -51,6 +51,7 @@ typings/
 
 .directory
 
-*/dist/*
+*/dist
+docs/docs/.vuepress/dist
 
 */.vscode/settings.json
