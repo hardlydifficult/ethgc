@@ -18,18 +18,3 @@ if ! git diff-index --quiet HEAD --; then
   # and push, but send any output to /dev/null to hide anything sensitive
   git push --force --quiet origin $CIRCLE_BRANCH > /dev/null 2>&1
 fi
-
-# Submodule update
-# cd ~/repo/SolidityContracts
-# git pull --rebase --progress "origin" +refs/heads/master
-
-cd ~/repo
-
-if ! git diff-index --quiet HEAD --; then
-  # stage any changes and new files
-  git add -A
-  # now commit
-  git commit -m "artifacts-update"
-  # and push, but send any output to /dev/null to hide anything sensitive
-  git push --force --quiet origin $CIRCLE_BRANCH > /dev/null 2>&1
-fi
