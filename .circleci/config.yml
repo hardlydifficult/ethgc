@@ -17,6 +17,7 @@ jobs:
           root: '..'
           paths:
             - repo
+            - .ssh
 
   testContracts:
     docker:
