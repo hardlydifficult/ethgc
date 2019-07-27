@@ -9,10 +9,10 @@ remote=$(git config remote.origin.url)
 # now lets setup a new repo so we can update the branch
 git config --global user.email "$GH_EMAIL" > /dev/null 2>&1
 git config --global user.name "$GH_NAME" > /dev/null 2>&1
- 
+
+# stage any changes and new files
+git add -A
 if ! git diff-index --quiet origin/$CIRCLE_BRANCH --; then
-  # stage any changes and new files
-  git add -A
   # now commit
   git commit -m "auto-lint"
   # and push
