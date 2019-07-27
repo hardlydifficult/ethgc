@@ -74,6 +74,8 @@ jobs:
       - attach_workspace:
           at: '..'
 
+      - run: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+
       # Push website
       - run: bash .circleci/deploy-ghpages.sh
             
