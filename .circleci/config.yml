@@ -11,11 +11,6 @@ jobs:
 
       - run: npm i --production --ignore-scripts
 
-      # lint and commit any changes, which may restart the build
-      - run: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
-      - run: npm run lint # includes --fix
-      - run: bash .circleci/commit.sh
-
       # save checkout & build
       - persist_to_workspace:
           root: '..'
@@ -38,6 +33,7 @@ jobs:
           root: '..'
           paths:
             - repo/contracts/build
+            - repo/contracts/node_modules
 
   buildWebsite:
     docker:
@@ -56,6 +52,7 @@ jobs:
           paths:
             - repo/library/node_modules
             - repo/website/dist
+            - repo/website/node_modules
 
   buildDocs:
     docker:
@@ -72,6 +69,20 @@ jobs:
           root: '..'
           paths:
             - repo/docs/docs/.vuepress/dist
+            - repo/docs/node_modules
+
+  lint:
+    docker:
+      - image: circleci/node:10
+    working_directory: ~/repo
+    steps:
+      - attach_workspace:
+          at: '..'
+
+      # lint and commit any changes, which may restart the build
+      - run: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+      - run: npm run lint # includes --fix
+      - run: bash .circleci/commit.sh
 
   push:
     docker:
@@ -110,12 +121,15 @@ workflows:
       - buildWebsite:
           requires:
             - init
+      - lint:
+          requires:
+            - testContracts
+            - buildWebsite
+            - buildDocs
       - push:
           filters:
             branches:
               only:
                 - master
           requires:
-            - testContracts
-            - buildWebsite
-            - buildDocs
+            - lint
