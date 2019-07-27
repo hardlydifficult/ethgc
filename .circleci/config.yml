@@ -10,6 +10,7 @@ jobs:
       - run: git submodule update --init --recursive
 
       - run: npm i --production --ignore-scripts
+      - run: cd library && npm i --production --ignore-scripts
 
       # save checkout & build
       - persist_to_workspace:
@@ -43,14 +44,12 @@ jobs:
       - attach_workspace:
           at: '..'
 
-      - run: cd library && npm i --production --ignore-scripts
       - run: cd website && npm i --production --ignore-scripts
       - run: cd website && npm run build
 
       - persist_to_workspace:
           root: '..'
           paths:
-            - repo/library/node_modules
             - repo/website/dist
             - repo/website/node_modules
 
