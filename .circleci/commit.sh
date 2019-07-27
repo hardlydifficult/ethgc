@@ -10,12 +10,11 @@ remote=$(git config remote.origin.url)
 git config --global user.email "$GH_EMAIL" > /dev/null 2>&1
 git config --global user.name "$GH_NAME" > /dev/null 2>&1
  
-
 if ! git diff-index --quiet origin/$CIRCLE_BRANCH --; then
   # stage any changes and new files
   git add -A
   # now commit
   git commit -m "auto-lint"
-  # and push, but send any output to /dev/null to hide anything sensitive
-  git push --force --quiet origin $CIRCLE_BRANCH > /dev/null 2>&1
+  # and push
+  git push --set-upstream origin $CIRCLE_BRANCH 
 fi
