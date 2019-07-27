@@ -9,7 +9,8 @@ jobs:
       - run: git submodule sync
       - run: git submodule update --init --recursive
 
-      - run: npm i --production
+      # installs everything for the monorepo
+      - run: npm i
 
       # lint and commit any changes, which may restart the build
       - run: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
@@ -17,10 +18,7 @@ jobs:
       - run: bash .circleci/commit.sh
 
       # build contracts
-      - run: cd contracts && npm i --production && npm run compile
-
-      # build library
-      - run: cd library && npm i --production
+      - run: cd contracts && npm run compile
 
       # save checkout & build
       - persist_to_workspace:
