@@ -9,16 +9,12 @@ jobs:
       - run: git submodule sync
       - run: git submodule update --init --recursive
 
-      # installs everything for the monorepo
-      - run: npm i
+      - run: npm i --production --ignore-scripts
 
       # lint and commit any changes, which may restart the build
       - run: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
       - run: npm run lint # includes --fix
       - run: bash .circleci/commit.sh
-
-      # build contracts
-      - run: cd contracts && npm run compile
 
       # save checkout & build
       - persist_to_workspace:
@@ -34,7 +30,14 @@ jobs:
       - attach_workspace:
           at: '..'
 
+      - run: cd contracts && npm i --production --ignore-scripts
+      - run: cd contracts && npm run compile
       - run: cd contracts && npm run test
+
+      - persist_to_workspace:
+          root: '..'
+          paths:
+            - repo/contracts/build
 
   buildWebsite:
     docker:
@@ -44,11 +47,14 @@ jobs:
       - attach_workspace:
           at: '..'
 
+      - run: cd library && npm i --production --ignore-scripts
+      - run: cd website && npm i --production --ignore-scripts
       - run: cd website && npm run build
 
       - persist_to_workspace:
           root: '..'
           paths:
+            - repo/library/node_modules
             - repo/website/dist
 
   buildDocs:
@@ -59,6 +65,7 @@ jobs:
       - attach_workspace:
           at: '..'
 
+      - run: cd docs && npm i --production --ignore-scripts
       - run: cd docs && npm run build
 
       - persist_to_workspace:
