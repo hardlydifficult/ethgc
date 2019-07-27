@@ -14,8 +14,5 @@
     "eth-gas-reporter": "0.2.7",
     "openzeppelin-solidity": "2.3.0",
     "truffle": "5.0.29"
-  },
-  "devDependencies": {
-    "truffle-security": "1.5.2"
   }
 }
