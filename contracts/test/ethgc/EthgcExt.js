@@ -1,10 +1,8 @@
-const BigNumber = require("bignumber.js");
-const init = require("./helpers/init");
+const init = require('./helpers/init')
 
-contract("EthgcExt", accounts => {
-  let ethgc, ethgcExt;
+contract('EthgcExt', accounts => {
 
   before(async () => {
-    [ethgc, ethgcExt] = await init(accounts);
-  });
-});
+    const [ethgc, ethgcExt] = await init(accounts)
+  })
+})

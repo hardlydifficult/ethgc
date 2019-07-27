@@ -79,10 +79,10 @@ module.exports = {
   // Set default mocha options here, use special reporters etc.
   mocha: {
     // timeout: 100000
-    reporter: "eth-gas-reporter",
-    useColors: true,
+    reporter:        'eth-gas-reporter',
+    useColors:       true,
     reporterOptions: {
-      currency: "USD",
+      currency: 'USD',
       gasPrice: 5
     }
   },
@@ -90,16 +90,16 @@ module.exports = {
   // Configure your compilers
   compilers: {
     solc: {
-      version: "0.5.8", // Fetch exact version from solc-bin (default: truffle's version)
+      version:  '0.5.8', // Fetch exact version from solc-bin (default: truffle's version)
       settings: {
         // See the solidity docs for advice about optimization and evmVersion
         optimizer: {
           enabled: true,
-          runs: 1000000000
+          runs:    1000000000
         },
-        evmVersion: "petersburg"
+        evmVersion: 'petersburg'
       }
     }
   },
-  plugins: ["truffle-security"]
-};
+  plugins: ['truffle-security']
+}

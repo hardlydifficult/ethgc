@@ -13,10 +13,22 @@ module.exports = {
     'plugin:vue/strongly-recommended'
   ],
   plugins: ['markdown', 'prettier', 'json', 'html'],
-  rules:   {
-    'no-console':           process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    'no-debugger':          process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    'import/no-unresolved': [
+  globals: {
+    after:      true,
+    artifacts:  true,
+    before:     true,
+    beforeEach: true,
+    contract:   true,
+    describe:   true,
+    web3:       true,
+    it:         true,
+    assert:     true
+  },
+  rules: {
+    'require-atomic-updates': 0,
+    'no-console':             process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-debugger':            process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'import/no-unresolved':   [
       2,
       {
         ignore: ['.vue$']
@@ -111,7 +123,7 @@ module.exports = {
     'no-inner-declarations': ['error', 'both'],
     'no-var':                'error',
     'no-unused-vars':        [
-      'error',
+      'warn',
       {
         vars:               'all',
         args:               'after-used',

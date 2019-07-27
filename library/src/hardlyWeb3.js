@@ -1,84 +1,84 @@
-const Web3 = require("web3");
-const BigNumber = require("bignumber.js");
+const Web3 = require('web3')
+const BigNumber = require('bignumber.js')
 
 class HardlyWeb3 {
   constructor(currentProvider) {
     if (!currentProvider) {
-      throw new Error("Missing provider");
-    } else if (typeof currentProvider === "string") {
-        currentProvider = new Web3.providers.WebsocketProvider(currentProvider);
+      throw new Error('Missing provider')
+    } else if (typeof currentProvider === 'string') {
+      currentProvider = new Web3.providers.WebsocketProvider(currentProvider)
     }
 
-      this.web3 = new Web3(currentProvider);
-      this.web3.defaultGasPrice = 4000000000;
+    this.web3 = new Web3(currentProvider)
+    this.web3.defaultGasPrice = 4000000000
   }
 
   async getEthBalance(account = this.defaultAccount()) {
-    return new BigNumber(await this.web3.eth.getBalance(account));
+    return new BigNumber(await this.web3.eth.getBalance(account))
   }
 
   async getRequest(tx) {
-    if (tx.request) return tx.request;
+    if (tx.request) return tx.request
 
-    const request = await this.web3.eth.getTransaction(tx.hash);
-    return (tx.request = request);
+    const request = await this.web3.eth.getTransaction(tx.hash)
+    return (tx.request = request)
   }
 
   async getReceipt(tx) {
-    if (tx.receipt) return tx.receipt;
+    if (tx.receipt) return tx.receipt
 
     // eslint-disable-next-line no-constant-condition
     while (true) {
-      const receipt = await this.web3.eth.getTransactionReceipt(tx.hash);
-      if (receipt) return (tx.receipt = receipt);
-      await sleep(2000);
+      const receipt = await this.web3.eth.getTransactionReceipt(tx.hash)
+      if (receipt) return (tx.receipt = receipt)
+      await sleep(2000)
     }
   }
 
   async getGasCost(tx) {
-    return getGasCost(await this.getRequest(tx), await this.getReceipt(tx));
+    return getGasCost(await this.getRequest(tx), await this.getReceipt(tx))
   }
 
   async send(functionCall, ethValue = undefined, privateKey, fixedGas) {
     const sendOptions = {
       value: ethValue ? ethValue.toFixed() : undefined
-    };
+    }
 
-    return new Promise(async (resolve, reject) => {
-      if (privateKey) {
-        const account = this.web3.eth.accounts.privateKeyToAccount(privateKey);
-        this.web3.eth.accounts.wallet.add(account);
-        sendOptions.from = account.address;
-      } else {
-        sendOptions.from = this.defaultAccount();
-      }
+    if (privateKey) {
+      const account = this.web3.eth.accounts.privateKeyToAccount(privateKey)
+      this.web3.eth.accounts.wallet.add(account)
+      sendOptions.from = account.address
+    } else {
+      sendOptions.from = this.defaultAccount()
+    }
 
-      if (fixedGas) {
-        sendOptions.gas = fixedGas;
-      } else {
-        sendOptions.gas = new BigNumber(
-          await functionCall.estimateGas(sendOptions)
-        );
-        await this.setMaxGasPrice(sendOptions);
-      }
+    if (fixedGas) {
+      sendOptions.gas = fixedGas
+    } else {
+      sendOptions.gas = new BigNumber(
+        await functionCall.estimateGas(sendOptions)
+      )
+      await this.setMaxGasPrice(sendOptions)
+    }
 
+    return new Promise((resolve, reject) => {
       functionCall
         .send(sendOptions)
-        .on("transactionHash", tx => {
-          resolve({ hash: tx });
+        .on('transactionHash', tx => {
+          resolve({ hash: tx })
         })
-        .on("error", error => {
-          reject(error);
-        });
-    });
+        .on('error', error => {
+          reject(error)
+        })
+    })
   }
 
   getContract(abi, contractAddress) {
-    let contract;
+    let contract
 
-      contract = new this.web3.eth.Contract(abi, contractAddress);
+    contract = new this.web3.eth.Contract(abi, contractAddress)
 
-    return contract;
+    return contract
   }
 
   /*********************************************************************************
@@ -86,42 +86,42 @@ class HardlyWeb3 {
    */
 
   switchAccount(account) {
-      this.web3.defaultAccount = this.web3.utils.toChecksumAddress(account);
+    this.web3.defaultAccount = this.web3.utils.toChecksumAddress(account)
   }
 
-  fromWei(value, unit = "ether") {
-    if (typeof value === "number") value = value.toString();
-    return this.web3.utils.fromWei(value, unit);
+  fromWei(value, unit = 'ether') {
+    if (typeof value === 'number') value = value.toString()
+    return this.web3.utils.fromWei(value, unit)
   }
 
-  toWei(value, unit = "ether") {
-    if (typeof value === "number") value = value.toString();
-    return this.web3.utils.toWei(value, unit);
+  toWei(value, unit = 'ether') {
+    if (typeof value === 'number') value = value.toString()
+    return this.web3.utils.toWei(value, unit)
   }
 
   defaultAccount() {
     const account =
-      this.web3.currentProvider.selectedAddress || this.web3.defaultAccount;
-    return account;
+      this.web3.currentProvider.selectedAddress || this.web3.defaultAccount
+    return account
   }
 
   async setMaxGasPrice(sendOptions) {
-    let balance = await this.getEthBalance(sendOptions.from);
-    balance = balance.minus(sendOptions.value ? sendOptions.value : 0);
+    let balance = await this.getEthBalance(sendOptions.from)
+    balance = balance.minus(sendOptions.value ? sendOptions.value : 0)
 
     sendOptions.gasPrice = balance
       .div(sendOptions.gas)
-      .integerValue(BigNumber.ROUND_DOWN);
+      .integerValue(BigNumber.ROUND_DOWN)
     sendOptions.gasPrice = new BigNumber(
       Math.min(
-        parseInt(this.toWei("4", "gwei")),
+        parseInt(this.toWei('4', 'gwei')),
         sendOptions.gasPrice.toNumber()
       )
-    );
-    if (sendOptions.gasPrice.lt(this.toWei("0.5", "gwei"))) {
+    )
+    if (sendOptions.gasPrice.lt(this.toWei('0.5', 'gwei'))) {
       throw new Error(
         `The account does not have enough balance: gasPrice~ ${sendOptions.gasPrice}`
-      );
+      )
     }
 
     // TODO change the gas and value if min kicks in.
@@ -134,11 +134,11 @@ class HardlyWeb3 {
  */
 
 function getGasCost(txRequest, txReceipt) {
-  return new BigNumber(txRequest.gasPrice).times(txReceipt.gasUsed);
+  return new BigNumber(txRequest.gasPrice).times(txReceipt.gasUsed)
 }
 
 function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise(resolve => setTimeout(resolve, ms))
 }
 
-module.exports = HardlyWeb3;
+module.exports = HardlyWeb3

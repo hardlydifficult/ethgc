@@ -1,5 +1,5 @@
-const EthGcNetwork = require("./ethGcNetwork");
-const Networks = require("../networks");
+const EthGcNetwork = require('./ethGcNetwork')
+const Networks = require('../networks')
 
 class EthGc {
   constructor(currentProvider) {
@@ -16,11 +16,11 @@ class EthGc {
         ...Networks.rinkeby,
         ethGc: new EthGcNetwork(Networks.rinkeby.provider)
       }
-    ];
+    ]
     if (currentProvider) {
-      this.defaultWallet = new EthGcNetwork(currentProvider);
+      this.defaultWallet = new EthGcNetwork(currentProvider)
     } else {
-      this.defaultWallet = this.networks[0].ethGc;
+      this.defaultWallet = this.networks[0].ethGc
     }
   }
 
@@ -29,8 +29,8 @@ class EthGc {
     cardAddresses,
     tokenAddresses,
     valueOrIds,
-    description = "",
-    redeemedMessage = ""
+    description = '',
+    redeemedMessage = ''
   ) {
     return this.defaultWallet.create(
       cardAddresses,
@@ -38,7 +38,7 @@ class EthGc {
       valueOrIds,
       description,
       redeemedMessage
-    );
+    )
   }
 
   async calcEthRequired(cardAddresses, tokenAddresses, valueOrIds, isNewCard) {
@@ -47,7 +47,7 @@ class EthGc {
       tokenAddresses,
       valueOrIds,
       isNewCard
-    );
+    )
   }
 
   async contribute(cardAddresses, tokenAddresses, valueOrIds) {
@@ -55,11 +55,11 @@ class EthGc {
       cardAddresses,
       tokenAddresses,
       valueOrIds
-    );
+    )
   }
 
   async getFeeRates() {
-    return this.defaultWallet.getFeeRates();
+    return this.defaultWallet.getFeeRates()
   }
 
   async getFees(cardAddresses, tokenAddresses, valueOrIds, isNewCard) {
@@ -68,18 +68,18 @@ class EthGc {
       tokenAddresses,
       valueOrIds,
       isNewCard
-    );
+    )
   }
   // #endregion
 
   // #region Viewing cards
   async getCardAddress(redeemCode) {
-    const address = this.defaultWallet.getCardAddress(redeemCode);
-    return address;
+    const address = this.defaultWallet.getCardAddress(redeemCode)
+    return address
   }
 
   async getCard(cardAddress) {
-    return this.checkAll("getCard", cardAddress);
+    return this.checkAll('getCard', cardAddress)
   }
   // #endregion
 
@@ -87,29 +87,29 @@ class EthGc {
   async redeem(
     redeemCode,
     sendTo = this.hardlyWeb3.defaultAccount(),
-    tokenType = "0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"
+    tokenType = '0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF'
   ) {
-    return this.checkAll("redeem", redeemCode, sendTo, tokenType);
+    return this.checkAll('redeem', redeemCode, sendTo, tokenType)
   }
 
   async redeemWithSignature(
     redeemCodes,
-    tokenType = "0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"
+    tokenType = '0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF'
   ) {
-    return this.checkAll("redeemWithSignature", redeemCodes, tokenType);
+    return this.checkAll('redeemWithSignature', redeemCodes, tokenType)
   }
 
   async cancel(
     cardAddresses,
-    tokenType = "0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"
+    tokenType = '0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF'
   ) {
-    return this.checkAll("cancel", cardAddresses, tokenType);
+    return this.checkAll('cancel', cardAddresses, tokenType)
   }
   // #endregion
 
   // #region Dev only (check)
   async getDev() {
-    return this.defaultWallet.getDev();
+    return this.defaultWallet.getDev()
   }
 
   async devSetFees(gasForRedeem, gasForEth, gasForErc20, gasForErc721) {
@@ -118,46 +118,48 @@ class EthGc {
       gasForEth,
       gasForErc20,
       gasForErc721
-    );
+    )
   }
 
   async devTransferAccount(newDevAccount) {
-    return this.defaultWallet.devTransferAccount(newDevAccount);
+    return this.defaultWallet.devTransferAccount(newDevAccount)
   }
 
   async developerWithdrawFees() {
-    return this.defaultWallet.developerWithdrawFees();
+    return this.defaultWallet.developerWithdrawFees()
   }
 
   async getFeesCollected() {
-    return this.defaultWallet.getFeesCollected();
+    return this.defaultWallet.getFeesCollected()
   }
   // #endregion
 
   // #region Tx helpers
   async getRedeemTx(cardAddress) {
-    return this.checkAll("getRedeemTx", cardAddress);
+    return this.checkAll('getRedeemTx', cardAddress)
   }
 
   async getCardsICreated() {
-    return this.defaultWallet.getCardsICreated();
+    return this.defaultWallet.getCardsICreated()
   }
 
   async getCardMessages(cardAddress) {
-    return this.checkAll("getCardMessages", cardAddress);
+    return this.checkAll('getCardMessages', cardAddress)
   }
 
   async checkAll(method, a, b, c, d, e) {
     try {
-      let result = await this.networks[0].ethGc[method](a, b, c, d, e);
+      let result = await this.networks[0].ethGc[method](a, b, c, d, e)
       if (result) {
-        return result;
+        return result
       }
-    } catch (e) {}
+    } catch (e) {
+      // ignore
+    }
 
-    return new Promise(async resolve => {
-      const promises = [];
-      let wasResolved = false;
+    return new Promise(resolve => {
+      const promises = []
+      let wasResolved = false
       for (let i = 1; i < this.networks.length; i++) {
         promises.push(
           (async () => {
@@ -168,41 +170,43 @@ class EthGc {
                 c,
                 d,
                 e
-              );
+              )
               if (networkResult) {
                 if (!wasResolved) {
-                  resolve(networkResult);
-                  wasResolved = true;
+                  resolve(networkResult)
+                  wasResolved = true
                 }
               }
-            } catch (e) {}
+            } catch (e) {
+              // ignore
+            }
           })()
-        );
+        )
       }
       Promise.all(promises)
         .then(() => {
           if (!wasResolved) {
-            resolve(undefined);
+            resolve(undefined)
           }
         })
-        .catch(console.error);
-    });
+        .catch(console.error)
+    })
   }
   // #endregion
 
   // #region Web3 wrapper
-  toWei(value, unit = "ether") {
-    return this.defaultWallet.hardlyWeb3.toWei(value, unit);
+  toWei(value, unit = 'ether') {
+    return this.defaultWallet.hardlyWeb3.toWei(value, unit)
   }
 
-  fromWei(value, unit = "ether") {
-    return this.defaultWallet.hardlyWeb3.fromWei(value, unit);
+  fromWei(value, unit = 'ether') {
+    return this.defaultWallet.hardlyWeb3.fromWei(value, unit)
   }
 
   getEthBalance(account) {
-    return this.defaultWallet.hardlyWeb3.getEthBalance(account);
+    return this.defaultWallet.hardlyWeb3.getEthBalance(account)
   }
   // #endregion
 }
 
-module.exports = EthGc;
+module.exports = EthGc
