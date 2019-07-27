@@ -1,0 +1,21 @@
+{
+  "name": "hardlydifficult-solidity-ethereum",
+  "license": "MIT",
+  "author": "HardlyDifficult",
+  "scripts": {
+    "build": "npm run compile",
+    "compile": "truffle compile --all",
+    "dev": "npm run compile && npm run test",
+    "test": "truffle test",
+    "verify": "truffle run verify"
+  },
+  "dependencies": {
+    "bignumber.js": "9.0.0",
+    "eth-gas-reporter": "^0.2.7",
+    "openzeppelin-solidity": "2.3.0",
+    "truffle": "5.0.29"
+  },
+  "devDependencies": {
+    "truffle-security": "1.5.2"
+  }
+}

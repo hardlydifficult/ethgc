@@ -1,0 +1,12 @@
+{
+  "name": "ethgc-library",
+  "license": "MIT",
+  "author": "HardlyDifficult",
+  "scripts": {
+    "deploy": "node -e \"require('./src/deploy.js').deploy()\""
+  },
+  "dependencies": {
+    "bignumber.js": "9.0.0",
+    "web3": "1.2.0"
+  }
+}

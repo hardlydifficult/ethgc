@@ -9,16 +9,6 @@ jobs:
       - run: git submodule sync
       - run: git submodule update --init --recursive
 
-      # save checkout
-      - persist_to_workspace:
-          root: '..'
-          paths:
-            - repo
-
-      - restore_cache:
-          keys:
-            - v7-{{ checksum "package.json" }}
-
       - run: npm i --production
 
       # lint and commit any changes, which may restart the build
@@ -26,22 +16,28 @@ jobs:
       - run: npm run lint # includes --fix
       - run: bash .circleci/commit.sh
 
-      - save_cache:
-          paths:
-            - node_modules
-            - package-lock.json
-          key: v7-{{ checksum "package.json" }}
+      # build contracts
+      - run: cd contracts && npm i --production && npm run compile
 
       # build library
-      # - restore_cache:
-      #     keys:
-      #       - v7-{{ checksum "SolidityContracts/library/package.json" }}
-      # - run: cd SolidityContracts/library && npm i --production
-      # - save_cache:
-      #     paths:
-      #       - SolidityContracts/library/node_modules
-      #       - SolidityContracts/library/package-lock.json
-      #     key: v7-{{ checksum "SolidityContracts/library/package.json" }}
+      - run: cd library && npm i --production
+
+      # save checkout & build
+      - persist_to_workspace:
+          root: '..'
+          paths:
+            - repo
+
+  testContracts:
+    docker:
+      - image: circleci/node:10
+    working_directory: ~/repo
+    steps:
+      - attach_workspace:
+          at: '..'
+
+      - run: cd contracts && npm i
+      - run: cd contracts && npm run test
 
   buildWebsite:
     docker:
@@ -51,22 +47,7 @@ jobs:
       - attach_workspace:
           at: '..'
 
-      - restore_cache:
-          keys:
-            - v7-{{ checksum "package.json" }}
-      # - restore_cache:
-      #     keys:
-      #       - v7-{{ checksum "SolidityContracts/library/package.json" }}
-      - restore_cache:
-          keys:
-            - v7-{{ checksum "website/package.json" }}
       - run: cd website && npm i
-      - save_cache:
-          paths:
-            - website/node_modules
-            - website/package-lock.json
-          key: v7-{{ checksum "website/package.json" }}
-
       - run: cd website && npm run build
 
       - persist_to_workspace:
@@ -82,16 +63,7 @@ jobs:
       - attach_workspace:
           at: '..'
 
-      - restore_cache:
-          keys:
-            - v7-{{ checksum "docs/package.json" }}
       - run: cd docs && npm i --production
-      - save_cache:
-          paths:
-            - node_modules
-            - package-lock.json
-          key: v7-{{ checksum "docs/package.json" }}
-
       - run: cd docs && npm run build
 
       - persist_to_workspace:
@@ -110,6 +82,14 @@ jobs:
       - run: mkdir ~/.ssh
       - run: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
       - run: bash .circleci/deploy-ghpages.sh
+            
+      # Deploy contracts
+      - run: cd library && npm run deploy
+
+      # Push artifact changes
+      - run: mkdir ~/.ssh
+      - run: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+      - run: bash .circleci/deploy-artifacts.sh
 
 workflows:
   build:
@@ -120,6 +100,9 @@ workflows:
               ignore:
                 - gh-pages
                 - artifacts
+      - testContracts:
+          requires:
+            - init
       - buildDocs:
           requires:
             - init
@@ -132,6 +115,6 @@ workflows:
               only:
                 - master
           requires:
-            - init
+            - testContracts
             - buildWebsite
             - buildDocs
