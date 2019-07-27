@@ -1,12 +1,8 @@
 <template>
   <div>
     {{ shiftedValue }}
-    <span v-if="isEth">
-      ether
-    </span>
-    <span v-else>
-      {{ tokenAddress }}
-    </span>
+    <span v-if="isEth">ether</span>
+    <span v-else>{{ tokenAddress }}</span>
   </div>
 </template>
 <script>
