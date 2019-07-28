@@ -1,7 +1,7 @@
 
 # Introduction to ethgc
 
-todo
+Coming soon
 
 ## Process
 
