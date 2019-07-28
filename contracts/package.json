@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "bignumber.js": "9.0.0",
-    "eth-gas-reporter": "0.2.7",
+    "eth-gas-reporter": "0.2.8",
     "openzeppelin-solidity": "2.3.0",
     "truffle": "5.0.29"
   }
