@@ -1,0 +1,7 @@
+*/dist/
+/website/tests
+*.d.ts
+*build/
+*node_modules/
+!.eslintrc.js
+*.old/
