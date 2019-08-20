@@ -34,7 +34,7 @@
     "postcss-import": "12.0.1",
     "postcss-loader": "3.0.0",
     "postcss-url": "8.0.0",
-    "sass-loader": "7.2.0",
+    "sass-loader": "7.3.0",
     "style-loader": "1.0.0",
     "stylus": "0.54.6",
     "stylus-loader": "3.0.2",
