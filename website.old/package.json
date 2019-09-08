@@ -46,7 +46,7 @@
     "vue-async-computed": "3.7.0",
     "vue-class-component": "7.1.0",
     "vue-cookie-accept-decline": "5.2.3",
-    "vue-jest": "3.0.4",
+    "vue-jest": "3.0.5",
     "vue-loader": "15.7.1",
     "vue-ls": "3.2.1",
     "vue-server-renderer": "2.6.10",
