@@ -1,7 +1,14 @@
 {
   "extends": [
-    "config:base"
+    "config:base",
+    ":prHourlyLimitNone",
+    ":prConcurrentLimitNone",
+    ":pinVersions"
   ],
   "timezone": "America/Los_Angeles",
-  "schedule": ["after 4am and before 6am on monday"]
+  "schedule": ["after 2am and before 5am on monday"],
+  "patch": {
+    "groupName": "all dependencies patch updates",
+    "groupSlug": "all-patch"
+  }
 }
