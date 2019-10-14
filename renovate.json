@@ -7,8 +7,21 @@
   ],
   "timezone": "America/Los_Angeles",
   "schedule": ["after 2am and before 5am on monday"],
-  "patch": {
-    "groupName": "all dependencies patch updates",
-    "groupSlug": "all-patch"
-  }
+  "separateMinorPatch": true,
+  "packageRules": [
+    {
+      "packagePatterns": [
+        "*"
+      ],
+      "patch": {
+        "groupName": "all dependencies patch updates",
+        "groupSlug": "all-patch"
+      }
+    },
+    {
+      "packageNames": ["hardlydifficult-ethereum-contracts"],
+      "schedule": ["at any time"],
+      "groupSlug": "hardlydifficult-ethereum-contracts"
+    }
+  ]
 }
