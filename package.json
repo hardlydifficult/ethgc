@@ -33,7 +33,7 @@
     "eslint-plugin-html": "6.0.0",
     "eslint-plugin-import": "2.18.2",
     "eslint-plugin-import-helpers": "1.0.2",
-    "eslint-plugin-jest": "23.0.3",
+    "eslint-plugin-jest": "23.0.4",
     "eslint-plugin-json": "2.0.1",
     "eslint-plugin-markdown": "1.0.1",
     "eslint-plugin-node": "10.0.0",
@@ -41,9 +41,9 @@
     "eslint-plugin-promise": "4.2.1",
     "eslint-plugin-security": "1.4.0",
     "eslint-plugin-standard": "4.0.1",
-    "eslint-plugin-vue": "6.0.0",
+    "eslint-plugin-vue": "6.0.1",
     "eslint-traverser": "1.5.2",
-    "npm-package-json-lint": "4.1.0",
+    "npm-package-json-lint": "4.1.1",
     "npm-package-json-lint-config-default": "2.0.0",
     "prettier": "1.19.1"
   }
