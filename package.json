@@ -29,7 +29,7 @@
     "eslint-config-postcss": "3.0.7",
     "eslint-config-prettier": "6.9.0",
     "eslint-config-standard": "14.1.0",
-    "eslint-plugin-es5": "1.4.1",
+    "eslint-plugin-es5": "1.5.0",
     "eslint-plugin-html": "6.0.0",
     "eslint-plugin-import": "2.18.2",
     "eslint-plugin-import-helpers": "1.0.2",
