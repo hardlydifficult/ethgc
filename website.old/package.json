@@ -44,7 +44,7 @@
     "v-tooltip": "2.0.3",
     "vue": "2.6.11",
     "vue-async-computed": "3.8.2",
-    "vue-class-component": "7.2.2",
+    "vue-class-component": "7.2.3",
     "vue-cookie-accept-decline": "5.3.1",
     "vue-jest": "3.0.5",
     "vue-loader": "15.8.3",
@@ -55,8 +55,8 @@
     "vue-sweetalert2": "3.0.1",
     "vue-template-compiler": "2.6.11",
     "vue-toasted": "1.1.27",
-    "webpack": "4.41.5",
-    "webpack-cli": "3.3.10",
+    "webpack": "4.41.6",
+    "webpack-cli": "3.3.11",
     "webpack-dev-server": "3.10.3",
     "webpack-merge": "4.2.2"
   }
