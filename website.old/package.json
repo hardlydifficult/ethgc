@@ -12,8 +12,8 @@
     "test:debug": "node --inspect node_modules/.bin/jest --runInBand --config test/jest.config.js"
   },
   "dependencies": {
-    "@babel/core": "7.8.4",
-    "@babel/preset-env": "7.8.4",
+    "@babel/core": "7.8.6",
+    "@babel/preset-env": "7.8.6",
     "@babel/preset-react": "7.8.3",
     "@vue/test-utils": "1.0.0-beta.31",
     "babel-core": "7.0.0-bridge.0",
@@ -52,7 +52,7 @@
     "vue-server-renderer": "2.6.11",
     "vue-style-loader": "4.1.2",
     "vue-sub": "1.1.1",
-    "vue-sweetalert2": "3.0.1",
+    "vue-sweetalert2": "3.0.3",
     "vue-template-compiler": "2.6.11",
     "vue-toasted": "1.1.27",
     "webpack": "4.41.6",
