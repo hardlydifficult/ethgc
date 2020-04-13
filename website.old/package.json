@@ -39,7 +39,7 @@
     "stylus": "0.54.7",
     "stylus-loader": "3.0.2",
     "uglify-es": "3.3.9",
-    "url-loader": "4.0.0",
+    "url-loader": "4.1.0",
     "v-clipboard": "2.2.2",
     "v-tooltip": "2.0.3",
     "vue": "2.6.11",
