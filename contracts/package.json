@@ -13,6 +13,6 @@
     "bignumber.js": "9.0.0",
     "eth-gas-reporter": "0.2.16",
     "openzeppelin-solidity": "2.5.0",
-    "truffle": "5.1.20"
+    "truffle": "5.1.21"
   }
 }
