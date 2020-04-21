@@ -2,7 +2,7 @@ pragma solidity ^0.5.6;
 
 import "./MixinBank.sol";
 import "./MixinCards.sol";
-import "./ReentrancyGuard.sol";
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
 
 contract MixinRedeem is
