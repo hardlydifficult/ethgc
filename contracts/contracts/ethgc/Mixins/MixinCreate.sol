@@ -1,10 +1,10 @@
 pragma solidity ^0.5.6;
 
-import "openzeppelin-solidity/contracts/math/SafeMath.sol";
+import "@openzeppelin/contracts/math/SafeMath.sol";
 import "./MixinBank.sol";
 import "./MixinCards.sol";
 import "./MixinFees.sol";
-import "./ReentrancyGuard.sol";
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
 
 contract MixinCreate is
