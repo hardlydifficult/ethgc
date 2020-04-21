@@ -1,4 +1,4 @@
-pragma solidity ^0.5.6;
+pragma solidity 0.5.17;
 
 
 contract TestErc20Noop {
