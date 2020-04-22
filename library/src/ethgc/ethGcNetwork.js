@@ -37,21 +37,12 @@ class EthGcNetwork {
   ) {
     await this._init()
     this.parseInput(tokenAddresses, valueOrIds)
-    console.log({cardAddresses,
-      tokenAddresses,
-      valueOrIds})
     let ethValue = await this.calcEthRequired(
       cardAddresses,
       tokenAddresses,
       valueOrIds,
       true
     )
-
-    console.log({cardAddresses,
-      tokenAddresses,
-      valueOrIds,
-      description,
-      redeemedMessage, ethValue})
 
     return this.hardlyWeb3.send(
       this.contract.methods.create(
@@ -138,16 +129,9 @@ class EthGcNetwork {
     await this._init()
     this.parseInput(tokenAddresses, valueOrIds)
 
-    console.log('-----------------')
-    console.log({cardAddresses, tokenAddresses, valueOrIds, isNewCard})
-
     const redemptionGas = await this.extContract.methods
       .getFees(cardAddresses, tokenAddresses, valueOrIds, isNewCard)
       .call({ from: this.hardlyWeb3.defaultAccount() })
-
-    console.log('-----------------')
-    console.log('-----------------')
-    console.log('-----------------')
 
     return new BigNumber(redemptionGas)
   }
