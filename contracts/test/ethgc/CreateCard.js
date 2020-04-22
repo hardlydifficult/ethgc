@@ -1,4 +1,5 @@
 const init = require('./helpers/init')
+const { constants } = require('hardlydifficult-ethereum-contracts')
 
 contract('CreateCard', accounts => {
   let ethgc
@@ -18,7 +19,7 @@ contract('CreateCard', accounts => {
 
       await ethgc.create(
         [cardAddress],
-        [web3.utils.padLeft(0, 40)],
+        [constants.ZERO_ADDRESS],
         [value]
       )
     })
@@ -32,7 +33,7 @@ contract('CreateCard', accounts => {
       const card = await ethgc.getCard(cardAddress)
       assert.equal(card.tokenAddresses.length, 1)
       assert.equal(card.valueOrIds.length, 1)
-      assert.equal(card.tokenAddresses[0], web3.utils.padLeft(0, 40))
+      assert.equal(card.tokenAddresses[0], constants.ZERO_ADDRESS)
       assert.equal(card.valueOrIds[0], value)
     })
   })

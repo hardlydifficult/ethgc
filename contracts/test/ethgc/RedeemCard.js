@@ -1,5 +1,6 @@
 const init = require('./helpers/init')
 const { reverts } = require('truffle-assertions')
+const { constants } = require('hardlydifficult-ethereum-contracts')
 
 contract('RedeemCard', accounts => {
   let ethgc
@@ -14,7 +15,7 @@ contract('RedeemCard', accounts => {
 
     beforeEach(async () => {
       const cardAddress = await ethgc.getCardAddress(redeemCode)
-      await ethgc.create([cardAddress], [web3.utils.padLeft(0, 40)], [value])
+      await ethgc.create([cardAddress], [constants.ZERO_ADDRESS], [value])
     })
 
     describe('after redeem', async () => {

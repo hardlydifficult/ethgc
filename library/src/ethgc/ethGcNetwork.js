@@ -20,6 +20,13 @@ class EthGcNetwork {
   }
   // #endregion
 
+  // #region Metadata
+  async getAddress() {
+    await this._init()
+    return this.contract._address
+  }
+  // #endregion
+
   // #region Create / Contribute
   async create(
     cardAddresses,
@@ -121,9 +128,11 @@ class EthGcNetwork {
   async getFees(cardAddresses, tokenAddresses, valueOrIds, isNewCard) {
     await this._init()
     this.parseInput(tokenAddresses, valueOrIds)
+
     const redemptionGas = await this.extContract.methods
       .getFees(cardAddresses, tokenAddresses, valueOrIds, isNewCard)
       .call({ from: this.hardlyWeb3.defaultAccount() })
+
     return new BigNumber(redemptionGas)
   }
   // #endregion

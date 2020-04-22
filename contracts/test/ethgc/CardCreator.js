@@ -1,4 +1,5 @@
 const init = require('./helpers/init')
+const { constants } = require('hardlydifficult-ethereum-contracts')
 
 contract('CardCreator', accounts => {
   const redeemCode = 'abc123'
@@ -15,7 +16,7 @@ contract('CardCreator', accounts => {
     before(async () => {
       cardAddress = await ethgc.getCardAddress(redeemCode)
 
-      await ethgc.create([cardAddress], [web3.utils.padLeft(0, 40)], [value])
+      await ethgc.create([cardAddress], [constants.ZERO_ADDRESS], [value])
     })
 
     it('can cancel the card and get the ETH back', async () => {
@@ -40,7 +41,7 @@ contract('CardCreator', accounts => {
       cardAddress = await ethgc.getCardAddress(redeemCode)
 
       ethgc.hardlyWeb3.switchAccount(accounts[2])
-      await ethgc.create([cardAddress], [web3.utils.padLeft(0, 40)], [value])
+      await ethgc.create([cardAddress], [constants.ZERO_ADDRESS], [value])
       ethgc.hardlyWeb3.switchAccount(accounts[0])
     })
 
