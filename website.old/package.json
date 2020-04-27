@@ -23,7 +23,7 @@
     "bignumber.js": "9.0.0",
     "bootstrap": "4.4.1",
     "copy-webpack-plugin": "5.1.1",
-    "css-loader": "3.5.2",
+    "css-loader": "3.5.3",
     "file-loader": "6.0.0",
     "html-webpack-plugin": "4.2.0",
     "jest": "25.4.0",
