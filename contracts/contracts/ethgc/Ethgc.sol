@@ -1,4 +1,4 @@
-pragma solidity 0.5.17;
+pragma solidity ^0.6.0;
 
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import "./Mixins/MixinBank.sol";
