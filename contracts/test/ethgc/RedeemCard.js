@@ -1,6 +1,6 @@
 const init = require('./helpers/init')
 const { reverts } = require('truffle-assertions')
-const { constants } = require('hardlydifficult-ethereum-contracts')
+const { constants } = require('hardlydifficult-eth')
 
 contract('RedeemCard', accounts => {
   let ethgc

@@ -1,5 +1,5 @@
 const init = require('./helpers/init')
-const { tokens } = require('hardlydifficult-ethereum-contracts')
+const { tokens } = require('hardlydifficult-eth')
 
 contract.skip('RedeemAllFunds', accounts => {
   const cardCreator = accounts[0]

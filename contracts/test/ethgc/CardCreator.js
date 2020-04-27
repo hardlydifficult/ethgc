@@ -1,5 +1,5 @@
 const init = require('./helpers/init')
-const { constants } = require('hardlydifficult-ethereum-contracts')
+const { constants } = require('hardlydifficult-eth')
 
 contract('CardCreator', accounts => {
   const redeemCode = 'abc123'
