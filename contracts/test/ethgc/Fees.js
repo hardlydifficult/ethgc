@@ -34,7 +34,6 @@ contract('Fees', accounts => {
 
       after(async () => {
         await ethgc.devSetFees(
-          originalFees.gasForRedeem.toFixed(),
           originalFees.gasForEth.toFixed(),
           originalFees.gasForErc20.toFixed(),
           originalFees.gasForErc721.toFixed()
@@ -44,14 +43,13 @@ contract('Fees', accounts => {
       it('Can change fee', async () => {
         await ethgc.devSetFees(
           1,
-          originalFees.gasForEth.toFixed(),
           originalFees.gasForErc20.toFixed(),
           originalFees.gasForErc721.toFixed()
         )
       })
 
       it('Can read the new fee', async () => {
-        assert.equal((await ethgc.getFeeRates()).gasForRedeem.toFixed(), 1)
+        assert.equal((await ethgc.getFeeRates()).gasForEth.toFixed(), 1)
       })
     })
   })

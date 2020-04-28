@@ -127,18 +127,13 @@ contract MixinCreate is
   ) internal
   {
     uint ethRequired = 0;
-    if(isNewCard)
-    {
-      // Create fee
-      ethRequired = gasForRedeem * cardAddresses.length;
-    }
 
     bool isEntryPerCard = valueOrIds.length > tokenAddresses.length;
 
     for(uint cardId = 0; cardId < cardAddresses.length; cardId++)
     {
       Card storage card = addressToCard[cardAddresses[cardId]];
-      uint cardFees = 0;
+      uint cardFees;
 
       if(isNewCard)
       {
@@ -175,7 +170,7 @@ contract MixinCreate is
         uint tokenIndex = uint(-1);
         if(isNewCard && (
             tokenAddresses[tokenId] == address(0)
-            || !_isNft(tokenAddresses[tokenId])
+            || !isNft(tokenAddresses[tokenId])
             ))
         {
           uint existingTokenCount = card.tokens.length;
@@ -205,7 +200,7 @@ contract MixinCreate is
           {
             cardFees += gasForEth;
           }
-          else if(_isNft(tokenAddresses[tokenId]))
+          else if(isNft(tokenAddresses[tokenId]))
           {
             cardFees += gasForErc721;
           }

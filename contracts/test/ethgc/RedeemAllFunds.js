@@ -1,21 +1,38 @@
 const init = require('./helpers/init')
 const { tokens } = require('hardlydifficult-eth')
 
-contract.skip('RedeemAllFunds', accounts => {
+contract('RedeemAllFunds', accounts => {
   const cardCreator = accounts[0]
   let ethgc
-  let token
+  let dai
+  let sai
+  let cardAddress
   const redeemCode = 'abc123'
 
   before(async () => {
     ethgc = await init(accounts)
 
-    token = await tokens.dai.deploy(web3, accounts[2])
-    await token.mint(cardCreator, 42, {from: accounts[2]})
-    await token.approve(await ethgc.getAddress(), -1, {from: cardCreator})
+    dai = await tokens.dai.deploy(web3, accounts[2])
+    await dai.mint(cardCreator, 420000, {from: accounts[2]})
+    await dai.approve(await ethgc.getAddress(), -1, {from: cardCreator})
+    sai = await tokens.dai.deploy(web3, accounts[2])
+    await sai.mint(cardCreator, 420000, {from: accounts[2]})
+    await sai.approve(await ethgc.getAddress(), -1, {from: cardCreator})
+    const chai = await tokens.dai.deploy(web3, accounts[2])
+    await chai.mint(cardCreator, 420000, {from: accounts[2]})
+    await chai.approve(await ethgc.getAddress(), -1, {from: cardCreator})
 
-    const cardAddress = await ethgc.getCardAddress(redeemCode)
-    await ethgc.create([cardAddress], [token.address], [42])
+    cardAddress = await ethgc.getCardAddress(redeemCode)
+    const otherCardAddress = await ethgc.getCardAddress('different code')
+    console.log('create')
+    //await ethgc.create([otherCardAddress], [token.address], [42])
+    await ethgc.create([cardAddress], [dai.address, sai.address, chai.address], [42, 42, 42])
+    console.log('create worked')
+  })
+
+  it('cardAddress has ETH for redeeming', async () => {
+    const ethValue = await web3.eth.getBalance(cardAddress)
+    assert.notEqual(ethValue, 0)
   })
 
   it('ethgc has zero eth', async () => {
