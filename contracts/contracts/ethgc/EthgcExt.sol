@@ -31,11 +31,6 @@ contract EthgcExt is
   ) external view
     returns (uint redemptionGas)
   {
-    if(isNewCard)
-    {
-      redemptionGas = _ethgc.gasForRedeem() * tokenAddresses.length;
-    }
-
     bool isEntryPerCard = valueOrIds.length > tokenAddresses.length;
 
     for(uint cardId = 0; cardId < cardAddresses.length; cardId++)
@@ -54,7 +49,7 @@ contract EthgcExt is
         uint tokenIndex = uint(-1);
         if(isNewCard && (
             tokenAddresses[tokenId] == address(0)
-            || !isNft(tokenAddresses[tokenId])
+            || !_ethgc.isNft(tokenAddresses[tokenId])
             ))
         {
           uint existingTokenCount = card.tokens.length;
@@ -72,15 +67,15 @@ contract EthgcExt is
         { // New token type for the card
           if(tokenAddresses[tokenId] == address(0))
           {
-            redemptionGas += _ethgc.gasForEth();
+            redemptionGas += _ethgc.gasForEth() * cardAddresses.length;
           }
-          else if(isNft(tokenAddresses[tokenId]))
+          else if(_ethgc.isNft(tokenAddresses[tokenId]))
           {
-            redemptionGas += _ethgc.gasForErc721();
+            redemptionGas += _ethgc.gasForErc721() * cardAddresses.length;
           }
           else
           {
-            redemptionGas += _ethgc.gasForErc20();
+            redemptionGas += _ethgc.gasForErc20() * cardAddresses.length;
           }
         }
       }
@@ -106,15 +101,6 @@ contract EthgcExt is
         break;
       }
     }
-  }
-
-  function isNft(
-    address token
-  ) public view
-    returns (bool)
-  {
-    // 0x80ac58cd is from eip-721
-    return IERC165(token).supportsInterface(0x80ac58cd);
   }
 
   function _getCard(

@@ -34,7 +34,7 @@ contract MixinBank
     {
       return sendTo.send(valueOrId);
     }
-    else if(_isNft(tokenAddress))
+    else if(isNft(tokenAddress))
     {
       return _transferNft(tokenAddress, valueOrId, address(this), sendTo);
     }
@@ -67,7 +67,7 @@ contract MixinBank
       return valueOrId;
     }
 
-    if(_isNft(tokenAddress))
+    if(isNft(tokenAddress))
     {
       require(
         _transferNft(tokenAddress, valueOrId, msg.sender, address(this)),
@@ -85,13 +85,20 @@ contract MixinBank
     return 0;
   }
 
-  function _isNft(
+  function isNft(
     address token
-  ) internal view
+  ) public view
     returns (bool)
   {
     // 0x80ac58cd is from eip-721
-    return IERC165(token).supportsInterface(0x80ac58cd);
+    try IERC165(token).supportsInterface(0x80ac58cd) returns (bool isSupported)
+    {
+      return isSupported;
+    }
+    catch
+    {
+      return false;
+    }
   }
 
   /*********************************************************************************

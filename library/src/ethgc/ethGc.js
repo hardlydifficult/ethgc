@@ -112,9 +112,8 @@ class EthGc {
     return this.defaultWallet.getDev()
   }
 
-  async devSetFees(gasForRedeem, gasForEth, gasForErc20, gasForErc721) {
+  async devSetFees(gasForEth, gasForErc20, gasForErc721) {
     return this.defaultWallet.devSetFees(
-      gasForRedeem,
       gasForEth,
       gasForErc20,
       gasForErc721
