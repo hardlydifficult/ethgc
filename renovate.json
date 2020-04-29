@@ -5,23 +5,5 @@
     ":prConcurrentLimitNone",
     ":pinVersions"
   ],
-  "timezone": "America/Los_Angeles",
-  "schedule": ["after 2am and before 5am on monday"],
-  "separateMinorPatch": true,
-  "packageRules": [
-    {
-      "packagePatterns": [
-        "*"
-      ],
-      "patch": {
-        "groupName": "all dependencies patch updates",
-        "groupSlug": "all-patch"
-      }
-    },
-    {
-      "packagePatterns": ["hardlydifficult"],
-      "schedule": ["at any time"],
-      "groupSlug": "hardlydifficult"
-    }
-  ]
+  "timezone": "America/Los_Angeles"
 }
