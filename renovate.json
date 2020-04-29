@@ -19,9 +19,9 @@
       }
     },
     {
-      "packageNames": ["hardlydifficult-ethereum-contracts"],
+      "packagePatterns": ["hardlydifficult"],
       "schedule": ["at any time"],
-      "groupSlug": "hardlydifficult-ethereum-contracts"
+      "groupSlug": "hardlydifficult"
     }
   ]
 }
