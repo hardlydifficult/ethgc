@@ -24,10 +24,8 @@ contract('RedeemAllFunds', accounts => {
 
     cardAddress = await ethgc.getCardAddress(redeemCode)
     const otherCardAddress = await ethgc.getCardAddress('different code')
-    console.log('create')
-    //await ethgc.create([otherCardAddress], [token.address], [42])
+    await ethgc.create([otherCardAddress], [dai.address], [42])
     await ethgc.create([cardAddress], [dai.address, sai.address, chai.address], [42, 42, 42])
-    console.log('create worked')
   })
 
   it('cardAddress has ETH for redeeming', async () => {

@@ -21,7 +21,7 @@ export default {
       let fullTz = new Date().toString().match(/\(([A-Za-z\s].*)\)/)[1]
       let parts = fullTz.split(' ')
       let tz = ''
-      parts.forEach((element, index, array) => {
+      parts.forEach((element) => {
         tz += element.substring(0, 1)
       })
 
@@ -62,7 +62,7 @@ export default {
       } else {
         value = value.toFormat(0)
       }
-      if (value != '1') {
+      if (value !== '1') {
         label += 's'
       }
       this.deltaString = `${value} ${label}`

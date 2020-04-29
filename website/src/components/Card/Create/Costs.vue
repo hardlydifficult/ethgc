@@ -3,7 +3,7 @@
     <div>
       <div>
         Gift Card Value: {{ cardValue }}
-        <span v-if="tokenType == 'eth'">
+        <span v-if="tokenType === 'eth'">
           ether
         </span>
         <span v-else>
@@ -32,13 +32,13 @@
         Estimated total:
         <span v-if="estimatedTotalCost">
           {{ estimatedTotalCost }} ether
-          <span v-if="tokenType == 'erc20'">
+          <span v-if="tokenType === 'erc20'">
             +
             {{ cardValue }}
             <!-- TODO get symbol if we can -->
             tokens
           </span>
-          <span v-else-if="tokenType == 'erc721'">
+          <span v-else-if="tokenType === 'erc721'">
             +
             <!-- TODO get symbol if we can -->
             NFT id #{{ cardValue }}

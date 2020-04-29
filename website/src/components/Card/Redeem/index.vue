@@ -103,7 +103,7 @@ export default {
     }
   },
   methods: {
-    cardIsValid: function(newValue) {
+    cardIsValid: function() {
       if (this.card.isValid) {
         this.canRedeem = true
         return

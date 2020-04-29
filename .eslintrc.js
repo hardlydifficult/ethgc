@@ -22,14 +22,15 @@ module.exports = {
     describe:   true,
     web3:       true,
     it:         true,
-    assert:     true
+    assert:     true,
+    expect:     true
   },
   rules: {
     'require-atomic-updates': 0,
     'no-console':             process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger':            process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'import/no-unresolved':   [
-      2,
+      0,
       {
         ignore: ['.vue$']
       }
