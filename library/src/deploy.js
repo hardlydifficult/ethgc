@@ -2,9 +2,8 @@ const fs = require('fs')
 const HardlyWeb3 = require('./hardlyWeb3.js')
 const Networks = require('./networks')
 
-// TODO move to env variable
-const privateKey =
-  '0x2bbe937985021fdd8365af80bb37cf948bdd5eb71c38fe91f5e1901632442058'
+// 0x37eac9AdE216e5EE2a5450aC3aD37caeB258f3Bd
+const privateKey = process.env.PRIVATE_KEY
 
 module.exports.deploy = async (
   fromAccount = undefined,
