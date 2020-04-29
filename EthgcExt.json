@@ -1,50 +1,55 @@
 {
-  "3": "0x10e533E6819f39428E056A670854B0263FA672e7",
-  "4": "0xC104498D140241612d12569595dcA588e3Af9A14",
-  "42": "0x90dE34f428efDA02229b0debB6229E5c1E511693",
+  "3": "0x45e9f92A1F4A44f62C8b6c26E8deEadc2c1Fd7A5",
+  "4": "0x45e9f92A1F4A44f62C8b6c26E8deEadc2c1Fd7A5",
+  "42": "0x45e9f92A1F4A44f62C8b6c26E8deEadc2c1Fd7A5",
   "4447": "0xf25186B5081Ff5cE73482AD761DB0eB0d25abfBF",
   "abi": [
     {
       "inputs": [
         {
+          "internalType": "contract Ethgc",
           "name": "ethgc",
           "type": "address"
         }
       ],
-      "payable": false,
       "stateMutability": "nonpayable",
-      "type": "constructor"
+      "type": "constructor",
+      "signature": "constructor"
     },
     {
-      "constant": true,
       "inputs": [],
       "name": "ethgc",
       "outputs": [
         {
+          "internalType": "contract Ethgc",
           "name": "",
           "type": "address"
         }
       ],
-      "payable": false,
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true,
+      "signature": "0x8b0a7e04"
     },
     {
-      "constant": true,
       "inputs": [
         {
+          "internalType": "address payable[]",
           "name": "cardAddresses",
           "type": "address[]"
         },
         {
+          "internalType": "address[]",
           "name": "tokenAddresses",
           "type": "address[]"
         },
         {
+          "internalType": "uint256[]",
           "name": "valueOrIds",
           "type": "uint256[]"
         },
         {
+          "internalType": "bool",
           "name": "isNewCard",
           "type": "bool"
         }
@@ -52,18 +57,20 @@
       "name": "getFees",
       "outputs": [
         {
+          "internalType": "uint256",
           "name": "redemptionGas",
           "type": "uint256"
         }
       ],
-      "payable": false,
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true,
+      "signature": "0x3014d7b4"
     },
     {
-      "constant": true,
       "inputs": [
         {
+          "internalType": "address[]",
           "name": "cardAddresses",
           "type": "address[]"
         }
@@ -71,45 +78,31 @@
       "name": "getFirstCard",
       "outputs": [
         {
+          "internalType": "address",
           "name": "cardAddress",
           "type": "address"
         },
         {
+          "internalType": "address",
           "name": "createdBy",
           "type": "address"
         },
         {
+          "internalType": "address[]",
           "name": "tokenAddresses",
           "type": "address[]"
         },
         {
+          "internalType": "uint256[]",
           "name": "valueOrIds",
           "type": "uint256[]"
         }
       ],
-      "payable": false,
       "stateMutability": "view",
-      "type": "function"
-    },
-    {
+      "type": "function",
       "constant": true,
-      "inputs": [
-        {
-          "name": "token",
-          "type": "address"
-        }
-      ],
-      "name": "isNft",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
+      "signature": "0x75103815"
     }
   ],
-  "bytecodeHash": "0x388f98b61faa58ed50dc2be1d072bd8182ba86de6558cd74b0db9a49550a7be5"
+  "bytecodeHash": "0x24772d19a4042246983d0765c4522bcb62d22b60ae5563d25e50a7fdc954e51a"
 }

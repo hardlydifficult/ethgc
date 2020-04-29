@@ -1,193 +1,282 @@
 {
-  "3": "0x91D9a44a3965497d0aFDD57EC4dFF6AB055A0Cd5",
-  "4": "0x179b92e1709b32810a8c041fc1c738F57747B4b8",
-  "42": "0xA833e05e05c036e42B2A0a4f47b20fA12F0Fd678",
+  "3": "0x9b14dd105174a053E4d9962069F66e475C441865",
+  "4": "0x9b14dd105174a053E4d9962069F66e475C441865",
+  "42": "0x9b14dd105174a053E4d9962069F66e475C441865",
   "4447": "0x345cA3e014Aaf5dcA488057592ee47305D9B3e10",
   "abi": [
     {
-      "constant": false,
+      "anonymous": false,
       "inputs": [
         {
-          "name": "newDevAccount",
+          "indexed": true,
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "cardAddress",
           "type": "address"
         }
       ],
-      "name": "devTransferAccount",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
+      "name": "Contribute",
+      "type": "event",
+      "signature": "0xb3bba8a8a2edde94117fce5fc218ff2904ac712cc19e933ea5a877de708f0f1f"
     },
     {
-      "constant": false,
+      "anonymous": false,
       "inputs": [
         {
-          "name": "cardAddresses",
-          "type": "address[]"
+          "indexed": true,
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
         },
         {
-          "name": "tokenAddresses",
-          "type": "address[]"
-        },
-        {
-          "name": "valueOrIds",
-          "type": "uint256[]"
+          "indexed": true,
+          "internalType": "address",
+          "name": "card",
+          "type": "address"
         }
       ],
-      "name": "contribute",
-      "outputs": [],
-      "payable": true,
-      "stateMutability": "payable",
-      "type": "function"
+      "name": "Create",
+      "type": "event",
+      "signature": "0x96b5b9b8a7193304150caccf9b80d150675fa3d6af57761d8d8ef1d6f9a1a909"
     },
     {
-      "constant": true,
-      "inputs": [],
-      "name": "gasForErc20",
-      "outputs": [
+      "anonymous": false,
+      "inputs": [
         {
-          "name": "",
+          "indexed": true,
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "cardAddress",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "bool",
+          "name": "allSuccessful",
+          "type": "bool"
+        }
+      ],
+      "name": "Redeem",
+      "type": "event",
+      "signature": "0x799edc2df71dc60ec03c29efe8bd1e439d89569bd38cf2ee46fb8e621d1f2d69"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "gasForEth",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "gasForErc20",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "gasForErc721",
           "type": "uint256"
         }
       ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
+      "name": "SetFees",
+      "type": "event",
+      "signature": "0x37322890d66d781059d797be5e2f27dc160a34d8bc0a8e09116cb9a773ce88ef"
     },
     {
-      "constant": false,
       "inputs": [
         {
+          "internalType": "address[]",
           "name": "cardAddresses",
           "type": "address[]"
         },
         {
+          "internalType": "address",
           "name": "tokenType",
           "type": "address"
         }
       ],
       "name": "cancel",
       "outputs": [],
-      "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function"
+      "type": "function",
+      "signature": "0x4d9b996b"
     },
     {
-      "constant": false,
       "inputs": [
         {
+          "internalType": "address payable[]",
           "name": "cardAddresses",
           "type": "address[]"
         },
         {
-          "name": "v",
-          "type": "uint8[]"
+          "internalType": "address[]",
+          "name": "tokenAddresses",
+          "type": "address[]"
         },
         {
-          "name": "r",
-          "type": "bytes32[]"
+          "internalType": "uint256[]",
+          "name": "valueOrIds",
+          "type": "uint256[]"
+        }
+      ],
+      "name": "contribute",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function",
+      "payable": true,
+      "signature": "0x1309502b"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address payable[]",
+          "name": "cardAddresses",
+          "type": "address[]"
         },
         {
-          "name": "s",
-          "type": "bytes32[]"
+          "internalType": "address[]",
+          "name": "tokenAddresses",
+          "type": "address[]"
         },
         {
-          "name": "tokenType",
+          "internalType": "uint256[]",
+          "name": "valueOrIds",
+          "type": "uint256[]"
+        },
+        {
+          "internalType": "string",
+          "name": "description",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "redeemedMessage",
+          "type": "string"
+        }
+      ],
+      "name": "create",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function",
+      "payable": true,
+      "signature": "0xcec339bc"
+    },
+    {
+      "inputs": [],
+      "name": "dev",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
           "type": "address"
         }
       ],
-      "name": "redeemWithSignature",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "gasForEth",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true,
+      "signature": "0x91cca3db"
     },
     {
-      "constant": false,
       "inputs": [
         {
-          "name": "newGasForRedeem",
-          "type": "uint256"
-        },
-        {
+          "internalType": "uint256",
           "name": "newGasForEth",
           "type": "uint256"
         },
         {
+          "internalType": "uint256",
           "name": "newGasForErc20",
           "type": "uint256"
         },
         {
+          "internalType": "uint256",
           "name": "newGasForErc721",
           "type": "uint256"
         }
       ],
       "name": "devSetFees",
       "outputs": [],
-      "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function"
+      "type": "function",
+      "signature": "0xd651492c"
     },
     {
-      "constant": true,
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newDevAccount",
+          "type": "address"
+        }
+      ],
+      "name": "devTransferAccount",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0x0e17efa7"
+    },
+    {
       "inputs": [],
-      "name": "gasForErc721",
+      "name": "gasForErc20",
       "outputs": [
         {
+          "internalType": "uint256",
           "name": "",
           "type": "uint256"
         }
       ],
-      "payable": false,
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true,
+      "signature": "0x470d228a"
     },
     {
-      "constant": true,
       "inputs": [],
-      "name": "dev",
+      "name": "gasForErc721",
       "outputs": [
         {
+          "internalType": "uint256",
           "name": "",
-          "type": "address"
+          "type": "uint256"
         }
       ],
-      "payable": false,
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true,
+      "signature": "0x7ef091d8"
     },
     {
-      "constant": false,
-      "inputs": [
+      "inputs": [],
+      "name": "gasForEth",
+      "outputs": [
         {
-          "name": "sendTo",
-          "type": "address"
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
         }
       ],
-      "name": "redeem",
-      "outputs": [],
-      "payable": true,
-      "stateMutability": "payable",
-      "type": "function"
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true,
+      "signature": "0x6e4c0d66"
     },
     {
-      "constant": true,
       "inputs": [
         {
+          "internalType": "address",
           "name": "cardAddress",
           "type": "address"
         }
@@ -195,149 +284,96 @@
       "name": "getCard",
       "outputs": [
         {
+          "internalType": "address",
           "name": "createdBy",
           "type": "address"
         },
         {
+          "internalType": "address[]",
           "name": "tokenAddresses",
           "type": "address[]"
         },
         {
+          "internalType": "uint256[]",
           "name": "valueOrIds",
           "type": "uint256[]"
         }
       ],
-      "payable": false,
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true,
+      "signature": "0xceafb18d"
     },
     {
-      "constant": false,
       "inputs": [
         {
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        }
+      ],
+      "name": "isNft",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true,
+      "signature": "0x2abd771a"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address payable",
+          "name": "sendTo",
+          "type": "address"
+        }
+      ],
+      "name": "redeem",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function",
+      "payable": true,
+      "signature": "0x95a2251f"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address[]",
           "name": "cardAddresses",
           "type": "address[]"
         },
         {
-          "name": "tokenAddresses",
-          "type": "address[]"
+          "internalType": "uint8[]",
+          "name": "v",
+          "type": "uint8[]"
         },
         {
-          "name": "valueOrIds",
-          "type": "uint256[]"
+          "internalType": "bytes32[]",
+          "name": "r",
+          "type": "bytes32[]"
         },
         {
-          "name": "description",
-          "type": "string"
+          "internalType": "bytes32[]",
+          "name": "s",
+          "type": "bytes32[]"
         },
         {
-          "name": "redeemedMessage",
-          "type": "string"
+          "internalType": "address",
+          "name": "tokenType",
+          "type": "address"
         }
       ],
-      "name": "create",
+      "name": "redeemWithSignature",
       "outputs": [],
-      "payable": true,
-      "stateMutability": "payable",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "gasForRedeem",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "name": "account",
-          "type": "address"
-        },
-        {
-          "indexed": true,
-          "name": "cardAddress",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "name": "allSuccessful",
-          "type": "bool"
-        }
-      ],
-      "name": "Redeem",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "name": "account",
-          "type": "address"
-        },
-        {
-          "indexed": true,
-          "name": "card",
-          "type": "address"
-        }
-      ],
-      "name": "Create",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "name": "account",
-          "type": "address"
-        },
-        {
-          "indexed": true,
-          "name": "cardAddress",
-          "type": "address"
-        }
-      ],
-      "name": "Contribute",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "name": "gasForRedeem",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "name": "gasForEth",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "name": "gasForErc20",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "name": "gasForErc721",
-          "type": "uint256"
-        }
-      ],
-      "name": "SetFees",
-      "type": "event"
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0x6b89f4bf"
     }
   ],
-  "bytecodeHash": "0xa4a9cd7bfddbbf0e47dea090d2869a2af78d37847a7513d95a46f4e70e189ee7"
+  "bytecodeHash": "0xcc3a28c9448926debd45ed83efb5e806bc0777d9520e9357a85ab9f0475c1c4e"
 }
