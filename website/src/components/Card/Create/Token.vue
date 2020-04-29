@@ -99,9 +99,9 @@ export default {
   methods: {
     validateCardValue() {
       if (!this.token) return
+      const num = new BigNumber(this.token.value)
       switch (this.token.type) {
       case 'ETH':
-        const num = new BigNumber(this.token.value)
         if (num.isPositive()) {
           this.token.value = new BigNumber(
             num.toFixed(18, BigNumber.ROUND_FLOOR)

@@ -77,7 +77,7 @@ export default {
     }
   },
   watch: {
-    'card.redeemCode': function(newCode, oldCode) {
+    'card.redeemCode': function() {
       this.debouncedGetStatus()
     }
   },
