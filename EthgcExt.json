@@ -1,7 +1,7 @@
 {
-  "3": "0x45e9f92A1F4A44f62C8b6c26E8deEadc2c1Fd7A5",
-  "4": "0x45e9f92A1F4A44f62C8b6c26E8deEadc2c1Fd7A5",
-  "42": "0x45e9f92A1F4A44f62C8b6c26E8deEadc2c1Fd7A5",
+  "3": "0x6F03F3f37Ee87d3DC7253bC77005A70bd229DAf0",
+  "4": "0x6F03F3f37Ee87d3DC7253bC77005A70bd229DAf0",
+  "42": "0x6F03F3f37Ee87d3DC7253bC77005A70bd229DAf0",
   "4447": "0xf25186B5081Ff5cE73482AD761DB0eB0d25abfBF",
   "abi": [
     {
@@ -13,7 +13,8 @@
         }
       ],
       "stateMutability": "nonpayable",
-      "type": "constructor"
+      "type": "constructor",
+      "signature": "constructor"
     },
     {
       "inputs": [],
@@ -26,7 +27,9 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true,
+      "signature": "0x8b0a7e04"
     },
     {
       "inputs": [
@@ -60,7 +63,9 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true,
+      "signature": "0x3014d7b4"
     },
     {
       "inputs": [
@@ -94,8 +99,10 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true,
+      "signature": "0x75103815"
     }
   ],
-  "bytecodeHash": "0x24772d19a4042246983d0765c4522bcb62d22b60ae5563d25e50a7fdc954e51a"
+  "bytecodeHash": "0x7d3ed9ebe2ed789c56f9cea6ecb01385aa1f7e11fa597a92d95f73d566bbd836"
 }
