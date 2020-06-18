@@ -6,7 +6,7 @@
     ":pinVersions"
   ],
   "timezone": "America/Los_Angeles",
-  "schedule": ["after 2am and before 5am on monday"],
+  "schedule": ["before 9am on monday"],
   "separateMinorPatch": true,
   "packageRules": [
     {
