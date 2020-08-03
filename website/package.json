@@ -55,7 +55,7 @@
     "vue-sweetalert2": "1.6.4",
     "vue-template-compiler": "2.6.11",
     "vue-toasted": "1.1.28",
-    "webpack": "4.44.0",
+    "webpack": "4.44.1",
     "webpack-cli": "3.3.12",
     "webpack-dev-server": "3.11.0",
     "webpack-merge": "4.2.2"
