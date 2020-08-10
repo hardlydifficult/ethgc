@@ -46,7 +46,7 @@
     "babel-eslint": "10.1.0",
     "babel-jest": "26.2.2",
     "compression-webpack-plugin": "4.0.0",
-    "eslint-plugin-html": "6.0.2",
+    "eslint-plugin-html": "6.0.3",
     "eslint-plugin-import": "2.22.0",
     "eslint-plugin-json": "2.1.2",
     "eslint-plugin-markdown": "1.0.2",
