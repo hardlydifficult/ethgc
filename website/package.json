@@ -43,7 +43,7 @@
     "v-clipboard": "2.2.3",
     "v-tooltip": "2.0.3",
     "vue": "2.6.11",
-    "vue-async-computed": "3.6.1",
+    "vue-async-computed": "3.8.3",
     "vue-class-component": "7.2.5",
     "vue-cookie-accept-decline": "5.2.3",
     "vue-jest": "3.0.6",
