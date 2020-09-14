@@ -13,8 +13,7 @@
         }
       ],
       "stateMutability": "nonpayable",
-      "type": "constructor",
-      "signature": "constructor"
+      "type": "constructor"
     },
     {
       "inputs": [],
@@ -27,9 +26,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true,
-      "signature": "0x8b0a7e04"
+      "type": "function"
     },
     {
       "inputs": [
@@ -63,9 +60,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true,
-      "signature": "0x3014d7b4"
+      "type": "function"
     },
     {
       "inputs": [
@@ -99,9 +94,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true,
-      "signature": "0x75103815"
+      "type": "function"
     }
   ],
   "bytecodeHash": "0xe37db28afb769a8f80760ae844a40c0a3937829ebda1848a0935b60bfa795405"
