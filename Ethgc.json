@@ -1,7 +1,7 @@
 {
-  "3": "0x462590B54cd96f983fe4237ac66a3bFfa210155b",
-  "4": "0x462590B54cd96f983fe4237ac66a3bFfa210155b",
-  "42": "0x515803b52Dd88c41Da10eAc2DA9Aa4759A0d965C",
+  "3": "0x1eF0adE074680944faC0aeab92d6b70219CbBF0e",
+  "4": "0x5D7D76aD272234562bB89e22A85A5Eb0CB65551F",
+  "42": "0x257bb41dB88d21944e067Ea61193Ed002c3395f5",
   "4447": "0x345cA3e014Aaf5dcA488057592ee47305D9B3e10",
   "abi": [
     {
@@ -21,7 +21,8 @@
         }
       ],
       "name": "Contribute",
-      "type": "event"
+      "type": "event",
+      "signature": "0xb3bba8a8a2edde94117fce5fc218ff2904ac712cc19e933ea5a877de708f0f1f"
     },
     {
       "anonymous": false,
@@ -40,7 +41,8 @@
         }
       ],
       "name": "Create",
-      "type": "event"
+      "type": "event",
+      "signature": "0x96b5b9b8a7193304150caccf9b80d150675fa3d6af57761d8d8ef1d6f9a1a909"
     },
     {
       "anonymous": false,
@@ -65,7 +67,8 @@
         }
       ],
       "name": "Redeem",
-      "type": "event"
+      "type": "event",
+      "signature": "0x799edc2df71dc60ec03c29efe8bd1e439d89569bd38cf2ee46fb8e621d1f2d69"
     },
     {
       "anonymous": false,
@@ -90,7 +93,8 @@
         }
       ],
       "name": "SetFees",
-      "type": "event"
+      "type": "event",
+      "signature": "0x37322890d66d781059d797be5e2f27dc160a34d8bc0a8e09116cb9a773ce88ef"
     },
     {
       "inputs": [
@@ -108,7 +112,8 @@
       "name": "cancel",
       "outputs": [],
       "stateMutability": "nonpayable",
-      "type": "function"
+      "type": "function",
+      "signature": "0x4d9b996b"
     },
     {
       "inputs": [
@@ -131,7 +136,9 @@
       "name": "contribute",
       "outputs": [],
       "stateMutability": "payable",
-      "type": "function"
+      "type": "function",
+      "payable": true,
+      "signature": "0x1309502b"
     },
     {
       "inputs": [
@@ -164,7 +171,9 @@
       "name": "create",
       "outputs": [],
       "stateMutability": "payable",
-      "type": "function"
+      "type": "function",
+      "payable": true,
+      "signature": "0xcec339bc"
     },
     {
       "inputs": [],
@@ -177,7 +186,9 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true,
+      "signature": "0x91cca3db"
     },
     {
       "inputs": [
@@ -200,7 +211,8 @@
       "name": "devSetFees",
       "outputs": [],
       "stateMutability": "nonpayable",
-      "type": "function"
+      "type": "function",
+      "signature": "0xd651492c"
     },
     {
       "inputs": [
@@ -213,7 +225,8 @@
       "name": "devTransferAccount",
       "outputs": [],
       "stateMutability": "nonpayable",
-      "type": "function"
+      "type": "function",
+      "signature": "0x0e17efa7"
     },
     {
       "inputs": [],
@@ -226,7 +239,9 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true,
+      "signature": "0x470d228a"
     },
     {
       "inputs": [],
@@ -239,7 +254,9 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true,
+      "signature": "0x7ef091d8"
     },
     {
       "inputs": [],
@@ -252,7 +269,9 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true,
+      "signature": "0x6e4c0d66"
     },
     {
       "inputs": [
@@ -281,7 +300,9 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true,
+      "signature": "0xceafb18d"
     },
     {
       "inputs": [
@@ -300,7 +321,9 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true,
+      "signature": "0x2abd771a"
     },
     {
       "inputs": [
@@ -313,7 +336,9 @@
       "name": "redeem",
       "outputs": [],
       "stateMutability": "payable",
-      "type": "function"
+      "type": "function",
+      "payable": true,
+      "signature": "0x95a2251f"
     },
     {
       "inputs": [
@@ -346,8 +371,9 @@
       "name": "redeemWithSignature",
       "outputs": [],
       "stateMutability": "nonpayable",
-      "type": "function"
+      "type": "function",
+      "signature": "0x6b89f4bf"
     }
   ],
-  "bytecodeHash": "0x29f0ee4fa35c280c885c34cc58fa657b148c649e1d7dba274f3bdff30ce466b2"
+  "bytecodeHash": "0xf5aa2794cd9fb53151c49ac1a9177c1a09766fc4741dee61a324a03a25e0cd97"
 }
