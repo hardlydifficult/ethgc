@@ -52,7 +52,7 @@
     "eslint-plugin-markdown": "1.0.2",
     "eslint-plugin-prettier": "3.1.4",
     "eslint-plugin-vue": "6.2.2",
-    "node-sass": "4.14.1",
+    "node-sass": "5.0.0",
     "sass-loader": "10.1.1",
     "terser-webpack-plugin": "5.0.3",
     "vue-template-compiler": "2.6.12"
