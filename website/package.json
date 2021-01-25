@@ -41,7 +41,7 @@
     "uglify-es": "3.3.9",
     "url-loader": "1.1.2",
     "v-clipboard": "2.2.3",
-    "v-tooltip": "2.0.3",
+    "v-tooltip": "2.1.2",
     "vue": "2.6.12",
     "vue-async-computed": "3.9.0",
     "vue-class-component": "7.2.6",
