@@ -21,7 +21,7 @@
     "babel-loader": "8.2.2",
     "babel-polyfill": "6.26.0",
     "bignumber.js": "8.1.1",
-    "bootstrap": "4.5.3",
+    "bootstrap": "4.6.0",
     "copy-webpack-plugin": "7.0.0",
     "css-loader": "5.0.1",
     "file-loader": "3.0.1",
