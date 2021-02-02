@@ -10,7 +10,7 @@
     "verify": "truffle run verify"
   },
   "dependencies": {
-    "@openzeppelin/contracts": "3.2.0",
+    "@openzeppelin/contracts": "3.4.0",
     "bignumber.js": "9.0.1",
     "eth-gas-reporter": "0.2.20",
     "hardlydifficult-eth": "1.1.3",
