@@ -2,7 +2,7 @@ version: 2.1
 jobs:
   init: # checkout and auto-lint
     docker:
-      - image: circleci/node:10
+      - image: circleci/node:15
     working_directory: ~/repo
     steps:
       - checkout
@@ -21,7 +21,7 @@ jobs:
 
   testContracts:
     docker:
-      - image: circleci/node:10
+      - image: circleci/node:15
     working_directory: ~/repo
     steps:
       - attach_workspace:
@@ -39,7 +39,7 @@ jobs:
 
   buildWebsite:
     docker:
-      - image: circleci/node:10
+      - image: circleci/node:15
     working_directory: ~/repo
     steps:
       - attach_workspace:
@@ -56,7 +56,7 @@ jobs:
 
   buildDocs:
     docker:
-      - image: circleci/node:10
+      - image: circleci/node:15
     working_directory: ~/repo
     steps:
       - attach_workspace:
@@ -73,7 +73,7 @@ jobs:
 
   lint:
     docker:
-      - image: circleci/node:10
+      - image: circleci/node:15
     working_directory: ~/repo
     steps:
       - attach_workspace:
@@ -86,7 +86,7 @@ jobs:
 
   push:
     docker:
-      - image: circleci/node:10
+      - image: circleci/node:15
     working_directory: ~/repo
     steps:
       - attach_workspace:
