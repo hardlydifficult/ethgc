@@ -29,7 +29,7 @@
     "jest": "27.0.3",
     "jest-serializer-vue": "2.0.2",
     "jquery": "3.6.0",
-    "mini-css-extract-plugin": "2.0.0",
+    "mini-css-extract-plugin": "2.1.0",
     "node-sass": "6.0.0",
     "postcss-import": "14.0.0",
     "postcss-loader": "6.1.0",
