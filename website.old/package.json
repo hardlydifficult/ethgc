@@ -51,7 +51,7 @@
     "eslint-plugin-json": "3.0.0",
     "eslint-plugin-markdown": "2.2.0",
     "eslint-plugin-prettier": "3.4.0",
-    "eslint-plugin-vue": "6.2.2",
+    "eslint-plugin-vue": "7.14.0",
     "node-sass": "6.0.0",
     "sass-loader": "12.1.0",
     "terser-webpack-plugin": "5.1.1",
