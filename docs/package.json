@@ -7,6 +7,6 @@
     "build": "vuepress build docs"
   },
   "dependencies": {
-    "vuepress": "1.8.0"
+    "vuepress": "1.8.2"
   }
 }
